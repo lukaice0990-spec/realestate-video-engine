@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>海外房產投報率計算機 | 租金回報試算 | TIREA</title>
+  <meta name="keywords" content="海外房產投報率,租金回報計算,日本投資報酬,泰國租金計算,海外房產試算" />
+  <meta name="description" content="免費試算日本、泰國、馬來西亞房產投資報酬率，輸入購買價格、租金收入、持有成本，即時計算年化回報。" />
+  <link rel="canonical" href="https://tirea-site.vercel.app/roi-calculator" />
+  <meta property="og:title" content="海外房產投報率計算機 | 租金回報試算 | TIREA" />
+  <meta property="og:description" content="免費試算日本、泰國、馬來西亞房產投資報酬率，輸入購買價格、租金收入、持有成本，即時計算年化回報。" />
+  <meta property="og:url" content="https://tirea-site.vercel.app/roi-calculator" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <script defer src="/_vercel/insights/script.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", sans-serif; }
+    .slider-track {
+      -webkit-appearance: none; appearance: none;
+      height: 6px; border-radius: 99px;
+      background: linear-gradient(to right, #c89b3c var(--val, 50%), #334155 var(--val, 50%));
+      outline: none; cursor: pointer; width: 100%;
+    }
+    .slider-track::-webkit-slider-thumb {
+      -webkit-appearance: none; appearance: none;
+      width: 22px; height: 22px; border-radius: 50%;
+      background: #c89b3c; border: 3px solid white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3); cursor: pointer;
+    }
+    .slider-track::-moz-range-thumb {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: #c89b3c; border: 3px solid white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3); cursor: pointer; border: none;
+    }
+    .result-num { font-variant-numeric: tabular-nums; }
+    .gauge-ring { transition: stroke-dashoffset 0.8s cubic-bezier(.4,0,.2,1); }
+    .fade-in { animation: fadeIn 0.5s ease; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:none; } }
+    .tab-btn.active { background: #0f172a; color: white; }
+    .preset-btn:hover { border-color: #c89b3c; color: #c89b3c; }
+    .preset-btn.selected { background: #c89b3c22; border-color: #c89b3c; color: #92400e; }
+    .input-field { background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 10px 14px; font-size: 16px; width: 100%; transition: border-color 0.15s; outline: none; }
+    .input-field:focus { border-color: #c89b3c; background: white; }
+    .currency-select { background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 10px 14px; font-size: 15px; cursor: pointer; outline: none; }
+    .currency-select:focus { border-color: #c89b3c; }
+    .tooltip { position: relative; cursor: help; }
+    .tooltip:hover .tip { display: block; }
+    .tip { display: none; position: absolute; bottom: 130%; left: 50%; transform: translateX(-50%); background: #0f172a; color: white; font-size: 12px; padding: 6px 10px; border-radius: 8px; white-space: nowrap; z-index: 10; pointer-events: none; }
+    .tip::after { content:""; position:absolute; top:100%; left:50%; transform:translateX(-50%); border:5px solid transparent; border-top-color:#0f172a; }
+    @media (max-width: 768px) { .two-col { grid-template-columns: 1fr !important; } }
+  </style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "海外房產投報率計算機",
+  "description": "免費試算日本、泰國、馬來西亞房產投資報酬率，輸入購買價格、租金收入、持有成本，即時計算年化回報。",
+  "url": "https://www.tirea.tw/roi-calculator.html",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "TWD"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "TIREA 台灣國際不動產交流協會"
+  }
+}
+</script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2XV1V9TS1P"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-2XV1V9TS1P');
+  </script>
+</head>
+<body class="bg-slate-950 min-h-screen">
+
+  <!-- NAV -->
+  <nav class="fixed top-0 inset-x-0 z-50 border-b border-white/10 bg-slate-950/90 backdrop-blur-xl text-white">
+    <div class="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3">
+        <img src="/tirea-logo.png" alt="TIREA" class="w-10 h-10 rounded-xl bg-white p-1 object-contain" />
+        <div>
+          <div class="font-extrabold text-lg leading-none">TIREA</div>
+          <div class="text-[10px] uppercase tracking-widest text-slate-400">Taiwan International REA</div>
+        </div>
+      </a>
+      <div class="hidden lg:flex items-center gap-5 text-sm font-medium text-slate-300">
+        <a href="ai_butler.html" class="hover:text-white text-blue-300 font-bold">AI 找房</a>
+        <a href="global_pro.html" class="hover:text-white">找海外房產</a>
+        <a href="invest_map.html" class="hover:text-white">投資地圖</a>
+        <a href="roi-calculator.html" class="text-yellow-300 font-bold">📊 投報計算機</a>
+        <a href="daily-real-estate-news.html" class="hover:text-white">每日新聞</a>
+        <a href="projects.html" class="hover:text-white text-yellow-300">專案</a>
+      </div>
+      <div class="hidden sm:flex items-center gap-3">
+        <a href="member_center.html" class="px-4 py-2 text-sm text-slate-300 hover:text-white">MEMBER LOGIN</a>
+        <a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="px-5 py-2.5 rounded-full bg-[#c89b3c] text-slate-900 font-bold hover:opacity-90">加入 LINE 諮詢</a>
+      </div>
+      <a href="index.html" class="lg:hidden text-slate-300 hover:text-white px-4 py-2">
+        <i class="fa-solid fa-house"></i>
+      </a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="pt-20 pb-10 px-4 bg-gradient-to-b from-slate-950 to-slate-900">
+    <div class="max-w-5xl mx-auto text-center py-12">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-400/10 border border-yellow-400/20 text-yellow-300 text-sm font-bold mb-6">
+        <i class="fa-solid fa-calculator"></i> 海外房產投報計算機
+      </div>
+      <h1 class="text-4xl lg:text-5xl font-black text-white leading-tight mb-4">
+        輸入數字，<span class="text-[#c89b3c]">秒算投報</span>
+      </h1>
+      <p class="text-slate-400 text-lg max-w-2xl mx-auto">
+        現金流、年化報酬率、IRR、10 年總回報 — 一頁全算清楚。支援 8 種貨幣與市場預設模板。
+      </p>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="max-w-6xl mx-auto px-4 pb-24">
+
+    <!-- MARKET PRESETS -->
+    <div class="mb-8">
+      <div class="text-slate-400 text-sm font-bold mb-3 uppercase tracking-widest">快速套用市場模板</div>
+      <div class="flex flex-wrap gap-3" id="presets">
+        <button class="preset-btn border border-slate-700 rounded-full px-4 py-2 text-sm text-slate-300 transition-all" data-market="bangkok">🇹🇭 泰國·曼谷</button>
+        <button class="preset-btn border border-slate-700 rounded-full px-4 py-2 text-sm text-slate-300 transition-all" data-market="singapore">🇸🇬 新加坡</button>
+        <button class="preset-btn border border-slate-700 rounded-full px-4 py-2 text-sm text-slate-300 transition-all" data-market="tokyo">🇯🇵 日本·東京</button>
+        <button class="preset-btn border border-slate-700 rounded-full px-4 py-2 text-sm text-slate-300 transition-all" data-market="kl">🇲🇾 馬來西亞·KL</button>
+        <button class="preset-btn border border-slate-700 rounded-full px-4 py-2 text-sm text-slate-300 transition-all" data-market="brisbane">🇦🇺 澳洲·布里斯本</button>
+        <button class="preset-btn border border-slate-700 rounded-full px-4 py-2 text-sm text-slate-300 transition-all" data-market="miami">🇺🇸 美國·邁阿密</button>
+        <button class="preset-btn border border-slate-700 rounded-full px-4 py-2 text-sm text-slate-300 transition-all" data-market="istanbul">🇹🇷 土耳其·伊斯坦堡</button>
+        <button class="preset-btn border border-slate-700 rounded-full px-4 py-2 text-sm text-slate-300 transition-all" data-market="vietnam">🇻🇳 越南·胡志明</button>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 two-col">
+
+      <!-- LEFT: INPUT PANEL -->
+      <div class="space-y-5">
+
+        <!-- 購買資訊 -->
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6">
+          <div class="flex items-center gap-2 mb-5">
+            <div class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center text-sm"><i class="fa-solid fa-building"></i></div>
+            <span class="font-bold text-white text-lg">購買資訊</span>
+          </div>
+
+          <div class="space-y-4">
+            <!-- Currency + Price -->
+            <div>
+              <label class="text-slate-400 text-sm font-semibold mb-2 block">房產總價</label>
+              <div class="flex gap-2">
+                <select id="currency" class="currency-select text-slate-800 flex-shrink-0">
+                  <option value="TWD" data-rate="1">TWD 台幣</option>
+                  <option value="THB" data-rate="0.9">THB 泰銖</option>
+                  <option value="SGD" data-rate="23">SGD 新幣</option>
+                  <option value="JPY" data-rate="0.22">JPY 日圓</option>
+                  <option value="MYR" data-rate="7">MYR 馬幣</option>
+                  <option value="AUD" data-rate="20">AUD 澳幣</option>
+                  <option value="USD" data-rate="32">USD 美元</option>
+                  <option value="TRY" data-rate="0.95">TRY 里拉</option>
+                </select>
+                <input type="number" id="propertyPrice" class="input-field text-slate-800" value="5000000" step="100000" placeholder="房產總價" />
+              </div>
+              <div class="text-slate-500 text-sm mt-1" id="twd-equiv"></div>
+            </div>
+
+            <!-- Down payment slider -->
+            <div>
+              <label class="text-slate-400 text-sm font-semibold mb-2 flex justify-between">
+                <span>自備款比例</span>
+                <span class="text-white font-bold" id="downLabel">30%</span>
+              </label>
+              <input type="range" id="downPayment" class="slider-track" min="10" max="100" value="30" step="5" />
+              <div class="flex justify-between text-xs text-slate-600 mt-1"><span>10%</span><span>100% 全現金</span></div>
+            </div>
+
+            <!-- Loan rate (shown when <100%) -->
+            <div id="loanRow">
+              <label class="text-slate-400 text-sm font-semibold mb-2 flex justify-between">
+                <span>貸款利率（年）</span>
+                <span class="text-white font-bold" id="loanRateLabel">3.5%</span>
+              </label>
+              <input type="range" id="loanRate" class="slider-track" min="1" max="8" value="3.5" step="0.1" />
+              <div class="flex justify-between text-xs text-slate-600 mt-1"><span>1%</span><span>8%</span></div>
+            </div>
+
+            <!-- Purchase costs -->
+            <div>
+              <label class="text-slate-400 text-sm font-semibold mb-2 flex justify-between">
+                <span class="flex items-center gap-1">
+                  購入費用（印花稅/代書等）
+                  <span class="tooltip text-slate-500 text-xs"><i class="fa-solid fa-circle-info"></i><span class="tip">包含印花稅、代書費、仲介費等一次性費用</span></span>
+                </span>
+                <span class="text-white font-bold" id="purchaseCostLabel">3%</span>
+              </label>
+              <input type="range" id="purchaseCost" class="slider-track" min="0" max="20" value="3" step="0.5" />
+              <div class="flex justify-between text-xs text-slate-600 mt-1"><span>0%</span><span>20%</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 租金收益 -->
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6">
+          <div class="flex items-center gap-2 mb-5">
+            <div class="w-8 h-8 rounded-lg bg-green-500/20 text-green-400 flex items-center justify-center text-sm"><i class="fa-solid fa-coins"></i></div>
+            <span class="font-bold text-white text-lg">租金收益</span>
+          </div>
+          <div class="space-y-4">
+            <div>
+              <label class="text-slate-400 text-sm font-semibold mb-2 flex justify-between">
+                <span>年租金報酬率（毛）</span>
+                <span class="text-white font-bold" id="grossYieldLabel">5.0%</span>
+              </label>
+              <input type="range" id="grossYield" class="slider-track" min="1" max="15" value="5" step="0.1" />
+              <div class="flex justify-between text-xs text-slate-600 mt-1"><span>1%</span><span>15%</span></div>
+            </div>
+            <div>
+              <label class="text-slate-400 text-sm font-semibold mb-2 flex justify-between">
+                <span class="flex items-center gap-1">
+                  空置率
+                  <span class="tooltip text-slate-500 text-xs"><i class="fa-solid fa-circle-info"></i><span class="tip">每年空置月份佔比，例如 8% ≈ 1 個月空租</span></span>
+                </span>
+                <span class="text-white font-bold" id="vacancyLabel">8%</span>
+              </label>
+              <input type="range" id="vacancy" class="slider-track" min="0" max="30" value="8" step="1" />
+            </div>
+            <div>
+              <label class="text-slate-400 text-sm font-semibold mb-2 flex justify-between">
+                <span class="flex items-center gap-1">
+                  年管理費用（管理公司+維修等）
+                  <span class="tooltip text-slate-500 text-xs"><i class="fa-solid fa-circle-info"></i><span class="tip">物業管理費、修繕費、地產稅等年度費用</span></span>
+                </span>
+                <span class="text-white font-bold" id="opexLabel">1.5%</span>
+              </label>
+              <input type="range" id="opex" class="slider-track" min="0" max="10" value="1.5" step="0.1" />
+              <div class="flex justify-between text-xs text-slate-600 mt-1"><span>0%</span><span>10%（房價%）</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 增值與持有 -->
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6">
+          <div class="flex items-center gap-2 mb-5">
+            <div class="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center text-sm"><i class="fa-solid fa-chart-line"></i></div>
+            <span class="font-bold text-white text-lg">增值與持有</span>
+          </div>
+          <div class="space-y-4">
+            <div>
+              <label class="text-slate-400 text-sm font-semibold mb-2 flex justify-between">
+                <span>預估年增值率</span>
+                <span class="text-white font-bold" id="appreciationLabel">4.0%</span>
+              </label>
+              <input type="range" id="appreciation" class="slider-track" min="0" max="15" value="4" step="0.5" />
+              <div class="flex justify-between text-xs text-slate-600 mt-1"><span>0%</span><span>15%</span></div>
+            </div>
+            <div>
+              <label class="text-slate-400 text-sm font-semibold mb-2 flex justify-between">
+                <span>持有年限</span>
+                <span class="text-white font-bold" id="holdLabel">5 年</span>
+              </label>
+              <input type="range" id="holdYears" class="slider-track" min="1" max="20" value="5" step="1" />
+              <div class="flex justify-between text-xs text-slate-600 mt-1"><span>1 年</span><span>20 年</span></div>
+            </div>
+            <div>
+              <label class="text-slate-400 text-sm font-semibold mb-2 flex justify-between">
+                <span>出售費用（仲介費等）</span>
+                <span class="text-white font-bold" id="exitCostLabel">3%</span>
+              </label>
+              <input type="range" id="exitCost" class="slider-track" min="0" max="10" value="3" step="0.5" />
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: RESULTS PANEL -->
+      <div class="space-y-5 fade-in" id="resultsPanel">
+
+        <!-- Main score card -->
+        <div class="bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 border border-slate-700 rounded-3xl p-6 relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-64 h-64 bg-yellow-400/5 rounded-full -translate-y-1/2 translate-x-1/4 pointer-events-none"></div>
+
+          <div class="flex items-center justify-between mb-6">
+            <span class="text-slate-400 text-sm font-bold uppercase tracking-widest">投資評分</span>
+            <span id="ratingBadge" class="px-3 py-1 rounded-full text-xs font-black bg-green-500/20 text-green-300">優秀</span>
+          </div>
+
+          <!-- Gauge -->
+          <div class="flex items-center gap-6 mb-6">
+            <div class="relative flex-shrink-0">
+              <svg width="120" height="120" viewBox="0 0 120 120">
+                <circle cx="60" cy="60" r="50" fill="none" stroke="#1e293b" stroke-width="12"/>
+                <circle id="gaugeArc" cx="60" cy="60" r="50" fill="none" stroke="#c89b3c" stroke-width="12"
+                  stroke-linecap="round"
+                  stroke-dasharray="314"
+                  stroke-dashoffset="220"
+                  transform="rotate(-90 60 60)"
+                  class="gauge-ring"/>
+              </svg>
+              <div class="absolute inset-0 flex flex-col items-center justify-center">
+                <div id="irrDisplay" class="text-3xl font-black text-white result-num">—</div>
+                <div class="text-xs text-slate-400 font-bold">IRR</div>
+              </div>
+            </div>
+            <div class="flex-1 space-y-2">
+              <div class="flex justify-between items-center">
+                <span class="text-slate-400 text-sm">年化報酬率（IRR）</span>
+                <span id="irrVal" class="text-white font-black text-lg result-num">—</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-slate-400 text-sm">淨租金報酬（NOI Yield）</span>
+                <span id="noiYield" class="text-white font-bold result-num">—</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-slate-400 text-sm">現金投資報酬（CoC）</span>
+                <span id="cocReturn" class="text-white font-bold result-num">—</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Key numbers row -->
+          <div class="grid grid-cols-3 gap-3 border-t border-slate-700 pt-5">
+            <div class="text-center">
+              <div id="monthlyNOI" class="text-xl font-black text-[#c89b3c] result-num">—</div>
+              <div class="text-xs text-slate-500 mt-1">每月淨收益（TWD）</div>
+            </div>
+            <div class="text-center border-x border-slate-700">
+              <div id="totalInvest" class="text-xl font-black text-white result-num">—</div>
+              <div class="text-xs text-slate-500 mt-1">自備款總投入</div>
+            </div>
+            <div class="text-center">
+              <div id="exitValue" class="text-xl font-black text-emerald-400 result-num">—</div>
+              <div class="text-xs text-slate-500 mt-1">持有後估值</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 現金流分析 -->
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6">
+          <div class="flex items-center gap-2 mb-5">
+            <div class="w-7 h-7 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center text-xs"><i class="fa-solid fa-water"></i></div>
+            <span class="font-bold text-white">年度現金流分析</span>
+          </div>
+          <div class="space-y-3">
+            <div class="flex justify-between items-center py-2 border-b border-slate-800">
+              <span class="text-slate-400 text-sm">年毛租金收入</span>
+              <span id="grossRent" class="text-white font-bold result-num">—</span>
+            </div>
+            <div class="flex justify-between items-center py-2 border-b border-slate-800">
+              <span class="text-slate-400 text-sm">— 空置損失</span>
+              <span id="vacancyLoss" class="text-red-400 font-bold result-num">—</span>
+            </div>
+            <div class="flex justify-between items-center py-2 border-b border-slate-800">
+              <span class="text-slate-400 text-sm">— 年管理費用</span>
+              <span id="opexAmt" class="text-red-400 font-bold result-num">—</span>
+            </div>
+            <div class="flex justify-between items-center py-2 border-b border-slate-800" id="mortgageRow">
+              <span class="text-slate-400 text-sm">— 年貸款利息</span>
+              <span id="mortgageAmt" class="text-red-400 font-bold result-num">—</span>
+            </div>
+            <div class="flex justify-between items-center py-2 bg-slate-800 rounded-xl px-3 -mx-1">
+              <span class="text-white font-bold">年淨現金流（TWD）</span>
+              <span id="annualCashflow" class="text-xl font-black result-num">—</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 10年回報表 -->
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6">
+          <div class="flex items-center gap-2 mb-5">
+            <div class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs"><i class="fa-solid fa-trophy"></i></div>
+            <span class="font-bold text-white">持有期總回報</span>
+          </div>
+          <div class="space-y-3">
+            <div class="flex justify-between items-center py-2 border-b border-slate-800">
+              <span class="text-slate-400 text-sm">總租金淨收入</span>
+              <span id="totalRentIncome" class="text-green-400 font-bold result-num">—</span>
+            </div>
+            <div class="flex justify-between items-center py-2 border-b border-slate-800">
+              <span class="text-slate-400 text-sm">資本增值（扣出售費）</span>
+              <span id="capitalGain" class="text-green-400 font-bold result-num">—</span>
+            </div>
+            <div class="flex justify-between items-center py-2 border-b border-slate-800">
+              <span class="text-slate-400 text-sm">— 購入費用（一次性）</span>
+              <span id="purchaseCostAmt" class="text-red-400 font-bold result-num">—</span>
+            </div>
+            <div class="flex justify-between items-center py-2 bg-gradient-to-r from-emerald-900/40 to-transparent rounded-xl px-3 -mx-1">
+              <span class="text-white font-bold">總淨回報</span>
+              <span id="totalNetReturn" class="text-2xl font-black text-emerald-400 result-num">—</span>
+            </div>
+            <div class="flex justify-between items-center px-3">
+              <span class="text-slate-400 text-sm">總投入本金</span>
+              <span id="totalEquity" class="text-slate-300 font-bold result-num">—</span>
+            </div>
+            <div class="flex justify-between items-center px-3">
+              <span class="text-slate-500 text-sm">總回報倍數（MOIC）</span>
+              <span id="moic" class="text-[#c89b3c] font-black text-lg result-num">—</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="bg-gradient-to-r from-[#c89b3c]/20 to-[#c89b3c]/5 border border-[#c89b3c]/30 rounded-3xl p-6 text-center">
+          <p class="text-slate-300 text-sm mb-4">這只是初步估算。想知道<strong class="text-white">具體哪個建案最適合你的預算</strong>？</p>
+          <div class="flex flex-col sm:flex-row gap-3 justify-center">
+            <a href="ai_butler.html" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-blue-600 text-white font-bold hover:bg-blue-500 transition-colors">
+              <i class="fa-solid fa-robot"></i> AI 幫我找房
+            </a>
+            <a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#c89b3c] text-slate-900 font-bold hover:opacity-90 transition-opacity">
+              <i class="fa-brands fa-line"></i> 諮詢顧問
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Market presets
+    const PRESETS = {
+      bangkok:   { price: 5000000,  currency:'THB', down:100, loanRate:4.0, purchaseCost:3,  grossYield:6.5, vacancy:8,  opex:1.5, appreciation:5,  holdYears:5, exitCost:3  },
+      singapore: { price: 1200000,  currency:'SGD', down:30,  loanRate:3.5, purchaseCost:4,  grossYield:3.5, vacancy:5,  opex:1.5, appreciation:3,  holdYears:7, exitCost:2  },
+      tokyo:     { price: 45000000, currency:'JPY', down:30,  loanRate:1.2, purchaseCost:8,  grossYield:4.5, vacancy:5,  opex:2,   appreciation:2.5, holdYears:5, exitCost:4  },
+      kl:        { price: 600000,   currency:'MYR', down:30,  loanRate:4.5, purchaseCost:3,  grossYield:5.5, vacancy:10, opex:2,   appreciation:4,   holdYears:5, exitCost:3  },
+      brisbane:  { price: 600000,   currency:'AUD', down:20,  loanRate:6.0, purchaseCost:5,  grossYield:5.0, vacancy:5,  opex:2.5, appreciation:6,   holdYears:5, exitCost:2.5},
+      miami:     { price: 700000,   currency:'USD', down:25,  loanRate:6.5, purchaseCost:4,  grossYield:5.5, vacancy:8,  opex:3,   appreciation:4,   holdYears:5, exitCost:6  },
+      istanbul:  { price: 5000000,  currency:'TRY', down:50,  loanRate:8.0, purchaseCost:5,  grossYield:8.0, vacancy:10, opex:2,   appreciation:8,   holdYears:5, exitCost:4  },
+      vietnam:   { price: 3000000,  currency:'TWD', down:100, loanRate:5.0, purchaseCost:2,  grossYield:6.0, vacancy:12, opex:2,   appreciation:6,   holdYears:5, exitCost:3  },
+    };
+
+    // Exchange rates to TWD
+    const RATES = { TWD:1, THB:0.9, SGD:23, JPY:0.22, MYR:7.2, AUD:20, USD:32, TRY:0.95 };
+    const SYMBOLS = { TWD:'NT$', THB:'฿', SGD:'S$', JPY:'¥', MYR:'RM', AUD:'A$', USD:'US$', TRY:'₺' };
+
+    function fmt(n, decimals=0) {
+      if (isNaN(n)||!isFinite(n)) return '—';
+      const abs = Math.abs(n);
+      let str;
+      if (abs >= 1e8) str = (n/1e8).toFixed(1) + ' 億';
+      else if (abs >= 1e4) str = (n/1e4).toFixed(abs>=1e6?1:0) + ' 萬';
+      else str = n.toFixed(decimals);
+      return (n < 0 ? '-' : '') + 'NT$' + (n<0?str.slice(1):str);
+    }
+    function fmtPct(n) { return isNaN(n)||!isFinite(n) ? '—' : n.toFixed(1) + '%'; }
+
+    function getSlider(id) { return parseFloat(document.getElementById(id).value); }
+    function getCurrency() { return document.getElementById('currency').value; }
+    function getPriceInTWD() {
+      const price = parseFloat(document.getElementById('propertyPrice').value)||0;
+      return price * (RATES[getCurrency()]||1);
+    }
+
+    function updateSliderBg(el) {
+      const min = parseFloat(el.min)||0;
+      const max = parseFloat(el.max)||100;
+      const val = parseFloat(el.value)||0;
+      const pct = ((val - min) / (max - min) * 100).toFixed(1);
+      el.style.setProperty('--val', pct + '%');
+    }
+
+    function calculate() {
+      const currency = getCurrency();
+      const rate = RATES[currency] || 1;
+      const symbol = SYMBOLS[currency] || 'NT$';
+      const priceForeign = parseFloat(document.getElementById('propertyPrice').value) || 0;
+      const priceTWD = priceForeign * rate;
+
+      const downPct = getSlider('downPayment') / 100;
+      const loanRatePct = getSlider('loanRate') / 100;
+      const purchaseCostPct = getSlider('purchaseCost') / 100;
+      const grossYieldPct = getSlider('grossYield') / 100;
+      const vacancyPct = getSlider('vacancy') / 100;
+      const opexPct = getSlider('opex') / 100;
+      const appreciationPct = getSlider('appreciation') / 100;
+      const holdYears = getSlider('holdYears');
+      const exitCostPct = getSlider('exitCost') / 100;
+
+      // Update labels
+      document.getElementById('downLabel').textContent = (downPct*100).toFixed(0) + '%';
+      document.getElementById('loanRateLabel').textContent = (loanRatePct*100).toFixed(1) + '%';
+      document.getElementById('purchaseCostLabel').textContent = (purchaseCostPct*100).toFixed(1) + '%';
+      document.getElementById('grossYieldLabel').textContent = (grossYieldPct*100).toFixed(1) + '%';
+      document.getElementById('vacancyLabel').textContent = (vacancyPct*100).toFixed(0) + '%';
+      document.getElementById('opexLabel').textContent = (opexPct*100).toFixed(1) + '%';
+      document.getElementById('appreciationLabel').textContent = (appreciationPct*100).toFixed(1) + '%';
+      document.getElementById('holdLabel').textContent = holdYears + ' 年';
+      document.getElementById('exitCostLabel').textContent = (exitCostPct*100).toFixed(1) + '%';
+
+      // TWD equivalent
+      if (currency !== 'TWD') {
+        document.getElementById('twd-equiv').textContent = `≈ NT$ ${(priceTWD/10000).toFixed(0)} 萬台幣`;
+      } else { document.getElementById('twd-equiv').textContent = ''; }
+
+      // Show/hide loan row
+      const isAllCash = downPct >= 1;
+      document.getElementById('loanRow').style.opacity = isAllCash ? '0.3' : '1';
+      document.getElementById('mortgageRow').style.opacity = isAllCash ? '0.3' : '1';
+
+      // === CALCULATIONS ===
+      const equityTWD = priceTWD * downPct;
+      const loanTWD = priceTWD * (1 - downPct);
+      const purchaseCostTWD = priceTWD * purchaseCostPct;
+      const totalInitialOutlay = equityTWD + purchaseCostTWD;
+
+      const grossRentTWD = priceTWD * grossYieldPct;
+      const vacancyLossTWD = grossRentTWD * vacancyPct;
+      const effectiveRentTWD = grossRentTWD - vacancyLossTWD;
+      const opexTWD = priceTWD * opexPct;
+      const noiTWD = effectiveRentTWD - opexTWD; // Net Operating Income
+
+      // Annual mortgage interest (interest-only simplified)
+      const annualInterestTWD = loanTWD * loanRatePct;
+      const annualCashflowTWD = noiTWD - annualInterestTWD;
+
+      const noiYield = priceTWD > 0 ? noiTWD / priceTWD : 0;
+      const cocReturn = totalInitialOutlay > 0 ? annualCashflowTWD / totalInitialOutlay : 0;
+
+      // Exit value
+      const exitPriceTWD = priceTWD * Math.pow(1 + appreciationPct, holdYears);
+      const exitCostTWD = exitPriceTWD * exitCostPct;
+      const netExitTWD = exitPriceTWD - exitCostTWD - loanTWD;
+
+      // Total returns
+      const totalRentNet = annualCashflowTWD * holdYears;
+      const capitalGainNet = netExitTWD - equityTWD;
+      const totalNetReturn = totalRentNet + capitalGainNet - purchaseCostTWD;
+      const moic = totalInitialOutlay > 0 ? (totalInitialOutlay + totalNetReturn) / totalInitialOutlay : 0;
+
+      // IRR (simple approximation using NPV iteration)
+      function calcIRR() {
+        const cashflows = [-totalInitialOutlay];
+        for (let y = 1; y < holdYears; y++) cashflows.push(annualCashflowTWD);
+        cashflows.push(annualCashflowTWD + netExitTWD);
+
+        let lo = -0.5, hi = 5.0, mid;
+        for (let i = 0; i < 100; i++) {
+          mid = (lo + hi) / 2;
+          let npv = cashflows.reduce((s, cf, t) => s + cf / Math.pow(1 + mid, t), 0);
+          if (Math.abs(npv) < 0.01) break;
+          if (npv > 0) lo = mid; else hi = mid;
+        }
+        return mid;
+      }
+      const irr = calcIRR();
+
+      // === UPDATE UI ===
+      document.getElementById('irrDisplay').textContent = isFinite(irr) ? fmtPct(irr*100) : '—';
+      document.getElementById('irrVal').textContent = isFinite(irr) ? fmtPct(irr*100) : '—';
+      document.getElementById('noiYield').textContent = fmtPct(noiYield*100);
+      document.getElementById('cocReturn').textContent = fmtPct(cocReturn*100);
+      document.getElementById('monthlyNOI').textContent = fmt(annualCashflowTWD/12);
+      document.getElementById('totalInvest').textContent = fmt(totalInitialOutlay);
+      document.getElementById('exitValue').textContent = fmt(exitPriceTWD);
+
+      document.getElementById('grossRent').textContent = fmt(grossRentTWD);
+      document.getElementById('vacancyLoss').textContent = '-' + fmt(vacancyLossTWD);
+      document.getElementById('opexAmt').textContent = '-' + fmt(opexTWD);
+      document.getElementById('mortgageAmt').textContent = isAllCash ? 'NT$0' : '-' + fmt(annualInterestTWD);
+
+      const cfEl = document.getElementById('annualCashflow');
+      cfEl.textContent = fmt(annualCashflowTWD);
+      cfEl.className = 'text-xl font-black result-num ' + (annualCashflowTWD >= 0 ? 'text-emerald-400' : 'text-red-400');
+
+      document.getElementById('totalRentIncome').textContent = fmt(totalRentNet);
+      document.getElementById('capitalGain').textContent = fmt(capitalGainNet);
+      document.getElementById('purchaseCostAmt').textContent = '-' + fmt(purchaseCostTWD);
+      document.getElementById('totalNetReturn').textContent = fmt(totalNetReturn);
+      document.getElementById('totalEquity').textContent = fmt(totalInitialOutlay);
+      document.getElementById('moic').textContent = isFinite(moic) ? moic.toFixed(2) + 'x' : '—';
+
+      // Gauge
+      const irrScore = Math.min(Math.max(isFinite(irr) ? irr : 0, 0), 0.25);
+      const dashOffset = 314 - (irrScore / 0.25) * 314;
+      document.getElementById('gaugeArc').style.strokeDashoffset = dashOffset;
+
+      // Rating
+      const irrPct = isFinite(irr) ? irr * 100 : 0;
+      let rating, ratingClass;
+      if (irrPct >= 12)      { rating='卓越'; ratingClass='bg-emerald-500/20 text-emerald-300'; }
+      else if (irrPct >= 8)  { rating='優秀'; ratingClass='bg-green-500/20 text-green-300'; }
+      else if (irrPct >= 5)  { rating='良好'; ratingClass='bg-blue-500/20 text-blue-300'; }
+      else if (irrPct >= 2)  { rating='一般'; ratingClass='bg-yellow-500/20 text-yellow-300'; }
+      else                   { rating='偏低'; ratingClass='bg-red-500/20 text-red-300'; }
+      const badge = document.getElementById('ratingBadge');
+      badge.textContent = rating;
+      badge.className = 'px-3 py-1 rounded-full text-xs font-black ' + ratingClass;
+    }
+
+    // Apply preset
+    document.querySelectorAll('.preset-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        const p = PRESETS[btn.dataset.market];
+        if (!p) return;
+        document.getElementById('propertyPrice').value = p.price;
+        document.getElementById('currency').value = p.currency;
+        document.getElementById('downPayment').value = p.down;
+        document.getElementById('loanRate').value = p.loanRate;
+        document.getElementById('purchaseCost').value = p.purchaseCost;
+        document.getElementById('grossYield').value = p.grossYield;
+        document.getElementById('vacancy').value = p.vacancy;
+        document.getElementById('opex').value = p.opex;
+        document.getElementById('appreciation').value = p.appreciation;
+        document.getElementById('holdYears').value = p.holdYears;
+        document.getElementById('exitCost').value = p.exitCost;
+        document.querySelectorAll('.slider-track').forEach(updateSliderBg);
+        calculate();
+      });
+    });
+
+    // Bind all inputs
+    document.querySelectorAll('.slider-track, .input-field, .currency-select').forEach(el => {
+      el.addEventListener('input', () => {
+        if (el.classList.contains('slider-track')) updateSliderBg(el);
+        calculate();
+      });
+    });
+
+    // Init
+    document.querySelectorAll('.slider-track').forEach(updateSliderBg);
+    calculate();
+  </script>
+  <script>
+    (function(){
+      try {
+        fetch('/api/track-visit', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            page: location.pathname,
+            title: document.title,
+            referrer: document.referrer || 'direct',
+            device: /Mobile|Android|iPhone|iPad/i.test(navigator.userAgent) ? 'mobile' : 'desktop'
+          })
+        });
+      } catch(e){}
+    })();
+  </script>
+</body>
+</html>

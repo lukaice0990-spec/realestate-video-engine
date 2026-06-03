@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>每日海外房產快報 | 日本・泰國・馬來西亞市場 | TIREA</title>
+  <meta name="keywords" content="每日房產新聞,海外房市快報,日本房產,泰國房產,馬來西亞房產,海外置產資訊" />
+  <meta name="description" content="每個交易日更新的海外房產市場快報，涵蓋日圓走勢、泰國政策動態、馬來西亞買盤數據，台灣投資人第一手資訊。" />
+  <link rel="canonical" href="https://tirearedesign.vercel.app/daily-real-estate-news.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="每日海外房產快報 | 日本・泰國・馬來西亞市場 | TIREA" />
+  <meta property="og:description" content="每個交易日更新的海外房產市場快報，涵蓋日圓走勢、泰國政策動態、馬來西亞買盤數據，台灣投資人第一手資訊。" />
+  <meta property="og:url" content="https://tirearedesign.vercel.app/daily-real-estate-news.html" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&w=1600&q=80" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>body { font-family: 'Noto Sans TC', sans-serif; }</style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2XV1V9TS1P"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-2XV1V9TS1P');
+  </script>
+</head>
+<body class="bg-slate-100 text-slate-800">
+  <nav class="fixed top-0 inset-x-0 z-50 border-b border-white/10 bg-slate-950/80 backdrop-blur-xl text-white">
+    <div class="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3">
+        <img src="/tirea-logo.png" alt="TIREA Logo" class="w-11 h-11 rounded-xl shadow-lg object-contain bg-white p-1" />
+        <div>
+          <div class="font-extrabold tracking-tight text-lg leading-none text-white">TIREA</div>
+          <div class="text-[10px] uppercase tracking-[0.28em] text-slate-300">Taiwan International REA</div>
+        </div>
+      </a>
+
+      <div class="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-200">
+        <a href="ai_butler.html" class="hover:text-white font-bold text-blue-200">AI 找房</a>
+        <a href="global_pro.html" class="hover:text-white">找海外房產</a>
+        <a href="invest_map.html" class="hover:text-white">投資地圖</a>
+        <a href="knowledge.html" class="hover:text-white">知識中心</a>
+        <a href="daily-real-estate-news.html" class="hover:text-white">每日新聞</a>
+        <a href="projects.html" class="hover:text-white text-gold font-bold">專案</a>
+        <a href="turkey-seminar.html" class="hover:text-white text-amber-300 font-bold">🇹🇷 土耳其指南</a>
+        <a href="thailand-seminar.html" class="hover:text-white text-amber-300 font-bold">🇹🇭 泰國說明會</a>
+        <a href="singapore-guide.html" class="hover:text-white text-amber-300 font-bold">🇸🇬 新加坡金融指南</a>
+      </div>
+
+      <div class="hidden sm:flex items-center gap-3">
+        <a href="member_center.html" class="px-4 py-2 text-sm text-slate-200 hover:text-white">MEMBER LOGIN</a>
+        <a href="admin/index.html" class="px-3 py-2 text-xs text-slate-500 hover:text-slate-300">管理中心</a>
+        <a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="px-5 py-2.5 rounded-full bg-[#c89b3c] text-slate-900 font-bold hover:opacity-90">加入 LINE 諮詢</a>
+      </div>
+
+      <button id="mobile-menu-button" class="lg:hidden inline-flex items-center gap-2 px-4 h-11 rounded-xl bg-[#c89b3c] text-slate-900 font-extrabold shadow-lg">
+        <i class="fa-solid fa-bars text-base"></i>
+        <span class="text-sm">選單</span>
+      </button>
+    </div>
+
+    <div id="mobile-menu-overlay" class="lg:hidden fixed inset-0 bg-slate-950 text-white translate-x-full transition-transform duration-300 ease-in-out z-50">
+      <div class="px-6 py-5 flex items-center justify-between border-b border-white/10">
+        <div class="flex items-center gap-3">
+          <img src="/tirea-logo.png" alt="TIREA Logo" class="w-10 h-10 rounded-xl shadow-lg object-contain bg-white p-1" />
+          <div>
+            <div class="font-extrabold tracking-tight text-lg leading-none">TIREA</div>
+            <div class="text-[10px] uppercase tracking-[0.24em] text-slate-300">Taiwan International REA</div>
+          </div>
+        </div>
+        <button id="close-menu-button" class="w-11 h-11 rounded-xl border border-white/10 flex items-center justify-center text-white">
+          <i class="fa-solid fa-xmark text-xl"></i>
+        </button>
+      </div>
+      <div class="px-6 py-8 flex flex-col gap-4 text-lg font-bold bg-slate-950 overflow-y-auto">
+        <a href="ai_butler.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-blue-950 border border-blue-800 px-5 py-4 text-blue-100 shadow-lg">AI 找房 <i class="fa-solid fa-arrow-right text-sm text-blue-300"></i></a>
+        <a href="global_pro.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4 text-white shadow-lg">找海外房產 <i class="fa-solid fa-arrow-right text-sm text-slate-300"></i></a>
+        <a href="invest_map.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4 text-white shadow-lg">投資地圖 <i class="fa-solid fa-arrow-right text-sm text-slate-300"></i></a>
+        <a href="knowledge.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4 text-white shadow-lg">知識中心 <i class="fa-solid fa-arrow-right text-sm text-slate-300"></i></a>
+        <a href="daily-real-estate-news.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4 text-white shadow-lg">每日新聞 <i class="fa-solid fa-arrow-right text-sm text-slate-300"></i></a>
+        <a href="projects.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-yellow-950 border border-yellow-800 px-5 py-4 text-yellow-100 shadow-lg">專案 <i class="fa-solid fa-arrow-right text-sm text-yellow-300"></i></a>
+        <a href="turkey-seminar.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-amber-950 border border-amber-800 px-5 py-4 text-amber-100 shadow-lg">🇹🇷 土耳其投資指南 <i class="fa-solid fa-arrow-right text-sm text-amber-300"></i></a>
+        <a href="thailand-seminar.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-amber-950 border border-amber-800 px-5 py-4 text-amber-100 shadow-lg">🇹🇭 泰國說明會 <i class="fa-solid fa-arrow-right text-sm text-amber-300"></i></a>
+        <a href="singapore-guide.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-amber-950 border border-amber-800 px-5 py-4 text-amber-100 shadow-lg">🇸🇬 新加坡金融指南 <i class="fa-solid fa-arrow-right text-sm text-amber-300"></i></a>
+        <a href="member_center.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4 text-white shadow-lg">MEMBER LOGIN <i class="fa-solid fa-arrow-right text-sm text-slate-300"></i></a>
+        <a href="admin/index.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-800 border border-slate-700 px-5 py-4 text-slate-400 shadow-lg">⚙️ 管理中心 <i class="fa-solid fa-arrow-right text-sm text-slate-500"></i></a>
+      </div>
+      <div class="px-6 pb-8 bg-slate-950">
+        <a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="mobile-menu-link w-full inline-flex justify-center items-center px-6 py-4 rounded-2xl bg-[#c89b3c] text-slate-900 font-extrabold shadow-lg">加入 LINE 諮詢</a>
+      </div>
+    </div>
+  </nav>
+
+  <script>
+    (function(){
+      var btn = document.getElementById('mobile-menu-button');
+      var cls = document.getElementById('close-menu-button');
+      var ov  = document.getElementById('mobile-menu-overlay');
+      if(!btn||!cls||!ov) return;
+      btn.addEventListener('click',()=>ov.classList.remove('translate-x-full'));
+      cls.addEventListener('click',()=>ov.classList.add('translate-x-full'));
+      document.querySelectorAll('.mobile-menu-link').forEach(l=>
+        l.addEventListener('click',()=>ov.classList.add('translate-x-full')));
+    })();
+  </script>
+
+
+  <main class="max-w-7xl mx-auto px-6 py-12 md:py-16">
+    <section class="rounded-[2rem] bg-gradient-to-br from-slate-950 to-blue-900 text-white p-8 md:p-12 shadow-xl mb-10">
+      <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-200 mb-3">Daily Real Estate News</div>
+      <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-4">每日地產新聞總覽</h1>
+      <p class="text-slate-200 text-lg leading-8 max-w-4xl">把每日晨報集中成可回看的內容索引，方便快速追蹤國際房地產市場節奏，也能和知識中心、案源與需求分析動線接起來。</p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a href="knowledge.html" class="px-6 py-3 rounded-full bg-yellow-500 text-slate-900 font-extrabold">看知識中心</a>
+        <a href="global_pro.html" class="px-6 py-3 rounded-full border border-white/20 text-white font-bold">看海外案源</a>
+      </div>
+    </section>
+    <section class="grid md:grid-cols-2 gap-6">
+      <a href="daily-real-estate-news-2026-06-01.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200" style="border-color:#dc2626;background:linear-gradient(135deg,#fff1f2,#fff);">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] mb-3" style="color:#991b1b;">2026.06.01 🔔 泰國新規生效・MM2H 開放</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">泰國新規今日正式生效，MM2H 2.0 同日開放，日圓 145.30</h2>
+        <p class="text-slate-500">6/1（一）泰國外籍購房新規正式生效，同日 MM2H 2.0 新批次申辦開放。日圓 145.30，本輪升值 14.1（+8.8%）。6/3 新規指引釋出，6/6 就業報告倒數 5 天，6/15 馬來西亞 Q3 預售倒數 14 天。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-05-31.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200" style="border-color:#7c3aed;background:linear-gradient(135deg,#f5f3ff,#fff);">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] mb-3" style="color:#4c1d95;">2026.05.31 📅 週日說明會・明日大事</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">5/31 日本說明會第二場今日，日圓 145.00，明日泰國新規＋MM2H 雙開放</h2>
+        <p class="text-slate-500">5/31（日）TIREA 日本說明會第二場今日 14:00 登場，補位昨日額滿場次。日圓 145.00 整數關口（本輪 +14.4，+9.0%）。明日（6/1）泰國新規生效＋MM2H 2.0 開放，兩大里程碑同日啟動。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-05-30.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200" style="border-color:#059669;background:linear-gradient(135deg,#ecfdf5,#fff);">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] mb-3" style="color:#065f46;">2026.05.30 🎯 PCE 低預期！月底大升</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">核心 PCE +2.4% 低預期，日圓單日升 0.60 至 145.20，7 月降息機率 71%</h2>
+        <p class="text-slate-500">核心 PCE +2.4% 再度低預期，7 月 Fed 降息幾乎確立，日圓月底收 145.20（本輪 +14.2，+8.9%）。5/29 說明會圓滿結束，6/1 泰國新規明日生效，6/15 馬來西亞 Q3 預售倒數，6/6 美國就業報告為下一個觸媒。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-05-29.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200" style="border-color:#c2410c;background:linear-gradient(135deg,#fff7ed,#fff);">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] mb-3" style="color:#9a3412;">2026.05.29 🏛 日本說明會今日</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">日本說明會今晚 19:00 登場，日圓 145.80，PCE 明日公布</h2>
+        <p class="text-slate-500">5/29（四）TIREA 日本說明會今晚 19:00 開講，聚焦東京・大阪・沖繩最新市況與換匯節奏。日圓 145.80，本輪升值 13.6（+8.5%）。明日（5/30）核心 PCE 公布，6/1 泰國新規後天生效。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-05-28.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200" style="border-color:#c2410c;background:linear-gradient(135deg,#fff7ed,#fff);">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] mb-3" style="color:#9a3412;">2026.05.28 ⏰ 說明會明日・PCE 明日</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">說明會明日登場，日圓 146.00 整數關口測試，PCE 後天公布</h2>
+        <p class="text-slate-500">5/29 日本說明會明日最後 1 席，日圓測試 146.00 整數關口（本輪 +13.4，+8.4%），5/30 核心 PCE 後天公布，6/1 泰國新規倒數 4 天，RTS 工程 89%。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-05-27.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200" style="border-color:#1d4ed8;background:linear-gradient(135deg,#eff6ff,#fff);">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] mb-3" style="color:#1d4ed8;">2026.05.27 📉 美國 GDP 下修</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">美國 GDP 下修 +1.8%，日圓升至 146.20，5/29 說明會後天最後 2 席</h2>
+        <p class="text-slate-500">美國 Q1 GDP 修正值 +1.8%（初值 +2.1%）低於預期，美元走弱，日圓升至 146.20（本輪 +13.2，+8.3%）。7 月降息機率 65%，5/30 PCE 倒數 3 天，6/1 泰國新規倒數 5 天，5/29 日本說明會最後 2 席。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-05-26.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200" style="border-color:#1d4ed8;background:linear-gradient(135deg,#eff6ff,#fff);">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] mb-3" style="color:#1d4ed8;">2026.05.26 📊 泰國後・PCE 倒數</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">泰國截止後總覽：6/1 新規倒數 6 天，PCE 4 天，日圓 146.50</h2>
+        <p class="text-slate-500">泰國 5/25 截止後首個工作日，焦點轉向 6/1 新規與 5/30 PCE。日圓 146.50，本輪升值 12.9 日圓（+8.1%）。5/29 日本說明會 3 天後，為本月最後一場，最後 2 個席位。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-05-25.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200" style="border-color:#dc2626;background:linear-gradient(135deg,#fff1f2,#fff);">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] mb-3" style="color:#991b1b;">2026.05.25 🔔 泰國文件截止日</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">泰國 5/25 文件截止日：TIREA 全數送件完成，日圓 146.80 本輪新高</h2>
+        <p class="text-slate-500">今日（5/25，一）泰國文件截止，TIREA 客戶全數完成送件。日圓升至 146.80（本輪 +12.6，+7.9%）。6/1 新規倒數 7 天，5/29 日本說明會最後 3 席。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-05-24.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200" style="border-color:#7c3aed;background:linear-gradient(135deg,#f5f3ff,#fff);">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] mb-3" style="color:#4c1d95;">2026.05.24 📅 週日總覽・說明會後記</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">說明會滿座圓滿 8 組預訂，泰國截止明日，日圓 147.00 整數關口</h2>
+        <p class="text-slate-500">昨日（5/23）兩場說明會均滿座，現場 8 組完成預訂。日圓 147.00 整數關口，本輪升值 12.4（+7.8%）。泰國截止明日（5/25），下週聚焦：5/29 日本說明會、5/30 PCE。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-05-23.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200" style="border-color:#059669;background:linear-gradient(135deg,#ecfdf5,#fff);">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] mb-3" style="color:#065f46;">2026.05.23 🏛 馬來西亞說明會</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">馬來西亞說明會今日登場，日圓 147.20，泰國截止後天</h2>
+        <p class="text-slate-500">5/23（六）馬來西亞新山說明會（14:00）＋自助買房第二場（19:00）今日舉辦。日圓 147.20，本輪升值 12.2（+7.7%）。泰國截止後天，Thonglor 配額 18%。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-05-22.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200" style="border-color:#c2410c;background:linear-gradient(135deg,#fff7ed,#fff);">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] mb-3" style="color:#9a3412;">2026.05.22 ✈️ 考察團回台</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">考察團今日回台，現場七組建案報告出爐，日圓 147.50 升值解析</h2>
+        <p class="text-slate-500">TIREA 曼谷考察團今日回台，七組建案比較報告正式釋出，顧問首選 Ari 地段（92 分）。日圓 147.50，本輪升值 11.9（+7.5%）。泰國截止 3 天，明日馬來西亞說明會。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-05-21.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200" style="border-color:#1d4ed8;background:linear-gradient(135deg,#eff6ff,#fff);">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] mb-3" style="color:#1d4ed8;">2026.05.21 📋 FOMC 偏鴿確認</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">FOMC 紀要偏鴿，日圓單日升 0.90 至 147.80，7 月降息機率 58%</h2>
+        <p class="text-slate-500">FOMC 5 月紀要顯示多位委員主張 7 月降息，美元 -0.7%，日圓單日大升 0.90 至 147.80（本輪 +11.6，+7.3%）。泰國今明為最後工作天，明日考察團回台。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-05-20.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200" style="border-color:#c2410c;background:linear-gradient(135deg,#fff7ed,#fff);">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] mb-3" style="color:#9a3412;">2026.05.20 ✈️ 考察團Day2・曼谷</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">考察團曼谷第二天：Thonglor 配額剩 22%，FOMC 紀要明日公布</h2>
+        <p class="text-slate-500">TIREA 考察團 Day 2，Thonglor 配額再消耗至 22%（本月最低），日圓 148.70 整數關口已破。FOMC 5 月紀要明日（5/21）公布，是日圓下一個方向觸媒。泰國截止 5 天。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-05-19.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200" style="border-color:#c2410c;background:linear-gradient(135deg,#fff7ed,#fff);">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] mb-3" style="color:#9a3412;">2026.05.19 ✈️🎥 考察團出發・直播</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">考察團今日出發曼谷，Kevin & Luke 直播今晚開播，日圓 149.00 逼近整數</h2>
+        <p class="text-slate-500">曼谷 4 天 3 夜考察團正式出發，Kevin & Luke 聯合直播今晚開播。日圓 149.00 逼近整數關口，本輪升值 10.4（+6.5%）。泰國截止 6 天，在台投資人今日是最後辦理時機，5/23 雙說明會 4 天後。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-05-18.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200" style="border-color:#7c3aed;background:linear-gradient(135deg,#f5f3ff,#fff);">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] mb-3" style="color:#4c1d95;">2026.05.18 📅 週日總覽</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">日圓週收 149.20 本輪升值 10.2，明日考察團出發＋直播開播，泰國截止最後 7 天</h2>
+        <p class="text-slate-500">CPI + PPI 通膨雙低確認，日圓周升 1.20 至 149.20（+6.4%）。明日（5/19）Kevin & Luke 聯合直播＋曼谷考察團出發，5/23 雙說明會倒數 5 天，5/25 泰國文件截止最終一週。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-05-15.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200" style="border-color:#be123c;background:linear-gradient(135deg,#fff1f2,#fff);">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] mb-3" style="color:#9f1239;">2026.05.15 📊 PPI 雙確認</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">PPI +2.5% 再低預期，通膨降溫雙確認，日圓 149.60 鞏固，泰國公證今日最後</h2>
+        <p class="text-slate-500">CPI + PPI 連日低預期，Fed 7 月降息機率升至 54%，日圓 149.60 在 150 以下鞏固。泰國 5/25 文件截止剩 10 天，護照公證翻譯今日是最後委託時間點，5/19 直播倒數 4 天。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-05-14.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200" style="border-color:#059669;background:linear-gradient(135deg,#ecfdf5,#fff);">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] mb-3" style="color:#065f46;">2026.05.14 🚨 日圓突破 150</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">美國 CPI 3.1% 低預期，日圓突破 150 升至 149.80，換匯黃金執行點</h2>
+        <p class="text-slate-500">CPI +3.1% 連三月低預期，美元走弱推升日圓突破 150 至 149.80，創 14 個月新高，本輪升值 9.6 日圓（+6.0%）。BOJ Q3 升息機率升至 64%。泰國文件截止剩 11 天，今日是換匯最有說服力的執行點。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-05-12.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200" style="border-color:#1d4ed8;background:linear-gradient(135deg,#eff6ff,#fff);">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] mb-3" style="color:#1d4ed8;">2026.05.12 🏠 自助買房說明會</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">日圓 150.40 逼近整數關口・BOJ 升息機率 62%・今日自助買房說明會開講</h2>
+        <p class="text-slate-500">5/8 薪資 +2.9% 超門檻，BOJ Q3 升息幾乎確立，日圓升至 150.40 創 2025/8 以來新高。馬來西亞 Q1 GDP +4.5% 超預期。泰國文件截止剩 13 天，今晚自助買房說明會正式開講。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-05-07.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200" style="border-color:#b45309;background:linear-gradient(135deg,#fffbeb,#fff);">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] mb-3" style="color:#92400e;">2026.05.07 ⚠️ 泰國意向書截點</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">今日是泰國意向書最後保險日：BOJ 議事錄偏鷹，日圓升至 151.20，Q3 升息機率 54%</h2>
+        <p class="text-slate-500">BOJ 4/25 議事錄今日公布，委員共識偏鷹，Q3 升息路徑確立，日圓升至 151.20。泰國 5/25 文件截止剩 18 天，今日是意向書最後保險簽署日，Thonglor 名額降至 38%。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-05-06.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200" style="border-color:#0d9488;background:linear-gradient(135deg,#f0fdfa,#fff);">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] mb-3" style="color:#0f766e;">2026.05.06 🔄 黃金週後重啟</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">日本市場重啟 Nikkei +0.8%：日圓 151.50 整理，泰國倒數 26 天，本週是最後執行窗口</h2>
+        <p class="text-slate-500">黃金週結束，日本市場今日重啟補漲，不動產股 +1.4% 領漲。日圓 151.50，本輪升值 7.9 日圓（+5.0%）。泰國 5/25 文件截止剩 19 天，今明兩天是意向書最後簽署時機。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-05-04.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200" style="border-color:#1e40af;background:linear-gradient(135deg,#eff6ff,#f0f9ff,#fff);">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] mb-3" style="color:#1e40af;">2026.05.04 🍃 緑の日・黃金週</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">日圓 151.80 本輪升值 7.6：下週一是泰國布局最後啟動點，5/25 文件截止 21 天</h2>
+        <p class="text-slate-500">黃金週第二天，日圓離岸續升至 151.80，本輪從 159.40 升值 7.6 日圓。泰國 6/1 倒數 28 天，5/25 文件截止剩 21 天，5/6 日本市場重啟後是最後完整執行窗口。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-05-03.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200" style="border-color:#4338ca;background:linear-gradient(135deg,#eef2ff,#fff);">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] mb-3" style="color:#4338ca;">2026.05.03 🎌 憲法記念日・週報</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">本輪升值 7.3 日圓確認：日圓周收 152.10，下週是泰國布局最後窗口，BOJ 升息後完整回顧</h2>
+        <p class="text-slate-500">黃金週週報。本輪日圓從 159.40 累計升值 7.3（+4.6%），周收 152.10。泰國 5/25 文件截止 22 天，下週（5/6 起）是能走完完整程序的最後一週。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-05-02.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200" style="border-color:#0284c7;background:linear-gradient(135deg,#f0f9ff,#fff);">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] mb-3" style="color:#0369a1;">2026.05.02 📊 非農就業數據</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">非農 158K 大幅低於預期：日圓急升至 152.30，本輪累計升值 7.1，黃金週前換匯最後窗口</h2>
+        <p class="text-slate-500">美國 4 月非農 158K 遠低於預期 185K，日圓應聲急升至 152.30。本週收盤，黃金週明日起，日本市場 5/6 重啟，泰國倒數 30 天。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-05-01.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200" style="border-color:#059669;background:linear-gradient(135deg,#f0fdf4,#fff);">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] mb-3" style="color:#065f46;">2026.05.01 🌿 國際勞動節</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">日本 Q1 GDP +0.3% 略低預期：日圓 153.20 延續升勢，黃金週前最後完整交易日</h2>
+        <p class="text-slate-500">勞動節歐洲休市，日本 Q1 GDP +0.3% 略低市場預期，日圓升至 153.20。今日是黃金週前最後一個完整交易日，明日（5/2）非農數據是本週收盤前最後重頭戲。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-04-30.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200" style="border-color:#ea580c;background:linear-gradient(135deg,#fff7ed,#fff);">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] mb-3" style="color:#c2410c;">2026.04.30 🏛️ FOMC 決議日</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">Fed 維持利率如預期：日圓升至 153.50，日本市場重啟補漲，泰國土地廳細則今日公告</h2>
+        <p class="text-slate-500">FOMC 維持 4.25–4.50%，Powell 措辭偏中性略鴿，美元走弱推升日圓至 153.50。Nikkei 昭和日後補漲 +1.2%，泰國土地廳細則正式公告，5/25 文件截止日確認。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-04-29.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200" style="border-color:#7c3aed;background:linear-gradient(135deg,#f5f3ff,#fff);">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] mb-3" style="color:#6d28d9;">2026.04.29 🎌 昭和日休市</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">日本全面休市・Fed 前夕靜候：日圓 154.30 低流動性震盪，明日 FOMC 是最大變數</h2>
+        <p class="text-slate-500">昭和日日本全面休市，日圓低流動性小幅震盪至 154.30。明日 FOMC 決議（預期維持 4.25%）是本週關鍵外部變數，泰國 6/1 倒數 33 天，外籍配額加速消耗。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-04-28.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200" style="border-color:#1d4ed8;background:linear-gradient(135deg,#eff6ff,#fff);">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] mb-3" style="color:#1d4ed8;">2026.04.28 📈 週一開盤</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">升息後首個交易週一：日圓 154.20，Nikkei 消化升息壓力，不動產股逆勢強勢</h2>
+        <p class="text-slate-500">BOJ 升息後首個交易日，日圓小幅回調至 154.20。Nikkei 開盤 -0.8% 但快速收斂，日本不動產股逆勢上漲 +1.2%。本週 Fed 決議（週三）是關鍵外部變數，泰國倒數 34 天。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-04-27.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200" style="border-color:#6366f1;background:linear-gradient(135deg,#eef2ff,#fff);">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] mb-3" style="color:#4338ca;">2026.04.27 📋 週日總覽</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">BOJ 升息後首個週日：日圓 154.40 站穩，三市場配置框架定案，本週升值 +4.82</h2>
+        <p class="text-slate-500">升息後日圓連續站穩 154 區間，本週歷史性升值 4.82 日圓。台中說明會三市場框架落地，日本折讓收窄至 10~12%，泰國 6/1 倒數 35 天，配置執行期正式開啟。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-04-26.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200" style="border-color:#f59e0b;background:linear-gradient(135deg,#fffbeb,#fff);">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] mb-3" style="color:#b45309;">2026.04.26 🔥 週六・台中說明會日</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">BOJ 升息後第一天：日圓 154.60 站穩，置產折讓新框架，今日 14:00 台中說明會</h2>
+        <p class="text-slate-500">升息後日圓技術性站穩 154.60，從本週高點 159.40 累計升值 4.8 日圓。折讓仍有 12~14%，進入「計畫性執行期」。今日 14:00 草悟道文旅台中說明會，現場重建三市場配置框架。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-04-25.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200" style="border-color:#6ee7b7;background:linear-gradient(135deg,#f0fdf4,#fff);">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] mb-3" style="color:#059669;">2026.04.25 ✅ BOJ 升息確認</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">BOJ 正式升息至 1.00%：日圓 154.80 急升 2.3%，植田確立漸進路徑</h2>
+        <p class="text-slate-500">升息 0.25% 符合預期（8:1 票通過），日圓從 157.10 急升至 154.80。植田記者會釋出 Q3 再評估訊號，漸進路徑確立。本週換好匯的投資人已鎖定 1.5~3% 成本優勢。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-04-24.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-900 mb-3">2026.04.24 🔕 週四靜默期</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">BOJ 靜默期生效：日圓 157.10，升息機率 60%，明天 12:00 見分曉</h2>
+        <p class="text-slate-500">BOJ 靜默期今日正式啟動，日圓連三天升值至 157.10，升息機率達 60%。明天（4/25）中午 BOJ 公布決議，4/26 台中說明會即時解析升息結果。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-04-23.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-orange-700 mb-3">2026.04.23 ⏰ 週三換匯最後日</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">中川理事附和鷹派：BOJ 升息機率 57%，日圓 157.60——今天換匯最後執行日</h2>
+        <p class="text-slate-500">中川理事今晨發言附和 Takata，升息機率升至 57%，日圓續升至 157.60。明天靜默期啟動，今天是靜默期前最後有訊號支撐的換匯執行視窗。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-04-22.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-purple-800 mb-3">2026.04.22 🚨 週二盤中</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">Takata 鷹派發言：BOJ 升息機率躍升至 51%，日圓 158.30 反轉——今明是換匯最後視窗</h2>
+        <p class="text-slate-500">升息機率首次突破五五波，日圓從 159.40 快速升值至 158.30。明天（4/23）BOJ 進入靜默期，今明兩天是本週換匯最後且最確定的視窗。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-04-21.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-900 mb-3">2026.04.21 📈 週一開盤</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">BOJ 決戰週開盤：日圓 159.40 走弱，升息預期 44%，換匯窗口正式開啟</h2>
+        <p class="text-slate-500">BOJ 4/25 倒數 4 天，日圓延續走弱趨勢至 159.40，升息機率小幅上修至 44%。週三是靜默期前最後換匯視窗，泰國倒數 41 天，4/26 台中說明會本週六。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-04-20.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-slate-600 mb-3">2026.04.20 ✅ 週日確認清單</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">BOJ 決戰週倒數 5 天：週一開盤前的最後確認清單</h2>
+        <p class="text-slate-500">週末日圓收 159.20，升息機率維持 42%。週一前三件事先確認：換匯計畫、泰國考察團（5/5截止）、4/26台中說明會報名。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-04-19.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-rose-700 mb-3">2026.04.19 📋 週日預覽</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">本週預覽：BOJ 決戰週倒數 6 天，泰國 6/1 生效倒數 43 天，4/26 台中說明會</h2>
+        <p class="text-slate-500">本週（4/21–4/25）是 2026 年上半年最重要的一週：BOJ 4/25 升息決議直接決定日圓走向。週六 4/26 TIREA 台中說明會，從市場數據到選屋策略一次講清楚。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-04-18.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-900 mb-3">2026.04.18 📊 週六週報</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">BOJ 4/25 倒數 7 天：升息機率升至 42%，日圓 159.20 逢高換匯機會</h2>
+        <p class="text-slate-500">市場升息預期升至 42%，日圓意外走弱至 159.20 提供逢高換匯視窗。曼谷本週看屋詢問量週增 +67%，馬來西亞 KLCC 外籍買家占比達 31% 五年新高。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-04-17.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-900 mb-3">2026.04.17 📊 週四盤中</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">日圓 158.85 BOJ 倒數 8 天，新加坡 URA Q1 私宅成交年增 12%</h2>
+        <p class="text-slate-500">植田和男鷹派發言推升升息預期至 38%，泰國土地廳確認 75% 新規 6/1 生效，新加坡 Q1 私宅成交回溫。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-04-16.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-900 mb-3">2026.04.16 📊 週三午盤</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">泰國 75% 配額生效倒數，日圓 158.60，馬來西亞林吉特走強</h2>
+        <p class="text-slate-500">土地廳啟動實施準備程序，6 月生效倒數 45 天，林吉特對台幣升值，Mont Kiara 待售量創 18 個月新低。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-04-15.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-900 mb-3">2026.04.15 📊 週三中盤</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">馬來西亞 Q1 外籍買盤創三年新高，日圓 158.70 區間震盪</h2>
+        <p class="text-slate-500">馬來西亞 Q1 外籍買盤年增 38%，日圓維持 158~159 低位，BOJ 4/25 前觀望情緒濃厚，泰國開發商備戰新配額。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-04-14.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-900 mb-3">2026.04.14 📋 週二盤中</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">泰國內閣正式拍板：外籍持有上限升至 75%，日圓 158.85</h2>
+        <p class="text-slate-500">泰國內閣正式通過公寓外籍持有上限 49%→75%，並擬放寬租賃年限至 90 年，日圓 158.85 續軟，BOJ 升息預期升溫。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-04-13.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-900 mb-3">2026.04.13 📈 週一開盤</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">四月第三週：泰國外籍持有上限擬升至 75%，日圓折讓窗口持續</h2>
+        <p class="text-slate-500">泰國外籍公寓持有上限擬升至 75% 是近年最重要政策訊號，日圓 158~160 折讓窗口持續，TIREA 本週一對一諮詢全面開放。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-04-12.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-900 mb-3">2026.04.12 🗓️ 週日總覽</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">週日總覽：泰國新政策、馬來西亞諮詢熱、日銀 4/25~26 預期更新</h2>
+        <p class="text-slate-500">泰國新政府外籍持有政策值得密切關注，馬來西亞說明會後諮詢轉化積極，日圓低位持續，本週重點：日銀 4/25~26 預期更新。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-04-11.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-900 mb-3">2026.04.11 🔬 週末深析</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">關稅後時代三市場框架：日本折讓型 vs 馬來西亞成長型 vs 泰國政策紅利型</h2>
+        <p class="text-slate-500">週末深析：日本折讓型、馬來西亞成長型、泰國政策紅利型——關稅後時代台灣投資人的三市場比較框架。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-04-10.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-900 mb-3">2026.04.10 ⚖️ 週五盤點</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">週五盤點：美國法院審理關稅訴訟，日圓 159.13 低位確認</h2>
+        <p class="text-slate-500">美國法院審理關稅訴訟，日圓 159.13 低位確認，本週亞太地產買盤持續湧入。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-04-09.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-900 mb-3">2026.04.09 🕊️ 90天暫停週年</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">90 天暫停一週年：美中關稅維持 10% 至 11 月，亞太市場平穩開盤</h2>
+        <p class="text-slate-500">90 天暫停一週年：美中關稅維持 10% 協議至 11 月，亞太市場週四平穩開盤，泰國新政府帶動外籍持有政策新期待。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-04-08.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-900 mb-3">2026.04.08 🇲🇾 說明會日</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">今日 TIREA 馬來西亞說明會登場：日圓 160 折讓 16% 進場窗口仍開，澳洲升息現實需重新評估，泰國轉讓費紅利至六月底。</h2>
+        <p class="text-slate-500">今晚19:30 TIREA馬來西亞說明會，日圓160兌美元台灣買方折讓16%，澳洲RBA升息至4.1%（重要修正），泰國轉讓費0.01%至6月底。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-04-07.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-900 mb-3">2026.04.07</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">解放日滿週年：關稅戰效益有限，亞太地產卻持續吸引全球資金，台灣投資人如何在弱日圓與東南亞紅利中佈局？</h2>
+        <p class="text-slate-500">解放日一週年回顧：最高法院推翻部分IEEPA關稅，製造業回流有限，全球資金轉向亞太實體地產。日圓160折讓16%，泰國轉讓費0.01%，澳洲RBA升息4.1%。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-04-06.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-900 mb-3">2026.04.06</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">關稅衝擊後首個週一：美中談判預期升溫，亞太地產買盤持續湧入，日本成本降低視窗仍開啟，TIREA 本週活動密集。</h2>
+        <p class="text-slate-500">關稅衝擊後首個週一：美中談判傳積極信號，亞太地產買盤持續，日圓148-150區間，TIREA本週活動：馬來西亞說明會4/8、流年課程4/15。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-04-05.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-900 mb-3">2026.04.05</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">週日深析｜關稅時代，台灣投資人的海外不動產配置策略全面更新：哪裡受惠、哪裡觀望、哪裡迴避。</h2>
+        <p class="text-slate-500">全球地產ETF相對標普跑贏+8.2%，直接持有不動產波動率遠低股市，台灣詢問量7天+250%，深度解析各市場配置邏輯。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-04-04.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-900 mb-3">2026.04.04</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">關稅風暴週末盤點：亞太地產作為避險資產邏輯強化，日本與泰國仍是首選，越南短期觀望，澳洲受益降息加速。</h2>
+        <p class="text-slate-500">TIREA本週諮詢+180%，日本二手房詢問創高，東南亞不動產相對股市跑贏，越南短期觀望，澳洲降息加速受益。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-04-03.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-900 mb-3">2026.04.03</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">關稅衝擊持續發酵：中國宣布反制、越南緊急談判、日圓升值壓縮 J-REIT、但實體不動產詢問量創歷史新高。</h2>
+        <p class="text-slate-500">關稅衝擊持續：中國宣布34%報復關稅，全球股市持續跌，TIREA本週詢問量週增3×，日本實體地產詢問創歷史新高。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-04-02.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-red-700 mb-3">2026.04.02 🚨 解放日</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">🚨 美國「解放日」關稅震撼市場：全球股市重挫，實體地產成資金避風港，日本與東南亞不動產詢問量急升。</h2>
+        <p class="text-slate-500">川普宣布「解放日」全面關稅：10%基礎+國別附加稅。標普500單日跌4.8%，日圓升值避險，亞太實體地產詢問量24小時+85%。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-04-01.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-900 mb-3">2026.04.01</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">關稅宣布前夕市場緊張觀望，日圓走弱為外籍買方降低日本置產成本，泰國考察團報名持續熱絡。</h2>
+        <p class="text-slate-500">關稅宣布前夕市場緊張觀望，日圓兌台幣0.218近年低點為外籍買方降低日本置產成本，泰國考察團4月報名+65%，亞太資金指數進入等待模式。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-03-31.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-900 mb-3">2026.03.31</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">越南外資政策細則公告、東京地價公示創 10 年新高、澳洲 CPI 2.3% 強化 RBA 降息路徑。</h2>
+        <p class="text-slate-500">越南外資政策細則公告、東京地價公示創10年新高年增+7.3%、澳洲CPI 2.3%強化RBA降息路徑，亞太市場關注明日美國關稅宣布前夕。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-03-30.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-900 mb-3">2026.03.30</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">Q2 首週開局：日本升息預期壓制 J-REIT，馬來西亞 MM2H 申請創高，越南 Q2 政策窗口倒計時。</h2>
+        <p class="text-slate-500">Q2 首週週一：日銀升息預期68%壓制J-REIT，馬來西亞MM2H申請量本季+40%，泰國曼谷豪宅Q1成交年增22%，越南Q2政策窗口倒計時。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-03-29.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-900 mb-3">2026.03.29</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">Q1 封關總結：亞太資金流入創三年新高，新加坡底部確認，澳洲降息預期強化，日本升息壓力分化。</h2>
+        <p class="text-slate-500">新加坡 Q1 私宅 4,200 戶底部確認、馬來西亞數據中心 RM 100 億+、布里斯本年增 9.2%、越南 Q2 政策生效在即、中國一線跌幅收窄。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-03-28.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-900 mb-3">2026.03.28</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">泰國說明會後詢問熱潮延續，澳洲 RBA 降息窗口成形，日本 J-REIT 承壓，馬來西亞數據中心地產繼續領跑。</h2>
+        <p class="text-slate-500">泰國 48hr 詢問量 +3×、RBA 降息機率 78%、J-REIT 週跌 2.3%、新加坡 Q1 成交 4,200 戶、越南 Q2 新案供給預告。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-03-27.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-900 mb-3">2026.03.27</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">泰國說明會週登場，大阪萬博助推關西地產升溫，新加坡外籍購房需求回溫，美國 PCE 確認降息路徑。</h2>
+        <p class="text-slate-500">今日焦點：TIREA 泰國說明會、新加坡外籍買方比例 26%、越南長租公寓新政、大阪萬博周邊地價 +15%、美國 PCE 2.5%。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-03-26.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-900 mb-3">2026.03.26</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">新加坡 Q1 私宅價格初估止穩、印度 REITs 分拆上市首日漲 11%、美國房貸申請量週增 5.1% 止跌回升。</h2>
+        <p class="text-slate-500">資本市場訊號密集：新加坡底部訊號、越南開發商資金改善、日本東京地價連升第 5 年、中國一線二手房跌幅收窄。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-03-25.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-900 mb-3">2026.03.25</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">工業地產成為本周主旋律：馬來西亞空置率降至 3.2% 歷史低位，泰國 EEC 外資製造業 Q1 突破 US$3bn。</h2>
+        <p class="text-slate-500">東南亞工業供應鏈重組效益持續發酵、日本東京租金創 10 年新高、澳洲物流地產全國空置率僅 1.5%。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-03-24.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-900 mb-3">2026.03.24</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">新加坡標售溢價 12%、越南外資土地持有草案公布、孟買住宅 Q1 創 11 年新高，周一訊號密集帶動市場信心。</h2>
+        <p class="text-slate-500">聚焦新加坡土地標售結果、越南土地使用制度修訂、印度孟買豪宅佔比 18%、美聯儲降息次數預期壓縮至 1–2 次。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-03-23.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-900 mb-3">2026.03.23</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">週日盤點：泰國豪宅年增 22%、馬來西亞數據中心投資 RM 18bn 創歷史新高、越南胡志明市新案供給回溫 35%。</h2>
+        <p class="text-slate-500">東南亞延續交易動能，日本商辦連升第 6 季，澳洲租金投報邏輯強化，中國一線底部訊號持續積累。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-03-22.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-900 mb-3">2026.03.22</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">新加坡 2 月新私宅銷售近乎腰斬、馬來西亞 IPO 首日漲 28%、印尼 US$2bn 旅宿佈局、澳洲 2 月房價月增 0.3%。</h2>
+        <p class="text-slate-500">東南亞繼續主導版面，日本與美國看資本成本，中國與杜拜看修復與風險承接。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-03-21.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-900 mb-3">2026.03.21</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">亞太地產本週市場重點回顧：東南亞交易動能持續，日本資金配置維持高水位。</h2>
+        <p class="text-slate-500">查看當日全球地產重點、區域新聞、市場觀察與來源摘要。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-03-20.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-900 mb-3">2026.03.20</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">東南亞交易動能強勁，日本與美國聚焦資本配置，中國政策托底下緩慢修復。</h2>
+        <p class="text-slate-500">聚焦新加坡 246 戶成交、馬來西亞 RM241.9b 大型交易、印尼 US$2bn 旅宿地產佈局、日本 US$680m 基金募資線索。</p>
+      </a>
+      <a href="daily-real-estate-news-2026-03-19.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-900 mb-3">2026.03.19</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">新加坡成交量持穩、日本核心資產交易規模達數千億日圓，中國修復時程延後至 2027 年。</h2>
+        <p class="text-slate-500">聚焦新加坡新案成交與供給節奏、中國修復時間預期、日本大型資產交易動態與越南制度改革節點。</p>
+      </a>
+<a href="daily-real-estate-news-2026-03-17.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-900 mb-3">2026.03.17</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">全球地產資金只回到有數據支撐的市場：新加坡偏穩，日本與美國有資本題材，馬泰中杜則更像在處理風險與庫存。</h2>
+        <p class="text-slate-500">查看當日全球地產重點、區域新聞、市場觀察與來源摘要。</p>
+      </a>
+<a href="daily-real-estate-news-2026-03-16.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-900 mb-3">2026.03.16</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">全球地產市場進一步分化：中國聚焦政策重整，北美與歐洲走向平台整併，工業資產與 AI 應用成為少數明確增長題材。</h2>
+        <p class="text-slate-500">查看當日全球地產重點、區域新聞、市場觀察與來源摘要。</p>
+      </a>
+<a href="daily-real-estate-news-2026-03-15.html" class="bg-white rounded-[2rem] border border-slate-200 p-7 shadow-sm hover:-translate-y-1 hover:shadow-xl transition duration-200">
+        <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-900 mb-3">2026.03.15</div>
+        <h2 class="text-2xl font-extrabold leading-tight mb-3">國際地產市場延續分化：東南亞偏資本市場訊號，美國受 AI 帶動局部升溫，中國仍在修復週期。</h2>
+        <p class="text-slate-500">查看當日全球地產重點、區域新聞、市場觀察與來源摘要。</p>
+      </a>
+    </section>
+  </main>
+  <script>
+    (function(){
+      try {
+        fetch('/api/track-visit', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            page: location.pathname,
+            title: document.title,
+            referrer: document.referrer || 'direct',
+            device: /Mobile|Android|iPhone|iPad/i.test(navigator.userAgent) ? 'mobile' : 'desktop'
+          })
+        });
+      } catch(e){}
+    })();
+  </script>
+
+  <!-- Vercel Web Analytics -->
+  <script defer src="/_vercel/insights/script.js"></script>
+  <!-- Vercel Speed Insights -->
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

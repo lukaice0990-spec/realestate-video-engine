@@ -1,0 +1,14 @@
+{
+  "name": "tirea-site",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "echo 'Use: vercel dev'",
+    "start": "echo 'Use: vercel dev'",
+    "local": "echo 'Run: vercel dev directly'"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.49.8"
+  }
+}

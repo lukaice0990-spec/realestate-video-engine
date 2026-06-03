@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.tirea.tw/sitemap.xml
+
+# Disallow utility/member pages from indexing
+Disallow: /member_center.html
+Disallow: /survey.html
+Disallow: /bazi.html
+Disallow: /ziwei.html
+Disallow: /map-test.html
+Disallow: /listing_detail.html

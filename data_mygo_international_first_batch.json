@@ -1,0 +1,37 @@
+{
+  "source": "https://www.mygo.com/international",
+  "fetched_at": "2026-03-12T06:00:00Z",
+  "count": 3,
+  "items": [
+    {
+      "seq": "100035",
+      "source_url": "https://www.mygo.com/international/building/seq/100035",
+      "title": "MyGo國際地產 - 泰國 ASHTON Asoke - Rama 9",
+      "summary": "曼谷CBD Rama 9第一棟高樓層豪華捷運宅，由泰國及日本上市建商聯手打造，選址新興商務區稀缺地段，給您最奢華的入住體驗與最完善的生活品質，距MRT捷運Rama 9站230米，此建案為拉瑪九路的第一個豪華公寓，座落曼谷新CBD Rama 9區，周圍環繞企業總部，日人流量多達3萬。",
+      "image": "https://p.mygo.com/upload_userimg/202602/26/11/12/d34750e8e216acbe10322c4488569aec.jpg",
+      "country": "Malaysia",
+      "city": "曼谷",
+      "district": "Rama 9"
+    },
+    {
+      "seq": "100010",
+      "source_url": "https://www.mygo.com/international/building/seq/100010",
+      "title": "MyGo國際地產 - 泰國 Nue Ratchada Latphrao 諾博環城匯",
+      "summary": "泰國曼谷諾博環城匯 - NUE Noble Ratchada Latphrao\n曼谷新CBD Latphrao核心地段豪宅，永久產權公寓\nLatPhrao區泰國人口居住密度極高，租金回報高，高機能低總價，符合年輕小資族客群，\n交通便利，擁有全曼谷唯一環線鐵路網，MRT地鐵黃藍雙線交匯，距離藍線Lat Phrao站及黃線Ratchada站，步行皆不到2分鐘，\n生活配套設施非常完善，政府機構、大型購物中心、超市、學校、醫院應有盡有，輕鬆體驗曼谷獨有的時尚購物生活、高端教育條件。10分鐘生活圈消費平易近人，完美解決日常生活所需 !",
+      "image": "https://p.mygo.com/upload_userimg/202602/26/11/10/a349a29bf7285a01d628551b14c0b3c9.jpg",
+      "country": "Malaysia",
+      "city": "曼谷",
+      "district": "Latphrao"
+    },
+    {
+      "seq": "100008",
+      "source_url": "https://www.mygo.com/international/building/seq/100008",
+      "title": "MyGo國際地產 - 馬來西亞 R&F Princess Cove 富力公主灣二期",
+      "summary": "馬來西亞房地產2025年CP值最高 富力公主灣（R&F Princess Cove）永久地契一線海景！塞納天地，行人道連橋直達JB CIQ新加坡通關口\n位於馬來西亞新山，緊鄰新山 - 新加坡海關，地理優勢盡享新馬兩地繁榮，2026年新馬跨國捷運完工，6分鐘抵達新加坡，房價升值力不容忽視。",
+      "image": "https://p.mygo.com/upload_userimg/202603/02/10/25/043e50057f05c51a18b672e1f8ca5708.jpg",
+      "country": "Malaysia",
+      "city": "新山",
+      "district": "Rama 9"
+    }
+  ]
+}

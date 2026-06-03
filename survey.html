@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>海外置產需求分析｜TIREA 智慧配對系統</title>
+  <meta name="description" content="透過 4 步驟快速完成海外置產需求分析，讓 TIREA 為您配對更合適的市場、預算與顧問方向。" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <script>
+    tailwind.config = { theme: { extend: { colors: { primary: '#163a8a', gold: '#c89b3c', ink: '#0f172a' } } } }
+  </script>
+  <style>
+    body { font-family: 'Noto Sans TC', sans-serif; }
+    .bg-hero { background: linear-gradient(135deg, rgba(15,23,42,.84), rgba(15,23,42,.58)), url('https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat; }
+    .option-card { transition: all .22s ease; }
+    .option-card:hover { transform: translateY(-2px); border-color: #163a8a; box-shadow: 0 18px 40px rgba(22,58,138,.10); background: #f8fbff; }
+    .option-card.selected { border-color: #163a8a; background: linear-gradient(180deg, #f8fbff, #eef4ff); box-shadow: 0 0 0 3px rgba(22,58,138,.10); }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2XV1V9TS1P"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-2XV1V9TS1P');
+  </script>
+  <link rel="canonical" href="https://www.tirea.tw/survey" />
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen">
+  <nav class="fixed top-0 inset-x-0 z-50 border-b border-white/10 bg-slate-950/80 backdrop-blur-xl text-white">
+    <div class="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3">
+        <img src="/tirea-logo.png" alt="TIREA Logo" class="w-11 h-11 rounded-xl shadow-lg object-contain bg-white p-1" />
+        <div>
+          <div class="font-extrabold tracking-tight text-lg leading-none text-white">TIREA</div>
+          <div class="text-[10px] uppercase tracking-[0.28em] text-slate-300">Taiwan International REA</div>
+        </div>
+      </a>
+
+      <div class="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-200">
+        <a href="ai_butler.html" class="hover:text-white font-bold text-blue-200">AI 找房</a>
+        <a href="global_pro.html" class="hover:text-white">找海外房產</a>
+        <a href="invest_map.html" class="hover:text-white">投資地圖</a>
+        <a href="knowledge.html" class="hover:text-white">知識中心</a>
+        <a href="daily-real-estate-news.html" class="hover:text-white">每日新聞</a>
+        <a href="projects.html" class="hover:text-white text-gold font-bold">專案</a>
+        <a href="turkey-seminar.html" class="hover:text-white text-amber-300 font-bold">🇹🇷 土耳其指南</a>
+        <a href="thailand-seminar.html" class="hover:text-white text-amber-300 font-bold">🇹🇭 泰國說明會</a>
+        <a href="singapore-guide.html" class="hover:text-white text-amber-300 font-bold">🇸🇬 新加坡金融指南</a>
+      </div>
+
+      <div class="hidden sm:flex items-center gap-3">
+        <a href="member_center.html" class="px-4 py-2 text-sm text-slate-200 hover:text-white">MEMBER LOGIN</a>
+        <a href="admin/index.html" class="px-3 py-2 text-xs text-slate-500 hover:text-slate-300">管理中心</a>
+        <a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="px-5 py-2.5 rounded-full bg-[#c89b3c] text-slate-900 font-bold hover:opacity-90">加入 LINE 諮詢</a>
+      </div>
+
+      <button id="mobile-menu-button" class="lg:hidden inline-flex items-center gap-2 px-4 h-11 rounded-xl bg-[#c89b3c] text-slate-900 font-extrabold shadow-lg">
+        <i class="fa-solid fa-bars text-base"></i>
+        <span class="text-sm">選單</span>
+      </button>
+    </div>
+
+    <div id="mobile-menu-overlay" class="lg:hidden fixed inset-0 bg-slate-950 text-white translate-x-full transition-transform duration-300 ease-in-out z-50">
+      <div class="px-6 py-5 flex items-center justify-between border-b border-white/10">
+        <div class="flex items-center gap-3">
+          <img src="/tirea-logo.png" alt="TIREA Logo" class="w-10 h-10 rounded-xl shadow-lg object-contain bg-white p-1" />
+          <div>
+            <div class="font-extrabold tracking-tight text-lg leading-none">TIREA</div>
+            <div class="text-[10px] uppercase tracking-[0.24em] text-slate-300">Taiwan International REA</div>
+          </div>
+        </div>
+        <button id="close-menu-button" class="w-11 h-11 rounded-xl border border-white/10 flex items-center justify-center text-white">
+          <i class="fa-solid fa-xmark text-xl"></i>
+        </button>
+      </div>
+      <div class="px-6 py-8 flex flex-col gap-4 text-lg font-bold bg-slate-950 overflow-y-auto">
+        <a href="ai_butler.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-blue-950 border border-blue-800 px-5 py-4 text-blue-100 shadow-lg">AI 找房 <i class="fa-solid fa-arrow-right text-sm text-blue-300"></i></a>
+        <a href="global_pro.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4 text-white shadow-lg">找海外房產 <i class="fa-solid fa-arrow-right text-sm text-slate-300"></i></a>
+        <a href="invest_map.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4 text-white shadow-lg">投資地圖 <i class="fa-solid fa-arrow-right text-sm text-slate-300"></i></a>
+        <a href="knowledge.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4 text-white shadow-lg">知識中心 <i class="fa-solid fa-arrow-right text-sm text-slate-300"></i></a>
+        <a href="daily-real-estate-news.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4 text-white shadow-lg">每日新聞 <i class="fa-solid fa-arrow-right text-sm text-slate-300"></i></a>
+        <a href="projects.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-yellow-950 border border-yellow-800 px-5 py-4 text-yellow-100 shadow-lg">專案 <i class="fa-solid fa-arrow-right text-sm text-yellow-300"></i></a>
+        <a href="turkey-seminar.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-amber-950 border border-amber-800 px-5 py-4 text-amber-100 shadow-lg">🇹🇷 土耳其投資指南 <i class="fa-solid fa-arrow-right text-sm text-amber-300"></i></a>
+        <a href="thailand-seminar.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-amber-950 border border-amber-800 px-5 py-4 text-amber-100 shadow-lg">🇹🇭 泰國說明會 <i class="fa-solid fa-arrow-right text-sm text-amber-300"></i></a>
+        <a href="singapore-guide.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-amber-950 border border-amber-800 px-5 py-4 text-amber-100 shadow-lg">🇸🇬 新加坡金融指南 <i class="fa-solid fa-arrow-right text-sm text-amber-300"></i></a>
+        <a href="member_center.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4 text-white shadow-lg">MEMBER LOGIN <i class="fa-solid fa-arrow-right text-sm text-slate-300"></i></a>
+        <a href="admin/index.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-800 border border-slate-700 px-5 py-4 text-slate-400 shadow-lg">⚙️ 管理中心 <i class="fa-solid fa-arrow-right text-sm text-slate-500"></i></a>
+      </div>
+      <div class="px-6 pb-8 bg-slate-950">
+        <a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="mobile-menu-link w-full inline-flex justify-center items-center px-6 py-4 rounded-2xl bg-[#c89b3c] text-slate-900 font-extrabold shadow-lg">加入 LINE 諮詢</a>
+      </div>
+    </div>
+  </nav>
+
+  <script>
+    (function(){
+      var btn = document.getElementById('mobile-menu-button');
+      var cls = document.getElementById('close-menu-button');
+      var ov  = document.getElementById('mobile-menu-overlay');
+      if(!btn||!cls||!ov) return;
+      btn.addEventListener('click',()=>ov.classList.remove('translate-x-full'));
+      cls.addEventListener('click',()=>ov.classList.add('translate-x-full'));
+      document.querySelectorAll('.mobile-menu-link').forEach(l=>
+        l.addEventListener('click',()=>ov.classList.add('translate-x-full')));
+    })();
+  </script>
+
+
+  <div class="min-h-screen pt-16 grid lg:grid-cols-12">
+    <aside class="lg:col-span-5 bg-hero text-white p-8 md:p-12 xl:p-16 flex flex-col justify-between">
+      <div>
+        <a href="/" class="inline-flex items-center gap-3 mb-10"><div class="w-12 h-12 rounded-xl bg-white text-primary flex items-center justify-center text-xl font-extrabold">T</div><div><div class="text-xl font-extrabold tracking-tight">TIREA</div><div class="text-[10px] tracking-[0.28em] uppercase text-slate-300">Taiwan International REA</div></div></a>
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/10 text-xs font-bold tracking-[0.2em] uppercase mb-6">Smart Matching Survey</div>
+        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-6">4 步驟快速分析，<br />找到更適合你的海外置產方向</h1>
+        <p class="text-slate-200 text-lg leading-relaxed max-w-xl mb-5">先把市場、預算、目的與聯絡方式整理清楚，TIREA 才能更精準幫你分流到合適的顧問、國家與建議方案。</p>
+        <div class="flex flex-wrap gap-3">
+          <a href="knowledge.html" class="inline-flex items-center justify-center px-5 py-3 rounded-full border border-white/20 text-white font-bold">先看知識中心</a>
+          <a href="global_pro.html" class="inline-flex items-center justify-center px-5 py-3 rounded-full border border-white/20 text-white font-bold">先看海外案源</a>
+        </div>
+      </div>
+      <div class="grid md:grid-cols-3 gap-4 text-sm">
+        <div class="rounded-2xl bg-white/10 border border-white/10 p-4"><div class="text-2xl font-extrabold">01</div><div class="text-slate-300 mt-1">選擇市場方向</div></div>
+        <div class="rounded-2xl bg-white/10 border border-white/10 p-4"><div class="text-2xl font-extrabold">02</div><div class="text-slate-300 mt-1">確認預算級距</div></div>
+        <div class="rounded-2xl bg-white/10 border border-white/10 p-4"><div class="text-2xl font-extrabold">03</div><div class="text-slate-300 mt-1">配對置產目的</div></div>
+      </div>
+    </aside>
+    <main class="lg:col-span-7 p-6 md:p-10 xl:p-14 flex items-center justify-center">
+      <div class="w-full max-w-3xl">
+        <div class="mb-6 flex items-center justify-between gap-4"><div><div id="step-label" class="text-xs font-extrabold uppercase tracking-[0.22em] text-slate-400">Step 01 / 04</div><div class="text-sm text-slate-500 mt-1">完成後即可查看配對結果並導入顧問諮詢</div></div><button id="back-button" onclick="prevStep()" class="hidden px-4 py-2 rounded-full border border-slate-200 text-sm font-bold hover:bg-slate-50"><i class="fa-solid fa-arrow-left mr-2"></i>上一步</button></div>
+        <div class="h-3 rounded-full bg-slate-200 overflow-hidden mb-8"><div id="progress" class="h-full bg-primary transition-all duration-500" style="width: 25%;"></div></div>
+        <div class="bg-white rounded-[2rem] border border-slate-100 shadow-xl overflow-hidden"><div class="p-7 md:p-10 xl:p-12">
+          <section id="step-1" class="step-pane space-y-8"><div class="text-center"><h2 class="text-3xl md:text-4xl font-extrabold mb-3">您目前最感興趣的區域？</h2><p class="text-slate-500 text-lg">先選市場，我們才能更準確幫您匹配法務、稅務與置產顧問。</p></div><div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <button data-category="area" data-value="泰國 曼谷" onclick="chooseAndNext(this, 2)" class="option-card text-left border-2 border-slate-100 rounded-[1.5rem] p-6"><img src="https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=900&q=80" class="w-full h-40 object-cover rounded-2xl mb-5" alt="泰國 曼谷"><h3 class="text-xl font-extrabold">泰國 曼谷</h3><p class="text-sm text-slate-500 mt-2">交通建設、生活圈成熟、租賃市場活躍</p></button>
+            <button data-category="area" data-value="馬來西亞" onclick="chooseAndNext(this, 2)" class="option-card text-left border-2 border-slate-100 rounded-[1.5rem] p-6"><img src="https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=900&q=80" class="w-full h-40 object-cover rounded-2xl mb-5" alt="馬來西亞"><h3 class="text-xl font-extrabold">馬來西亞</h3><p class="text-sm text-slate-500 mt-2">MM2H、居留規劃、教育與生活品質導向</p></button>
+            <button data-category="area" data-value="日本 東京 / 大阪" onclick="chooseAndNext(this, 2)" class="option-card text-left border-2 border-slate-100 rounded-[1.5rem] p-6"><img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=900&q=80" class="w-full h-40 object-cover rounded-2xl mb-5" alt="日本 東京 / 大阪"><h3 class="text-xl font-extrabold">日本 東京 / 大阪</h3><p class="text-sm text-slate-500 mt-2">資產保值、成熟市場、匯率與配置策略</p></button>
+            <button data-category="area" data-value="其他 / 未決定" onclick="chooseAndNext(this, 2)" class="option-card text-left border-2 border-slate-100 rounded-[1.5rem] p-6"><div class="w-full h-40 rounded-2xl mb-5 bg-gradient-to-br from-slate-100 to-slate-50 flex items-center justify-center text-slate-300 text-5xl"><i class="fa-solid fa-compass"></i></div><h3 class="text-xl font-extrabold">其他 / 未決定</h3><p class="text-sm text-slate-500 mt-2">想先由顧問依照預算與目標協助推薦</p></button>
+          </div></section>
+          <section id="step-2" class="step-pane hidden space-y-8"><div class="text-center"><h2 class="text-3xl md:text-4xl font-extrabold mb-3">您的預計投入預算？</h2><p class="text-slate-500 text-lg">預算級距會影響市場建議、產品類型與後續資金規劃。</p></div><div class="grid grid-cols-1 gap-4">
+            <button data-category="budget" data-value="NT$ 500 萬以下" onclick="chooseAndNext(this, 3)" class="option-card border-2 border-slate-100 rounded-[1.5rem] p-6 text-left"><div class="font-extrabold text-lg">NT$ 500 萬以下</div><div class="text-sm text-slate-500 mt-1">入門型配置 / 精準挑案</div></button>
+            <button data-category="budget" data-value="NT$ 500 萬 - 1,500 萬" onclick="chooseAndNext(this, 3)" class="option-card border-2 border-slate-100 rounded-[1.5rem] p-6 text-left"><div class="font-extrabold text-lg">NT$ 500 萬 - 1,500 萬</div><div class="text-sm text-slate-500 mt-1">主流投資級距 / 選擇彈性較高</div></button>
+            <button data-category="budget" data-value="NT$ 1,500 萬 - 3,000 萬" onclick="chooseAndNext(this, 3)" class="option-card border-2 border-slate-100 rounded-[1.5rem] p-6 text-left"><div class="font-extrabold text-lg">NT$ 1,500 萬 - 3,000 萬</div><div class="text-sm text-slate-500 mt-1">高資產配置 / 可規劃更多元組合</div></button>
+            <button data-category="budget" data-value="NT$ 3,000 萬以上" onclick="chooseAndNext(this, 3)" class="option-card border-2 border-slate-100 rounded-[1.5rem] p-6 text-left"><div class="font-extrabold text-lg">NT$ 3,000 萬以上</div><div class="text-sm text-slate-500 mt-1">高淨值 / 家族資產配置方向</div></button>
+          </div></section>
+          <section id="step-3" class="step-pane hidden space-y-8"><div class="text-center"><h2 class="text-3xl md:text-4xl font-extrabold mb-3">您的主要置產目的？</h2><p class="text-slate-500 text-lg">用途不同，市場與產品建議就完全不同。</p></div><div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <button data-category="purpose" data-value="長期收租" onclick="chooseAndNext(this, 4)" class="option-card border-2 border-slate-100 rounded-[1.5rem] p-6 text-left"><h3 class="text-xl font-extrabold">長期收租</h3><p class="text-sm text-slate-500 mt-2">偏重現金流、出租需求與租賃穩定度</p></button>
+            <button data-category="purpose" data-value="移居 / 退休自住" onclick="chooseAndNext(this, 4)" class="option-card border-2 border-slate-100 rounded-[1.5rem] p-6 text-left"><h3 class="text-xl font-extrabold">移居 / 退休自住</h3><p class="text-sm text-slate-500 mt-2">偏重生活品質、醫療、簽證與居住環境</p></button>
+            <button data-category="purpose" data-value="子女海外教育" onclick="chooseAndNext(this, 4)" class="option-card border-2 border-slate-100 rounded-[1.5rem] p-6 text-left"><h3 class="text-xl font-extrabold">子女海外教育</h3><p class="text-sm text-slate-500 mt-2">偏重國際學校、生活圈與長期安排</p></button>
+            <button data-category="purpose" data-value="資產分散 / 避險" onclick="chooseAndNext(this, 4)" class="option-card border-2 border-slate-100 rounded-[1.5rem] p-6 text-left"><h3 class="text-xl font-extrabold">資產分散 / 避險</h3><p class="text-sm text-slate-500 mt-2">偏重持有安全性、貨幣配置與風險控管</p></button>
+          </div></section>
+          <section id="step-4" class="step-pane hidden space-y-8"><div class="text-center"><h2 class="text-3xl md:text-4xl font-extrabold mb-3">最後一步，留下聯繫方式</h2><p class="text-slate-500 text-lg">我們會依據您的需求，整理初步建議並安排合適顧問與您接洽。</p></div>
+            <div class="rounded-[1.5rem] bg-slate-50 border border-slate-100 p-5"><div class="text-sm font-extrabold text-slate-700 mb-4">您的需求摘要</div><div class="grid md:grid-cols-3 gap-4 text-sm"><div class="rounded-xl bg-white border border-slate-100 p-4"><div class="text-slate-400 mb-1">感興趣區域</div><div id="summary-area" class="font-bold text-slate-800">未選擇</div></div><div class="rounded-xl bg-white border border-slate-100 p-4"><div class="text-slate-400 mb-1">預算級距</div><div id="summary-budget" class="font-bold text-slate-800">未選擇</div></div><div class="rounded-xl bg-white border border-slate-100 p-4"><div class="text-slate-400 mb-1">置產目的</div><div id="summary-purpose" class="font-bold text-slate-800">未選擇</div></div></div></div>
+            <form class="space-y-4" onsubmit="event.preventDefault(); showResult();"><input type="text" id="userName" placeholder="您的姓名" class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" /><input type="tel" id="userPhone" placeholder="聯絡電話 / LINE 手機號碼" class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" /><textarea id="userNote" rows="4" placeholder="其他需求（選填）" class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"></textarea><button id="submitBtn" type="submit" class="w-full py-5 rounded-2xl bg-primary text-white text-lg font-extrabold">送出需求分析</button><p id="submitMessage" class="hidden text-sm text-center"></p></form>
+          </section>
+          <section id="result" class="hidden text-center space-y-8"><div class="w-20 h-20 mx-auto rounded-full bg-green-100 text-green-600 flex items-center justify-center text-3xl"><i class="fa-solid fa-check"></i></div><div><h2 class="text-3xl md:text-4xl font-extrabold mb-4">配對完成，已收到您的需求</h2><p id="result-copy" class="text-slate-600 text-lg leading-relaxed max-w-2xl mx-auto"></p></div><div class="grid md:grid-cols-3 gap-4 text-left"><div class="rounded-2xl bg-slate-50 border border-slate-100 p-5"><div class="text-xs text-slate-400 mb-2">感興趣區域</div><div id="result-area" class="font-extrabold">-</div></div><div class="rounded-2xl bg-slate-50 border border-slate-100 p-5"><div class="text-xs text-slate-400 mb-2">預算級距</div><div id="result-budget" class="font-extrabold">-</div></div><div class="rounded-2xl bg-slate-50 border border-slate-100 p-5"><div class="text-xs text-slate-400 mb-2">置產目的</div><div id="result-purpose" class="font-extrabold">-</div></div></div><div class="grid md:grid-cols-2 gap-4"><a href="knowledge.html" class="rounded-[1.5rem] bg-slate-50 border border-slate-200 p-6 text-left hover:bg-slate-100"><div class="text-sm text-slate-400 mb-2">延伸閱讀</div><div class="text-xl font-extrabold mb-2">回知識中心看各國稅務</div><div class="text-slate-600">先把稅負、持有成本與退出模型看清楚，再跟顧問談會更有效率。</div></a><a href="global_pro.html" class="rounded-[1.5rem] bg-slate-50 border border-slate-200 p-6 text-left hover:bg-slate-100"><div class="text-sm text-slate-400 mb-2">進一步找案</div><div class="text-xl font-extrabold mb-2">回海外案源篩選物件</div><div class="text-slate-600">把需求分析結果帶回案源頁，更容易縮小產品範圍。</div></a></div><div class="rounded-[2rem] bg-gradient-to-br from-green-50 to-white border border-green-100 p-8"><h3 class="text-2xl font-extrabold mb-4">直接加入 LINE 與顧問對談</h3><a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="inline-flex items-center justify-center px-8 py-4 rounded-2xl bg-green-500 text-white font-extrabold text-lg"><i class="fab fa-line mr-3 text-2xl"></i>加入 LINE 顧問對談</a></div></section>
+        </div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    const totalSteps = 4; let currentStep = 1;
+    const userChoices = { area:'', budget:'', purpose:'', name:'', phone:'', note:'' };
+    function updateUI(){ document.querySelectorAll('.step-pane').forEach(el=>el.classList.add('hidden')); const active=document.getElementById(`step-${currentStep}`); if(active) active.classList.remove('hidden'); document.getElementById('progress').style.width=`${(currentStep/totalSteps)*100}%`; document.getElementById('step-label').textContent=`Step 0${currentStep} / 04`; document.getElementById('back-button').classList.toggle('hidden', currentStep===1); updateSummary(); }
+    function selectCard(button){ const category=button.dataset.category; document.querySelectorAll(`[data-category="${category}"]`).forEach(el=>el.classList.remove('selected')); button.classList.add('selected'); userChoices[category]=button.dataset.value; }
+    function chooseAndNext(button, step){ selectCard(button); currentStep=step; updateUI(); }
+    function prevStep(){ if(currentStep>1){ currentStep-=1; updateUI(); } }
+    function updateSummary(){ ['area','budget','purpose'].forEach(key=>{ const el=document.getElementById(`summary-${key}`); if(el) el.textContent=userChoices[key]||'未選擇'; }); }
+    function buildResultCopy(){ return `我們已收到您對 ${userChoices.area || '指定市場'} 的需求，接下來可由顧問依照「${userChoices.purpose || '您的目標'}」進一步協助。`; }
+    async function showResult(){ const btn=document.getElementById('submitBtn'); const msg=document.getElementById('submitMessage'); btn.disabled=true; btn.textContent='送出中...'; msg.classList.add('hidden'); userChoices.name=document.getElementById('userName').value.trim(); userChoices.phone=document.getElementById('userPhone').value.trim(); userChoices.note=document.getElementById('userNote').value.trim(); if(!userChoices.name||!userChoices.phone){ alert('請填寫姓名與聯絡方式'); btn.disabled=false; btn.textContent='送出需求分析'; return; }
+      try { const res=await fetch('/api/survey-submit',{ method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ ...userChoices, source_page:'survey.html' }) }); const json=await res.json(); if(!res.ok||!json.ok) throw new Error(json.error || '提交失敗'); document.querySelectorAll('.step-pane').forEach(el=>el.classList.add('hidden')); document.getElementById('result').classList.remove('hidden'); document.getElementById('progress').style.width='100%'; document.getElementById('step-label').textContent='Completed'; document.getElementById('back-button').classList.add('hidden'); document.getElementById('result-area').textContent=userChoices.area||'-'; document.getElementById('result-budget').textContent=userChoices.budget||'-'; document.getElementById('result-purpose').textContent=userChoices.purpose||'-'; document.getElementById('result-copy').textContent=buildResultCopy(); }
+      catch(error){ msg.textContent = error.message || '送出失敗'; msg.className='text-sm text-center text-red-600'; msg.classList.remove('hidden'); btn.disabled=false; btn.textContent='送出需求分析'; }
+    }
+    updateUI();
+  </script>
+  <script>
+    (function(){
+      try {
+        fetch('/api/track-visit', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            page: location.pathname,
+            title: document.title,
+            referrer: document.referrer || 'direct',
+            device: /Mobile|Android|iPhone|iPad/i.test(navigator.userAgent) ? 'mobile' : 'desktop'
+          })
+        });
+      } catch(e){}
+    })();
+  </script>
+
+  <!-- Vercel Web Analytics -->
+  <script defer src="/_vercel/insights/script.js"></script>
+  <!-- Vercel Speed Insights -->
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>免費八字排盤｜AI八字紫微平台</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--pu:#6a0dad;--pud:#4a0080;--pul:#f3e5ff;--gold:#C8902A;--or:#e65100;
+  --wMu:#388e3c;--wHuo:#e53935;--wTu:#e65100;--wJin:#546e7a;--wShui:#1565c0;
+  --bgMu:#e8f5e9;--bgHuo:#ffebee;--bgTu:#fff8e1;--bgJin:#eceff1;--bgShui:#e3f2fd;}
+body{font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif;background:#f5f0ff;color:#333;min-height:100vh;}
+
+/* ── Top bar ── */
+.topbar{background:#1a0033;color:rgba(255,255,255,.7);font-size:11px;padding:5px 16px;display:flex;justify-content:space-between;align-items:center;}
+.topbar a{color:rgba(255,255,255,.6);text-decoration:none;}
+
+/* ── Header ── */
+header{background:#fff;border-bottom:3px solid var(--pud);padding:10px 20px;display:flex;align-items:center;gap:14px;}
+.hdr-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.hdr-logo img{height:52px;width:52px;object-fit:contain;border-radius:8px;}
+.hdr-logo-text h1{font-size:17px;color:var(--pud);font-weight:bold;line-height:1.2;}
+.hdr-logo-text p{font-size:11px;color:#999;}
+.hdr-back{margin-left:auto;font-size:13px;color:var(--pu);text-decoration:none;border:1px solid var(--pu);border-radius:6px;padding:5px 12px;}
+.hdr-back:hover{background:var(--pul);}
+
+/* ── Container ── */
+.wrap{max-width:860px;margin:0 auto;padding:20px 14px 40px;}
+.pg-title{font-size:22px;font-weight:bold;color:var(--pud);margin-bottom:4px;}
+.pg-sub{font-size:13px;color:#999;margin-bottom:20px;}
+
+/* ── Card ── */
+.card{background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,.07);margin-bottom:16px;}
+.card-title{font-size:13px;font-weight:bold;color:#333;margin-bottom:14px;display:flex;align-items:center;gap:6px;}
+
+/* ── Form ── */
+.cal-row{display:flex;gap:8px;margin-bottom:14px;}
+.cal-btn{flex:1;text-align:center;padding:9px;border:1.5px solid #ddd;border-radius:8px;cursor:pointer;font-size:13px;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px;user-select:none;}
+.cal-btn.active{border-color:var(--pu);background:var(--pul);color:var(--pu);font-weight:bold;}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.field-label{font-size:11px;color:#777;display:block;margin-bottom:5px;}
+.field{width:100%;padding:9px 11px;border:1px solid #ddd;border-radius:8px;font-size:14px;outline:none;transition:border-color .2s;}
+.field:focus{border-color:var(--pu);}
+.gender-row{display:flex;gap:16px;margin-bottom:4px;}
+.gender-row label{font-size:13px;cursor:pointer;display:flex;align-items:center;gap:5px;}
+.lunar-note{display:none;font-size:11px;color:var(--or);background:#fff8e1;border-radius:6px;padding:6px 10px;margin-bottom:10px;}
+.btn-calc{width:100%;padding:13px;background:linear-gradient(135deg,var(--pud),var(--pu));color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:bold;letter-spacing:3px;cursor:pointer;margin-top:14px;transition:opacity .2s;}
+.btn-calc:hover{opacity:.9;}
+.btn-reset{width:100%;padding:10px;background:#f5f0ff;color:var(--pu);border:1px solid var(--pu);border-radius:8px;font-size:14px;cursor:pointer;margin-top:10px;}
+
+/* ── Result ── */
+#result{display:none;}
+.birth-info{font-size:13px;color:#555;background:#f9f5ff;padding:9px 14px;border-radius:8px;margin-bottom:14px;}
+.birth-info strong{color:var(--pud);}
+
+/* ── 傳統命盤表格 ── */
+.mingpan{background:#fffde7;border:2px solid #b8860b;border-radius:12px;overflow:hidden;margin-bottom:16px;box-shadow:0 3px 12px rgba(0,0,0,.1);}
+.mp-hdr{background:#4a3000;color:#fff;padding:10px 16px;font-size:12px;line-height:1.8;}
+.mp-hdr strong{color:#ffd54f;font-size:14px;}
+.mp-meta{display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:6px;padding:10px 12px;background:#fff8e1;border-bottom:1px solid #d4a800;}
+.mp-meta-cell{text-align:center;background:#fff;border:1px solid #d4a800;border-radius:6px;padding:5px 4px;}
+.mp-meta-cell .ml{font-size:9px;color:#999;}
+.mp-meta-cell .mv{font-size:13px;font-weight:bold;color:#4a3000;}
+/* Main 4-column table */
+.mp-table-wrap{overflow-x:auto;}
+.mp-table{border-collapse:collapse;width:100%;min-width:280px;}
+.mp-table td{text-align:center;border:1px solid #d4a800;padding:4px 2px;background:#fffde7;min-width:60px;}
+.mp-table td.dm-col{background:#fff9c4;}
+.mp-col-hdr td{background:#5d3a00;color:#ffd54f;font-size:12px;font-weight:bold;padding:6px 4px;text-align:center;}
+.mp-col-hdr td.dm-col{background:#b8860b;color:#fff;}
+.mp-col-hdr td.mp-lbl{background:#3d2800 !important;}
+.mp-shishen td{font-size:11px;color:#666;padding:6px 2px;background:#fff8e1;}
+.mp-shishen td.dm-col{background:#fffde7;color:#b8860b;font-weight:bold;}
+.mp-stem td{font-size:38px;font-weight:900;padding:8px 4px;line-height:1;}
+.mp-branch td{font-size:38px;font-weight:900;padding:8px 4px;line-height:1;}
+.mp-cangan td{font-size:11px;padding:6px 4px;line-height:1.9;background:#fff8e1;}
+.mp-fuxing td{font-size:10px;padding:4px 2px;color:#777;line-height:1.7;background:#fffdf0;}
+.kw-badge{display:inline-block;font-size:8px;color:#c62828;background:#ffebee;border-radius:3px;padding:0 3px;margin-left:2px;vertical-align:top;line-height:1.6;}
+/* 大運 table */
+.mp-dayun{padding:10px 12px 14px;border-top:1px solid #d4a800;}
+.mp-dayun-title{font-size:11px;color:#5d3a00;font-weight:bold;margin-bottom:8px;}
+.dy-table{border-collapse:collapse;display:block;overflow-x:auto;white-space:nowrap;}
+.dy-table tr{display:table-row;}
+.dy-table td{display:table-cell;min-width:42px;text-align:center;border:1px solid #d4a800;padding:4px 2px;background:#fffde7;font-size:11px;}
+.dy-age-row td{background:#5d3a00;color:#fff;font-size:10px;font-weight:bold;}
+.dy-stem-row td{font-size:22px;font-weight:900;padding:5px 2px;}
+.dy-branch-row td{font-size:22px;font-weight:900;padding:5px 2px;}
+.dy-mark-row td{font-size:9px;padding:3px 1px;}
+.dy-xi td{background:#e8f5e9 !important;border-color:#a5d6a7 !important;}
+.dy-ji td{background:#ffebee !important;border-color:#ef9a9a !important;}
+/* 當前大運高亮 */
+.dy-cur{border:2px solid #f5c842 !important;position:relative;}
+.dy-cur-mark td{font-size:8px;color:#c8900a;font-weight:bold;background:#fff9e6 !important;}
+
+/* WX bars */
+.wx-row{display:flex;align-items:center;gap:7px;margin-bottom:5px;}
+.wx-lbl{width:32px;font-size:12px;}
+.wx-bg{flex:1;background:#f0f0f0;border-radius:4px;height:11px;overflow:hidden;}
+.wx-fill{height:11px;border-radius:4px;transition:width .8s ease;}
+.wx-cnt{width:64px;font-size:11px;color:#555;text-align:right;}
+
+/* Strength */
+.str-bg{background:#f0f0f0;border-radius:6px;height:12px;overflow:hidden;margin:6px 0 4px;}
+.str-fill{height:12px;border-radius:6px;transition:width .8s ease;}
+
+/* Liunian */
+.ln-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;}
+.ln-c{text-align:center;padding:5px 3px;border-radius:6px;border:1px solid #eee;}
+.ln-c.cur{background:#fff8e1;border-color:#f5c842;}
+.ln-yr{font-size:9px;color:#aaa;}
+.ln-gz{font-size:13px;font-weight:bold;}
+
+/* Shensha */
+.ss-tags{display:flex;flex-wrap:wrap;gap:7px;}
+.ss-tag{border-radius:14px;padding:4px 12px;font-size:12px;font-weight:bold;border:1px solid transparent;}
+
+/* Footer CTA */
+.cta-box{background:linear-gradient(135deg,var(--pud),var(--pu));color:#fff;border-radius:12px;padding:20px;text-align:center;}
+.cta-box h3{font-size:16px;margin-bottom:6px;}
+.cta-box p{font-size:12px;opacity:.8;margin-bottom:14px;}
+.cta-btn{background:#fff;color:var(--pu);border:none;padding:10px 28px;border-radius:8px;font-size:14px;font-weight:bold;cursor:pointer;text-decoration:none;display:inline-block;}
+
+/* ── 雙欄命盤外框 ── */
+.mp-outer{display:flex;gap:12px;margin-bottom:16px;align-items:flex-start;flex-wrap:wrap;}
+.mp-outer .mingpan{flex:1;min-width:280px;margin-bottom:0;}
+.mp-title{background:#4a3000;color:#ffd54f;font-size:14px;font-weight:bold;padding:8px 14px;text-align:center;letter-spacing:4px;}
+
+/* 表格右側行標籤 */
+.mp-lbl{background:#3d2800 !important;color:#ffd54f !important;font-size:11px !important;font-weight:bold !important;width:34px !important;vertical-align:middle;padding:2px 4px !important;white-space:nowrap;border-color:#6b4a00 !important;}
+
+/* ── 無敵律數面板 ── */
+.wudi-panel{flex:0 0 240px;min-width:200px;background:#fffde7;border:2px solid #b8860b;border-radius:12px;overflow:hidden;box-shadow:0 3px 12px rgba(0,0,0,.1);}
+.wudi-title{background:#4a3000;color:#ffd54f;font-size:13px;font-weight:bold;padding:8px 12px;text-align:center;letter-spacing:2px;}
+.wudi-body{padding:10px 12px;font-size:12px;}
+.wudi-geju{font-size:13px;font-weight:bold;color:#4a3000;margin-bottom:6px;}
+.wudi-geju span{color:#c62828;}
+.wudi-heji{font-size:11px;color:#5d3a00;background:#fff8e1;border-radius:6px;padding:5px 8px;margin-bottom:10px;}
+.wudi-table{width:100%;border-collapse:collapse;margin-top:6px;}
+.wudi-table th{background:#5d3a00;color:#fff;padding:5px 3px;text-align:center;font-size:11px;}
+.wudi-table td{border:1px solid #d4a800;padding:5px 3px;text-align:center;background:#fffde7;font-size:11px;}
+.wudi-table .wt-lbl{background:#fff8e1;color:#5d3a00;font-weight:bold;font-size:10px;}
+.wudi-table .wt-yong{background:#e8f5e9 !important;color:#1b5e20;font-weight:bold;}
+.wudi-table .wt-xi{background:#e3f2fd !important;color:#0d47a1;font-weight:bold;}
+.wudi-table .wt-bing{background:#ffebee !important;color:#b71c1c;font-weight:bold;}
+.wudi-table .wt-chou{background:#fff3e0 !important;color:#e65100;font-weight:bold;}
+.wudi-table .wt-jixiao{background:#f3e5ff !important;color:#6a0dad;font-weight:bold;}
+.wudi-table .wt-score{font-size:13px;font-weight:900;}
+
+@media(max-width:660px){
+  .mp-outer{flex-direction:column;}
+  .wudi-panel{flex:unset;width:100%;}
+  .form-grid{grid-template-columns:1fr;}
+  .pg-title{font-size:18px;}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span>☎ 服務專線：0800-XXX-XXX　週一至週五 09:00–18:00</span>
+  <span><a href="ziwei.html">← 回主站</a></span>
+</div>
+
+<header>
+  <a class="hdr-logo" href="ziwei.html">
+    <img src="logo.png" alt="AI八字紫微平台">
+    <div class="hdr-logo-text">
+      <h1>AI八字紫微平台</h1>
+      <p>專業命理占卜・紫微斗數・八字塔羅</p>
+    </div>
+  </a>
+  <a class="hdr-back" href="ziwei.html">← 回主站</a>
+</header>
+
+<div class="wrap">
+  <div class="pg-title">⭐ 免費八字排盤</div>
+  <div class="pg-sub">輸入出生年月日時辰，精準排出四柱八字・十神・大運・神煞</div>
+
+  <!-- ── 輸入表單 ── -->
+  <div class="card">
+    <div class="card-title">📋 輸入出生資料</div>
+
+    <div class="cal-row">
+      <div class="cal-btn active" id="btn-solar" onclick="switchCal('solar')">
+        ☀️ 陽曆
+      </div>
+      <div class="cal-btn" id="btn-lunar" onclick="switchCal('lunar')">
+        🌙 農曆
+      </div>
+    </div>
+    <div class="lunar-note" id="lunar-note">⚠️ 農曆輸入：系統以春節基準換算陽曆（2000–2030年適用）</div>
+
+    <div class="form-grid">
+      <div>
+        <label class="field-label">出生年（西元）</label>
+        <input class="field" id="f-year" type="number" placeholder="例：1990" min="1900" max="2100">
+      </div>
+      <div>
+        <label class="field-label">出生月</label>
+        <select class="field" id="f-month">
+          <option value="1">1 月</option><option value="2">2 月</option><option value="3">3 月</option>
+          <option value="4">4 月</option><option value="5">5 月</option><option value="6">6 月</option>
+          <option value="7">7 月</option><option value="8">8 月</option><option value="9">9 月</option>
+          <option value="10">10 月</option><option value="11">11 月</option><option value="12">12 月</option>
+        </select>
+      </div>
+      <div>
+        <label class="field-label">出生日</label>
+        <select class="field" id="f-day">
+          <!-- filled by JS -->
+        </select>
+      </div>
+      <div>
+        <label class="field-label">出生時辰</label>
+        <select class="field" id="f-hour">
+          <option value="0">早子時（0:00–1:00）</option>
+          <option value="1">丑時（1:00–3:00）</option>
+          <option value="2">寅時（3:00–5:00）</option>
+          <option value="3">卯時（5:00–7:00）</option>
+          <option value="4">辰時（7:00–9:00）</option>
+          <option value="5">巳時（9:00–11:00）</option>
+          <option value="6">午時（11:00–13:00）</option>
+          <option value="7">未時（13:00–15:00）</option>
+          <option value="8">申時（15:00–17:00）</option>
+          <option value="9">酉時（17:00–19:00）</option>
+          <option value="10">戌時（19:00–21:00）</option>
+          <option value="11">亥時（21:00–23:00）</option>
+          <option value="0b">夜子時（23:00–24:00）</option>
+        </select>
+      </div>
+    </div>
+
+    <div>
+      <label class="field-label">性別</label>
+      <div class="gender-row">
+        <label><input type="radio" name="gender" value="m" checked> 男</label>
+        <label><input type="radio" name="gender" value="f"> 女</label>
+      </div>
+    </div>
+
+    <button class="btn-calc" onclick="calcBazi()">⭐ 立 即 排 盤</button>
+  </div>
+
+  <!-- ── 結果 ── -->
+  <div id="result">
+
+    <!-- 傳統命盤 + 無敵律數 雙欄 -->
+    <div class="mp-outer">
+
+      <!-- 左：八字命盤 -->
+      <div class="mingpan">
+        <div class="mp-title">八字命盤</div>
+        <div class="mp-hdr" id="mp-hdr"></div>
+        <div class="mp-meta" id="mp-meta"></div>
+        <div class="mp-table-wrap">
+        <table class="mp-table">
+          <tbody>
+            <tr class="mp-col-hdr" id="mp-col-hdr"></tr>
+            <tr class="mp-shishen" id="mp-shishen"></tr>
+            <tr class="mp-stem"    id="mp-stem"></tr>
+            <tr class="mp-branch"  id="mp-branch"></tr>
+            <tr class="mp-cangan"  id="mp-cangan"></tr>
+            <tr class="mp-fuxing"  id="mp-fuxing"></tr>
+          </tbody>
+        </table>
+        </div>
+        <!-- 大運 -->
+        <div class="mp-dayun">
+          <div class="mp-dayun-title" id="mp-dayun-title"></div>
+          <div style="overflow-x:auto;">
+            <table class="dy-table" id="dy-table">
+              <tr class="dy-age-row"    id="dy-age"></tr>
+              <tr class="dy-stem-row"   id="dy-stem"></tr>
+              <tr class="dy-branch-row" id="dy-branch"></tr>
+              <tr class="dy-mark-row"   id="dy-mark"></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- 右：無敵律數 -->
+      <div class="wudi-panel">
+        <div class="wudi-title">無敵律數（參考）</div>
+        <div class="wudi-body" id="wudi-panel"></div>
+      </div>
+
+    </div><!-- /mp-outer -->
+
+    <!-- 刑沖合害 -->
+    <div id="chonghe-card" class="card" style="display:none;">
+      <div id="chonghe"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">⚖️ 日主強弱</div>
+      <div id="strength-section"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🎯 喜用神・忌神</div>
+      <div id="xiyong-section"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🏛 格局判斷</div>
+      <div id="geju-section"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🌊 五行加權分數（天干5分・地支藏干主3中2餘1）</div>
+      <div id="wx-bars"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📅 流年速查（前後5年）</div>
+      <div class="ln-grid" id="liunian"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">✨ 神煞</div>
+      <div class="ss-tags" id="shensha"></div>
+      <div style="font-size:10px;color:#aaa;margin-top:8px;">以日主天干、年支為基準判斷四柱神煞</div>
+    </div>
+
+    <div class="cta-box">
+      <h3>想深入了解格局・調候・流年詳細運程？</h3>
+      <p>以上為系統自動排盤初判，精準格局・用神・流年解析請預約命理師一對一分析</p>
+      <a class="cta-btn" href="ziwei.html">前往預約諮詢 →</a>
+    </div>
+
+    <button class="btn-reset" onclick="resetForm()">重新輸入</button>
+  </div>
+
+  <!-- 改版說明 -->
+  <div style="max-width:860px;margin:0 auto;padding:0 14px 40px;">
+    <div class="card" style="border-top:3px solid var(--pud);">
+      <div class="card-title">📋 改版說明</div>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <div style="min-width:80px;text-align:center;background:#ffebee;border-radius:6px;padding:4px 8px;font-size:11px;color:#c62828;font-weight:bold;white-space:nowrap;">v3.2<br><span style="font-weight:normal;color:#aaa;">2026.04</span></div>
+          <div>
+            <div style="font-weight:bold;font-size:13px;color:#c62828;margin-bottom:4px;">🔧 重大修正：日柱算法錯誤修正</div>
+            <ul style="font-size:12px;color:#555;line-height:1.8;padding-left:16px;">
+              <li>修正 Julian Day 日柱錨點錯誤，導致日柱、時柱、空亡、納音全部偏差</li>
+              <li>以 myfate 多筆驗證（1991-02-03=甲辰、2026-04-22=丙寅）確認新錨點正確</li>
+              <li>日主強弱、喜用神、格局現已依正確日干重算</li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid #f0e8ff;padding-top:12px;display:flex;gap:12px;align-items:flex-start;">
+          <div style="min-width:80px;text-align:center;background:var(--pul);border-radius:6px;padding:4px 8px;font-size:11px;color:var(--pud);font-weight:bold;white-space:nowrap;">v3.1<br><span style="font-weight:normal;color:#aaa;">2026.04</span></div>
+          <div>
+            <div style="font-weight:bold;font-size:13px;color:var(--pud);margin-bottom:4px;">格局判斷 ／ 天干五合偵測</div>
+            <ul style="font-size:12px;color:#555;line-height:1.8;padding-left:16px;">
+              <li>月令主氣自動識別十大格局（建祿・七殺・食神・傷官・正財・偏財・正官・正印・偏印・月刃）</li>
+              <li>判斷格局透干成格 / 藏干入格，並偵測破格條件</li>
+              <li>天干五合偵測：甲己・乙庚・丙辛・丁壬・戊癸</li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid #f0e8ff;padding-top:12px;display:flex;gap:12px;align-items:flex-start;">
+          <div style="min-width:80px;text-align:center;background:#f0f4ff;border-radius:6px;padding:4px 8px;font-size:11px;color:#4527a0;font-weight:bold;white-space:nowrap;">v3.0<br><span style="font-weight:normal;color:#aaa;">2026.04</span></div>
+          <div>
+            <div style="font-weight:bold;font-size:13px;color:#555;margin-bottom:4px;">喜用神・忌神自動判斷 ／ 刑沖合害標示</div>
+            <ul style="font-size:12px;color:#555;line-height:1.8;padding-left:16px;">
+              <li>根據身強/身弱自動推算喜用神與忌神五行及對應十神</li>
+              <li>四柱地支自動偵測六沖、六合、三合局、三刑、六害</li>
+              <li>大運・流年格子標示「✅好運」或「⚠慎行」</li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid #f0e8ff;padding-top:12px;display:flex;gap:12px;align-items:flex-start;">
+          <div style="min-width:80px;text-align:center;background:#f5f5f5;border-radius:6px;padding:4px 8px;font-size:11px;color:#888;font-weight:bold;white-space:nowrap;">v2.0<br><span style="font-weight:normal;color:#aaa;">2026.04</span></div>
+          <div>
+            <div style="font-weight:bold;font-size:13px;color:#555;margin-bottom:4px;">五行加權計分 ／ 十二長生強弱</div>
+            <ul style="font-size:12px;color:#555;line-height:1.8;padding-left:16px;">
+              <li>五行計分升級：天干5分、地支藏干主氣3/中氣2/餘氣1分加權</li>
+              <li>日主強弱由旺相休囚死升級為十二長生（長生・臨官・帝旺…）</li>
+              <li>強弱顯示升級為幫身 vs 耗身百分比色條</li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid #f0e8ff;padding-top:12px;display:flex;gap:12px;align-items:flex-start;">
+          <div style="min-width:80px;text-align:center;background:#f5f5f5;border-radius:6px;padding:4px 8px;font-size:11px;color:#888;font-weight:bold;white-space:nowrap;">v1.0<br><span style="font-weight:normal;color:#aaa;">2026.03</span></div>
+          <div>
+            <div style="font-weight:bold;font-size:13px;color:#555;margin-bottom:4px;">核心排盤引擎建立</div>
+            <ul style="font-size:12px;color:#555;line-height:1.8;padding-left:16px;">
+              <li>壽星算法精確節氣：取代固定日期查表，誤差大幅降低</li>
+              <li>五虎遁年起月法修正：甲己丙寅起、乙庚戊寅起…（正確版）</li>
+              <li>Julian Day Number 精算日柱，不受閏年影響</li>
+              <li>起運歲數顯示「X年Y個月」精確格式</li>
+              <li>神煞：天乙貴人、文昌、驛馬、桃花、羊刃</li>
+              <li>支援農曆輸入（2000–2030）</li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid #f0e8ff;padding-top:10px;font-size:11px;color:#bbb;text-align:center;">
+          本工具持續優化中・下版預計加入：調候用神・命盤綜合文字分析
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ── 基礎資料 ──
+const 天干 = ['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
+const 地支 = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
+const 生肖 = ['鼠','牛','虎','兔','龍','蛇','馬','羊','猴','雞','狗','豬'];
+const 五行天干 = ['木','木','火','火','土','土','金','金','水','水'];
+const 五行地支 = ['水','土','木','木','土','火','火','土','金','金','土','水'];
+const 納音表 = ['海中金','爐中火','大林木','路旁土','劍鋒金','山頭火','澗下水','城頭土','白蠟金','楊柳木','泉中水','屋上土','霹靂火','松柏木','長流水','沙中金','山下火','平地木','壁上土','金箔金','覆燈火','天河水','大驛土','釵釧金','桑柘木','大溪水','沙中土','天上火','石榴木','大海水'];
+
+const wxC  = {木:'var(--wMu)',火:'var(--wHuo)',土:'var(--wTu)',金:'var(--wJin)',水:'var(--wShui)'};
+const wxBg = {木:'var(--bgMu)',火:'var(--bgHuo)',土:'var(--bgTu)',金:'var(--bgJin)',水:'var(--bgShui)'};
+const wxEm = {木:'🌳',火:'🔥',土:'🏔',金:'✨',水:'💧'};
+
+// 地支藏干 [主氣, 中氣, 餘氣]
+const 藏干 = [
+  ['癸'],           // 子
+  ['己','癸','辛'], // 丑
+  ['甲','丙','戊'], // 寅
+  ['乙'],           // 卯
+  ['戊','乙','癸'], // 辰
+  ['丙','戊','庚'], // 巳
+  ['丁','己'],      // 午
+  ['己','丁','乙'], // 未
+  ['庚','壬','戊'], // 申
+  ['辛'],           // 酉
+  ['戊','辛','丁'], // 戌
+  ['壬','甲'],      // 亥
+];
+
+// 五行對應索引 (for 十神)
+const wxIdx = {木:0,火:1,土:2,金:3,水:4};
+
+// ── 壽星算法：精確節氣日期 ──
+// 12節: 小寒(1月)、立春(2月)、驚蟄(3月)、清明(4月)、立夏(5月)、芒種(6月)
+//       小暑(7月)、立秋(8月)、白露(9月)、寒露(10月)、立冬(11月)、大雪(12月)
+const jieC20 = [6.3600,4.6295,6.3836,5.1500,6.3306,6.3306,7.0002,7.5433,8.3500,8.4400,7.2094,7.0994];
+const jieC21 = [5.9259,3.8700,5.9749,4.8100,5.9271,5.9271,6.2637,7.0777,7.6011,7.2911,6.7175,6.4737];
+
+function getJieDay(year, monthIdx) {
+  const Y = year % 100;
+  const C = year < 2000 ? jieC20[monthIdx] : jieC21[monthIdx];
+  let D = Math.floor(Y * 0.2422 + C) - Math.floor(Y / 4);
+  // 世紀整年修正
+  if (year % 400 === 0) D -= 1;
+  else if (year % 100 === 0) D += 1;
+  return D;
+}
+
+// 節後月建地支
+const zhiAfter  = [1,2,3,4,5,6,7,8,9,10,11,0]; // 小寒後丑、立春後寅…
+const zhiBefore = [0,1,2,3,4,5,6,7,8,9,10,11]; // 節前為前一月
+
+function getMonthZhi(year, month, day) {
+  const mi = month - 1;
+  const jd = getJieDay(year, mi);
+  return day >= jd ? zhiAfter[mi] : zhiBefore[mi];
+}
+
+// 年柱以立春為界（壽星算法）
+function getYearGanZhi(year, month, day) {
+  const lichun = getJieDay(year, 1); // 2月立春日
+  const useYear = (month < 2 || (month === 2 && day < lichun)) ? year - 1 : year;
+  const yearBase = 1984; // 甲子年
+  const ganIdx = ((useYear - yearBase) % 10 + 10) % 10;
+  const zhiIdx = ((useYear - yearBase) % 12 + 12) % 12;
+  return { ganIdx, zhiIdx };
+}
+
+// 月柱天干（五虎遁年起月）
+// 甲己丙寅起(2)、乙庚戊寅起(4)、丙辛庚寅起(6)、丁壬壬寅起(8)、戊癸甲寅起(0)
+function getMonthGan(yearGanIdx, monthZhiIdx) {
+  const base = [2,4,6,8,0][yearGanIdx % 5]; // 寅月起天干（正確版）
+  return ((base + (monthZhiIdx - 2 + 12) % 12) % 10);
+}
+
+// Julian Day Number → 日柱
+function getJD(year, month, day) {
+  const aa = Math.floor((14 - month) / 12);
+  const yy = year - aa;
+  const mm = month + 12 * aa - 2;
+  return day + Math.floor((153 * mm + 2) / 5) + 365 * yy + Math.floor(yy / 4) - Math.floor(yy / 100) + Math.floor(yy / 400) - 32045;
+}
+
+// 時柱天干（五鼠遁日起時）
+function getHourGan(dayGanIdx, hourZhiIdx) {
+  const base = [0,2,4,6,8][dayGanIdx % 5];
+  return (base + hourZhiIdx) % 10;
+}
+
+// 十神
+function tenGod(dayGanIdx, targetGanIdx) {
+  const dayWx = wxIdx[五行天干[dayGanIdx]];
+  const tgtWx = wxIdx[五行天干[targetGanIdx]];
+  const diff = (tgtWx - dayWx + 5) % 5;
+  const same = (dayGanIdx % 2) === (targetGanIdx % 2);
+  const names = same
+    ? ['比肩','食神','偏財','七殺','偏印']
+    : ['劫財','傷官','正財','正官','正印'];
+  return names[diff];
+}
+
+// 西洋星座
+function getXingzuo(month, day) {
+  const lim = [20,19,21,20,21,22,23,23,23,24,22,22];
+  const nam = ['摩羯','水瓶','雙魚','牡羊','金牛','雙子','巨蟹','獅子','處女','天秤','天蠍','射手','摩羯'];
+  return day < lim[month-1] ? nam[month-1] : nam[month];
+}
+
+// ── 農曆→陽曆（2000–2030，以春節為基準）──
+const cnyTable = {
+  2000:[1,28],2001:[1,24],2002:[2,12],2003:[2,1],2004:[1,22],2005:[2,9],
+  2006:[1,29],2007:[2,18],2008:[2,7],2009:[1,26],2010:[2,14],2011:[2,3],
+  2012:[1,23],2013:[2,10],2014:[1,31],2015:[2,19],2016:[2,8],2017:[1,28],
+  2018:[2,16],2019:[2,5],2020:[1,25],2021:[2,12],2022:[2,1],2023:[1,22],
+  2024:[2,10],2025:[1,29],2026:[2,17],2027:[2,6],2028:[1,26],2029:[2,13],2030:[2,3]
+};
+function lunarToSolar(ly, lm, ld) {
+  const c = cnyTable[ly];
+  if (!c) return null;
+  const cnyDate = new Date(ly, c[0]-1, c[1]);
+  const offset = (lm-1)*30 + (ld-1);
+  const sol = new Date(cnyDate.getTime() + offset*86400000);
+  return [sol.getFullYear(), sol.getMonth()+1, sol.getDate()];
+}
+
+// ── 十二長生表 ──
+// 各天干的長生起始地支（甲乙丙丁戊己庚辛壬癸）
+// 陽干順行：甲亥(11)、丙寅(2)、戊寅(2)、庚巳(5)、壬申(8)
+// 陰干逆行：乙午(6)、丁酉(9)、己酉(9)、辛子(0)、癸卯(3)
+const csStart = [11,6,2,9,2,9,5,0,8,3];
+const csYang  = [true,false,true,false,true,false,true,false,true,false];
+const csNames = ['長生','沐浴','冠帶','臨官','帝旺','衰','病','死','墓','絕','胎','養'];
+// 各階段強度分數（月令用）
+const csScore = [1.2,0.5,1.0,1.2,1.5,0.6,0.4,0.1,0.5,0.1,0.3,0.5];
+// 階段顏色
+const csColor = ['#388e3c','#78909c','#0288d1','#2e7d32','#c62828','#78909c','#e65100','#9e9e9e','#6d4c41','#9e9e9e','#7b1fa2','#0277bd'];
+
+function getCS(ganIdx, zhiIdx) {
+  const start = csStart[ganIdx];
+  const yang  = csYang[ganIdx];
+  const step  = yang ? (zhiIdx - start + 12) % 12 : (start - zhiIdx + 12) % 12;
+  return { name: csNames[step], score: csScore[step], color: csColor[step], step };
+}
+
+// 五行生剋關係
+const wxGenBy  = {木:'水',火:'木',土:'火',金:'土',水:'金'}; // 生我者（印）
+const wxGens   = {木:'火',火:'土',土:'金',金:'水',水:'木'}; // 我生者（食傷）
+const wxKills  = {木:'土',火:'金',土:'水',金:'木',水:'火'}; // 我克者（財）
+const wxKilledBy={木:'金',火:'水',土:'木',金:'火',水:'土'}; // 克我者（官殺）
+
+// 藏干加權分數 [主氣, 中氣, 餘氣]
+const 藏干重 = [3, 2, 1];
+
+// ── 刑沖合害資料 ──
+// 六沖：[zhiA, zhiB, name]
+const liuChong = [[0,6,'子午沖'],[1,7,'丑未沖'],[2,8,'寅申沖'],[3,9,'卯酉沖'],[4,10,'辰戌沖'],[5,11,'巳亥沖']];
+// 六合：[zhiA, zhiB, name, 合化五行]
+const liuHe    = [[0,1,'子丑合','土'],[2,11,'寅亥合','木'],[3,10,'卯戌合','火'],[4,9,'辰酉合','金'],[5,8,'巳申合','水'],[6,7,'午未合','火']];
+// 三合局：[三地支, name, 五行]
+const sanHe    = [
+  {z:[8,0,4],  n:'申子辰水局', wx:'水'},
+  {z:[2,6,10], n:'寅午戌火局', wx:'火'},
+  {z:[5,9,1],  n:'巳酉丑金局', wx:'金'},
+  {z:[11,3,7], n:'亥卯未木局', wx:'木'},
+];
+// 半三合（兩支）
+const banSanHe = [
+  {z:[8,0],n:'申子半合水',wx:'水'},{z:[0,4],n:'子辰半合水',wx:'水'},
+  {z:[2,6],n:'寅午半合火',wx:'火'},{z:[6,10],n:'午戌半合火',wx:'火'},
+  {z:[5,9],n:'巳酉半合金',wx:'金'},{z:[9,1],n:'酉丑半合金',wx:'金'},
+  {z:[11,3],n:'亥卯半合木',wx:'木'},{z:[3,7],n:'卯未半合木',wx:'木'},
+];
+// 三刑
+const sanXing  = [
+  {z:[2,5,8],  n:'寅巳申三刑（無恩）'},
+  {z:[1,10,7], n:'丑戌未三刑（持勢）'},
+  {z:[0,3],    n:'子卯相刑（無禮）'},
+];
+const ziXing   = [4,6,9,11]; // 自刑：辰午酉亥
+// 六害
+const liuHai   = [[0,7,'子未害'],[1,6,'丑午害'],[2,5,'寅巳害'],[3,4,'卯辰害'],[8,11,'申亥害'],[9,10,'酉戌害']];
+// 天干五合
+const ganHe    = [[0,5,'甲己合','土'],[1,6,'乙庚合','金'],[2,7,'丙辛合','水'],[3,8,'丁壬合','木'],[4,9,'戊癸合','火']];
+
+// ── 格局資料 ──
+const gejuData = {
+  '比肩': {name:'建祿格', icon:'🏆', color:'#1565c0', desc:'日主得月令祿位，元氣充足，格局清純。', yiji:'喜財官洩秀，忌比劫印星助身太過'},
+  '劫財': {name:'月刃格', icon:'⚔️', color:'#b71c1c', desc:'刃格剛銳英勇，宜官殺制刃，不宜助刃。', yiji:'喜官殺制刃，忌比劫印星'},
+  '食神': {name:'食神格', icon:'🍀', color:'#388e3c', desc:'食神格溫和有貴氣，才藝出眾，宜生財。', yiji:'喜財星，忌偏印奪食（梟神）'},
+  '傷官': {name:'傷官格', icon:'💡', color:'#f57c00', desc:'傷官格聰明才智卓越，思維靈活，宜配印或生財。', yiji:'喜印星・財星，忌正官（傷官見官）'},
+  '正財': {name:'正財格', icon:'💰', color:'#2e7d32', desc:'正財格踏實穩健，理財有道，財源細水長流。', yiji:'喜官星護財，忌比劫奪財'},
+  '偏財': {name:'偏財格', icon:'🎲', color:'#00838f', desc:'偏財格財源廣進，投機靈活，善於交際。', yiji:'喜官殺保財，忌比劫奪財'},
+  '正官': {name:'正官格', icon:'👑', color:'#4527a0', desc:'正官格端正有為，事業順遂，最宜仕途。', yiji:'喜財印輔助，忌傷官破官・七殺混雜'},
+  '七殺': {name:'七殺格', icon:'🔱', color:'#880e4f', desc:'七殺格英勇果敢，制化得宜可建功業。', yiji:'喜食神制殺・印化殺，忌財星生殺'},
+  '正印': {name:'正印格', icon:'📚', color:'#1a237e', desc:'正印格學識淵博，貴人緣佳，文學藝術見長。', yiji:'喜官星生印，忌財星壞印'},
+  '偏印': {name:'偏印格', icon:'🔮', color:'#6a1b9a', desc:'偏印格直覺靈敏，思維獨特，宜財星制梟。', yiji:'喜財星制梟，忌食神被奪（倒食格）'},
+};
+
+// ── 初始化日期下拉 ──
+function fillDays() {
+  const m = parseInt(document.getElementById('f-month').value);
+  const y = parseInt(document.getElementById('f-year').value) || 2000;
+  const max = new Date(y, m, 0).getDate();
+  const sel = document.getElementById('f-day');
+  const cur = parseInt(sel.value) || 1;
+  sel.innerHTML = Array.from({length:max},(_,i)=>`<option value="${i+1}"${i+1===cur?' selected':''}>${i+1} 日</option>`).join('');
+}
+
+document.getElementById('f-month').addEventListener('change', fillDays);
+document.getElementById('f-year').addEventListener('change', fillDays);
+fillDays();
+
+// ── 陽/農曆切換 ──
+let isLunar = false;
+function switchCal(mode) {
+  isLunar = mode === 'lunar';
+  document.getElementById('btn-solar').classList.toggle('active', !isLunar);
+  document.getElementById('btn-lunar').classList.toggle('active', isLunar);
+  document.getElementById('lunar-note').style.display = isLunar ? 'block' : 'none';
+}
+
+// ── 主計算 ──
+function calcBazi() {
+  let year  = parseInt(document.getElementById('f-year').value) || 0;
+  let month = parseInt(document.getElementById('f-month').value);
+  let day   = parseInt(document.getElementById('f-day').value);
+  const hourVal = document.getElementById('f-hour').value;
+  const hour    = hourVal === '0b' ? 0 : parseInt(hourVal); // 夜子時 = 0 但隔天
+  const isNightZi = hourVal === '0b';
+  const gender  = document.querySelector('input[name=gender]:checked').value;
+
+  if (!year || year < 1900 || year > 2100) { alert('請輸入正確的西元年份（1900–2100）'); return; }
+
+  // 農曆換算
+  const lunarLabel = isLunar ? `農曆 ${year}年${month}月${day}日` : '';
+  if (isLunar) {
+    const sol = lunarToSolar(year, month, day);
+    if (!sol) { alert('農曆換算範圍：2000–2030年'); return; }
+    [year, month, day] = sol;
+  }
+
+  // 夜子時：日期進一天
+  let calcYear=year, calcMonth=month, calcDay=day;
+  if (isNightZi) {
+    const next = new Date(year, month-1, day+1);
+    calcYear=next.getFullYear(); calcMonth=next.getMonth()+1; calcDay=next.getDate();
+  }
+
+  // ── 年柱 ──
+  const { ganIdx: yearGanIdx, zhiIdx: yearZhiIdx } = getYearGanZhi(year, month, day);
+
+  // ── 月柱 ──
+  const monthZhiIdx = getMonthZhi(year, month, day);
+  const monthGanIdx = getMonthGan(yearGanIdx, monthZhiIdx);
+
+  // ── 日柱 ──
+  // JD_ANCHOR 校正：令 1991-02-03=甲辰(pos40)、2026-04-22=丙寅(pos2) 皆驗證正確
+  const jd      = getJD(calcYear, calcMonth, calcDay);
+  const JD_ANCHOR = 695117;
+  const jdOff   = jd - JD_ANCHOR;
+  const dayGanIdx  = ((jdOff % 10) + 10) % 10;
+  const dayZhiIdx  = ((jdOff % 12) + 12) % 12;
+
+  // ── 時柱 ──
+  const hourZhiIdx = hour;
+  const hourGanIdx = getHourGan(dayGanIdx, hourZhiIdx);
+
+  // ── 空亡 ──
+  const jd60 = ((jdOff % 60) + 60) % 60;
+  const kwPairs = [[10,11],[8,9],[6,7],[4,5],[2,3],[0,1]];
+  const [kw1,kw2] = kwPairs[Math.floor(jd60 / 10)];
+
+  // ── 命宮（虎遁月起時法）──
+  // 以月建地支為基準，逆數出生時辰
+  // 公式：月建地支 - 時支序號 + 2（寅=正月基準）
+  const mingGongZhiIdx = ((monthZhiIdx - hourZhiIdx + 2 + 24) % 12);
+
+  // ── 胎元 ──
+  const taiYuan = 天干[(monthGanIdx+1)%10] + 地支[(monthZhiIdx+3)%12];
+
+  // ── 納音 ──
+  const nayin = 納音表[Math.floor(jd60/2)];
+
+  // ── 五行加權計分 ──
+  // 天干各5分；地支藏干：主氣3分、中氣2分、餘氣1分
+  const wxScore = {木:0,火:0,土:0,金:0,水:0};
+  [yearGanIdx,monthGanIdx,dayGanIdx,hourGanIdx].forEach(i => wxScore[五行天干[i]] += 5);
+  [yearZhiIdx,monthZhiIdx,dayZhiIdx,hourZhiIdx].forEach(zi => {
+    藏干[zi].forEach((g, pos) => wxScore[五行天干[天干.indexOf(g)]] += 藏干重[pos] ?? 1);
+  });
+  const wxTotal = Object.values(wxScore).reduce((a,b)=>a+b, 0);
+
+  // ── 日主強弱（十二長生 + 總分法）──
+  const dayWx  = 五行天干[dayGanIdx];
+  const monthCS = getCS(dayGanIdx, monthZhiIdx); // 月令十二長生
+  // 幫身五行 = 同類(比劫) + 印星(生日主者)
+  const helpWxSet = new Set([dayWx, wxGenBy[dayWx]]);
+  let helpScore = 0, hurtScore = 0;
+  for (const [wx, sc] of Object.entries(wxScore)) {
+    if (helpWxSet.has(wx)) helpScore += sc; else hurtScore += sc;
+  }
+  const helpPct = Math.round(helpScore / wxTotal * 100);
+
+  // ── 喜用神・忌神判斷 ──
+  let xiArr = [], jiArr = []; // 喜用五行、忌神五行
+  if (helpPct >= 55) {
+    // 身強：喜洩身、耗身 → 食傷、財、官殺
+    xiArr = [wxGens[dayWx], wxKills[dayWx], wxKilledBy[dayWx]];
+    jiArr = [dayWx, wxGenBy[dayWx]];
+  } else if (helpPct <= 45) {
+    // 身弱：喜生身、助身 → 印、比劫
+    xiArr = [dayWx, wxGenBy[dayWx]];
+    jiArr = [wxGens[dayWx], wxKills[dayWx], wxKilledBy[dayWx]];
+  }
+  // 中和（45–55%）暫不強判，顯示「需細判格局」
+  const xiSet = new Set(xiArr);
+  const jiSet = new Set(jiArr);
+
+  // 十神標籤對應
+  function wxToShishen(wx) {
+    if (wx === dayWx)           return '比劫';
+    if (wx === wxGenBy[dayWx])  return '印星';
+    if (wx === wxGens[dayWx])   return '食傷';
+    if (wx === wxKills[dayWx])  return '財星';
+    if (wx === wxKilledBy[dayWx]) return '官殺';
+    return '';
+  }
+
+  // ── 刑沖合害計算 ──
+  const allZhiArr = [yearZhiIdx, monthZhiIdx, dayZhiIdx, hourZhiIdx];
+  const pilLbl = ['年','月','日','時'];
+  const chongHeItems = [];
+
+  // 六沖
+  for (const [a,b,name] of liuChong) {
+    const hits = [];
+    allZhiArr.forEach((z,i)=>{ if(z===a||z===b) hits.push(i); });
+    if (hits.length>=2) {
+      const pair = hits.filter((h,i,arr)=>arr.findIndex(x=>allZhiArr[x]!==allZhiArr[h]||i===0)>=0);
+      for (let i=0;i<hits.length-1;i++) for(let j=i+1;j<hits.length;j++) {
+        if((allZhiArr[hits[i]]===a&&allZhiArr[hits[j]]===b)||(allZhiArr[hits[i]]===b&&allZhiArr[hits[j]]===a))
+          chongHeItems.push({type:'沖',label:name,pils:`${pilLbl[hits[i]]}・${pilLbl[hits[j]]}`,color:'#c62828',bg:'#ffebee'});
+      }
+    }
+  }
+  // 六合
+  for (const [a,b,name,wx] of liuHe) {
+    const ia=allZhiArr.indexOf(a), ib=allZhiArr.lastIndexOf(b);
+    if(ia>=0&&ib>=0&&ia!==ib) chongHeItems.push({type:'合',label:`${name}（${wx}）`,pils:`${pilLbl[ia]}・${pilLbl[ib]}`,color:'#1565c0',bg:'#e3f2fd'});
+    else { const ia2=allZhiArr.indexOf(b),ib2=allZhiArr.lastIndexOf(a); if(ia2>=0&&ib2>=0&&ia2!==ib2) chongHeItems.push({type:'合',label:`${name}（${wx}）`,pils:`${pilLbl[ib2]}・${pilLbl[ia2]}`,color:'#1565c0',bg:'#e3f2fd'}); }
+  }
+  // 三合
+  for (const sh of sanHe) {
+    const found = sh.z.map(z=>allZhiArr.indexOf(z)).filter(i=>i>=0);
+    if (found.length===3) chongHeItems.push({type:'三合',label:`${sh.n}`,pils:found.map(i=>pilLbl[i]).join('・'),color:'#6a1b9a',bg:'#f3e5ff'});
+    else if (found.length===2) {
+      const key = found.map(i=>sh.z[sh.z.indexOf(allZhiArr[i])]).sort().join(',');
+      const bsh = banSanHe.find(b=>b.z.every(z=>found.some(fi=>allZhiArr[fi]===z)));
+      if(bsh) chongHeItems.push({type:'半合',label:bsh.n,pils:found.map(i=>pilLbl[i]).join('・'),color:'#7b1fa2',bg:'#f9f0ff'});
+    }
+  }
+  // 三刑
+  for (const sx of sanXing) {
+    const found = sx.z.map(z=>allZhiArr.findIndex(v=>v===z)).filter(i=>i>=0);
+    const uniq = [...new Set(found)];
+    if (uniq.length===sx.z.length) chongHeItems.push({type:'刑',label:sx.n,pils:uniq.map(i=>pilLbl[i]).join('・'),color:'#e65100',bg:'#fff3e0'});
+  }
+  // 自刑
+  ziXing.forEach(z=>{ const idxs=allZhiArr.map((v,i)=>v===z?i:-1).filter(i=>i>=0); if(idxs.length>=2) chongHeItems.push({type:'刑',label:`${地支[z]}${地支[z]}自刑`,pils:idxs.map(i=>pilLbl[i]).join('・'),color:'#e65100',bg:'#fff3e0'}); });
+  // 六害
+  for (const [a,b,name] of liuHai) {
+    const ia=allZhiArr.findIndex(v=>v===a), ib=allZhiArr.findIndex(v=>v===b);
+    if(ia>=0&&ib>=0) chongHeItems.push({type:'害',label:name,pils:`${pilLbl[ia]}・${pilLbl[ib]}`,color:'#546e7a',bg:'#eceff1'});
+  }
+  // 天干五合
+  const allGanArr = [yearGanIdx, monthGanIdx, dayGanIdx, hourGanIdx];
+  for (const [a,b,name,wx] of ganHe) {
+    const ia=allGanArr.indexOf(a), ib=allGanArr.indexOf(b);
+    if(ia>=0&&ib>=0) chongHeItems.unshift({type:'天干合',label:`${name}（化${wx}）`,pils:`${pilLbl[ia]}・${pilLbl[ib]}`,color:'#0277bd',bg:'#e1f5fe'});
+  }
+
+  // ── 格局判斷（月令法）──
+  const monthMainGan    = 藏干[monthZhiIdx][0];            // 月支主氣藏干
+  const monthMainGanIdx = 天干.indexOf(monthMainGan);
+  const gejuShishen     = tenGod(dayGanIdx, monthMainGanIdx); // 月令主氣十神
+  const gejuInfo        = gejuData[gejuShishen] || {name:gejuShishen+'格', icon:'☯', color:'#555', desc:'月令藏干十神決定格局。', yiji:'視命盤整體而定'};
+  // 格局成立要件：月令主氣透出天干或得地支助力（簡化版：判斷是否透干）
+  const gejuTouGan = allGanArr.some(g => 五行天干[g] === 五行天干[monthMainGanIdx] && g !== dayGanIdx);
+  // 格局清濁：是否有忌神破格
+  const gejuBroken = (gejuShishen==='正官' && allGanArr.some(g=>tenGod(dayGanIdx,g)==='傷官'))
+                  || (gejuShishen==='食神' && allGanArr.some(g=>tenGod(dayGanIdx,g)==='偏印'))
+                  || (gejuShishen==='正財' && allGanArr.filter(g=>['比肩','劫財'].includes(tenGod(dayGanIdx,g))).length >= 2);
+
+  // ── 大運 ──
+  const 年基 = 1984;
+  const shunxing = (gender==='m' && yearGanIdx%2===0) || (gender==='f' && yearGanIdx%2===1);
+  // 用壽星算法取得正確節氣日
+  const jieD     = getJieDay(year, month-1);           // 本月節
+  const nextM    = month===12 ? 1 : month+1;
+  const nextY    = month===12 ? year+1 : year;
+  const jieNext  = getJieDay(nextY, nextM-1);          // 下月節
+  const jiePrev  = getJieDay(month===1?year-1:year, (month-2+12)%12); // 上月節
+  const daysInPrevM = new Date(year, month-1, 0).getDate();
+  const daysInM     = new Date(year, month, 0).getDate();
+  let qDays;
+  if (shunxing) {
+    qDays = day < jieD ? jieD - day : daysInM - day + jieNext;
+  } else {
+    qDays = day > jieD ? day - jieD : day + daysInPrevM - jiePrev;
+  }
+  qDays = Math.max(1, qDays);
+  // 精確起運：每3天=1年，餘1天=4個月，餘2天=8個月
+  const qYears  = Math.floor(qDays / 3);
+  const qMonths = (qDays % 3) * 4;
+  const qAge = qYears + (qMonths >= 6 ? 1 : 0); // 顯示大運格子用整歲
+  const qAgeStr = qYears > 0
+    ? (qMonths > 0 ? `${qYears}年${qMonths}個月` : `${qYears}年`)
+    : `${qMonths}個月`;
+  const dayuns = Array.from({length:10},(_,i)=>{
+    const n = shunxing ? (i+1) : -(i+1);
+    const gI = ((monthGanIdx+n)%10+10)%10;
+    const zI = ((monthZhiIdx+n)%12+12)%12;
+    return {gan:天干[gI],zhi:地支[zI],wg:五行天干[gI],wz:五行地支[zI],age:qAge+i*10,yr:year+qAge+i*10,gI,zI};
+  });
+
+  // ── 流年 ──
+  const curYr = new Date().getFullYear();
+  const liuNian = Array.from({length:10},(_,i)=>{
+    const yr=curYr+i-5;
+    const gI=((yr-年基)%10+10)%10, zI=((yr-年基)%12+12)%12;
+    return {yr,gan:天干[gI],zhi:地支[zI],wx:五行天干[gI],gI};
+  });
+
+  // ── 神煞 ──
+  const tianyiMap  = {甲:['丑','未'],乙:['子','申'],丙:['亥','酉'],丁:['亥','酉'],戊:['丑','未'],己:['子','申'],庚:['丑','未'],辛:['寅','午'],壬:['卯','巳'],癸:['卯','巳']};
+  const wenchangMap= {甲:'巳',乙:'午',丙:'申',丁:'酉',戊:'申',己:'酉',庚:'亥',辛:'子',壬:'寅',癸:'卯'};
+  const yimaMap    = {子:'寅',丑:'亥',寅:'申',卯:'巳',辰:'寅',巳:'亥',午:'申',未:'巳',申:'寅',酉:'亥',戌:'申',亥:'巳'};
+  const taohuaMap  = {子:'酉',丑:'午',寅:'卯',卯:'子',辰:'酉',巳:'午',午:'卯',未:'子',申:'酉',酉:'午',戌:'卯',亥:'子'};
+  const yangrenMap = {甲:'卯',乙:'寅',丙:'午',丁:'巳',戊:'午',己:'巳',庚:'酉',辛:'申',壬:'子',癸:'亥'};
+  const allZhi = [地支[yearZhiIdx],地支[monthZhiIdx],地支[dayZhiIdx],地支[hourZhiIdx]];
+  const dayGan = 天干[dayGanIdx];
+  const yearZhi = 地支[yearZhiIdx];
+  const tianyiHit = (tianyiMap[dayGan]||[]).filter(z=>allZhi.includes(z));
+  const wenchangHit = allZhi.includes(wenchangMap[dayGan]);
+  const yimaHit     = allZhi.includes(yimaMap[yearZhi]);
+  const taohuaHit   = allZhi.includes(taohuaMap[yearZhi]);
+  const yangrenHit  = allZhi.includes(yangrenMap[dayGan]);
+
+  // ── 民國年 ──
+  const rocYear = year - 1911;
+
+  // ── 格局強度（月令主氣透干數 → 百分比）──
+  const mainGanWx = 五行天干[monthMainGanIdx];
+  const touCount  = [yearGanIdx, monthGanIdx, hourGanIdx].filter(g => 五行天干[g] === mainGanWx).length;
+  const gejuPct   = [40, 60, 80, 100][Math.min(touCount, 3)];
+
+  // ── 取用神五類（印|官殺|財|傷食|比劫）──
+  // 五行對應 十神標籤
+  const wxToRole = wx => {
+    if (wx === dayWx)             return '比劫';
+    if (wx === wxGenBy[dayWx])    return '印';
+    if (wx === wxGens[dayWx])     return '傷食';
+    if (wx === wxKills[dayWx])    return '財';
+    if (wx === wxKilledBy[dayWx]) return '官殺';
+    return '';
+  };
+  // 五行固定順序在無敵律數表中：印 | 官殺 | 財 | 傷食 | 比劫
+  const wudiCols = [
+    { role:'印',   wx: wxGenBy[dayWx]    },
+    { role:'官殺', wx: wxKilledBy[dayWx] },
+    { role:'財',   wx: wxKills[dayWx]    },
+    { role:'傷食', wx: wxGens[dayWx]     },
+    { role:'比劫', wx: dayWx             },
+  ];
+  // 五常
+  const wuChang = {木:'仁',火:'禮',土:'信',金:'義',水:'智'};
+  // 取用神分類
+  let quyongMap = {};
+  if (helpPct >= 55) {
+    // 身強：洩耗為用
+    quyongMap = {
+      [wxKilledBy[dayWx]]: '用神',  // 官殺克日主
+      [wxKills[dayWx]]:    '喜神',  // 財生官殺
+      [wxGenBy[dayWx]]:    '病神',  // 印助日主(多餘)
+      [dayWx]:             '仇神',  // 比劫同黨
+      [wxGens[dayWx]]:     '小吉神',// 食傷洩身
+    };
+  } else if (helpPct <= 45) {
+    // 身弱：生扶為用
+    quyongMap = {
+      [wxGenBy[dayWx]]:    '用神',  // 印生日主
+      [dayWx]:             '喜神',  // 比劫幫身
+      [wxKills[dayWx]]:    '病神',  // 財耗日主
+      [wxGens[dayWx]]:     '仇神',  // 食傷洩更耗
+      [wxKilledBy[dayWx]]: '小吉神',// 官殺剋制財星？(尚可)
+    };
+  } else {
+    // 中和
+    quyongMap = {
+      [wxGenBy[dayWx]]:    '小吉神',
+      [dayWx]:             '喜神',
+      [wxKills[dayWx]]:    '小吉神',
+      [wxGens[dayWx]]:     '小吉神',
+      [wxKilledBy[dayWx]]: '小吉神',
+    };
+  }
+  const quyongClass = { '用神':'wt-yong','喜神':'wt-xi','病神':'wt-bing','仇神':'wt-chou','小吉神':'wt-jixiao','' :'' };
+
+  // ── 五合妒合（天干五合索引，柱順序：年=0 月=1 日=2 時=3）──
+  const allGanPillar = [yearGanIdx, monthGanIdx, dayGanIdx, hourGanIdx];
+  const pillarName   = ['年','月','日','時'];
+  const hejiList     = [];
+  for (const [a,b,name] of ganHe) {
+    const ia = allGanPillar.indexOf(a), ib = allGanPillar.indexOf(b);
+    if (ia >= 0 && ib >= 0) hejiList.push(`${pillarName[ia]}${pillarName[ib]}（${name}）`);
+  }
+
+  // ══ 渲染 ══
+
+  // 副星（各柱藏干十神）
+  function fuxingHTML(zhiIdx) {
+    return 藏干[zhiIdx].map(g => {
+      const gi = 天干.indexOf(g);
+      const tg = tenGod(dayGanIdx, gi);
+      return `<span style="color:${wxC[五行天干[gi]]};display:block;">${tg}</span>`;
+    }).join('');
+  }
+  // 藏干帶顏色
+  function canganHTML(zhiIdx) {
+    return 藏干[zhiIdx].map(g => {
+      const gi = 天干.indexOf(g);
+      return `<span style="color:${wxC[五行天干[gi]]};">${g}</span>`;
+    }).join(' ');
+  }
+
+  // 年空（年柱旬的空亡）
+  const yearPos60 = (((yearGanIdx * 12 + yearZhiIdx) % 60) + 60) % 60;
+  // 正確60cycle位置：用年干支反算
+  const yr60 = ((yearGanIdx % 10 + 60) % 60); // 簡化：從干支推旬首
+  const [ykw1, ykw2] = kwPairs[Math.floor(((yearZhiIdx - yearGanIdx % 12 + 60) % 60 === 0 ? yearGanIdx : Math.floor(yearGanIdx/2)*10 + Math.floor(yearZhiIdx/2)) / 10) % 6] || [10,11];
+  // 更直接的年空亡：甲子旬(干0-9支0-9,pos0-9)→戌亥(10,11)
+  const yearJd60 = ((yearGanIdx * 12 + yearZhiIdx - (yearGanIdx % 2) * 12) % 60 + 60) % 60;
+  const ykwIdx = Math.floor(yearJd60 / 10);
+  const [ykwA, ykwB] = (kwPairs[ykwIdx] || [10,11]);
+
+  // 星座
+  const xingzuo = getXingzuo(month, day);
+
+  // ── 命盤 Header ──
+  const hourLabel = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'][hourZhiIdx];
+  const baziStr = `${天干[yearGanIdx]}${地支[yearZhiIdx]}・${天干[monthGanIdx]}${地支[monthZhiIdx]}・${天干[dayGanIdx]}${地支[dayZhiIdx]}・${天干[hourGanIdx]}${地支[hourZhiIdx]}`;
+  document.getElementById('mp-hdr').innerHTML =
+    `<strong>無名氏、${gender==='m'?'陽男':'陽女'}、肖${生肖[yearZhiIdx]}、西元 ${year} 年生</strong><br>
+     民國 ${rocYear} 年 ${month} 月 ${day} 日 ${hourLabel} 時 生<br>
+     八字：${baziStr}　${lunarLabel ? '農曆：' + lunarLabel : ''}納音：${nayin}`;
+
+  // ── Meta 資訊格 ──
+  const metaItems = [
+    {l:'星座', v:xingzuo},
+    {l:'日空', v:`${地支[kw1]}${地支[kw2]}`},
+    {l:'年空', v:`${地支[ykwA]}${地支[ykwB]}`},
+    {l:'身宮', v:天干[dayGanIdx]},
+    {l:'命宮', v:地支[mingGongZhiIdx]},
+    {l:'胎元', v:taiYuan},
+    {l:'生肖', v:生肖[yearZhiIdx]},
+  ];
+  document.getElementById('mp-meta').innerHTML = metaItems.map(m=>
+    `<div class="mp-meta-cell"><div class="ml">${m.l}</div><div class="mv">${m.v}</div></div>`
+  ).join('');
+
+  // ── 四柱表格各行 ──
+  // 順序：時 | 日 | 月 | 年
+  const cols = [
+    {gI:hourGanIdx,  zI:hourZhiIdx,  isDM:false},
+    {gI:dayGanIdx,   zI:dayZhiIdx,   isDM:true },
+    {gI:monthGanIdx, zI:monthZhiIdx, isDM:false},
+    {gI:yearGanIdx,  zI:yearZhiIdx,  isDM:false},
+  ];
+  const dmClass = (isDM) => isDM ? ' class="dm-col"' : '';
+
+  // 空亡判斷（日空 & 年空）
+  const dayVoidSet  = new Set([kw1, kw2]);
+  const yearVoidSet = new Set([ykwA, ykwB]);
+  function kwBadge(zI) {
+    if (dayVoidSet.has(zI))  return '<span class="kw-badge">日空</span>';
+    if (yearVoidSet.has(zI)) return '<span class="kw-badge">年空</span>';
+    return '';
+  }
+
+  // 欄標題行（時/日/月/年）
+  const colNames = ['時柱','日柱','月柱','年柱'];
+  document.getElementById('mp-col-hdr').innerHTML =
+    cols.map((c,i)=>`<td${c.isDM?' class="dm-col"':''}>${colNames[i]}</td>`).join('')
+    + '<td class="mp-lbl"></td>';
+
+  // 十神行
+  document.getElementById('mp-shishen').innerHTML = cols.map(c=>
+    `<td${dmClass(c.isDM)} style="color:${c.isDM?'#b8860b':wxC[五行天干[c.gI]]};font-size:12px;padding:5px 2px;">
+      ${c.isDM ? '日主' : tenGod(dayGanIdx, c.gI)}
+    </td>`
+  ).join('') + '<td class="mp-lbl">主星</td>';
+
+  // 天干行（大字 + 空亡標記）
+  document.getElementById('mp-stem').innerHTML = cols.map(c=>
+    `<td${dmClass(c.isDM)} style="color:${wxC[五行天干[c.gI]]};font-size:38px;font-weight:900;padding:6px 4px;line-height:1;">${天干[c.gI]}</td>`
+  ).join('') + '<td class="mp-lbl">八字</td>';
+
+  // 地支行（大字 + 空亡標記）
+  document.getElementById('mp-branch').innerHTML = cols.map(c=>
+    `<td${dmClass(c.isDM)} style="color:${wxC[五行地支[c.zI]]};font-size:38px;font-weight:900;padding:6px 4px;line-height:1;">${地支[c.zI]}${kwBadge(c.zI)}</td>`
+  ).join('') + '<td class="mp-lbl"></td>';
+
+  // 藏干行
+  document.getElementById('mp-cangan').innerHTML = cols.map(c=>
+    `<td${dmClass(c.isDM)} style="font-size:11px;padding:5px 4px;line-height:1.8;background:#fff8e1;">${canganHTML(c.zI)}</td>`
+  ).join('') + '<td class="mp-lbl">藏</td>';
+
+  // 副星行
+  document.getElementById('mp-fuxing').innerHTML = cols.map(c=>
+    `<td${dmClass(c.isDM)} style="font-size:10px;padding:4px 2px;color:#777;line-height:1.7;background:#fffdf0;">${fuxingHTML(c.zI)}</td>`
+  ).join('') + '<td class="mp-lbl">副星</td>';
+
+  // ── 大運表格（最老→最年輕，從左到右）──
+  const dayunsRev = [...dayuns].reverse(); // 高齡在左
+  // 當前大運索引（從 dayuns 陣列正序計算）
+  const curYear   = new Date().getFullYear();
+  const approxAge = curYear - year;
+  const curDayunIdx = Math.max(0, Math.min(9, Math.floor((approxAge - qAge) / 10)));
+  const curRevIdx   = (dayuns.length - 1) - curDayunIdx; // 在 dayunsRev 中的位置
+
+  document.getElementById('mp-dayun-title').textContent =
+    `大運（${shunxing?'順行':'逆行'}・出生後 ${qAgeStr} 起運）`;
+
+  // 年齡 + 起運年
+  document.getElementById('dy-age').innerHTML =
+    dayunsRev.map((d,i)=>`<td${i===curRevIdx?' style="background:#c8900a;color:#fff;"':''}>${d.age}歲<br><span style="font-size:8px;">${year+d.age}</span></td>`).join('');
+
+  // 天干
+  document.getElementById('dy-stem').innerHTML =
+    dayunsRev.map((d,i)=>`<td${i===curRevIdx?' class="dy-cur"':''} style="color:${wxC[d.wg]};font-size:20px;font-weight:900;padding:5px 2px;">${d.gan}</td>`).join('');
+
+  // 地支
+  document.getElementById('dy-branch').innerHTML =
+    dayunsRev.map((d,i)=>`<td${i===curRevIdx?' class="dy-cur"':''} style="color:${wxC[d.wz]};font-size:20px;font-weight:900;padding:5px 2px;">${d.zhi}</td>`).join('');
+
+  // 喜忌標記
+  document.getElementById('dy-mark').innerHTML =
+    dayunsRev.map((d,i)=>{
+      const xi = xiSet.has(d.wg)||xiSet.has(d.wz);
+      const ji = jiArr.length && !xi && (jiSet.has(d.wg)||jiSet.has(d.wz));
+      const isCur = i === curRevIdx;
+      const bg = isCur ? 'background:#fff3cd;' : '';
+      const mark = isCur ? '★現' : (xi?'✅':ji?'⚠':'—');
+      const clr = isCur ? '#c8900a' : (xi?'#388e3c':ji?'#c62828':'#aaa');
+      return `<td style="${bg}color:${clr};font-size:${isCur?'10':'9'}px;font-weight:${isCur?'bold':'normal'};">${mark}</td>`;
+    }).join('');
+
+  // 日主強弱（十二長生 + 總分）
+  const hurtPct  = 100 - helpPct;
+  let strLabel, strColor, strDesc;
+  if (helpPct >= 60) {
+    strLabel='身強'; strColor='#c62828';
+    strDesc='日主旺，宜財・官・食傷洩秀，忌比劫・印生身';
+  } else if (helpPct >= 50) {
+    strLabel='偏強'; strColor='#e65100';
+    strDesc='日主略強，格局清用神以財官為主，輔以食傷';
+  } else if (helpPct >= 40) {
+    strLabel='中和'; strColor='#1565c0';
+    strDesc='日主中和，喜忌需細判格局與月令，不宜偏補偏洩';
+  } else if (helpPct >= 30) {
+    strLabel='偏弱'; strColor='#2e7d32';
+    strDesc='日主偏弱，宜印星・比劫扶身，忌財官耗洩';
+  } else {
+    strLabel='身弱'; strColor='#388e3c';
+    strDesc='日主極弱，喜見印比扶身，財官食傷皆忌';
+  }
+  document.getElementById('strength-section').innerHTML = `
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;flex-wrap:wrap;">
+      <div style="text-align:center;min-width:60px;">
+        <div style="font-size:24px;font-weight:900;color:${strColor};">${strLabel}</div>
+        <div style="font-size:10px;color:#aaa;">綜合判斷</div>
+      </div>
+      <div style="text-align:center;min-width:72px;background:#f9f5ff;border-radius:8px;padding:6px 10px;">
+        <div style="font-size:16px;font-weight:bold;color:${monthCS.color};">${monthCS.name}</div>
+        <div style="font-size:10px;color:#aaa;">月令十二長生</div>
+      </div>
+      <div style="flex:1;min-width:160px;">
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:#888;margin-bottom:3px;">
+          <span>幫身（比劫＋印）${helpPct}%</span>
+          <span>耗身（財官食傷）${hurtPct}%</span>
+        </div>
+        <div style="background:#eee;border-radius:6px;height:14px;overflow:hidden;">
+          <div id="str-bar" style="width:0%;height:14px;border-radius:6px;background:linear-gradient(90deg,#388e3c,#66bb6a);transition:width .8s ease;"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:9px;color:#aaa;margin-top:2px;">
+          <span>幫 ${helpScore.toFixed(1)}分</span><span>總 ${wxTotal.toFixed(1)}分</span><span>耗 ${hurtScore.toFixed(1)}分</span>
+        </div>
+      </div>
+    </div>
+    <div style="font-size:12px;color:#555;background:#f9f5ff;padding:7px 12px;border-radius:7px;">💡 ${strDesc}</div>`;
+  setTimeout(()=>{ document.getElementById('str-bar').style.width = helpPct+'%'; },100);
+
+  // 刑沖合害
+  if (chongHeItems.length) {
+    document.getElementById('chonghe-card').style.display = 'block';
+    document.getElementById('chonghe').innerHTML = `
+      <div class="card-title" style="margin-bottom:8px;">⚡ 天干地支・刑沖合害</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        ${chongHeItems.map(item=>`
+          <div style="background:${item.bg};border:1px solid ${item.color}40;border-radius:8px;padding:5px 10px;font-size:12px;">
+            <span style="color:${item.color};font-weight:bold;">${item.type}</span>
+            <span style="color:#555;margin:0 4px;">｜</span>
+            <span style="font-weight:bold;">${item.label}</span>
+            <span style="color:#aaa;font-size:10px;margin-left:4px;">${item.pils}柱</span>
+          </div>`).join('')}
+      </div>`;
+  }
+
+  // 喜用神・忌神
+  const wxLabel = {木:'木🌳',火:'火🔥',土:'土🏔',金:'金✨',水:'水💧'};
+  document.getElementById('xiyong-section').innerHTML = helpPct >= 46 && helpPct <= 54 ? `
+    <div style="color:#888;font-size:13px;padding:8px 0;">命主日主中和，喜忌需細判格局與調候，建議預約老師深入分析。</div>` : `
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
+      <div style="flex:1;min-width:130px;background:#e8f5e9;border-radius:10px;padding:12px;">
+        <div style="font-size:11px;color:#388e3c;font-weight:bold;margin-bottom:8px;">✅ 喜用神（${helpPct>=55?'身強宜洩':'身弱宜補'}）</div>
+        ${xiArr.map(wx=>`
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px;">
+            <span style="font-size:18px;font-weight:bold;color:${wxC[wx]};">${wxLabel[wx]}</span>
+            <span style="font-size:11px;color:#555;">${wxToShishen(wx)}</span>
+            <span style="font-size:10px;color:#aaa;">現有 ${wxScore[wx].toFixed(0)}分</span>
+          </div>`).join('')}
+      </div>
+      <div style="flex:1;min-width:130px;background:#ffebee;border-radius:10px;padding:12px;">
+        <div style="font-size:11px;color:#c62828;font-weight:bold;margin-bottom:8px;">❌ 忌神（宜避）</div>
+        ${jiArr.map(wx=>`
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px;">
+            <span style="font-size:18px;font-weight:bold;color:${wxC[wx]};">${wxLabel[wx]}</span>
+            <span style="font-size:11px;color:#555;">${wxToShishen(wx)}</span>
+            <span style="font-size:10px;color:#aaa;">現有 ${wxScore[wx].toFixed(0)}分</span>
+          </div>`).join('')}
+      </div>
+    </div>
+    <div style="font-size:11px;color:#888;background:#f9f5ff;border-radius:8px;padding:8px 12px;">
+      💡 大運・流年走到<strong style="color:#388e3c;">喜用神五行</strong>時運勢較順，走到<strong style="color:#c62828;">忌神五行</strong>時宜低調保守。<br>
+      ⚠️ 喜忌神為初步判斷，精確用神需結合格局・調候・通關等，建議諮詢老師。
+    </div>`;
+
+  // 格局
+  document.getElementById('geju-section').innerHTML = `
+    <div style="display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap;margin-bottom:12px;">
+      <div style="text-align:center;min-width:80px;">
+        <div style="font-size:36px;">${gejuInfo.icon}</div>
+        <div style="font-size:18px;font-weight:900;color:${gejuInfo.color};letter-spacing:1px;">${gejuInfo.name}</div>
+        <div style="font-size:10px;margin-top:2px;">
+          ${gejuTouGan
+            ? '<span style="color:#388e3c;background:#e8f5e9;border-radius:4px;padding:1px 6px;">透干成格✓</span>'
+            : '<span style="color:#888;background:#f5f5f5;border-radius:4px;padding:1px 6px;">藏干入格</span>'}
+          ${gejuBroken ? '&nbsp;<span style="color:#c62828;background:#ffebee;border-radius:4px;padding:1px 6px;">⚠破格</span>' : ''}
+        </div>
+      </div>
+      <div style="flex:1;min-width:180px;">
+        <div style="font-size:13px;color:#444;margin-bottom:8px;line-height:1.7;">${gejuInfo.desc}</div>
+        <div style="background:#f9f5ff;border-left:3px solid ${gejuInfo.color};padding:7px 12px;border-radius:0 8px 8px 0;font-size:12px;color:#555;">
+          <span style="color:${gejuInfo.color};font-weight:bold;">喜忌：</span>${gejuInfo.yiji}
+        </div>
+      </div>
+    </div>
+    <div style="background:#fffde7;border-radius:8px;padding:8px 12px;font-size:11px;color:#795548;">
+      📌 格局由<strong>月令主氣「${monthMainGan}（${gejuShishen}）」</strong>決定，為命盤的結構骨幹。
+      格局用神需搭配身強弱與喜忌神綜合判斷，建議諮詢老師深入解析。
+    </div>`;
+
+  // ── 無敵律數面板 ──
+  const scoreMax = Math.max(...wudiCols.map(c=>wxScore[c.wx]), 1);
+  document.getElementById('wudi-panel').innerHTML = `
+    <div class="wudi-geju">格局：<span>${gejuInfo.name}（${gejuPct}%）</span></div>
+    <div class="wudi-heji">
+      ${hejiList.length ? '五合妒合：' + hejiList.join('、') : '本命無天干五合'}
+    </div>
+    <table class="wudi-table">
+      <thead><tr>
+        ${wudiCols.map(c=>`<th style="color:${wxC[c.wx]};">${c.role}</th>`).join('')}
+        <th class="wt-lbl">十神</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          ${wudiCols.map(c=>`<td style="color:${wxC[c.wx]};font-weight:bold;">${c.wx}</td>`).join('')}
+          <td class="wt-lbl">五行</td>
+        </tr>
+        <tr>
+          ${wudiCols.map(c=>`<td>${wuChang[c.wx]}</td>`).join('')}
+          <td class="wt-lbl">五常</td>
+        </tr>
+        <tr>
+          ${wudiCols.map(c=>`<td class="wt-score" style="color:${wxC[c.wx]};">${wxScore[c.wx].toFixed(0)}</td>`).join('')}
+          <td class="wt-lbl">實律</td>
+        </tr>
+        <tr>
+          ${wudiCols.map(c=>{
+            const cat = quyongMap[c.wx]||'';
+            return `<td class="${quyongClass[cat]||''}">${cat}</td>`;
+          }).join('')}
+          <td class="wt-lbl">取用神</td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="font-size:10px;color:#aaa;margin-top:8px;line-height:1.6;">
+      🟢用神 🔵喜神 🔴病神 🟠仇神 🟣小吉神<br>
+      身${helpPct>=55?'強':helpPct<=45?'弱':'中和'}（幫身${helpPct}%）
+    </div>`;
+
+  // 五行加權分數
+  const wxMax = Math.max(...Object.values(wxScore), 1);
+  document.getElementById('wx-bars').innerHTML = ['木','火','土','金','水'].map(wx=>{
+    const sc = wxScore[wx];
+    const pct = Math.round(sc / wxTotal * 100);
+    const missing = sc === 0 ? ' <span style="font-size:9px;color:#e53935;">缺</span>' : '';
+    return `<div class="wx-row">
+      <div class="wx-lbl" style="color:${wxC[wx]};">${wxEm[wx]}${wx}</div>
+      <div class="wx-bg"><div id="wxb-${wx}" style="width:0%;background:${wxC[wx]};" class="wx-fill"></div></div>
+      <div class="wx-cnt" style="width:48px;font-size:11px;">${sc.toFixed(0)}分 ${pct}%${missing}</div>
+    </div>`;
+  }).join('');
+  setTimeout(()=>{
+    ['木','火','土','金','水'].forEach(wx=>{
+      document.getElementById('wxb-'+wx).style.width = Math.min(wxScore[wx]/wxMax*100,100)+'%';
+    });
+  },100);
+
+  // 流年
+  document.getElementById('liunian').innerHTML = liuNian.map(l=>{
+    const lzWx = 五行地支[l.gI % 12]; // 流年地支五行（用gI對應zI）
+    const lzIdx = ((l.yr - 1984) % 12 + 12) % 12;
+    const lzWx2 = 五行地支[lzIdx];
+    const isXi = xiArr.length && (xiSet.has(l.wx) || xiSet.has(lzWx2));
+    const isJi = jiArr.length && !isXi && (jiSet.has(l.wx) || jiSet.has(lzWx2));
+    return `<div class="ln-c${l.yr===curYr?' cur':''}" style="${isXi?'border-color:#388e3c;background:#e8f5e9;':isJi?'border-color:#e57373;background:#fff5f5;':''}">
+      <div class="ln-yr">${l.yr}</div>
+      <div class="ln-gz" style="color:${wxC[l.wx]};">${l.gan}${l.zhi}</div>
+      ${isXi?'<div style="font-size:8px;color:#388e3c;">✅</div>':isJi?'<div style="font-size:8px;color:#e53935;">⚠</div>':''}
+    </div>`;
+  }).join('');
+
+  // 神煞
+  const tags = [];
+  if (tianyiHit.length) tags.push(`<span class="ss-tag" style="background:#fff9c4;border-color:#f5c842;color:#7b5e00;">👑 天乙貴人（${tianyiHit.join('、')}）</span>`);
+  if (wenchangHit)      tags.push(`<span class="ss-tag" style="background:#e8f5e9;border-color:#66bb6a;color:#1b5e20;">📚 文昌貴人</span>`);
+  if (yimaHit)          tags.push(`<span class="ss-tag" style="background:#e3f2fd;border-color:#42a5f5;color:#0d47a1;">🏇 驛馬</span>`);
+  if (taohuaHit)        tags.push(`<span class="ss-tag" style="background:#fce4ec;border-color:#f48fb1;color:#880e4f;">🌸 桃花</span>`);
+  if (yangrenHit)       tags.push(`<span class="ss-tag" style="background:#ffebee;border-color:#ef9a9a;color:#b71c1c;">⚔️ 羊刃</span>`);
+  document.getElementById('shensha').innerHTML = tags.length ? tags.join('') : '<span style="color:#aaa;font-size:13px;">本命盤主要神煞不顯，需細盤再查</span>';
+
+  // 顯示結果
+  document.getElementById('result').style.display = 'block';
+  document.getElementById('result').scrollIntoView({behavior:'smooth'});
+}
+
+function resetForm() {
+  document.getElementById('result').style.display = 'none';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

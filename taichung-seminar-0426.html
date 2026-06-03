@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>【全球避險戰略】4/26 台中 曼谷房產投資分享會 免費限額20席 | TIREA</title>
+  <meta name="description" content="2026年4月26日（日）台中草悟道文旅，免費說明會限額20席。曼谷4大精選建案現場解析，Freehold永久產權、4-6%投報率，幫您把資產配置到台灣以外的地方。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0f172a; --blue: #163a8a; --blue-mid: #1e4db7;
+      --gold: #c89b3c; --gold-light: #e8c56e;
+      --white: #f8fafc; --gray: #94a3b8;
+      --glass: rgba(255,255,255,0.06); --glass-border: rgba(255,255,255,0.12);
+      --rose: #e11d48; --rose-light: #fb7185;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Noto Sans TC', sans-serif; background: var(--navy); color: var(--white); line-height: 1.7; overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 48px;
+      background: rgba(15,23,42,0.9); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-badge {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: linear-gradient(135deg, var(--blue), var(--blue-mid));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 13px; color: var(--gold); border: 1px solid var(--gold);
+    }
+    .nav-logo-text { font-size: 14px; font-weight: 700; color: var(--white); }
+    .nav-cta {
+      background: linear-gradient(135deg, var(--rose), var(--rose-light));
+      color: white; padding: 10px 24px; border-radius: 8px;
+      font-weight: 700; font-size: 14px; text-decoration: none; transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* URGENCY BANNER */
+    .urgency-bar {
+      margin-top: 71px;
+      background: linear-gradient(90deg, #7f1d1d, #991b1b, #be185d);
+      text-align: center; padding: 10px 16px;
+      font-size: 13px; font-weight: 700; color: white; letter-spacing: 0.03em;
+    }
+    .urgency-bar span { opacity: 0.75; margin: 0 8px; }
+
+    /* HERO */
+    .hero {
+      min-height: 90vh; display: flex; align-items: center;
+      position: relative; overflow: hidden; padding: 80px 48px 80px;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 65% 40%, rgba(190,24,93,0.25) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 50% at 10% 80%, rgba(200,155,60,0.1) 0%, transparent 60%),
+        linear-gradient(160deg, #0a1020 0%, #0f172a 55%, #130a1a 100%);
+    }
+    .hero-dots {
+      position: absolute; inset: 0;
+      background-image: radial-gradient(rgba(200,155,60,0.15) 1px, transparent 1px);
+      background-size: 32px 32px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+    }
+    .hero-img {
+      position: absolute; right: 0; top: 0; bottom: 0; width: 50%;
+      background: url('https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=1200&q=80') center/cover no-repeat;
+      mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 35%, black 65%);
+      opacity: 0.4;
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 600px; }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(225,29,72,0.15); border: 1px solid rgba(225,29,72,0.4);
+      padding: 6px 16px; border-radius: 999px;
+      font-size: 11px; font-weight: 700; color: #fb7185;
+      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 24px;
+    }
+    .hero-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #fb7185; animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(1.5)} }
+    .hero h1 { font-size: clamp(32px,5vw,56px); font-weight: 900; line-height: 1.15; margin-bottom: 12px; }
+    .hero h1 .accent { color: var(--gold); }
+    .hero-sub { font-size: clamp(17px,2.2vw,24px); font-weight: 300; color: #cbd5e1; margin-bottom: 20px; }
+    .hero-desc { font-size: 15px; color: #94a3b8; max-width: 480px; margin-bottom: 36px; line-height: 1.85; }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--rose), var(--rose-light));
+      color: white; padding: 16px 36px; border-radius: 10px;
+      font-weight: 700; font-size: 16px; text-decoration: none;
+      box-shadow: 0 8px 24px rgba(225,29,72,0.35); transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(225,29,72,0.5); }
+    .btn-outline {
+      border: 1px solid var(--glass-border); color: var(--white);
+      padding: 16px 32px; border-radius: 10px; font-weight: 500; font-size: 16px;
+      text-decoration: none; background: var(--glass); transition: border-color 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--gold); }
+
+    /* INFO BAR */
+    .info-bar {
+      display: flex; gap: 1px; background: var(--glass-border);
+      border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border);
+    }
+    .info-item { flex: 1; padding: 24px 28px; background: rgba(15,23,42,0.95); display: flex; align-items: center; gap: 14px; }
+    .info-icon {
+      width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0;
+      background: rgba(200,155,60,0.1); border: 1px solid rgba(200,155,60,0.25);
+      display: flex; align-items: center; justify-content: center; font-size: 20px;
+    }
+    .info-label { font-size: 10px; color: var(--gray); font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 3px; }
+    .info-value { font-size: 15px; font-weight: 700; color: var(--white); }
+
+    /* SECTIONS */
+    section { padding: 80px 48px; max-width: 1100px; margin: 0 auto; }
+    .section-tag {
+      font-size: 11px; font-weight: 700; color: var(--gold);
+      letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 14px;
+    }
+    h2 { font-size: clamp(26px,3.5vw,42px); font-weight: 900; margin-bottom: 16px; }
+    .subtitle { font-size: 16px; color: var(--gray); max-width: 600px; line-height: 1.8; margin-bottom: 52px; }
+
+    /* CARDS */
+    .cards-3 { display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 24px; }
+    .card {
+      background: var(--glass); border: 1px solid var(--glass-border);
+      border-radius: 16px; padding: 28px; transition: border-color 0.2s, transform 0.2s;
+    }
+    .card:hover { border-color: rgba(200,155,60,0.4); transform: translateY(-4px); }
+    .card-icon { font-size: 28px; margin-bottom: 16px; }
+    .card h3 { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
+    .card p { font-size: 14px; color: var(--gray); line-height: 1.75; }
+
+    /* PROPERTIES */
+    .props-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap: 20px; }
+    .prop-card {
+      background: var(--glass); border: 1px solid var(--glass-border);
+      border-radius: 14px; overflow: hidden; transition: transform 0.2s, border-color 0.2s;
+    }
+    .prop-card:hover { transform: translateY(-4px); border-color: rgba(200,155,60,0.4); }
+    .prop-img { width: 100%; height: 160px; object-fit: cover; }
+    .prop-body { padding: 18px 20px; }
+    .prop-tag { font-size: 10px; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; }
+    .prop-name { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .prop-detail { font-size: 13px; color: var(--gray); }
+    .prop-badge {
+      display: inline-block; margin-top: 10px;
+      background: rgba(200,155,60,0.12); border: 1px solid rgba(200,155,60,0.3);
+      color: var(--gold); font-size: 11px; font-weight: 600;
+      padding: 3px 10px; border-radius: 99px;
+    }
+
+    /* TIMELINE */
+    .timeline { display: flex; flex-direction: column; gap: 0; position: relative; }
+    .timeline::before {
+      content: ''; position: absolute; left: 20px; top: 0; bottom: 0;
+      width: 1px; background: var(--glass-border);
+    }
+    .tl-item { display: flex; gap: 24px; padding: 24px 0; align-items: flex-start; }
+    .tl-dot {
+      width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+      background: rgba(200,155,60,0.15); border: 1px solid rgba(200,155,60,0.4);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 700; color: var(--gold); position: relative; z-index: 1;
+    }
+    .tl-text h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .tl-text p { font-size: 13px; color: var(--gray); }
+    .tl-time { font-size: 11px; color: #e11d48; font-weight: 700; margin-bottom: 4px; }
+
+    /* CTA SECTION */
+    .cta-section {
+      background: linear-gradient(135deg, rgba(225,29,72,0.12) 0%, rgba(200,155,60,0.08) 100%);
+      border: 1px solid rgba(225,29,72,0.25); border-radius: 24px;
+      padding: 64px 48px; text-align: center; margin: 0 48px 80px;
+    }
+    .cta-section h2 { font-size: clamp(24px,3.5vw,40px); font-weight: 900; margin-bottom: 12px; }
+    .cta-section p { color: var(--gray); font-size: 15px; margin-bottom: 36px; }
+    .cta-section .seats {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(225,29,72,0.15); border: 1px solid rgba(225,29,72,0.3);
+      padding: 8px 20px; border-radius: 99px; font-size: 13px; font-weight: 700; color: #fb7185;
+      margin-bottom: 28px;
+    }
+    .cta-section .seats::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: #fb7185; animation: pulse 1.5s infinite; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--glass-border); padding: 40px 48px;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+    }
+    footer .foot-left { font-size: 13px; color: var(--gray); }
+    footer .foot-right a { color: var(--gray); text-decoration: none; font-size: 13px; }
+    footer .foot-right a:hover { color: var(--white); }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      nav { padding: 14px 20px; }
+      .hero { padding: 80px 20px 60px; }
+      section { padding: 60px 20px; }
+      .info-bar { flex-direction: column; }
+      .cta-section { padding: 48px 24px; margin: 0 20px 60px; }
+      footer { padding: 32px 20px; flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2XV1V9TS1P"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-2XV1V9TS1P');
+  </script>
+  <link rel="canonical" href="https://www.tirea.tw/taichung-seminar-0426" />
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">
+    <div class="nav-logo-badge">T</div>
+    <div>
+      <div class="nav-logo-text">TIREA</div>
+      <div style="font-size:10px;color:#64748b;">台灣國際不動產交流協會</div>
+    </div>
+  </a>
+  <a href="https://forms.gle/paNKFQSjC7MS5Axv6" target="_blank" class="nav-cta">立即報名 →</a>
+</nav>
+
+<!-- URGENCY BAR -->
+<div class="urgency-bar">
+  🔥 4/26（日）台中場說明會<span>·</span>免費限額 20 席<span>·</span>名額剩餘不多，請盡快報名
+</div>
+
+<!-- HERO -->
+<section class="hero" style="padding:80px 48px; max-width:none;">
+  <div class="hero-bg"></div>
+  <div class="hero-dots"></div>
+  <div class="hero-img"></div>
+  <div class="hero-content">
+    <div class="hero-tag">全球避險戰略 · 台中場</div>
+    <h1>
+      2026 曼谷房產<br>
+      <span class="accent">投資分享會</span>
+    </h1>
+    <p class="hero-sub">資產配置到台灣以外的地方，現在是最好的時機</p>
+    <p class="hero-desc">
+      地緣政治風險上升、台幣波動加劇——越來越多台灣人開始把部分資產放到曼谷。
+      這場說明會，我們帶你看真實數字、真實建案、真實操作方式，不是推銷，是分析。
+    </p>
+    <div class="hero-actions">
+      <a href="https://forms.gle/paNKFQSjC7MS5Axv6" target="_blank" class="btn-primary">免費報名 → 限20席</a>
+      <a href="#agenda" class="btn-outline">查看議程</a>
+    </div>
+  </div>
+</section>
+
+<!-- INFO BAR -->
+<div class="info-bar">
+  <div class="info-item">
+    <div class="info-icon">📅</div>
+    <div>
+      <div class="info-label">活動日期</div>
+      <div class="info-value">2026年4月26日（週日）</div>
+    </div>
+  </div>
+  <div class="info-item">
+    <div class="info-icon">🕑</div>
+    <div>
+      <div class="info-label">時間</div>
+      <div class="info-value">14:00 – 17:00（共3小時）</div>
+    </div>
+  </div>
+  <div class="info-item">
+    <div class="info-icon">📍</div>
+    <div>
+      <div class="info-label">地點</div>
+      <div class="info-value">台中草悟道文旅<br><span style="font-size:12px;color:#64748b;">英才路 512 號</span></div>
+    </div>
+  </div>
+  <div class="info-item">
+    <div class="info-icon">🎫</div>
+    <div>
+      <div class="info-label">費用</div>
+      <div class="info-value">完全免費 · 限額 20 席</div>
+    </div>
+  </div>
+</div>
+
+<!-- WHY NOW -->
+<section>
+  <div class="section-tag">為什麼是現在</div>
+  <h2>為什麼台灣人開始把錢放進曼谷？</h2>
+  <p class="subtitle">不是因為台灣不好，而是雞蛋不能全放在同一個籃子裡。</p>
+  <div class="cards-3">
+    <div class="card">
+      <div class="card-icon">🌏</div>
+      <h3>地緣政治風險分散</h3>
+      <p>台海局勢讓越來越多人思考「萬一」。曼谷 Freehold 永久產權，外籍可持有，是資產境外化的最低門檻選項之一。</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">💰</div>
+      <h3>4–6% 穩定投報率</h3>
+      <p>曼谷 BTS 沿線出租空置率不到 5%。台北房子租不到 2%，曼谷同等級物件能做到 4–6%，差距擺在眼前。</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🏢</div>
+      <h3>300萬台幣即可入場</h3>
+      <p>曼谷核心區新案最低約 300 萬台幣起，比台北一個車位便宜，卻能持有一間可出租的產權公寓。</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📋</div>
+      <h3>外籍持有上限 49%</h3>
+      <p>泰國法規保障外籍持有比例，搭配 FET 匯款制度，資金進出有完整法律框架，不是法律灰色地帶。</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🇹🇭</div>
+      <h3>東協核心城市紅利</h3>
+      <p>曼谷是東南亞最成熟的外籍置產市場，基礎建設、醫療、生活機能均達國際水準，不是投機，是生活資產。</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📊</div>
+      <h3>2026 市場窗口期</h3>
+      <p>後疫情復甦加速、BTS 新線通車、日韓買家湧入推升區域行情——現在進場的人，卡到的是 5 年紅利期起點。</p>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PROPERTIES -->
+<section style="background:rgba(255,255,255,0.02); border-top:1px solid var(--glass-border); border-bottom:1px solid var(--glass-border); max-width:none; padding:80px 48px;">
+  <div style="max-width:1100px; margin:0 auto;">
+    <div class="section-tag">現場解析建案</div>
+    <h2>4 大精選建案，當天帶你看數字</h2>
+    <p class="subtitle">不是 brochure，而是投報試算、區位分析、過去成交紀錄——全部當場攤開。</p>
+    <div class="props-grid">
+      <div class="prop-card">
+        <img class="prop-img" src="https://images.unsplash.com/photo-1555636222-cae831e670b3?w=600&q=80" alt="U Charoen Residence" />
+        <div class="prop-body">
+          <div class="prop-tag">🇯🇵 日系品質 · Charoen Krung</div>
+          <div class="prop-name">U Charoen Residence</div>
+          <div class="prop-detail">日本開發商品牌操盤，品質管控嚴格，租客群以日本企業外派為主，空置率極低。</div>
+          <span class="prop-badge">保值型 · 穩收租</span>
+        </div>
+      </div>
+      <div class="prop-card">
+        <img class="prop-img" src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&q=80" alt="Chewathai Thonglor" />
+        <div class="prop-body">
+          <div class="prop-tag">⭐ 高端豪宅 · Thonglor</div>
+          <div class="prop-name">Chewathai Thonglor</div>
+          <div class="prop-detail">曼谷最頂級住宅區 Thonglor，外籍高管集中地，租金水平最高，增值潛力最強。</div>
+          <span class="prop-badge">增值型 · 高端定位</span>
+        </div>
+      </div>
+      <div class="prop-card">
+        <img class="prop-img" src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80" alt="暹羅學府" />
+        <div class="prop-body">
+          <div class="prop-tag">🎓 學區穩租 · Silom</div>
+          <div class="prop-name">暹羅學府</div>
+          <div class="prop-detail">鄰近頂尖國際學校，學區盤租客群穩定，長租為主，管理省心，適合初次置產。</div>
+          <span class="prop-badge">現金流型 · 穩定長租</span>
+        </div>
+      </div>
+      <div class="prop-card">
+        <img class="prop-img" src="https://images.unsplash.com/photo-1464938050520-ef2270bb8ce8?w=600&q=80" alt="XT Phayathai" />
+        <div class="prop-body">
+          <div class="prop-tag">🚇 交通樞紐 · Phayathai</div>
+          <div class="prop-name">XT Phayathai</div>
+          <div class="prop-detail">BTS + Airport Rail Link 雙線交會，機場快線直達，外籍商務客首選，出租轉手皆活絡。</div>
+          <span class="prop-badge">交通紅利 · 高流動性</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AGENDA -->
+<section id="agenda">
+  <div class="section-tag">活動議程</div>
+  <h2>3 小時，你能帶走什麼</h2>
+  <p class="subtitle">不是業務簡報，是你自己研究 3 個月才能摸清楚的乾貨，我們幫你壓縮成一個下午。</p>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot">1</div>
+      <div class="tl-text">
+        <div class="tl-time">14:00 – 14:30</div>
+        <h4>全球避險佈局：為什麼 2026 是關鍵窗口</h4>
+        <p>關稅戰、地緣風險、台幣趨勢——用數據說明為什麼越來越多台灣人開始動。</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">2</div>
+      <div class="tl-text">
+        <div class="tl-time">14:30 – 15:15</div>
+        <h4>曼谷市場深度解析：區域、法規、費用全攤開</h4>
+        <p>Freehold 外籍持有規定、FET 匯款流程、購置費用試算、各區租金行情——全部白紙黑字。</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">3</div>
+      <div class="tl-text">
+        <div class="tl-time">15:15 – 16:15</div>
+        <h4>4 大精選建案逐一解析</h4>
+        <p>投報率試算、區位優劣、目標租客群、流動性評估——帶你從「看得懂」到「選得對」。</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">4</div>
+      <div class="tl-text">
+        <div class="tl-time">16:15 – 17:00</div>
+        <h4>Q&A + 一對一諮詢時間</h4>
+        <p>現場有顧問一對一解答，預算評估、貸款可行性、台灣匯款實操——把你的問題全部問完再走。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="seats">免費說明會 · 名額僅剩最後幾席</div>
+  <h2>4月26日（日）台中見</h2>
+  <p>草悟道文旅（英才路 512 號）· 14:00 準時開始<br>帶著問題來，帶著答案走。歡迎攜伴出席。</p>
+  <a href="https://forms.gle/paNKFQSjC7MS5Axv6" target="_blank" class="btn-primary" style="font-size:18px;padding:18px 48px;">
+    立即免費報名 →
+  </a>
+  <div style="margin-top:20px;">
+    <a href="https://line.me/R/ti/p/@180phkse" target="_blank" style="color:#94a3b8;font-size:13px;text-decoration:none;">
+      有問題先問 LINE：<strong style="color:var(--gold);">@180phkse</strong>
+    </a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-left">
+    © 2026 台灣國際不動產交流協會（TIREA）<br>
+    <span style="font-size:12px;">本活動為免費說明會，不收費用，歡迎攜伴出席。</span>
+  </div>
+  <div class="foot-right" style="display:flex;gap:20px;">
+    <a href="/">回首頁</a>
+    <a href="thailand.html">泰國專區</a>
+    <a href="thailand-consult.html">免費諮詢</a>
+  </div>
+</footer>
+
+<script>
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const id = a.getAttribute('href').slice(1);
+      const el = document.getElementById(id);
+      if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+</script>
+</body>
+</html>

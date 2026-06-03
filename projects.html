@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>專案成果 | TIREA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: '#0f172a',
+            primary: '#163a8a',
+            gold: '#c89b3c',
+          },
+          fontFamily: { sans: ['"Noto Sans TC"', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Noto Sans TC', sans-serif; background: #0f172a; color: #f1f5f9; }
+    .glass { background: rgba(255,255,255,0.04); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.08); }
+    .shadow-glow { box-shadow: 0 0 40px rgba(200,155,60,0.25); }
+    .card-hover { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+    .tag { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 600; }
+    .status-live { background: rgba(34,197,94,0.15); color: #86efac; border: 1px solid rgba(34,197,94,0.3); }
+    .status-building { background: rgba(251,191,36,0.15); color: #fde68a; border: 1px solid rgba(251,191,36,0.3); }
+    .status-planned { background: rgba(148,163,184,0.15); color: #cbd5e1; border: 1px solid rgba(148,163,184,0.3); }
+    .progress-bar { height: 4px; border-radius: 2px; background: rgba(255,255,255,0.1); overflow: hidden; }
+    .progress-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, #c89b3c, #f0c060); transition: width 1s ease; }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2XV1V9TS1P"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-2XV1V9TS1P');
+  </script>
+  <link rel="canonical" href="https://www.tirea.tw/projects" />
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="fixed top-0 inset-x-0 z-50 border-b border-white/10 bg-slate-950/70 backdrop-blur-xl text-white">
+  <div class="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-3">
+      <img src="/tirea-logo.png" alt="TIREA Logo" class="w-11 h-11 rounded-xl shadow-lg object-contain bg-white p-1" />
+      <div>
+        <div class="font-extrabold tracking-tight text-lg leading-none">TIREA</div>
+        <div class="text-[10px] uppercase tracking-[0.28em] text-slate-300">Taiwan International REA</div>
+      </div>
+    </a>
+
+    <div class="hidden lg:flex items-center gap-7 text-sm font-medium text-slate-200">
+      <a href="ai_butler.html" class="hover:text-white font-bold text-blue-200">AI 找房</a>
+      <a href="global_pro.html" class="hover:text-white">找海外房產</a>
+      <a href="about.html" class="hover:text-white">關於協會</a>
+      <a href="invest_map.html" class="hover:text-white">投資地圖</a>
+      <a href="knowledge.html" class="hover:text-white">知識中心</a>
+      <a href="daily-real-estate-news.html" class="hover:text-white">每日新聞</a>
+      <a href="projects.html" class="hover:text-white text-gold font-bold">專案</a>
+      <a href="turkey-seminar.html" class="hover:text-white text-amber-300 font-bold">🇹🇷 土耳其指南</a>
+      <a href="thailand-seminar.html" class="hover:text-white text-amber-300 font-bold">🇹🇭 泰國說明會</a>
+      <a href="singapore-guide.html" class="hover:text-white text-amber-300 font-bold">🇸🇬 新加坡金融指南</a>
+    </div>
+
+    <div class="hidden sm:flex items-center gap-3">
+      <a href="member_center.html" class="px-4 py-2 text-sm text-slate-200 hover:text-white">MEMBER LOGIN</a>
+        <a href="admin/index.html" class="px-3 py-2 text-xs text-slate-500 hover:text-slate-300">管理中心</a>
+      <a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="px-5 py-2.5 rounded-full bg-gold text-slate-900 font-bold hover:opacity-90">加入 LINE 諮詢</a>
+    </div>
+
+    <button id="mobile-menu-button" class="lg:hidden inline-flex items-center gap-2 px-4 h-11 rounded-xl bg-gold text-slate-900 font-extrabold shadow-lg border border-gold/70">
+      <i class="fa-solid fa-bars text-base"></i>
+      <span class="text-sm">選單</span>
+    </button>
+  </div>
+
+  <div id="mobile-menu-overlay" class="lg:hidden fixed inset-0 bg-slate-950 text-white translate-x-full transition-transform duration-300 ease-in-out shadow-2xl">
+    <div class="px-6 py-5 flex items-center justify-between border-b border-white/10">
+      <div class="flex items-center gap-3">
+        <img src="/tirea-logo.png" alt="TIREA Logo" class="w-10 h-10 rounded-xl shadow-lg object-contain bg-white p-1" />
+        <div>
+          <div class="font-extrabold tracking-tight text-lg leading-none">TIREA</div>
+          <div class="text-[10px] uppercase tracking-[0.24em] text-slate-300">Taiwan International REA</div>
+        </div>
+      </div>
+      <button id="close-menu-button" class="w-11 h-11 rounded-xl border border-white/10 flex items-center justify-center text-white">
+        <i class="fa-solid fa-xmark text-xl"></i>
+      </button>
+    </div>
+    <div class="px-6 py-8 flex flex-col gap-4 text-lg font-bold bg-slate-950">
+      <a href="ai_butler.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-blue-950 border border-blue-800 px-5 py-4 text-blue-100 shadow-lg">AI 找房 <i class="fa-solid fa-arrow-right text-sm text-blue-300"></i></a>
+      <a href="global_pro.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4 text-white shadow-lg">找海外房產 <i class="fa-solid fa-arrow-right text-sm text-slate-300"></i></a>
+      <a href="about.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4 text-white shadow-lg">關於協會 <i class="fa-solid fa-arrow-right text-sm text-slate-300"></i></a>
+      <a href="invest_map.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4 text-white shadow-lg">投資地圖 <i class="fa-solid fa-arrow-right text-sm text-slate-300"></i></a>
+      <a href="knowledge.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4 text-white shadow-lg">知識中心 <i class="fa-solid fa-arrow-right text-sm text-slate-300"></i></a>
+      <a href="daily-real-estate-news.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4 text-white shadow-lg">每日新聞 <i class="fa-solid fa-arrow-right text-sm text-slate-300"></i></a>
+      <a href="projects.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-yellow-950 border border-yellow-800 px-5 py-4 text-yellow-100 shadow-lg">專案 <i class="fa-solid fa-arrow-right text-sm text-yellow-300"></i></a>
+      <a href="turkey-seminar.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-amber-950 border border-amber-800 px-5 py-4 text-amber-100 shadow-lg">🇹🇷 土耳其投資指南 <i class="fa-solid fa-arrow-right text-sm text-amber-300"></i></a>
+      <a href="thailand-seminar.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-amber-950 border border-amber-800 px-5 py-4 text-amber-100 shadow-lg">🇹🇭 泰國說明會 <i class="fa-solid fa-arrow-right text-sm text-amber-300"></i></a>
+      <a href="singapore-guide.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-amber-950 border border-amber-800 px-5 py-4 text-amber-100 shadow-lg">🇸🇬 新加坡金融指南 <i class="fa-solid fa-arrow-right text-sm text-amber-300"></i></a>
+      <a href="member_center.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4 text-white shadow-lg">MEMBER LOGIN <i class="fa-solid fa-arrow-right text-sm text-slate-300"></i></a>
+        <a href="admin/index.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-800 border border-slate-700 px-5 py-4 text-slate-400 shadow-lg">⚙️ 管理中心 <i class="fa-solid fa-arrow-right text-sm text-slate-500"></i></a>
+    </div>
+    <div class="px-6 mt-auto pb-8 bg-slate-950">
+      <a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="mobile-menu-link w-full inline-flex justify-center items-center px-6 py-4 rounded-2xl bg-gold text-slate-900 font-extrabold shadow-lg">加入 LINE 諮詢</a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const closeMenuButton = document.getElementById('close-menu-button');
+  const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+  const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+  mobileMenuButton?.addEventListener('click', () => mobileMenuOverlay.classList.remove('translate-x-full'));
+  closeMenuButton?.addEventListener('click', () => mobileMenuOverlay.classList.add('translate-x-full'));
+  mobileMenuLinks.forEach(link => link.addEventListener('click', () => mobileMenuOverlay.classList.add('translate-x-full')));
+</script>
+
+<!-- HERO -->
+<section class="pt-36 pb-16 px-6">
+  <div class="mx-auto max-w-5xl text-center">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gold/30 bg-gold/10 text-gold text-sm font-bold mb-6">
+      <i class="fa-solid fa-code"></i> 系統建設進度
+    </div>
+    <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-4 leading-tight">
+      TIREA 智能系統<br/><span class="text-gold">專案成果</span>
+    </h1>
+    <p class="text-slate-400 text-lg max-w-2xl mx-auto">
+      從靜態網站到自動化智能平台——記錄每一個建構中的系統與功能。
+    </p>
+
+    <!-- Stats bar -->
+    <div class="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="glass rounded-2xl p-4 text-center">
+        <div class="text-3xl font-extrabold text-gold">8</div>
+        <div class="text-xs text-slate-400 mt-1">已上線系統</div>
+      </div>
+      <div class="glass rounded-2xl p-4 text-center">
+        <div class="text-3xl font-extrabold text-green-400">64</div>
+        <div class="text-xs text-slate-400 mt-1">海外房源</div>
+      </div>
+      <div class="glass rounded-2xl p-4 text-center">
+        <div class="text-3xl font-extrabold text-blue-400">13</div>
+        <div class="text-xs text-slate-400 mt-1">每日新聞期數</div>
+      </div>
+      <div class="glass rounded-2xl p-4 text-center">
+        <div class="text-3xl font-extrabold text-purple-400">3</div>
+        <div class="text-xs text-slate-400 mt-1">建構中項目</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS GRID -->
+<section class="px-6 pb-24">
+  <div class="mx-auto max-w-6xl">
+
+    <!-- Section: 已上線 -->
+    <h2 class="text-xl font-bold text-slate-300 mb-6 flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-green-400 inline-block"></span> 已上線
+    </h2>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-14">
+
+      <!-- 1. TIREA 主網站 -->
+      <div class="glass rounded-2xl p-6 card-hover">
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-12 h-12 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-2xl">🌐</div>
+          <span class="tag status-live">已上線</span>
+        </div>
+        <h3 class="font-extrabold text-white text-lg mb-1">TIREA 主網站</h3>
+        <p class="text-slate-400 text-sm mb-4 leading-relaxed">完整的海外房地產協會網站，涵蓋房源、地圖、知識中心、每日新聞、活動說明會等 50+ 頁面。</p>
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="tag" style="background:rgba(59,130,246,0.15);color:#93c5fd;border:1px solid rgba(59,130,246,0.3)">Tailwind CSS</span>
+          <span class="tag" style="background:rgba(99,102,241,0.15);color:#c4b5fd;border:1px solid rgba(99,102,241,0.3)">Static HTML</span>
+          <span class="tag" style="background:rgba(236,72,153,0.15);color:#f9a8d4;border:1px solid rgba(236,72,153,0.3)">Vercel</span>
+        </div>
+        <div class="progress-bar mb-2"><div class="progress-fill" style="width:90%"></div></div>
+        <div class="flex justify-between text-xs text-slate-500"><span>完成度 90%</span><a href="index.html" class="text-gold hover:underline">查看 →</a></div>
+      </div>
+
+      <!-- 2. 海外房源資料庫 -->
+      <div class="glass rounded-2xl p-6 card-hover">
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-12 h-12 rounded-xl bg-green-600/20 border border-green-500/30 flex items-center justify-center text-2xl">🏠</div>
+          <span class="tag status-live">已上線</span>
+        </div>
+        <h3 class="font-extrabold text-white text-lg mb-1">海外房源資料庫</h3>
+        <p class="text-slate-400 text-sm mb-4 leading-relaxed">64 筆亞洲、歐洲、美洲精選建案，支援地區篩選、預算分類、標籤過濾，動態 JSON 架構易於擴充。</p>
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="tag" style="background:rgba(34,197,94,0.15);color:#86efac;border:1px solid rgba(34,197,94,0.3)">JSON Database</span>
+          <span class="tag" style="background:rgba(251,191,36,0.15);color:#fde68a;border:1px solid rgba(251,191,36,0.3)">動態篩選</span>
+        </div>
+        <div class="progress-bar mb-2"><div class="progress-fill" style="width:85%"></div></div>
+        <div class="flex justify-between text-xs text-slate-500"><span>完成度 85%</span><a href="global_pro.html" class="text-gold hover:underline">查看 →</a></div>
+      </div>
+
+      <!-- 3. 亞洲投資地圖 -->
+      <div class="glass rounded-2xl p-6 card-hover">
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-12 h-12 rounded-xl bg-teal-600/20 border border-teal-500/30 flex items-center justify-center text-2xl">🗺️</div>
+          <span class="tag status-live">已上線</span>
+        </div>
+        <h3 class="font-extrabold text-white text-lg mb-1">亞洲投資地圖</h3>
+        <p class="text-slate-400 text-sm mb-4 leading-relaxed">Google Maps 互動地圖，標記曼谷、新加坡、吉隆坡、胡志明市等核心投資區域，點擊顯示行情數據。</p>
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="tag" style="background:rgba(20,184,166,0.15);color:#99f6e4;border:1px solid rgba(20,184,166,0.3)">Google Maps API</span>
+          <span class="tag" style="background:rgba(99,102,241,0.15);color:#c4b5fd;border:1px solid rgba(99,102,241,0.3)">互動標記</span>
+        </div>
+        <div class="progress-bar mb-2"><div class="progress-fill" style="width:75%"></div></div>
+        <div class="flex justify-between text-xs text-slate-500"><span>完成度 75%</span><a href="invest_map.html" class="text-gold hover:underline">查看 →</a></div>
+      </div>
+
+      <!-- 4. 每日新聞系統 -->
+      <div class="glass rounded-2xl p-6 card-hover">
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-12 h-12 rounded-xl bg-orange-600/20 border border-orange-500/30 flex items-center justify-center text-2xl">📰</div>
+          <span class="tag status-live">已上線</span>
+        </div>
+        <h3 class="font-extrabold text-white text-lg mb-1">每日地產新聞系統</h3>
+        <p class="text-slate-400 text-sm mb-4 leading-relaxed">涵蓋亞洲 10 大市場的每日房地產新聞，已累積 13 期，固定格式模板，Claude 自動生成內容。</p>
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="tag" style="background:rgba(249,115,22,0.15);color:#fdba74;border:1px solid rgba(249,115,22,0.3)">Claude AI</span>
+          <span class="tag" style="background:rgba(236,72,153,0.15);color:#f9a8d4;border:1px solid rgba(236,72,153,0.3)">自動排版</span>
+        </div>
+        <div class="progress-bar mb-2"><div class="progress-fill" style="width:80%"></div></div>
+        <div class="flex justify-between text-xs text-slate-500"><span>完成度 80%</span><a href="daily-real-estate-news.html" class="text-gold hover:underline">查看 →</a></div>
+      </div>
+
+      <!-- 5. AI 找房管家 -->
+      <div class="glass rounded-2xl p-6 card-hover">
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-12 h-12 rounded-xl bg-blue-500/20 border border-blue-400/30 flex items-center justify-center text-2xl">🤖</div>
+          <span class="tag status-live">已上線</span>
+        </div>
+        <h3 class="font-extrabold text-white text-lg mb-1">AI 找房管家</h3>
+        <p class="text-slate-400 text-sm mb-4 leading-relaxed">基於 Claude API 的對話式找房助手，輸入預算與偏好，AI 推薦最適合的海外建案與市場。</p>
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="tag" style="background:rgba(59,130,246,0.15);color:#93c5fd;border:1px solid rgba(59,130,246,0.3)">Claude API</span>
+          <span class="tag" style="background:rgba(34,197,94,0.15);color:#86efac;border:1px solid rgba(34,197,94,0.3)">對話式 UI</span>
+        </div>
+        <div class="progress-bar mb-2"><div class="progress-fill" style="width:70%"></div></div>
+        <div class="flex justify-between text-xs text-slate-500"><span>完成度 70%</span><a href="ai_butler.html" class="text-gold hover:underline">查看 →</a></div>
+      </div>
+
+      <!-- 6. 新加坡商人指南 -->
+      <div class="glass rounded-2xl p-6 card-hover">
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-12 h-12 rounded-xl bg-red-600/20 border border-red-500/30 flex items-center justify-center text-2xl">🇸🇬</div>
+          <span class="tag status-live">已上線</span>
+        </div>
+        <h3 class="font-extrabold text-white text-lg mb-1">新加坡台灣商人指南</h3>
+        <p class="text-slate-400 text-sm mb-4 leading-relaxed">銀行開戶條件比較、ABSD 稅率試算、置業策略分析，雙語介面，專為台灣投資者設計。</p>
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="tag" style="background:rgba(239,68,68,0.15);color:#fca5a5;border:1px solid rgba(239,68,68,0.3)">雙語</span>
+          <span class="tag" style="background:rgba(251,191,36,0.15);color:#fde68a;border:1px solid rgba(251,191,36,0.3)">互動試算</span>
+        </div>
+        <div class="progress-bar mb-2"><div class="progress-fill" style="width:95%"></div></div>
+        <div class="flex justify-between text-xs text-slate-500"><span>完成度 95%</span><a href="singapore-guide.html" class="text-gold hover:underline">查看 →</a></div>
+      </div>
+
+      <!-- 7. 泰國說明會系統 -->
+      <div class="glass rounded-2xl p-6 card-hover">
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-12 h-12 rounded-xl bg-amber-600/20 border border-amber-500/30 flex items-center justify-center text-2xl">🇹🇭</div>
+          <span class="tag status-live">已上線</span>
+        </div>
+        <h3 class="font-extrabold text-white text-lg mb-1">泰國說明會系統</h3>
+        <p class="text-slate-400 text-sm mb-4 leading-relaxed">曼谷投資說明會活動頁，4 個精選建案詳細介紹，現場報名連結，搭配 LINE 諮詢流程。</p>
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="tag" style="background:rgba(245,158,11,0.15);color:#fcd34d;border:1px solid rgba(245,158,11,0.3)">活動頁面</span>
+          <span class="tag" style="background:rgba(34,197,94,0.15);color:#86efac;border:1px solid rgba(34,197,94,0.3)">建案展示</span>
+        </div>
+        <div class="progress-bar mb-2"><div class="progress-fill" style="width:88%"></div></div>
+        <div class="flex justify-between text-xs text-slate-500"><span>完成度 88%</span><a href="thailand-seminar.html" class="text-gold hover:underline">查看 →</a></div>
+      </div>
+
+      <!-- 8. Telegram 工作機器人 -->
+      <div class="glass rounded-2xl p-6 card-hover">
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-12 h-12 rounded-xl bg-sky-600/20 border border-sky-500/30 flex items-center justify-center text-2xl">📲</div>
+          <span class="tag status-live">已上線</span>
+        </div>
+        <h3 class="font-extrabold text-white text-lg mb-1">Telegram 工作機器人</h3>
+        <p class="text-slate-400 text-sm mb-4 leading-relaxed">Claude 自動工作時推送進度通知，支援手機遠端查看工作狀態、系統警告、部署完成通報。</p>
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="tag" style="background:rgba(14,165,233,0.15);color:#7dd3fc;border:1px solid rgba(14,165,233,0.3)">Telegram Bot API</span>
+          <span class="tag" style="background:rgba(99,102,241,0.15);color:#c4b5fd;border:1px solid rgba(99,102,241,0.3)">即時推播</span>
+        </div>
+        <div class="progress-bar mb-2"><div class="progress-fill" style="width:100%"></div></div>
+        <div class="flex justify-between text-xs text-slate-500"><span>完成度 100%</span><span class="text-green-400">✓ 運作中</span></div>
+      </div>
+
+    </div>
+
+    <!-- Section: 建構中 -->
+    <h2 class="text-xl font-bold text-slate-300 mb-6 flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-yellow-400 inline-block animate-pulse"></span> 建構中
+    </h2>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-14">
+
+      <!-- 客戶管理系統 -->
+      <div class="glass rounded-2xl p-6 card-hover border border-yellow-500/20">
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-12 h-12 rounded-xl bg-yellow-600/20 border border-yellow-500/30 flex items-center justify-center text-2xl">🗂️</div>
+          <span class="tag status-building">建構中</span>
+        </div>
+        <h3 class="font-extrabold text-white text-lg mb-1">客戶管理系統 (CRM)</h3>
+        <p class="text-slate-400 text-sm mb-4 leading-relaxed">問卷提交後台、客戶紀錄查閱、管理員 Dashboard，整合 Supabase 資料庫，支援狀態追蹤與備註。</p>
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="tag" style="background:rgba(234,179,8,0.15);color:#fef08a;border:1px solid rgba(234,179,8,0.3)">Supabase</span>
+          <span class="tag" style="background:rgba(34,197,94,0.15);color:#86efac;border:1px solid rgba(34,197,94,0.3)">Vercel API</span>
+          <span class="tag" style="background:rgba(99,102,241,0.15);color:#c4b5fd;border:1px solid rgba(99,102,241,0.3)">Admin Dashboard</span>
+        </div>
+        <div class="progress-bar mb-2"><div class="progress-fill" style="width:55%"></div></div>
+        <div class="flex justify-between text-xs text-slate-500"><span>完成度 55%</span><span class="text-yellow-400">⚡ 今晚完工</span></div>
+      </div>
+
+      <!-- 會員中心 -->
+      <div class="glass rounded-2xl p-6 card-hover border border-yellow-500/20">
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-12 h-12 rounded-xl bg-purple-600/20 border border-purple-500/30 flex items-center justify-center text-2xl">👤</div>
+          <span class="tag status-building">建構中</span>
+        </div>
+        <h3 class="font-extrabold text-white text-lg mb-1">會員中心</h3>
+        <p class="text-slate-400 text-sm mb-4 leading-relaxed">會員登入 / 註冊、儲存感興趣建案、查看問卷紀錄，Supabase Auth 驗證，支援社群登入。</p>
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="tag" style="background:rgba(168,85,247,0.15);color:#d8b4fe;border:1px solid rgba(168,85,247,0.3)">Supabase Auth</span>
+          <span class="tag" style="background:rgba(234,179,8,0.15);color:#fef08a;border:1px solid rgba(234,179,8,0.3)">收藏功能</span>
+        </div>
+        <div class="progress-bar mb-2"><div class="progress-fill" style="width:40%"></div></div>
+        <div class="flex justify-between text-xs text-slate-500"><span>完成度 40%</span><span class="text-yellow-400">⚡ 今晚完工</span></div>
+      </div>
+
+      <!-- Telegram 指令中心 -->
+      <div class="glass rounded-2xl p-6 card-hover border border-yellow-500/20">
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-12 h-12 rounded-xl bg-sky-600/20 border border-sky-500/30 flex items-center justify-center text-2xl">🎮</div>
+          <span class="tag status-building">建構中</span>
+        </div>
+        <h3 class="font-extrabold text-white text-lg mb-1">Telegram 遠端指令中心</h3>
+        <p class="text-slate-400 text-sm mb-4 leading-relaxed">手機傳指令給 Bot（/部署、/日報、/查狀態），Claude 自動執行並回報，在外出時也能管理網站。</p>
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="tag" style="background:rgba(14,165,233,0.15);color:#7dd3fc;border:1px solid rgba(14,165,233,0.3)">雙向通訊</span>
+          <span class="tag" style="background:rgba(249,115,22,0.15);color:#fdba74;border:1px solid rgba(249,115,22,0.3)">指令解析</span>
+        </div>
+        <div class="progress-bar mb-2"><div class="progress-fill" style="width:30%"></div></div>
+        <div class="flex justify-between text-xs text-slate-500"><span>完成度 30%</span><span class="text-slate-500">規劃中</span></div>
+      </div>
+
+    </div>
+
+    <!-- Timeline -->
+    <div class="glass rounded-3xl p-8">
+      <h2 class="text-xl font-extrabold text-white mb-8 flex items-center gap-3">
+        <i class="fa-solid fa-timeline text-gold"></i> 建設時間軸
+      </h2>
+      <div class="space-y-6">
+        <div class="flex gap-4">
+          <div class="flex flex-col items-center">
+            <div class="w-3 h-3 rounded-full bg-green-400 mt-1"></div>
+            <div class="w-px flex-1 bg-slate-700 mt-2"></div>
+          </div>
+          <div>
+            <div class="text-xs text-slate-500 mb-1">2026-03-15 起</div>
+            <div class="font-bold text-white">每日新聞系統啟動</div>
+            <div class="text-sm text-slate-400">開始固定產出亞洲 10 市場地產新聞，建立標準模板</div>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="flex flex-col items-center">
+            <div class="w-3 h-3 rounded-full bg-green-400 mt-1"></div>
+            <div class="w-px flex-1 bg-slate-700 mt-2"></div>
+          </div>
+          <div>
+            <div class="text-xs text-slate-500 mb-1">2026-03-20</div>
+            <div class="font-bold text-white">海外房源資料庫擴充至 64 筆</div>
+            <div class="text-sm text-slate-400">新增泰國 4 大建案（U Charoen、Chewathai Thonglor、遹羅學府、XT Phayathai）</div>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="flex flex-col items-center">
+            <div class="w-3 h-3 rounded-full bg-green-400 mt-1"></div>
+            <div class="w-px flex-1 bg-slate-700 mt-2"></div>
+          </div>
+          <div>
+            <div class="text-xs text-slate-500 mb-1">2026-03-27</div>
+            <div class="font-bold text-white">Telegram Bot 上線 & 新加坡指南發布</div>
+            <div class="text-sm text-slate-400">手機遠端通知系統啟動，台灣商人新加坡指南正式上線</div>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="flex flex-col items-center">
+            <div class="w-3 h-3 rounded-full bg-yellow-400 mt-1 animate-pulse"></div>
+            <div class="w-px flex-1 bg-slate-700 mt-2"></div>
+          </div>
+          <div>
+            <div class="text-xs text-yellow-400 mb-1">2026-03-28 凌晨（進行中）</div>
+            <div class="font-bold text-white">客戶管理系統 + 會員中心建構</div>
+            <div class="text-sm text-slate-400">Supabase 資料庫整合、後台 Dashboard、會員登入收藏功能</div>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="flex flex-col items-center">
+            <div class="w-3 h-3 rounded-full bg-slate-600 mt-1"></div>
+          </div>
+          <div>
+            <div class="text-xs text-slate-500 mb-1">即將到來</div>
+            <div class="font-bold text-slate-300">Telegram 遠端指令中心</div>
+            <div class="text-sm text-slate-500">手機傳指令執行部署、新增內容、查詢報表</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="border-t border-white/10 py-8 text-center text-slate-500 text-sm">
+  © 2026 TIREA Taiwan International Real Estate Association · 持續建設中
+</footer>
+
+  <script>
+    (function(){
+      try {
+        fetch('/api/track-visit', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            page: location.pathname,
+            title: document.title,
+            referrer: document.referrer || 'direct',
+            device: /Mobile|Android|iPhone|iPad/i.test(navigator.userAgent) ? 'mobile' : 'desktop'
+          })
+        });
+      } catch(e){}
+    })();
+  </script>
+
+  <!-- Vercel Web Analytics -->
+  <script defer src="/_vercel/insights/script.js"></script>
+  <!-- Vercel Speed Insights -->
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

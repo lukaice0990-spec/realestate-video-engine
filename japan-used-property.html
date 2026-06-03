@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>日本中古屋投資指南 | 東京・沖繩・福岡 | TIREA</title>
+  <meta name="keywords" content="日本中古屋,日本買房台灣人,東京公寓投資,沖繩不動產,日圓買房,沖繩移住" />
+  <meta name="description" content="日本中古屋（中古マンション）投資完整指南：物件篩選、仲介手数料、固定資産税、日圓折讓機會，台灣人買房實戰說明。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: '#0f172a',
+            primary: '#163a8a',
+            gold: '#c89b3c',
+          },
+          fontFamily: { sans: ['"Noto Sans TC"', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Noto Sans TC', sans-serif; background: #0f172a; color: #f1f5f9; }
+    .glass { background: rgba(255,255,255,0.04); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.08); }
+    .card-hover { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+    .hero-bg {
+      background:
+        linear-gradient(135deg, rgba(15,23,42,.88), rgba(15,23,42,.55)),
+        url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat;
+    }
+    .tag { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 600; }
+    .tag-blue { background: rgba(59,130,246,0.15); color: #93c5fd; border: 1px solid rgba(59,130,246,0.3); }
+    .tag-green { background: rgba(34,197,94,0.15); color: #86efac; border: 1px solid rgba(34,197,94,0.3); }
+    .tag-amber { background: rgba(251,191,36,0.15); color: #fde68a; border: 1px solid rgba(251,191,36,0.3); }
+    .tag-red { background: rgba(239,68,68,0.15); color: #fca5a5; border: 1px solid rgba(239,68,68,0.3); }
+    .tag-purple { background: rgba(168,85,247,0.15); color: #d8b4fe; border: 1px solid rgba(168,85,247,0.3); }
+    .yield-badge { background: linear-gradient(135deg, rgba(34,197,94,0.2), rgba(34,197,94,0.08)); border: 1px solid rgba(34,197,94,0.35); color: #86efac; border-radius: 8px; padding: 6px 12px; font-weight: 700; }
+    .filter-btn { transition: all .2s; cursor: pointer; }
+    .filter-btn.active { background: rgba(200,155,60,0.2); border-color: rgba(200,155,60,0.6); color: #fde68a; }
+    .filter-btn:hover:not(.active) { border-color: rgba(255,255,255,0.3); }
+    .listing-card { display: none; }
+    .listing-card.show { display: flex; }
+    .prop-img { aspect-ratio: 4/3; object-fit: cover; width: 100%; border-radius: 12px 12px 0 0; }
+    .sticky-cta { position: fixed; bottom: 0; left: 0; right: 0; z-index: 40; background: rgba(15,23,42,0.97); backdrop-filter: blur(12px); border-top: 1px solid rgba(255,255,255,0.08); padding: 12px 16px; display: flex; gap: 10px; justify-content: center; align-items: center; }
+    @media(min-width:768px){ .sticky-cta { display: none; } }
+    .faq-item summary { cursor: pointer; list-style: none; }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item[open] summary .faq-arrow { transform: rotate(180deg); }
+    .faq-arrow { transition: transform .25s; }
+    .grad-text { background: linear-gradient(135deg, #c89b3c, #f0c060); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2XV1V9TS1P"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-2XV1V9TS1P');
+  </script>
+  <link rel="canonical" href="https://www.tirea.tw/japan-used-property" />
+</head>
+<body class="pb-24 md:pb-0">
+  <div style="background:rgba(79,70,229,0.08);border:1px solid rgba(79,70,229,0.2);padding:16px 24px;margin:24px 0;border-radius:10px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+    <span style="font-size:13px;color:#94a3b8;">🇯🇵 延伸閱讀：日本置產完整攻略</span>
+    <a href="japan.html" style="font-size:13px;font-weight:700;color:#a5b4fc;text-decoration:none;">查看日本專區 →</a>
+  </div>
+
+<!-- NAV -->
+<nav class="fixed top-0 inset-x-0 z-50 border-b border-white/10 bg-slate-950/70 backdrop-blur-xl text-white">
+  <div class="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-3">
+      <img src="/tirea-logo.png" alt="TIREA Logo" class="w-11 h-11 rounded-xl shadow-lg object-contain bg-white p-1" />
+      <div>
+        <div class="font-extrabold tracking-tight text-lg leading-none">TIREA</div>
+        <div class="text-[10px] uppercase tracking-[0.28em] text-slate-300">Taiwan International REA</div>
+      </div>
+    </a>
+    <div class="hidden lg:flex items-center gap-7 text-sm font-medium text-slate-200">
+      <a href="ai_butler.html" class="hover:text-white font-bold text-blue-200">AI 找房</a>
+      <a href="global_pro.html" class="hover:text-white">找海外房產</a>
+      <a href="invest_map.html" class="hover:text-white">投資地圖</a>
+      <a href="knowledge.html" class="hover:text-white">知識中心</a>
+      <a href="daily-real-estate-news.html" class="hover:text-white">每日新聞</a>
+      <a href="japan-used-property.html" class="text-amber-300 font-bold">🇯🇵 日本二手房</a>
+      <a href="turkey-seminar.html" class="hover:text-white text-amber-300 font-bold">🇹🇷 土耳其</a>
+      <a href="thailand-seminar.html" class="hover:text-white text-amber-300 font-bold">🇹🇭 泰國</a>
+    </div>
+    <div class="hidden sm:flex items-center gap-3">
+      <a href="member_center.html" class="px-4 py-2 text-sm text-slate-200 hover:text-white">MEMBER LOGIN</a>
+      <a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="px-5 py-2.5 rounded-full bg-gold text-slate-900 font-bold hover:opacity-90">加入 LINE 諮詢</a>
+    </div>
+    <button id="mobile-menu-button" class="lg:hidden inline-flex items-center gap-2 px-4 h-11 rounded-xl bg-gold text-slate-900 font-extrabold shadow-lg">
+      <i class="fa-solid fa-bars text-base"></i><span class="text-sm">選單</span>
+    </button>
+  </div>
+  <div id="mobile-menu-overlay" class="lg:hidden fixed inset-0 bg-slate-950 text-white translate-x-full transition-transform duration-300 ease-in-out shadow-2xl z-50">
+    <div class="px-6 py-5 flex items-center justify-between border-b border-white/10">
+      <div class="flex items-center gap-3">
+        <img src="/tirea-logo.png" alt="TIREA Logo" class="w-10 h-10 rounded-xl shadow-lg object-contain bg-white p-1" />
+        <div class="font-extrabold text-lg">TIREA</div>
+      </div>
+      <button id="close-menu-button" class="w-11 h-11 rounded-xl border border-white/10 flex items-center justify-center">
+        <i class="fa-solid fa-xmark text-xl"></i>
+      </button>
+    </div>
+    <div class="px-6 py-8 flex flex-col gap-4 text-lg font-bold overflow-y-auto h-full">
+      <a href="index.html" class="mobile-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4">首頁 <i class="fa-solid fa-arrow-right text-sm text-slate-400"></i></a>
+      <a href="global_pro.html" class="mobile-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4">找海外房產 <i class="fa-solid fa-arrow-right text-sm text-slate-400"></i></a>
+      <a href="knowledge.html" class="mobile-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4">知識中心 <i class="fa-solid fa-arrow-right text-sm text-slate-400"></i></a>
+      <a href="member_center.html" class="mobile-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4">MEMBER LOGIN <i class="fa-solid fa-arrow-right text-sm text-slate-400"></i></a>
+      <a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="mobile-link inline-flex justify-center items-center rounded-2xl bg-gold text-slate-900 px-5 py-4">加入 LINE 諮詢</a>
+    </div>
+  </div>
+</nav>
+<script>
+  document.getElementById('mobile-menu-button')?.addEventListener('click',()=>document.getElementById('mobile-menu-overlay').classList.remove('translate-x-full'));
+  document.getElementById('close-menu-button')?.addEventListener('click',()=>document.getElementById('mobile-menu-overlay').classList.add('translate-x-full'));
+  document.querySelectorAll('.mobile-link').forEach(l=>l.addEventListener('click',()=>document.getElementById('mobile-menu-overlay').classList.add('translate-x-full')));
+</script>
+
+<!-- HERO -->
+<section class="hero-bg pt-32 pb-20 px-6">
+  <div class="max-w-4xl mx-auto text-center">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold mb-6 bg-red-950/60 border border-red-700/40 text-red-300 uppercase tracking-wider">
+      🇯🇵 Japan Second-Hand Properties
+    </div>
+    <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-4">
+      日本<span class="grad-text">二手中古屋</span><br class="sm:hidden" />精選物件
+    </h1>
+    <p class="text-slate-300 text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-8">
+      東京、沖繩、名古屋、福岡——精選有租金實績的二手物件，<br class="hidden md:block" />
+      含稅費試算、租報率分析，陪你找到真正划算的日本不動產。
+    </p>
+
+    <!-- Stats Bar -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mt-10">
+      <div class="glass rounded-2xl p-4">
+        <div class="text-2xl font-extrabold text-gold">¥2,280萬起</div>
+        <div class="text-xs text-slate-400 mt-1">本批物件最低價</div>
+      </div>
+      <div class="glass rounded-2xl p-4">
+        <div class="text-2xl font-extrabold text-emerald-400">5件</div>
+        <div class="text-xs text-slate-400 mt-1">東京精選二手物件</div>
+      </div>
+      <div class="glass rounded-2xl p-4">
+        <div class="text-2xl font-extrabold text-blue-300">100%</div>
+        <div class="text-xs text-slate-400 mt-1">全部翻新・空屋</div>
+      </div>
+      <div class="glass rounded-2xl p-4">
+        <div class="text-2xl font-extrabold text-purple-300">45天</div>
+        <div class="text-xs text-slate-400 mt-1">平均過戶完成時間</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FILTERS -->
+<section class="sticky top-[72px] z-30 bg-slate-950/90 backdrop-blur-xl border-b border-white/06 py-3 px-4">
+  <div class="max-w-7xl mx-auto flex flex-wrap gap-2 items-center">
+    <span class="text-xs text-slate-400 font-medium mr-1 whitespace-nowrap">篩選區域：</span>
+    <button class="filter-btn active px-4 py-1.5 rounded-full text-sm border border-white/15 text-slate-200" data-city="all">全部</button>
+    <button class="filter-btn px-4 py-1.5 rounded-full text-sm border border-white/15 text-slate-200" data-city="katsushika">葛飾區</button>
+    <button class="filter-btn px-4 py-1.5 rounded-full text-sm border border-white/15 text-slate-200" data-city="adachi">足立區</button>
+    <button class="filter-btn px-4 py-1.5 rounded-full text-sm border border-white/15 text-slate-200" data-city="reno">🔨 全面翻新</button>
+    <button class="filter-btn px-4 py-1.5 rounded-full text-sm border border-white/15 text-slate-200" data-city="shinjuku">新宿區</button>
+    <button class="filter-btn px-4 py-1.5 rounded-full text-sm border border-white/15 text-slate-200" data-city="sumida">墨田・台東</button>
+    <button class="filter-btn px-4 py-1.5 rounded-full text-sm border border-white/15 text-slate-200" data-city="okinawa">🌺 沖繩</button>
+    <button class="filter-btn px-4 py-1.5 rounded-full text-sm border border-white/15 text-slate-200" data-city="koto">江東區</button>
+    <button class="filter-btn px-4 py-1.5 rounded-full text-sm border border-white/15 text-slate-200" data-city="minato">港區</button>
+    <button class="filter-btn px-4 py-1.5 rounded-full text-sm border border-white/15 text-slate-200" data-city="yokohama">🗾 横浜</button>
+    <button class="filter-btn px-4 py-1.5 rounded-full text-sm border border-white/15 text-slate-200" data-city="chiyoda">千代田區</button>
+    <span class="ml-auto text-xs text-slate-500" id="countLabel">共 17 件物件</span>
+  </div>
+</section>
+
+<!-- LISTINGS -->
+<section class="max-w-7xl mx-auto px-4 py-12">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="listingsGrid">
+
+    <!-- 物件1: GSハイム第二金町 -->
+    <div class="listing-card show flex-col bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 card-hover" data-city="katsushika" data-reno="yes">
+      <div class="relative">
+        <img src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=600&q=80" alt="GSハイム第二金町" class="prop-img" loading="lazy" />
+        <div class="absolute top-3 left-3 flex gap-2">
+          <span class="tag tag-blue">🗼 東京・葛飾區</span>
+          <span class="tag tag-amber">二手</span>
+        </div>
+        <div class="absolute top-3 right-3">
+          <span class="tag tag-green text-xs">裝修中</span>
+        </div>
+      </div>
+      <div class="p-5 flex flex-col flex-1">
+        <div class="text-xs text-slate-500 mb-1 font-medium">GSハイム第二金町 4F・402号室</div>
+        <h3 class="font-bold text-lg leading-snug mb-1">葛飾區金町 2DK（可改 1LDK）</h3>
+        <p class="text-slate-400 text-sm mb-1">JR 常磐緩行線「金町」徒步 11 分・京成「京成金町」徒步 13 分</p>
+        <p class="text-slate-500 text-xs mb-3">昭和 60 年築・7 階建 56 戶・41.31㎡・4 樓</p>
+        <div class="flex items-end justify-between mb-3">
+          <div>
+            <div class="text-gold font-extrabold text-2xl">¥2,298萬</div>
+            <div class="text-slate-400 text-xs">約 NT$510萬（含稅）</div>
+          </div>
+          <div class="text-right text-xs text-slate-400">
+            <div>管理費 ¥11,200/月</div>
+            <div>修繕積立 ¥9,240/月</div>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-1.5 mb-4">
+          <span class="tag tag-amber">空屋・3 月裝修完工</span>
+          <span class="tag tag-blue">新廚衛設備</span>
+          <span class="tag tag-green">電梯</span>
+          <span class="tag tag-purple">自動門鎖</span>
+        </div>
+        <a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="mt-auto w-full py-2.5 rounded-xl bg-gold text-slate-900 font-bold text-sm text-center hover:opacity-90 transition">詢問此物件</a>
+      </div>
+    </div>
+
+    <!-- 物件2: 梅島ハイツ -->
+    <div class="listing-card show flex-col bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 card-hover" data-city="adachi" data-reno="yes">
+      <div class="relative">
+        <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=600&q=80" alt="梅島ハイツ" class="prop-img" loading="lazy" />
+        <div class="absolute top-3 left-3 flex gap-2">
+          <span class="tag tag-blue">🗼 東京・足立區</span>
+          <span class="tag tag-amber">二手</span>
+        </div>
+        <div class="absolute top-3 right-3">
+          <span class="tag tag-red text-xs">全面翻新完工</span>
+        </div>
+      </div>
+      <div class="p-5 flex flex-col flex-1">
+        <div class="text-xs text-slate-500 mb-1 font-medium">梅島ハイツ 3F・南東角住戶</div>
+        <h3 class="font-bold text-lg leading-snug mb-1">足立區梅島 2LDK 全屋翻新・附新家具</h3>
+        <p class="text-slate-400 text-sm mb-1">東京晴空塔線「梅島」徒步 7 分・商業設施徒步 6 分圈</p>
+        <p class="text-slate-500 text-xs mb-3">昭和 49 年築（翻新 2026.3.9）・51 戶・53.04㎡・3 樓</p>
+        <div class="flex items-end justify-between mb-3">
+          <div>
+            <div class="text-gold font-extrabold text-2xl">¥2,580萬</div>
+            <div class="text-slate-400 text-xs">約 NT$573萬（含稅）</div>
+          </div>
+          <div class="text-right text-xs text-slate-400">
+            <div>管理費 ¥9,315/月</div>
+            <div>修繕積立 ¥12,175/月</div>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-1.5 mb-4">
+          <span class="tag tag-green">空屋即刻交屋</span>
+          <span class="tag tag-red">全室全新裝修</span>
+          <span class="tag tag-blue">南東角住戶</span>
+          <span class="tag tag-purple">WIC + SIC</span>
+          <span class="tag tag-amber">新品家具全配</span>
+        </div>
+        <a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="mt-auto w-full py-2.5 rounded-xl bg-gold text-slate-900 font-bold text-sm text-center hover:opacity-90 transition">詢問此物件</a>
+      </div>
+    </div>
+
+    <!-- 物件3: ウッディライフお花茶屋 302 -->
+    <div class="listing-card show flex-col bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 card-hover" data-city="katsushika" data-reno="yes">
+      <div class="relative">
+        <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=600&q=80" alt="ウッディライフお花茶屋" class="prop-img" loading="lazy" />
+        <div class="absolute top-3 left-3 flex gap-2">
+          <span class="tag tag-blue">🗼 東京・葛飾區</span>
+          <span class="tag tag-amber">二手</span>
+        </div>
+        <div class="absolute top-3 right-3">
+          <span class="tag tag-green text-xs">裝修完畢</span>
+        </div>
+      </div>
+      <div class="p-5 flex flex-col flex-1">
+        <div class="text-xs text-slate-500 mb-1 font-medium">ウッディライフお花茶屋 302号室</div>
+        <h3 class="font-bold text-lg leading-snug mb-1">葛飾區東堀切 2DK 全室翻新</h3>
+        <p class="text-slate-400 text-sm mb-1">京成本線「お花茶屋」徒步 11 分</p>
+        <p class="text-slate-500 text-xs mb-3">1990 年築（翻新 2025.12）・60 戶・40.76㎡・3 樓</p>
+        <div class="flex items-end justify-between mb-3">
+          <div>
+            <div class="text-gold font-extrabold text-2xl">¥2,580萬</div>
+            <div class="text-slate-400 text-xs">約 NT$573萬（含稅）</div>
+          </div>
+          <div class="text-right text-xs text-slate-400">
+            <div>管理費 ¥6,380/月</div>
+            <div>修繕積立 ¥8,580/月</div>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-1.5 mb-4">
+          <span class="tag tag-green">空屋</span>
+          <span class="tag tag-red">全室翻新完畢</span>
+          <span class="tag tag-blue">新廚衛浴設備</span>
+          <span class="tag tag-purple">電梯・地面停車場</span>
+        </div>
+        <a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="mt-auto w-full py-2.5 rounded-xl bg-gold text-slate-900 font-bold text-sm text-center hover:opacity-90 transition">詢問此物件</a>
+      </div>
+    </div>
+
+    <!-- 物件4: 五反野スカイハイツ 318 -->
+    <div class="listing-card show flex-col bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 card-hover" data-city="adachi" data-reno="yes">
+      <div class="relative">
+        <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80" alt="五反野スカイハイツ" class="prop-img" loading="lazy" />
+        <div class="absolute top-3 left-3 flex gap-2">
+          <span class="tag tag-blue">🗼 東京・足立區</span>
+          <span class="tag tag-amber">二手</span>
+        </div>
+        <div class="absolute top-3 right-3">
+          <span class="tag tag-red text-xs">新規翻新</span>
+        </div>
+      </div>
+      <div class="p-5 flex flex-col flex-1">
+        <div class="text-xs text-slate-500 mb-1 font-medium">五反野スカイハイツ 318号室</div>
+        <h3 class="font-bold text-lg leading-snug mb-1">足立區五反野 1LDK＋納戶・南東向</h3>
+        <p class="text-slate-400 text-sm mb-1">東武伊勢崎線「五反野」徒步 11 分・つくばエクスプレス「青井」徒步 18 分</p>
+        <p class="text-slate-500 text-xs mb-3">1976 年築・11 階建 236 戶・56.61㎡・3 樓</p>
+        <div class="flex items-end justify-between mb-3">
+          <div>
+            <div class="text-gold font-extrabold text-2xl">¥2,590萬</div>
+            <div class="text-slate-400 text-xs">約 NT$575萬（含稅）</div>
+          </div>
+          <div class="text-right text-xs text-slate-400">
+            <div>管理費 ¥13,300/月</div>
+            <div>修繕積立 ¥9,570/月</div>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-1.5 mb-4">
+          <span class="tag tag-amber">空屋</span>
+          <span class="tag tag-red">全室翻新</span>
+          <span class="tag tag-blue">LDK 14 帖超寬敞</span>
+          <span class="tag tag-green">寵物可</span>
+          <span class="tag tag-purple">南東日照佳</span>
+        </div>
+        <a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="mt-auto w-full py-2.5 rounded-xl bg-gold text-slate-900 font-bold text-sm text-center hover:opacity-90 transition">詢問此物件</a>
+      </div>
+    </div>
+
+    <!-- 物件5: ライオンズマンション五反野 -->
+    <div class="listing-card show flex-col bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 card-hover" data-city="adachi" data-reno="yes">
+      <div class="relative">
+        <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=600&q=80" alt="ライオンズマンション五反野" class="prop-img" loading="lazy" />
+        <div class="absolute top-3 left-3 flex gap-2">
+          <span class="tag tag-blue">🗼 東京・足立區</span>
+          <span class="tag tag-amber">二手</span>
+        </div>
+        <div class="absolute top-3 right-3">
+          <span class="tag tag-green text-xs">翻新完成</span>
+        </div>
+      </div>
+      <div class="p-5 flex flex-col flex-1">
+        <div class="text-xs text-slate-500 mb-1 font-medium">ライオンズマンション五反野 1F</div>
+        <h3 class="font-bold text-lg leading-snug mb-1">足立區五反野 2LDK 全屋翻新・車站 3 分</h3>
+        <p class="text-slate-400 text-sm mb-1">東武伊勢崎線「五反野」徒步 3 分（超近！）</p>
+        <p class="text-slate-500 text-xs mb-3">昭和 56 年築（翻新 2026.3 完成）・3 階建 47 戶・46.75㎡・1 樓</p>
+        <div class="flex items-end justify-between mb-3">
+          <div>
+            <div class="text-gold font-extrabold text-2xl">¥2,280萬</div>
+            <div class="text-slate-400 text-xs">約 NT$506萬（含稅）</div>
+          </div>
+          <div class="text-right text-xs text-slate-400">
+            <div>管理費 ¥10,200/月</div>
+            <div>修繕積立 ¥9,490/月</div>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-1.5 mb-4">
+          <span class="tag tag-amber">空屋</span>
+          <span class="tag tag-red">全屋翻新</span>
+          <span class="tag tag-blue">車站超近 3 分</span>
+          <span class="tag tag-purple">自主管理</span>
+        </div>
+        <a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="mt-auto w-full py-2.5 rounded-xl bg-gold text-slate-900 font-bold text-sm text-center hover:opacity-90 transition">詢問此物件</a>
+      </div>
+    </div>
+
+    <!-- 物件6: 四つ木パークファミリア -->
+    <div class="listing-card show flex-col bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 card-hover" data-city="katsushika" data-reno="yes">
+      <div class="relative">
+        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80" alt="四つ木パークファミリア" class="prop-img" loading="lazy" />
+        <div class="absolute top-3 left-3 flex gap-2">
+          <span class="tag tag-blue">🗼 東京・葛飾區</span>
+          <span class="tag tag-amber">二手</span>
+        </div>
+        <div class="absolute top-3 right-3">
+          <span class="tag tag-amber text-xs">翻新 2026.2 完成</span>
+        </div>
+      </div>
+      <div class="p-5 flex flex-col flex-1">
+        <div class="text-xs text-slate-500 mb-1 font-medium">四つ木パークファミリア 2F</div>
+        <h3 class="font-bold text-lg leading-snug mb-1">葛飾區四ツ木 2LDK 全屋翻新・大陽台</h3>
+        <p class="text-slate-400 text-sm mb-1">京成押上線「四ツ木」徒步 12 分</p>
+        <p class="text-slate-500 text-xs mb-3">昭和 56 年築（翻新 2026.2）・7 階建 60 戶・53.72㎡・2 樓</p>
+        <div class="flex items-end justify-between mb-3">
+          <div>
+            <div class="text-gold font-extrabold text-2xl">¥2,580萬</div>
+            <div class="text-slate-400 text-xs">約 NT$573萬（含稅）</div>
+          </div>
+          <div class="text-right text-xs text-slate-400">
+            <div>管理費 ¥8,170/月</div>
+            <div>修繕積立 ¥13,160/月</div>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-1.5 mb-4">
+          <span class="tag tag-amber">空屋</span>
+          <span class="tag tag-red">全室翻新</span>
+          <span class="tag tag-blue">電梯</span>
+          <span class="tag tag-green">大陽台 8.12㎡</span>
+          <span class="tag tag-purple">系統廚房附洗碗機</span>
+        </div>
+        <a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="mt-auto w-full py-2.5 rounded-xl bg-gold text-slate-900 font-bold text-sm text-center hover:opacity-90 transition">詢問此物件</a>
+      </div>
+    </div>
+
+    <!-- 物件7: 東新宿レジデンシャルタワー -->
+    <div class="listing-card show flex-col bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 card-hover" data-city="shinjuku">
+      <div class="relative">
+        <img src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?auto=format&fit=crop&w=600&q=80" alt="東新宿レジデンシャルタワー" class="prop-img" loading="lazy" />
+        <div class="absolute top-3 left-3 flex gap-2">
+          <span class="tag tag-purple">🗼 東京・新宿區</span>
+          <span class="tag tag-amber">二手</span>
+        </div>
+        <div class="absolute top-3 right-3">
+          <span class="tag tag-red text-xs">翻新完畢</span>
+        </div>
+      </div>
+      <div class="p-5 flex flex-col flex-1">
+        <div class="text-xs text-slate-500 mb-1 font-medium">東新宿レジデンシャルタワー 9F・2LDK</div>
+        <h3 class="font-bold text-lg leading-snug mb-1">新宿區歌舞伎町 2LDK・東新宿駅 1 分</h3>
+        <p class="text-slate-400 text-sm mb-1">大江戸線「東新宿」徒步 1 分・JR山手線「新宿」徒步 12 分</p>
+        <p class="text-slate-500 text-xs mb-3">2001 年築・RC 15 階建 158 戶・62.04㎡・9 樓</p>
+        <div class="flex items-end justify-between mb-3">
+          <div>
+            <div class="text-gold font-extrabold text-2xl">¥12,180萬</div>
+            <div class="text-slate-400 text-xs">約 NT$2,704萬（含稅）</div>
+          </div>
+          <div class="text-right text-xs text-slate-400">
+            <div>管理費 ¥16,650/月</div>
+            <div>修繕積立 ¥16,140/月</div>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-1.5 mb-4">
+          <span class="tag tag-amber">空屋</span>
+          <span class="tag tag-red">超近站 1 分</span>
+          <span class="tag tag-purple">大規模社區 158 戶</span>
+          <span class="tag tag-blue">新宿都心</span>
+        </div>
+        <a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="mt-auto w-full py-2.5 rounded-xl bg-gold text-slate-900 font-bold text-sm text-center hover:opacity-90 transition">詢問此物件</a>
+      </div>
+    </div>
+
+    <!-- 物件8: プリムローズ錦糸町 -->
+    <div class="listing-card show flex-col bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 card-hover" data-city="sumida" data-reno="yes">
+      <div class="relative">
+        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=600&q=80" alt="プリムローズ錦糸町" class="prop-img" loading="lazy" />
+        <div class="absolute top-3 left-3 flex gap-2">
+          <span class="tag tag-green">🗼 東京・墨田區</span>
+          <span class="tag tag-amber">二手</span>
+        </div>
+        <div class="absolute top-3 right-3">
+          <span class="tag tag-amber text-xs">翻新 2026.5 完成</span>
+        </div>
+      </div>
+      <div class="p-5 flex flex-col flex-1">
+        <div class="text-xs text-slate-500 mb-1 font-medium">プリムローズ錦糸町 2F・北向き角住戶</div>
+        <h3 class="font-bold text-lg leading-snug mb-1">墨田區錦糸町 3LDK+WIC・角住戶</h3>
+        <p class="text-slate-400 text-sm mb-1">JR 總武線・東京地鐵半蔵門線「錦糸町」徒步 8 分</p>
+        <p class="text-slate-500 text-xs mb-3">2001 年築（翻新 2026.5 完成）・RC 7 階建 27 戶・63.14㎡・2 樓</p>
+        <div class="flex items-end justify-between mb-3">
+          <div>
+            <div class="text-gold font-extrabold text-2xl">¥9,199萬</div>
+            <div class="text-slate-400 text-xs">約 NT$2,042萬（含稅）</div>
+          </div>
+          <div class="text-right text-xs text-slate-400">
+            <div>管理費 ¥17,779/月</div>
+            <div>修繕積立 ¥14,210/月</div>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-1.5 mb-4">
+          <span class="tag tag-amber">翻新中</span>
+          <span class="tag tag-red">3LDK+WIC</span>
+          <span class="tag tag-blue">角住戶</span>
+          <span class="tag tag-green">錦糸公園旁</span>
+          <span class="tag tag-purple">寵物可</span>
+        </div>
+        <a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="mt-auto w-full py-2.5 rounded-xl bg-gold text-slate-900 font-bold text-sm text-center hover:opacity-90 transition">詢問此物件</a>
+      </div>
+    </div>
+
+    <!-- 物件9: 朝日サテライト上野 -->
+    <div class="listing-card show flex-col bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 card-hover" data-city="sumida" data-reno="yes">
+      <div class="relative">
+        <img src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?auto=format&fit=crop&w=600&q=80" alt="朝日サテライト上野" class="prop-img" loading="lazy" />
+        <div class="absolute top-3 left-3 flex gap-2">
+          <span class="tag tag-green">🗼 東京・台東區</span>
+          <span class="tag tag-amber">二手</span>
+        </div>
+        <div class="absolute top-3 right-3">
+          <span class="tag tag-red text-xs">全屋翻新完畢</span>
+        </div>
+      </div>
+      <div class="p-5 flex flex-col flex-1">
+        <div class="text-xs text-slate-500 mb-1 font-medium">朝日サテライト上野 7F・角部屋 2LDK</div>
+        <h3 class="font-bold text-lg leading-snug mb-1">台東區上野 2LDK・上野駅 5 分・角部屋高樓層</h3>
+        <p class="text-slate-400 text-sm mb-1">山手線・銀座線・日比谷線「上野」徒步 5〜9 分（3 路線！）</p>
+        <p class="text-slate-500 text-xs mb-3">2000 年築・RC 11 階建 53 戶・60.08㎡・7 樓角部屋</p>
+        <div class="flex items-end justify-between mb-3">
+          <div>
+            <div class="text-gold font-extrabold text-2xl">¥9,980萬</div>
+            <div class="text-slate-400 text-xs">約 NT$2,217萬（含稅）</div>
+          </div>
+          <div class="text-right text-xs text-slate-400">
+            <div>管理費 ¥15,000/月</div>
+            <div>修繕積立 ¥19,230/月</div>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-1.5 mb-4">
+          <span class="tag tag-amber">空屋</span>
+          <span class="tag tag-red">全屋翻新</span>
+          <span class="tag tag-blue">三路線可用</span>
+          <span class="tag tag-purple">7 樓角部屋</span>
+          <span class="tag tag-green">上野公園近</span>
+        </div>
+        <a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="mt-auto w-full py-2.5 rounded-xl bg-gold text-slate-900 font-bold text-sm text-center hover:opacity-90 transition">詢問此物件</a>
+      </div>
+    </div>
+
+    <!-- 物件10: パークシティ高田馬場 -->
+    <div class="listing-card show flex-col bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 card-hover" data-city="shinjuku">
+      <div class="relative">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=600&q=80" alt="パークシティ高田馬場" class="prop-img" loading="lazy" />
+        <div class="absolute top-3 left-3 flex gap-2">
+          <span class="tag tag-purple">🗼 東京・新宿區</span>
+          <span class="tag tag-green">新築</span>
+        </div>
+        <div class="absolute top-3 right-3">
+          <span class="tag tag-blue text-xs">2025 年新築</span>
+        </div>
+      </div>
+      <div class="p-5 flex flex-col flex-1">
+        <div class="text-xs text-slate-500 mb-1 font-medium">パークシティ高田馬場 320号・3F</div>
+        <h3 class="font-bold text-lg leading-snug mb-1">新宿區高田馬場 3LDK+WIC・三井新築</h3>
+        <p class="text-slate-400 text-sm mb-1">山手線・東西線・西武新宿線「高田馬場」徒步 7 分</p>
+        <p class="text-slate-500 text-xs mb-3">2025 年築・RC 13 階建 325 戶・70.83㎡・3 樓・三井不動產</p>
+        <div class="flex items-end justify-between mb-3">
+          <div>
+            <div class="text-gold font-extrabold text-2xl">¥14,800萬</div>
+            <div class="text-slate-400 text-xs">約 NT$3,286萬（含稅）</div>
+          </div>
+          <div class="text-right text-xs text-slate-400">
+            <div>管理費 ¥26,070/月</div>
+            <div>修繕積立 ¥12,250/月</div>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-1.5 mb-4">
+          <span class="tag tag-green">即刻交屋</span>
+          <span class="tag tag-blue">三井品牌</span>
+          <span class="tag tag-purple">三路線可用</span>
+          <span class="tag tag-red">3LDK+WIC 寬敞</span>
+          <span class="tag tag-amber">寵物可</span>
+        </div>
+        <a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="mt-auto w-full py-2.5 rounded-xl bg-gold text-slate-900 font-bold text-sm text-center hover:opacity-90 transition">詢問此物件</a>
+      </div>
+    </div>
+
+    <!-- 物件11: 沖繩那覇・国際通り近 -->
+    <div class="listing-card show flex-col bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 card-hover" data-city="okinawa">
+      <div class="relative">
+        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=600&q=80" alt="沖繩那覇物件" class="prop-img" loading="lazy" />
+        <div class="absolute top-3 left-3 flex gap-2">
+          <span class="tag tag-blue">🌺 沖繩・那覇市</span>
+          <span class="tag tag-amber">二手</span>
+        </div>
+        <div class="absolute top-3 right-3">
+          <span class="tag tag-green text-xs">租金實績</span>
+        </div>
+      </div>
+      <div class="p-5 flex flex-col flex-1">
+        <div class="text-xs text-slate-500 mb-1 font-medium">ライオンズマンション国際通り 5F・503号室</div>
+        <h3 class="font-bold text-lg leading-snug mb-1">那覇市牧志 1LDK・国際通り徒步 3 分</h3>
+        <p class="text-slate-400 text-sm mb-1">ゆいレール「牧志」徒步 4 分・那覇市中心精華地段</p>
+        <p class="text-slate-500 text-xs mb-3">2008 年築・RC 10 階建 80 戶・42.18㎡・5 樓</p>
+        <div class="flex items-end justify-between mb-3">
+          <div>
+            <div class="text-gold font-extrabold text-2xl">¥1,580萬</div>
+            <div class="text-slate-400 text-xs">約 NT$351萬（含稅）</div>
+          </div>
+          <div class="text-right text-xs text-slate-400">
+            <div>管理費 ¥8,200/月</div>
+            <div>修繕積立 ¥6,800/月</div>
+          </div>
+        </div>
+        <div class="yield-badge text-sm mb-3">表面報酬率 約 6.8%</div>
+        <div class="flex flex-wrap gap-1.5 mb-4">
+          <span class="tag tag-green">國際通り徒步 3 分</span>
+          <span class="tag tag-blue">ゆいレール 4 分</span>
+          <span class="tag tag-amber">旅行民宿需求旺</span>
+          <span class="tag tag-purple">電梯・門禁</span>
+        </div>
+        <p class="text-slate-400 text-sm mb-4 leading-relaxed">位於那覇最熱鬧的国際通り旁，觀光客和在地租客需求雙強。適合短租（民泊）或長租雙重運用，附近餐廳、超市生活機能完整。</p>
+        <a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="mt-auto w-full py-2.5 rounded-xl bg-gold text-slate-900 font-bold text-sm text-center hover:opacity-90 transition">詢問此物件</a>
+      </div>
+    </div>
+
+    <!-- 物件12: 沖繩浦添・海景 -->
+    <div class="listing-card show flex-col bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 card-hover" data-city="okinawa">
+      <div class="relative">
+        <img src="https://images.unsplash.com/photo-1559494007-9f5847c49d94?auto=format&fit=crop&w=600&q=80" alt="沖繩浦添海景物件" class="prop-img" loading="lazy" />
+        <div class="absolute top-3 left-3 flex gap-2">
+          <span class="tag tag-blue">🌺 沖繩・浦添市</span>
+          <span class="tag tag-amber">二手</span>
+        </div>
+        <div class="absolute top-3 right-3">
+          <span class="tag tag-amber text-xs">海景房</span>
+        </div>
+      </div>
+      <div class="p-5 flex flex-col flex-1">
+        <div class="text-xs text-slate-500 mb-1 font-medium">オーシャンビューコート浦添 12F・1202号室</div>
+        <h3 class="font-bold text-lg leading-snug mb-1">浦添市海景 2LDK・12 樓東海景</h3>
+        <p class="text-slate-400 text-sm mb-1">ゆいレール「浦添前田」徒步 8 分・那覇空港 20 分車程</p>
+        <p class="text-slate-500 text-xs mb-3">2015 年築・RC 15 階建 120 戶・60.45㎡・12 樓</p>
+        <div class="flex items-end justify-between mb-3">
+          <div>
+            <div class="text-gold font-extrabold text-2xl">¥2,980萬</div>
+            <div class="text-slate-400 text-xs">約 NT$662萬（含稅）</div>
+          </div>
+          <div class="text-right text-xs text-slate-400">
+            <div>管理費 ¥12,000/月</div>
+            <div>修繕積立 ¥9,500/月</div>
+          </div>
+        </div>
+        <div class="yield-badge text-sm mb-3">表面報酬率 約 5.4%</div>
+        <div class="flex flex-wrap gap-1.5 mb-4">
+          <span class="tag tag-amber">東海無敵海景</span>
+          <span class="tag tag-blue">2015 年築・屋況佳</span>
+          <span class="tag tag-green">ゆいレール可達</span>
+          <span class="tag tag-purple">管理員常駐</span>
+        </div>
+        <p class="text-slate-400 text-sm mb-4 leading-relaxed">12 樓高層可眺望沖繩東海，屋況保持良好，近年整修過浴室及廚房。沖繩移居需求持續上升，長租市場穩定，是保值型投資選擇。</p>
+        <a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="mt-auto w-full py-2.5 rounded-xl bg-gold text-slate-900 font-bold text-sm text-center hover:opacity-90 transition">詢問此物件</a>
+      </div>
+    </div>
+
+    <!-- 物件13: 沖繩北谷・美浜アメリカンビレッジ近 -->
+    <div class="listing-card show flex-col bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 card-hover" data-city="okinawa">
+      <div class="relative">
+        <img src="https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&fit=crop&w=600&q=80" alt="沖繩北谷物件" class="prop-img" loading="lazy" />
+        <div class="absolute top-3 left-3 flex gap-2">
+          <span class="tag tag-blue">🌺 沖繩・北谷町</span>
+          <span class="tag tag-amber">二手</span>
+        </div>
+        <div class="absolute top-3 right-3">
+          <span class="tag tag-red text-xs">高報酬</span>
+        </div>
+      </div>
+      <div class="p-5 flex flex-col flex-1">
+        <div class="text-xs text-slate-500 mb-1 font-medium">サンセットコート美浜 3F・308号室</div>
+        <h3 class="font-bold text-lg leading-snug mb-1">北谷町美浜 1LDK・アメリカンビレッジ徒步 5 分</h3>
+        <p class="text-slate-400 text-sm mb-1">国道 58 号線沿い・那覇空港 30 分・嘉手納基地近圈</p>
+        <p class="text-slate-500 text-xs mb-3">2010 年築・RC 5 階建 48 戶・38.72㎡・3 樓</p>
+        <div class="flex items-end justify-between mb-3">
+          <div>
+            <div class="text-gold font-extrabold text-2xl">¥1,280萬</div>
+            <div class="text-slate-400 text-xs">約 NT$284萬（含稅）</div>
+          </div>
+          <div class="text-right text-xs text-slate-400">
+            <div>管理費 ¥6,500/月</div>
+            <div>修繕積立 ¥5,200/月</div>
+          </div>
+        </div>
+        <div class="yield-badge text-sm mb-3">表面報酬率 約 7.5%</div>
+        <div class="flex flex-wrap gap-1.5 mb-4">
+          <span class="tag tag-red">報酬率 7.5%</span>
+          <span class="tag tag-amber">美軍外籍租客穩定</span>
+          <span class="tag tag-blue">美浜 5 分徒步</span>
+          <span class="tag tag-green">海灘・觀光地近</span>
+        </div>
+        <p class="text-slate-400 text-sm mb-4 leading-relaxed">北谷アメリカンビレッジ旁，外籍軍人及觀光租客需求雙旺，歷史空室率極低。入場門檻低、報酬率達 7.5%，適合首次投資日本房產的台灣買家。</p>
+        <a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="mt-auto w-full py-2.5 rounded-xl bg-gold text-slate-900 font-bold text-sm text-center hover:opacity-90 transition">詢問此物件</a>
+      </div>
+    </div>
+
+    <!-- 物件14: トーア辰巳マンション609 -->
+    <div class="listing-card show flex-col bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 card-hover" data-city="koto">
+      <div class="relative">
+        <img src="https://archive-image.homes.co.jp/v2/resize/143661/4810b1224c9c1b90a3c08116fed5d9f2.jpg?width=640&height=640" alt="トーア辰巳マンション" class="prop-img" loading="lazy" />
+        <div class="absolute top-3 left-3 flex gap-2">
+          <span class="tag tag-blue">🗼 東京・江東區</span>
+          <span class="tag tag-amber">二手</span>
+        </div>
+        <div class="absolute top-3 right-3">
+          <span class="tag tag-green text-xs">2023 翻新</span>
+        </div>
+      </div>
+      <div class="p-5 flex flex-col flex-1">
+        <div class="text-xs text-slate-500 mb-1 font-medium">トーア辰巳マンション 6F・609号室</div>
+        <h3 class="font-bold text-lg leading-snug mb-1">江東區辰巳 2LDK 大坪數翻新・有楽町線 10 分</h3>
+        <p class="text-slate-400 text-sm mb-1">東京メトロ有楽町線「辰巳」徒步 10 分・豊洲市場エリア近圈</p>
+        <p class="text-slate-500 text-xs mb-3">1982 年築（翻新 2023）・RC 造・63.50㎡・6 樓</p>
+        <div class="flex items-end justify-between mb-3">
+          <div>
+            <div class="text-gold font-extrabold text-2xl">¥4,699萬</div>
+            <div class="text-slate-400 text-xs">約 NT$1,043萬（含稅）</div>
+          </div>
+          <div class="text-right text-xs text-slate-400">
+            <div>管理費 ¥18,500/月</div>
+            <div>修繕積立 ¥14,200/月</div>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-1.5 mb-4">
+          <span class="tag tag-green">2023 全室翻新</span>
+          <span class="tag tag-blue">63.50㎡ 大坪數</span>
+          <span class="tag tag-amber">2LDK</span>
+          <span class="tag tag-purple">江東區辰巳</span>
+        </div>
+        <p class="text-slate-400 text-sm mb-4 leading-relaxed">江東區辰巳地段成熟，有楽町線直達新木場・豊洲，2023 年全室翻新，63.50㎡寬裕格局，適合自住或長期出租。</p>
+        <a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="mt-auto w-full py-2.5 rounded-xl bg-gold text-slate-900 font-bold text-sm text-center hover:opacity-90 transition">詢問此物件</a>
+      </div>
+    </div>
+
+    <!-- 物件15: ロイヤルアメニティ白金401 -->
+    <div class="listing-card show flex-col bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 card-hover" data-city="minato">
+      <div class="relative">
+        <img src="https://archive-image.homes.co.jp/v2/resize/145255/d3c22066a5e3b4f1e273d4c92fb8f894.jpg?width=640&height=640" alt="ロイヤルアメニティ白金" class="prop-img" loading="lazy" />
+        <div class="absolute top-3 left-3 flex gap-2">
+          <span class="tag tag-purple">🏙 東京・港區</span>
+          <span class="tag tag-amber">二手</span>
+        </div>
+        <div class="absolute top-3 right-3">
+          <span class="tag tag-green text-xs">事務所可</span>
+        </div>
+      </div>
+      <div class="p-5 flex flex-col flex-1">
+        <div class="text-xs text-slate-500 mb-1 font-medium">ロイヤルアメニティ白金 4F・401号室</div>
+        <h3 class="font-bold text-lg leading-snug mb-1">港區白金 1K・白金高輪 8 分・事務所可</h3>
+        <p class="text-slate-400 text-sm mb-1">東京メトロ南北線・都営三田線「白金高輪」徒步 8 分</p>
+        <p class="text-slate-500 text-xs mb-3">RC 造・21.95㎡・4 樓</p>
+        <div class="flex items-end justify-between mb-3">
+          <div>
+            <div class="text-gold font-extrabold text-2xl">¥2,999萬</div>
+            <div class="text-slate-400 text-xs">約 NT$666萬（含稅）</div>
+          </div>
+          <div class="text-right text-xs text-slate-400">
+            <div>管理費 ¥12,000/月</div>
+            <div>修繕積立 ¥8,800/月</div>
+          </div>
+        </div>
+        <div class="yield-badge text-sm mb-3">表面報酬率 約 5.8%</div>
+        <div class="flex flex-wrap gap-1.5 mb-4">
+          <span class="tag tag-red">報酬率 5.8%</span>
+          <span class="tag tag-purple">港區白金高輪</span>
+          <span class="tag tag-green">事務所可</span>
+          <span class="tag tag-blue">高級住宅地段</span>
+        </div>
+        <p class="text-slate-400 text-sm mb-4 leading-relaxed">港區白金稀有投資機會，南北線・三田線雙路線直達六本木・麻布十番，允許事務所用途，外籍高端租客需求旺盛，報酬率 5.8%。</p>
+        <a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="mt-auto w-full py-2.5 rounded-xl bg-gold text-slate-900 font-bold text-sm text-center hover:opacity-90 transition">詢問此物件</a>
+      </div>
+    </div>
+
+    <!-- 物件16: ニューライフ横浜大通り公園205 -->
+    <div class="listing-card show flex-col bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 card-hover" data-city="yokohama" data-reno="yes">
+      <div class="relative">
+        <img src="/newlife-yokohama.jpg" alt="ニューライフ横浜大通り公園" class="prop-img" loading="lazy" />
+        <div class="absolute top-3 left-3 flex gap-2">
+          <span class="tag tag-blue">🗾 横浜・中區</span>
+          <span class="tag tag-amber">二手</span>
+        </div>
+        <div class="absolute top-3 right-3">
+          <span class="tag tag-red text-xs">高利回り</span>
+        </div>
+      </div>
+      <div class="p-5 flex flex-col flex-1">
+        <div class="text-xs text-slate-500 mb-1 font-medium">ニューライフ横浜大通り公園 2F・205号室</div>
+        <h3 class="font-bold text-lg leading-snug mb-1">横浜市中區 1K 裝修完畢・阪東橋 4 分・超高利回り</h3>
+        <p class="text-slate-400 text-sm mb-1">横浜市営地下鉄ブルーライン「阪東橋」徒步 4 分</p>
+        <p class="text-slate-500 text-xs mb-3">RC 造・翻新完了・23.04㎡・2 樓</p>
+        <div class="flex items-end justify-between mb-3">
+          <div>
+            <div class="text-gold font-extrabold text-2xl">¥1,199萬</div>
+            <div class="text-slate-400 text-xs">約 NT$266萬（含稅）</div>
+          </div>
+          <div class="text-right text-xs text-slate-400">
+            <div>管理費 ¥5,500/月</div>
+            <div>修繕積立 ¥4,200/月</div>
+          </div>
+        </div>
+        <div class="yield-badge text-sm mb-3">表面報酬率 約 7.2%</div>
+        <div class="flex flex-wrap gap-1.5 mb-4">
+          <span class="tag tag-red">利回り 7.2%</span>
+          <span class="tag tag-green">翻新完畢</span>
+          <span class="tag tag-amber">超低入場門檻</span>
+          <span class="tag tag-blue">阪東橋 4 分</span>
+        </div>
+        <p class="text-slate-400 text-sm mb-4 leading-relaxed">橫濱市中區入場門檻最低物件，裝修完畢即可出租，利回り 7.2% 居本批之冠，適合首次購入日本投資房的台灣買家。</p>
+        <a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="mt-auto w-full py-2.5 rounded-xl bg-gold text-slate-900 font-bold text-sm text-center hover:opacity-90 transition">詢問此物件</a>
+      </div>
+    </div>
+
+    <!-- 物件17: ダイアパレス飯田橋412 -->
+    <div class="listing-card show flex-col bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 card-hover" data-city="chiyoda">
+      <div class="relative">
+        <img src="https://archive-image.homes.co.jp/v2/resize/146970/aa21709eb25f531955be9ed6b3c8a79c.jpg?width=640&height=640" alt="ダイアパレス飯田橋" class="prop-img" loading="lazy" />
+        <div class="absolute top-3 left-3 flex gap-2">
+          <span class="tag tag-purple">🏙 東京・千代田</span>
+          <span class="tag tag-amber">二手</span>
+        </div>
+        <div class="absolute top-3 right-3">
+          <span class="tag tag-green text-xs">賃貸中</span>
+        </div>
+      </div>
+      <div class="p-5 flex flex-col flex-1">
+        <div class="text-xs text-slate-500 mb-1 font-medium">ダイアパレス飯田橋 4F・412号室</div>
+        <h3 class="font-bold text-lg leading-snug mb-1">千代田區飯田橋 1R・賃貸中・即買即收租</h3>
+        <p class="text-slate-400 text-sm mb-1">JR 総武線・東京メトロ各線「飯田橋」徒步 4 分</p>
+        <p class="text-slate-500 text-xs mb-3">RC 造・23.14㎡・4 樓・現況賃貸中</p>
+        <div class="flex items-end justify-between mb-3">
+          <div>
+            <div class="text-gold font-extrabold text-2xl">¥2,599萬</div>
+            <div class="text-slate-400 text-xs">約 NT$577萬（含稅）</div>
+          </div>
+          <div class="text-right text-xs text-slate-400">
+            <div>管理費 ¥11,000/月</div>
+            <div>修繕積立 ¥7,600/月</div>
+          </div>
+        </div>
+        <div class="yield-badge text-sm mb-3">表面報酬率 約 4.4%</div>
+        <div class="flex flex-wrap gap-1.5 mb-4">
+          <span class="tag tag-green">賃貸中・零空窗</span>
+          <span class="tag tag-purple">千代田區</span>
+          <span class="tag tag-blue">飯田橋 4 分</span>
+          <span class="tag tag-amber">多路線直達</span>
+        </div>
+        <p class="text-slate-400 text-sm mb-4 leading-relaxed">千代田區飯田橋現況有租客，過戶後第一個月即收租。JR 總武線、メトロ有楽町線・南北線・東西線・大江戸線五路線交匯，交通便利無出其右。</p>
+        <a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="mt-auto w-full py-2.5 rounded-xl bg-gold text-slate-900 font-bold text-sm text-center hover:opacity-90 transition">詢問此物件</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- No results message -->
+  <div id="noResults" class="hidden text-center py-20 text-slate-400">
+    <div class="text-5xl mb-4">🔍</div>
+    <p class="text-lg font-bold text-slate-300">目前此城市無物件</p>
+    <p class="text-sm mt-2">請切換城市或聯繫顧問詢問最新物件</p>
+  </div>
+</section>
+
+<!-- WHY SECOND-HAND -->
+<section class="bg-slate-900/50 border-y border-white/06 py-16 px-4">
+  <div class="max-w-5xl mx-auto">
+    <h2 class="text-2xl md:text-3xl font-extrabold text-center mb-2">為什麼選擇 <span class="grad-text">日本二手房</span>？</h2>
+    <p class="text-center text-slate-400 text-sm mb-10">相較新成屋，二手物件有更真實的租金數據與更快的報酬回收</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="glass rounded-2xl p-6 text-center">
+        <div class="text-4xl mb-4">📊</div>
+        <h3 class="font-bold text-lg mb-2 text-gold">有租金實績可查</h3>
+        <p class="text-slate-400 text-sm leading-relaxed">可直接看到過去幾年實際租金收入，不像新成屋只有預估值，投資更有把握。</p>
+      </div>
+      <div class="glass rounded-2xl p-6 text-center">
+        <div class="text-4xl mb-4">💴</div>
+        <h3 class="font-bold text-lg mb-2 text-gold">單價低、報酬率高</h3>
+        <p class="text-slate-400 text-sm leading-relaxed">二手物件折舊後單價通常低 15–30%，但租金與新屋差距小，報酬率更高。</p>
+      </div>
+      <div class="glass rounded-2xl p-6 text-center">
+        <div class="text-4xl mb-4">⚡</div>
+        <h3 class="font-bold text-lg mb-2 text-gold">即買即收租</h3>
+        <p class="text-slate-400 text-sm leading-relaxed">含租客現況交屋物件，過戶後第一個月就開始收租，無空窗等待期。</p>
+      </div>
+      <div class="glass rounded-2xl p-6 text-center">
+        <div class="text-4xl mb-4">🏗️</div>
+        <h3 class="font-bold text-lg mb-2 text-gold">地段成熟穩定</h3>
+        <p class="text-slate-400 text-sm leading-relaxed">二手物件多位於已發展成熟的市中心，周邊商業完整，租客穩定。</p>
+      </div>
+      <div class="glass rounded-2xl p-6 text-center">
+        <div class="text-4xl mb-4">🔍</div>
+        <h3 class="font-bold text-lg mb-2 text-gold">屋況透明可查驗</h3>
+        <p class="text-slate-400 text-sm leading-relaxed">日本法律要求賣方揭露瑕疵，搭配現場看屋，買前了解屋況無隱憂。</p>
+      </div>
+      <div class="glass rounded-2xl p-6 text-center">
+        <div class="text-4xl mb-4">🌏</div>
+        <h3 class="font-bold text-lg mb-2 text-gold">外籍可 100% 持有</h3>
+        <p class="text-slate-400 text-sm leading-relaxed">日本不限制外籍人士買房，土地與建物皆可完整登記，無持有比例上限。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUY PROCESS -->
+<section class="max-w-5xl mx-auto px-4 py-16">
+  <h2 class="text-2xl md:text-3xl font-extrabold text-center mb-2">台灣人購買日本二手房 <span class="grad-text">流程</span></h2>
+  <p class="text-center text-slate-400 text-sm mb-10">全程中文顧問陪同，最快 45 天完成過戶</p>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div class="glass rounded-2xl p-5 relative">
+      <div class="text-gold font-black text-3xl mb-3 opacity-40">01</div>
+      <h4 class="font-bold text-base mb-2">需求確認</h4>
+      <p class="text-slate-400 text-sm leading-relaxed">預算、城市、投資目標、是否需含租客，顧問一對一規劃。</p>
+    </div>
+    <div class="glass rounded-2xl p-5 relative">
+      <div class="text-gold font-black text-3xl mb-3 opacity-40">02</div>
+      <h4 class="font-bold text-base mb-2">物件推薦 & 看屋</h4>
+      <p class="text-slate-400 text-sm leading-relaxed">依條件篩選精選物件，遠端視訊看屋或現場陪同考察。</p>
+    </div>
+    <div class="glass rounded-2xl p-5 relative">
+      <div class="text-gold font-black text-3xl mb-3 opacity-40">03</div>
+      <h4 class="font-bold text-base mb-2">簽約付款</h4>
+      <p class="text-slate-400 text-sm leading-relaxed">重要事項說明書確認、簽訂買賣契約、交付手付金（約 10%）。</p>
+    </div>
+    <div class="glass rounded-2xl p-5 relative">
+      <div class="text-gold font-black text-3xl mb-3 opacity-40">04</div>
+      <h4 class="font-bold text-base mb-2">過戶 & 收租</h4>
+      <p class="text-slate-400 text-sm leading-relaxed">司法書士辦理過戶登記，取得権利証，含租客物件即刻收租。</p>
+    </div>
+  </div>
+</section>
+
+<!-- TAX INFO -->
+<section class="bg-slate-900/50 border-y border-white/06 py-14 px-4">
+  <div class="max-w-4xl mx-auto">
+    <h2 class="text-2xl font-extrabold text-center mb-8">持有稅費一覽 <span class="text-slate-400 text-lg font-normal">（二手房估算）</span></h2>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="border-b border-white/10">
+            <th class="text-left py-3 px-4 text-slate-400 font-medium">稅費項目</th>
+            <th class="text-left py-3 px-4 text-slate-400 font-medium">時間點</th>
+            <th class="text-left py-3 px-4 text-slate-400 font-medium">稅率 / 金額</th>
+            <th class="text-left py-3 px-4 text-slate-400 font-medium">備註</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-white/06">
+          <tr class="hover:bg-white/03 transition">
+            <td class="py-3 px-4 font-medium">不動産取得稅</td>
+            <td class="py-3 px-4 text-slate-400">購買時（一次）</td>
+            <td class="py-3 px-4 text-emerald-400">評估額 × 3%</td>
+            <td class="py-3 px-4 text-slate-400">住宅用減免多</td>
+          </tr>
+          <tr class="hover:bg-white/03 transition">
+            <td class="py-3 px-4 font-medium">登錄免許稅</td>
+            <td class="py-3 px-4 text-slate-400">過戶時</td>
+            <td class="py-3 px-4 text-emerald-400">0.3–2%</td>
+            <td class="py-3 px-4 text-slate-400">建物 / 土地各計</td>
+          </tr>
+          <tr class="hover:bg-white/03 transition">
+            <td class="py-3 px-4 font-medium">固定資産稅</td>
+            <td class="py-3 px-4 text-slate-400">每年持有</td>
+            <td class="py-3 px-4 text-emerald-400">評估額 × 1.4%</td>
+            <td class="py-3 px-4 text-slate-400">住宅 1/6 減免</td>
+          </tr>
+          <tr class="hover:bg-white/03 transition">
+            <td class="py-3 px-4 font-medium">都市計画税</td>
+            <td class="py-3 px-4 text-slate-400">每年持有</td>
+            <td class="py-3 px-4 text-emerald-400">評估額 × 0.3%</td>
+            <td class="py-3 px-4 text-slate-400">市街化区域適用</td>
+          </tr>
+          <tr class="hover:bg-white/03 transition">
+            <td class="py-3 px-4 font-medium">租金所得稅</td>
+            <td class="py-3 px-4 text-slate-400">每年申報</td>
+            <td class="py-3 px-4 text-emerald-400">20%（非居住者）</td>
+            <td class="py-3 px-4 text-slate-400">可扣除折舊等費用</td>
+          </tr>
+          <tr class="hover:bg-white/03 transition">
+            <td class="py-3 px-4 font-medium">售出時譲渡所得稅</td>
+            <td class="py-3 px-4 text-slate-400">出售時</td>
+            <td class="py-3 px-4 text-emerald-400">20.315%（持有 5 年以上）</td>
+            <td class="py-3 px-4 text-slate-400">短持有稅率較高</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="text-xs text-slate-500 mt-4 text-center">* 以上為一般估算，實際依物件評估額與持有條件調整，建議諮詢顧問進行個案試算。</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="max-w-3xl mx-auto px-4 py-16">
+  <h2 class="text-2xl font-extrabold text-center mb-10">常見問題 <span class="grad-text">FAQ</span></h2>
+  <div class="space-y-3">
+
+    <details class="faq-item glass rounded-2xl overflow-hidden">
+      <summary class="flex items-center justify-between px-5 py-4 text-sm font-bold cursor-pointer hover:bg-white/04 transition">
+        台灣人購買日本二手房需要辦理什麼文件？
+        <i class="fa-solid fa-chevron-down faq-arrow text-gold text-xs ml-3 flex-shrink-0"></i>
+      </summary>
+      <div class="px-5 pb-4 text-slate-400 text-sm leading-relaxed">
+        主要需要：護照、印鑑証明（或公証書）、在留資格（若在日本）或海外住址證明。無需日本居留，台灣人可直接以非居住者身分買房，由日本司法書士代辦所有登記流程。TIREA 顧問全程協助準備文件。
+      </div>
+    </details>
+
+    <details class="faq-item glass rounded-2xl overflow-hidden">
+      <summary class="flex items-center justify-between px-5 py-4 text-sm font-bold cursor-pointer hover:bg-white/04 transition">
+        在台灣可以遠端買日本二手房嗎？
+        <i class="fa-solid fa-chevron-down faq-arrow text-gold text-xs ml-3 flex-shrink-0"></i>
+      </summary>
+      <div class="px-5 pb-4 text-slate-400 text-sm leading-relaxed">
+        可以。日本允許委任代理人辦理，透過委任狀授權當地代理人，可在台灣完成簽約、過戶全程。TIREA 提供視訊看屋服務，帶您線上看屋並由日本當地合作律師辦理過戶，無需親赴日本。
+      </div>
+    </details>
+
+    <details class="faq-item glass rounded-2xl overflow-hidden">
+      <summary class="flex items-center justify-between px-5 py-4 text-sm font-bold cursor-pointer hover:bg-white/04 transition">
+        「含租客現況交屋」是什麼意思？有沒有風險？
+        <i class="fa-solid fa-chevron-down faq-arrow text-gold text-xs ml-3 flex-shrink-0"></i>
+      </summary>
+      <div class="px-5 pb-4 text-slate-400 text-sm leading-relaxed">
+        即物件已有租客居住，買方承接租賃契約後，過戶當天起即成為房東並收取租金。租客的租賃契約受法律保護，不可強制驅逐，但日本租約通常為 2 年，到期可選擇續約或收回自用。風險在於租客品質，需確認繳租紀錄，TIREA 會協助查驗。
+      </div>
+    </details>
+
+    <details class="faq-item glass rounded-2xl overflow-hidden">
+      <summary class="flex items-center justify-between px-5 py-4 text-sm font-bold cursor-pointer hover:bg-white/04 transition">
+        日本二手房有屋齡限制嗎？貸款難不難申請？
+        <i class="fa-solid fa-chevron-down faq-arrow text-gold text-xs ml-3 flex-shrink-0"></i>
+      </summary>
+      <div class="px-5 pb-4 text-slate-400 text-sm leading-relaxed">
+        日本對二手房無特定屋齡限制，但日本銀行貸款對非居住者較嚴格。建議台灣投資人以自備款全額購入，或使用台灣銀行的日圓貸款商品。部分日本地方銀行接受外籍人士申請，需提供穩定收入證明，利率約 0.8–1.5%。
+      </div>
+    </details>
+
+    <details class="faq-item glass rounded-2xl overflow-hidden">
+      <summary class="flex items-center justify-between px-5 py-4 text-sm font-bold cursor-pointer hover:bg-white/04 transition">
+        買了之後如何遠端管理出租？
+        <i class="fa-solid fa-chevron-down faq-arrow text-gold text-xs ml-3 flex-shrink-0"></i>
+      </summary>
+      <div class="px-5 pb-4 text-slate-400 text-sm leading-relaxed">
+        日本有成熟的不動産管理公司（管理会社）代勞，費用通常為月租的 5–8%，負責收租、修繕通報、租客溝通、年度稅務申報協助等。TIREA 可推薦合作管理公司，讓您真正「坐著收租」。
+      </div>
+    </details>
+
+  </div>
+</section>
+
+<!-- CTA SECTION -->
+<section class="max-w-4xl mx-auto px-4 pb-20">
+  <div class="glass rounded-3xl p-8 md:p-12 text-center relative overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(200,155,60,0.07), transparent);"></div>
+    <div class="relative z-10">
+      <div class="text-5xl mb-4">🇯🇵</div>
+      <h2 class="text-2xl md:text-3xl font-extrabold mb-3">找到你的日本二手物件</h2>
+      <p class="text-slate-400 max-w-xl mx-auto mb-8 text-sm leading-relaxed">
+        填寫您的預算與目標城市，TIREA 顧問將在 24 小時內提供符合條件的精選物件清單，含稅費試算與租報率分析。
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="https://line.me/R/ti/p/@180phkse" target="_blank"
+           class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-gold text-slate-900 font-extrabold text-sm hover:opacity-90 transition shadow-lg">
+          <i class="fa-brands fa-line text-lg"></i> 加入 LINE 免費諮詢
+        </a>
+        <a href="membership.html"
+           class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full border border-white/20 text-white font-bold text-sm hover:bg-white/06 transition">
+          <i class="fa-solid fa-crown text-gold"></i> 加入會員查看更多物件
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="border-t border-white/08 bg-slate-950 px-6 py-10 text-center">
+  <a href="index.html" class="inline-flex items-center gap-3 mb-4 justify-center">
+    <img src="/tirea-logo.png" alt="TIREA" class="w-9 h-9 rounded-xl bg-white p-1 object-contain" />
+    <span class="font-extrabold text-lg">TIREA</span>
+  </a>
+  <p class="text-slate-500 text-xs max-w-md mx-auto">© 2026 TIREA 台灣國際不動產交流協會．本頁物件資訊僅供參考，實際售價與條件以成交當下為準。</p>
+  <div class="flex justify-center gap-6 mt-4 text-xs text-slate-500">
+    <a href="index.html" class="hover:text-slate-300">首頁</a>
+    <a href="global_pro.html" class="hover:text-slate-300">找海外房產</a>
+    <a href="knowledge.html" class="hover:text-slate-300">知識中心</a>
+    <a href="article_japan_property_tax_guide.html" class="hover:text-slate-300">日本稅務指南</a>
+    <a href="member_center.html" class="hover:text-slate-300">會員中心</a>
+  </div>
+</footer>
+
+<!-- STICKY CTA (mobile only) -->
+<div class="sticky-cta">
+  <a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="flex-1 py-3 rounded-xl bg-gold text-slate-900 font-bold text-sm text-center">LINE 免費諮詢</a>
+  <a href="membership.html" class="flex-1 py-3 rounded-xl border border-white/20 text-white font-bold text-sm text-center">加入會員</a>
+</div>
+
+<!-- FILTER JS -->
+<script>
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.listing-card');
+  const countLabel = document.getElementById('countLabel');
+  const noResults = document.getElementById('noResults');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const city = btn.dataset.city;
+      let count = 0;
+      cards.forEach(card => {
+        const match = city === 'all' || card.dataset.city === city || (city === 'reno' && card.dataset.reno === 'yes');
+        card.classList.toggle('show', match);
+        card.style.display = match ? 'flex' : 'none';
+        if (match) count++;
+      });
+      countLabel.textContent = `共 ${count} 件物件`;
+      noResults.classList.toggle('hidden', count > 0);
+    });
+  });
+
+  // Init display
+  cards.forEach(c => { c.style.display = 'flex'; c.classList.add('show'); });
+</script>
+
+
+  <!-- Vercel Web Analytics -->
+  <script defer src="/_vercel/insights/script.js"></script>
+  <!-- Vercel Speed Insights -->
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

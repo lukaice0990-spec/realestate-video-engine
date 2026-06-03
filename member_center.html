@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>會員中心 | TIREA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: '#0f172a',
+            primary: '#163a8a',
+            gold: '#c89b3c',
+          },
+          fontFamily: { sans: ['"Noto Sans TC"', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    body { font-family: 'Noto Sans TC', sans-serif; background: #0f172a; color: #f1f5f9; }
+    .glass { background: rgba(255,255,255,0.04); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.08); }
+    .shadow-glow { box-shadow: 0 0 40px rgba(200,155,60,0.25); }
+    .card-hover { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+    .tab-active { border-bottom: 2px solid #c89b3c; color: #c89b3c; }
+    .tab-inactive { border-bottom: 2px solid transparent; color: #94a3b8; }
+    .input-field {
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 0.75rem;
+      padding: 0.75rem 1rem;
+      color: #f1f5f9;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .input-field:focus { border-color: #c89b3c; }
+    .input-field::placeholder { color: #64748b; }
+    .btn-gold {
+      background: #c89b3c;
+      color: #0f172a;
+      font-weight: 700;
+      border-radius: 0.75rem;
+      padding: 0.75rem 1.5rem;
+      width: 100%;
+      transition: opacity 0.2s;
+    }
+    .btn-gold:hover { opacity: 0.9; }
+    .btn-outline {
+      background: transparent;
+      color: #94a3b8;
+      font-weight: 600;
+      border-radius: 0.75rem;
+      padding: 0.75rem 1.5rem;
+      width: 100%;
+      border: 1px solid rgba(255,255,255,0.12);
+      transition: all 0.2s;
+    }
+    .btn-outline:hover { border-color: rgba(255,255,255,0.3); color: #f1f5f9; }
+    .fav-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 1rem; padding: 1rem 1.25rem; }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2XV1V9TS1P"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-2XV1V9TS1P');
+  </script>
+  <meta name="description" content="登入 TIREA 會員中心，查看您的海外置產諮詢記錄、市場報告、專屬顧問服務與活動報名狀態。" />
+  <link rel="canonical" href="https://www.tirea.tw/member_center" />
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="fixed top-0 inset-x-0 z-50 border-b border-white/10 bg-slate-950/70 backdrop-blur-xl text-white">
+  <div class="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-3">
+      <img src="/tirea-logo.png" alt="TIREA Logo" class="w-11 h-11 rounded-xl shadow-lg object-contain bg-white p-1" />
+      <div>
+        <div class="font-extrabold tracking-tight text-lg leading-none">TIREA</div>
+        <div class="text-[10px] uppercase tracking-[0.28em] text-slate-300">Taiwan International REA</div>
+      </div>
+    </a>
+
+    <div class="hidden lg:flex items-center gap-7 text-sm font-medium text-slate-200">
+      <a href="ai_butler.html" class="hover:text-white font-bold text-blue-200">AI 找房</a>
+      <a href="global_pro.html" class="hover:text-white">找海外房產</a>
+      <a href="about.html" class="hover:text-white">關於協會</a>
+      <a href="invest_map.html" class="hover:text-white">投資地圖</a>
+      <a href="knowledge.html" class="hover:text-white">知識中心</a>
+      <a href="daily-real-estate-news.html" class="hover:text-white">每日新聞</a>
+      <a href="projects.html" class="hover:text-white text-gold font-bold">專案</a>
+      <a href="turkey-seminar.html" class="hover:text-white text-amber-300 font-bold">🇹🇷 土耳其指南</a>
+      <a href="thailand-seminar.html" class="hover:text-white text-amber-300 font-bold">🇹🇭 泰國說明會</a>
+      <a href="singapore-guide.html" class="hover:text-white text-amber-300 font-bold">🇸🇬 新加坡金融指南</a>
+    </div>
+
+    <div class="hidden sm:flex items-center gap-3">
+      <a href="member_center.html" class="px-4 py-2 text-sm text-gold font-bold">MEMBER CENTER</a>
+      <a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="px-5 py-2.5 rounded-full bg-gold text-slate-900 font-bold hover:opacity-90">加入 LINE 諮詢</a>
+    </div>
+
+    <button id="mobile-menu-button" class="lg:hidden inline-flex items-center gap-2 px-4 h-11 rounded-xl bg-gold text-slate-900 font-extrabold shadow-lg border border-gold/70">
+      <i class="fa-solid fa-bars text-base"></i>
+      <span class="text-sm">選單</span>
+    </button>
+  </div>
+
+  <div id="mobile-menu-overlay" class="lg:hidden fixed inset-0 bg-slate-950 text-white translate-x-full transition-transform duration-300 ease-in-out shadow-2xl">
+    <div class="px-6 py-5 flex items-center justify-between border-b border-white/10">
+      <div class="flex items-center gap-3">
+        <img src="/tirea-logo.png" alt="TIREA Logo" class="w-10 h-10 rounded-xl shadow-lg object-contain bg-white p-1" />
+        <div>
+          <div class="font-extrabold tracking-tight text-lg leading-none">TIREA</div>
+          <div class="text-[10px] uppercase tracking-[0.24em] text-slate-300">Taiwan International REA</div>
+        </div>
+      </div>
+      <button id="close-menu-button" class="w-11 h-11 rounded-xl border border-white/10 flex items-center justify-center text-white">
+        <i class="fa-solid fa-xmark text-xl"></i>
+      </button>
+    </div>
+    <div class="px-6 py-8 flex flex-col gap-4 text-lg font-bold bg-slate-950">
+      <a href="ai_butler.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-blue-950 border border-blue-800 px-5 py-4 text-blue-100 shadow-lg">AI 找房 <i class="fa-solid fa-arrow-right text-sm text-blue-300"></i></a>
+      <a href="global_pro.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4 text-white shadow-lg">找海外房產 <i class="fa-solid fa-arrow-right text-sm text-slate-300"></i></a>
+      <a href="about.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4 text-white shadow-lg">關於協會 <i class="fa-solid fa-arrow-right text-sm text-slate-300"></i></a>
+      <a href="invest_map.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4 text-white shadow-lg">投資地圖 <i class="fa-solid fa-arrow-right text-sm text-slate-300"></i></a>
+      <a href="knowledge.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4 text-white shadow-lg">知識中心 <i class="fa-solid fa-arrow-right text-sm text-slate-300"></i></a>
+      <a href="daily-real-estate-news.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4 text-white shadow-lg">每日新聞 <i class="fa-solid fa-arrow-right text-sm text-slate-300"></i></a>
+      <a href="projects.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-yellow-950 border border-yellow-800 px-5 py-4 text-yellow-100 shadow-lg">專案 <i class="fa-solid fa-arrow-right text-sm text-yellow-300"></i></a>
+      <a href="turkey-seminar.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-amber-950 border border-amber-800 px-5 py-4 text-amber-100 shadow-lg">🇹🇷 土耳其投資指南 <i class="fa-solid fa-arrow-right text-sm text-amber-300"></i></a>
+      <a href="thailand-seminar.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-amber-950 border border-amber-800 px-5 py-4 text-amber-100 shadow-lg">🇹🇭 泰國說明會 <i class="fa-solid fa-arrow-right text-sm text-amber-300"></i></a>
+      <a href="singapore-guide.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-amber-950 border border-amber-800 px-5 py-4 text-amber-100 shadow-lg">🇸🇬 新加坡金融指南 <i class="fa-solid fa-arrow-right text-sm text-amber-300"></i></a>
+      <a href="member_center.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-yellow-950 border border-yellow-800 px-5 py-4 text-yellow-100 shadow-lg">MEMBER CENTER <i class="fa-solid fa-arrow-right text-sm text-yellow-300"></i></a>
+    </div>
+    <div class="px-6 mt-auto pb-8 bg-slate-950">
+      <a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="mobile-menu-link w-full inline-flex justify-center items-center px-6 py-4 rounded-2xl bg-gold text-slate-900 font-extrabold shadow-lg">加入 LINE 諮詢</a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const closeMenuButton = document.getElementById('close-menu-button');
+  const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+  const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+  mobileMenuButton?.addEventListener('click', () => mobileMenuOverlay.classList.remove('translate-x-full'));
+  closeMenuButton?.addEventListener('click', () => mobileMenuOverlay.classList.add('translate-x-full'));
+  mobileMenuLinks.forEach(link => link.addEventListener('click', () => mobileMenuOverlay.classList.add('translate-x-full')));
+</script>
+
+<!-- HERO -->
+<section class="pt-32 pb-10 px-6">
+  <div class="mx-auto max-w-3xl text-center">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gold/30 bg-gold/10 text-gold text-sm font-bold mb-6">
+      <i class="fa-solid fa-user-circle"></i> 會員中心
+    </div>
+    <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-4 leading-tight">
+      會員中心
+    </h1>
+    <p class="text-slate-400 text-lg max-w-xl mx-auto">
+      登入後查看收藏建案與問卷紀錄
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     MEMBERSHIP PLANS
+════════════════════════════════════════════════════════ -->
+<section class="px-6 pb-12">
+  <div class="mx-auto max-w-5xl">
+
+    <div class="text-center mb-10">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gold/30 bg-gold/10 text-gold text-sm font-bold mb-4">
+        <i class="fa-solid fa-crown"></i> 歡迎加入 TIREA
+      </div>
+      <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-3">台灣國際不動產交流協會</h2>
+      <p class="text-slate-400 text-lg max-w-2xl mx-auto">一起掌握房產先機！三大會員方案，選擇最適合您的投資起點。</p>
+    </div>
+
+    <!-- THREE PLANS -->
+    <div class="grid md:grid-cols-3 gap-6 mb-6">
+
+      <!-- 體驗會員 -->
+      <div class="glass rounded-3xl p-7 border border-white/10 flex flex-col relative">
+        <div class="text-xs font-extrabold tracking-[0.15em] uppercase text-slate-400 mb-3">方案 01</div>
+        <div class="text-2xl font-extrabold text-white mb-1">體驗會員</div>
+        <div class="text-slate-400 text-sm mb-5">一年會員資格・入門首選</div>
+        <div class="mb-6">
+          <span class="text-4xl font-extrabold text-white">$19,800</span>
+          <span class="text-slate-400 text-sm ml-2">/ 一年</span>
+        </div>
+        <ul class="space-y-3 mb-8 flex-1">
+          <li class="flex items-start gap-2.5 text-sm text-slate-300">
+            <i class="fa-solid fa-check text-gold mt-0.5 flex-shrink-0"></i>
+            一年會員資格
+          </li>
+          <li class="flex items-start gap-2.5 text-sm text-slate-300">
+            <i class="fa-solid fa-check text-gold mt-0.5 flex-shrink-0"></i>
+            <strong class="text-white">10 hr</strong>&nbsp;課程折抵時數
+          </li>
+          <li class="flex items-start gap-2.5 text-sm text-slate-300">
+            <i class="fa-solid fa-check text-gold mt-0.5 flex-shrink-0"></i>
+            六大福利完整享有
+          </li>
+          <li class="flex items-start gap-2.5 text-sm text-slate-400 mt-2">
+            <i class="fa-solid fa-rotate text-slate-500 mt-0.5 flex-shrink-0"></i>
+            到期後 $12,000 / 年 續會
+          </li>
+        </ul>
+        <a href="https://line.me/R/ti/p/@180phkse" target="_blank"
+           class="w-full text-center py-3 rounded-xl border border-gold/40 text-gold font-bold text-sm hover:bg-gold/10 transition">
+          了解詳情 →
+        </a>
+      </div>
+
+      <!-- 核心會員（推薦） -->
+      <div class="rounded-3xl p-7 flex flex-col relative border border-gold/50"
+           style="background:linear-gradient(145deg,rgba(200,155,60,0.18),rgba(200,155,60,0.06));">
+        <div class="absolute -top-3.5 left-1/2 -translate-x-1/2">
+          <span class="px-4 py-1.5 rounded-full text-xs font-extrabold text-slate-900 shadow-lg"
+                style="background:linear-gradient(90deg,#c89b3c,#e8c56e);">★ 最多人選擇</span>
+        </div>
+        <div class="text-xs font-extrabold tracking-[0.15em] uppercase text-gold mb-3">方案 02</div>
+        <div class="text-2xl font-extrabold text-white mb-1">核心會員</div>
+        <div class="text-amber-300/80 text-sm mb-5">兩年會員資格・完整課程</div>
+        <div class="mb-6">
+          <span class="text-4xl font-extrabold text-white">$29,800</span>
+          <span class="text-slate-400 text-sm ml-2">/ 兩年</span>
+        </div>
+        <ul class="space-y-3 mb-8 flex-1">
+          <li class="flex items-start gap-2.5 text-sm text-slate-200">
+            <i class="fa-solid fa-check text-gold mt-0.5 flex-shrink-0"></i>
+            兩年會員資格
+          </li>
+          <li class="flex items-start gap-2.5 text-sm text-slate-200">
+            <i class="fa-solid fa-check text-gold mt-0.5 flex-shrink-0"></i>
+            <strong class="text-white">所有課程</strong>&nbsp;均可參加
+          </li>
+          <li class="flex items-start gap-2.5 text-sm text-slate-200">
+            <i class="fa-solid fa-check text-gold mt-0.5 flex-shrink-0"></i>
+            VIP 聚會優先入場
+          </li>
+          <li class="flex items-start gap-2.5 text-sm text-slate-200">
+            <i class="fa-solid fa-check text-gold mt-0.5 flex-shrink-0"></i>
+            六大福利完整享有
+          </li>
+          <li class="flex items-start gap-2.5 text-sm text-slate-400 mt-2">
+            <i class="fa-solid fa-rotate text-slate-500 mt-0.5 flex-shrink-0"></i>
+            到期後 $12,000 / 年 續會
+          </li>
+        </ul>
+        <a href="https://line.me/R/ti/p/@180phkse" target="_blank"
+           class="w-full text-center py-3 rounded-xl font-extrabold text-sm text-slate-900 hover:opacity-90 transition"
+           style="background:linear-gradient(135deg,#c89b3c,#e8c56e);">
+          立即加入 →
+        </a>
+      </div>
+
+      <!-- 理事會員 -->
+      <div class="glass rounded-3xl p-7 border border-white/10 flex flex-col relative"
+           style="background:linear-gradient(145deg,rgba(100,116,139,0.15),rgba(15,23,42,0.8));">
+        <div class="text-xs font-extrabold tracking-[0.15em] uppercase text-slate-400 mb-3">方案 03</div>
+        <div class="text-2xl font-extrabold text-white mb-1">理事會員</div>
+        <div class="text-slate-400 text-sm mb-5">終生會員資格・頂級資源整合</div>
+        <div class="mb-6">
+          <span class="text-4xl font-extrabold text-white">$69,800</span>
+          <span class="text-slate-400 text-sm ml-2">/ 終生</span>
+        </div>
+        <ul class="space-y-3 mb-8 flex-1">
+          <li class="flex items-start gap-2.5 text-sm text-slate-300">
+            <i class="fa-solid fa-check text-gold mt-0.5 flex-shrink-0"></i>
+            <strong class="text-white">終生</strong>&nbsp;會員資格（無需續費）
+          </li>
+          <li class="flex items-start gap-2.5 text-sm text-slate-300">
+            <i class="fa-solid fa-check text-gold mt-0.5 flex-shrink-0"></i>
+            <strong class="text-white">所有課程</strong>&nbsp;均可參加
+          </li>
+          <li class="flex items-start gap-2.5 text-sm text-slate-300">
+            <i class="fa-solid fa-check text-gold mt-0.5 flex-shrink-0"></i>
+            VIP 聚會優先入場
+          </li>
+          <li class="flex items-start gap-2.5 text-sm text-slate-300">
+            <i class="fa-solid fa-check text-gold mt-0.5 flex-shrink-0"></i>
+            <strong class="text-white">資源整合</strong>&nbsp;專屬對接服務
+          </li>
+          <li class="flex items-start gap-2.5 text-sm text-slate-300">
+            <i class="fa-solid fa-check text-gold mt-0.5 flex-shrink-0"></i>
+            六大福利完整享有
+          </li>
+        </ul>
+        <a href="https://line.me/R/ti/p/@180phkse" target="_blank"
+           class="w-full text-center py-3 rounded-xl border border-white/20 text-white font-bold text-sm hover:bg-white/10 transition">
+          了解詳情 →
+        </a>
+      </div>
+
+    </div><!-- /grid -->
+
+    <!-- 續會提示 -->
+    <p class="text-center text-slate-500 text-sm">
+      <i class="fa-solid fa-rotate mr-1"></i>
+      非終生會員到期後，以 <strong class="text-slate-400">$12,000 / 年</strong> 優惠價續會，權益完整延續。
+    </p>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     6 大福利
+════════════════════════════════════════════════════════ -->
+<section class="px-6 pb-12">
+  <div class="mx-auto max-w-5xl">
+
+    <div class="text-center mb-10">
+      <div class="text-xs font-extrabold tracking-[0.15em] uppercase text-gold mb-3">Member Benefits</div>
+      <h2 class="text-3xl font-extrabold text-white">會員 6 大福利</h2>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+      <div class="glass rounded-2xl p-6 border border-white/10 hover:border-gold/30 transition">
+        <div class="text-3xl mb-3">🤝</div>
+        <div class="font-extrabold text-white mb-1">季例會</div>
+        <div class="text-slate-400 text-sm">每季定期聚會，拓展人脈與資源，與同好交流不動產投資心得。</div>
+      </div>
+
+      <div class="glass rounded-2xl p-6 border border-white/10 hover:border-gold/30 transition">
+        <div class="text-3xl mb-3">🔨</div>
+        <div class="font-extrabold text-white mb-1">裝修優惠 <span class="text-gold text-sm font-bold">折抵 $10,000</span></div>
+        <div class="text-slate-400 text-sm">會員專屬裝修折抵優惠，入手物件後直接扣抵，降低整體持有成本。</div>
+      </div>
+
+      <div class="glass rounded-2xl p-6 border border-white/10 hover:border-gold/30 transition">
+        <div class="text-3xl mb-3">🏠</div>
+        <div class="font-extrabold text-white mb-1">購屋優惠 <span class="text-gold text-sm font-bold">折抵 $10,000</span></div>
+        <div class="text-slate-400 text-sm">透過 TIREA 成交任一物件，享有會員專屬 $10,000 購屋折抵優惠。</div>
+      </div>
+
+      <div class="glass rounded-2xl p-6 border border-white/10 hover:border-gold/30 transition">
+        <div class="text-3xl mb-3">🃏</div>
+        <div class="font-extrabold text-white mb-1">投資機會卡</div>
+        <div class="text-slate-400 text-sm">優先獲取優質不動產情報，搶在公開市場前掌握稀缺投資標的。</div>
+      </div>
+
+      <div class="glass rounded-2xl p-6 border border-white/10 hover:border-gold/30 transition">
+        <div class="text-3xl mb-3">✈️</div>
+        <div class="font-extrabold text-white mb-1">海外補助團</div>
+        <div class="text-slate-400 text-sm">不定時出國考察與旅遊補助，實地踏勘海外市場，補助名額限會員優先。</div>
+      </div>
+
+      <div class="glass rounded-2xl p-6 border border-white/10 hover:border-gold/30 transition">
+        <div class="text-3xl mb-3">📚</div>
+        <div class="font-extrabold text-white mb-1">課程折抵優惠</div>
+        <div class="text-slate-400 text-sm">購買課程可折抵會員時數，覆蓋房產、投資、AI、命理等多元主題。</div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     課程清單
+════════════════════════════════════════════════════════ -->
+<section class="px-6 pb-16">
+  <div class="mx-auto max-w-5xl">
+
+    <div class="glass rounded-3xl border border-white/10 overflow-hidden">
+      <div class="px-8 py-6 border-b border-white/10">
+        <div class="text-xs font-extrabold tracking-[0.15em] uppercase text-gold mb-2">Course Catalog</div>
+        <h2 class="text-2xl font-extrabold text-white">可折抵課程一覽</h2>
+        <p class="text-slate-400 text-sm mt-1">以下課程均可使用會員時數折抵，體驗會員 10hr 起折。</p>
+      </div>
+      <div class="divide-y divide-white/5">
+
+        <!-- 房產類 -->
+        <div class="px-8 py-5">
+          <div class="text-xs font-extrabold tracking-wider text-slate-500 uppercase mb-4">🏡 房產投資課程</div>
+          <div class="grid sm:grid-cols-2 gap-3">
+            <div class="flex items-center justify-between bg-white/4 rounded-xl px-4 py-3">
+              <div>
+                <div class="font-bold text-white text-sm">包租代管課</div>
+                <div class="text-xs text-slate-400 mt-0.5">如何把房子交給別人管，穩定收租</div>
+              </div>
+              <div class="text-right flex-shrink-0 ml-3">
+                <div class="text-gold font-extrabold text-sm">$6,980</div>
+                <div class="text-slate-500 text-xs">6 hr</div>
+              </div>
+            </div>
+            <div class="flex items-center justify-between bg-white/4 rounded-xl px-4 py-3">
+              <div>
+                <div class="font-bold text-white text-sm">自住買房攻略課</div>
+                <div class="text-xs text-slate-400 mt-0.5">從看屋到過戶，完整買房流程</div>
+              </div>
+              <div class="text-right flex-shrink-0 ml-3">
+                <div class="text-gold font-extrabold text-sm">$19,800</div>
+                <div class="text-slate-500 text-xs">8 hr</div>
+              </div>
+            </div>
+            <div class="flex items-center justify-between bg-white/4 rounded-xl px-4 py-3">
+              <div>
+                <div class="font-bold text-white text-sm">貸款課程</div>
+                <div class="text-xs text-slate-400 mt-0.5">房貸規劃、利率策略、增貸技巧</div>
+              </div>
+              <div class="text-right flex-shrink-0 ml-3">
+                <div class="text-gold font-extrabold text-sm">$1,980</div>
+                <div class="text-slate-500 text-xs">2 hr</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 財商投資類 -->
+        <div class="px-8 py-5">
+          <div class="text-xs font-extrabold tracking-wider text-slate-500 uppercase mb-4">💹 財商投資課程</div>
+          <div class="grid sm:grid-cols-2 gap-3">
+            <div class="flex items-center justify-between bg-white/4 rounded-xl px-4 py-3">
+              <div>
+                <div class="font-bold text-white text-sm">財商課</div>
+                <div class="text-xs text-slate-400 mt-0.5">財富思維、資產配置基礎建立</div>
+              </div>
+              <div class="text-right flex-shrink-0 ml-3">
+                <div class="text-gold font-extrabold text-sm">$3,000</div>
+                <div class="text-slate-500 text-xs">3 hr</div>
+              </div>
+            </div>
+            <div class="flex items-center justify-between bg-white/4 rounded-xl px-4 py-3">
+              <div>
+                <div class="font-bold text-white text-sm">股票老師</div>
+                <div class="text-xs text-slate-400 mt-0.5">技術分析、選股策略、風險管理</div>
+              </div>
+              <div class="text-right flex-shrink-0 ml-3">
+                <div class="text-gold font-extrabold text-sm">$19,800</div>
+                <div class="text-slate-500 text-xs">8 hr</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI & 科技 -->
+        <div class="px-8 py-5">
+          <div class="text-xs font-extrabold tracking-wider text-slate-500 uppercase mb-4">🤖 AI 科技課程</div>
+          <div class="grid sm:grid-cols-2 gap-3">
+            <div class="flex items-center justify-between bg-white/4 rounded-xl px-4 py-3">
+              <div>
+                <div class="font-bold text-white text-sm">AI 應用課</div>
+                <div class="text-xs text-slate-400 mt-0.5">AI 工具實戰，提升工作與投資效率</div>
+              </div>
+              <div class="text-right flex-shrink-0 ml-3">
+                <div class="text-gold font-extrabold text-sm">$3,980</div>
+                <div class="text-slate-500 text-xs">2 hr</div>
+              </div>
+            </div>
+            <div class="flex items-center justify-between bg-white/4 rounded-xl px-4 py-3">
+              <div>
+                <div class="font-bold text-white text-sm">AI 八字流年</div>
+                <div class="text-xs text-slate-400 mt-0.5">結合 AI 分析命理流年，輔助決策</div>
+              </div>
+              <div class="text-right flex-shrink-0 ml-3">
+                <div class="text-gold font-extrabold text-sm">$3,980</div>
+                <div class="text-slate-500 text-xs">2 hr</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 命理 & 諮詢 -->
+        <div class="px-8 py-5">
+          <div class="text-xs font-extrabold tracking-wider text-slate-500 uppercase mb-4">🔮 命理 & 一對一諮詢</div>
+          <div class="grid sm:grid-cols-2 gap-3">
+            <div class="flex items-center justify-between bg-white/4 rounded-xl px-4 py-3">
+              <div>
+                <div class="font-bold text-white text-sm">八字流年 1:1 諮詢</div>
+                <div class="text-xs text-slate-400 mt-0.5">個人化流年分析，投資時機判斷</div>
+              </div>
+              <div class="text-right flex-shrink-0 ml-3">
+                <div class="text-gold font-extrabold text-sm">$1,980~3,980</div>
+                <div class="text-slate-500 text-xs">2 hr</div>
+              </div>
+            </div>
+            <div class="flex items-center justify-between bg-white/4 rounded-xl px-4 py-3">
+              <div>
+                <div class="font-bold text-white text-sm">手相課</div>
+                <div class="text-xs text-slate-400 mt-0.5">手相解讀，附贈 30 分鐘個人諮詢</div>
+              </div>
+              <div class="text-right flex-shrink-0 ml-3">
+                <div class="text-gold font-extrabold text-sm">$4,000</div>
+                <div class="text-slate-500 text-xs">送 30 分</div>
+              </div>
+            </div>
+            <div class="flex items-center justify-between bg-white/4 rounded-xl px-4 py-3">
+              <div>
+                <div class="font-bold text-white text-sm">財務諮詢 1:1 服務</div>
+                <div class="text-xs text-slate-400 mt-0.5">個人財務健檢、配置規劃建議</div>
+              </div>
+              <div class="text-right flex-shrink-0 ml-3">
+                <div class="text-gold font-extrabold text-sm">$1,980~3,980</div>
+                <div class="text-slate-500 text-xs">2 hr</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 活動類 -->
+        <div class="px-8 py-6">
+          <div class="text-xs font-extrabold tracking-wider text-slate-500 uppercase mb-4">🎪 活動 & 看屋</div>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1.5 rounded-full border border-white/10 text-slate-300 text-xs font-medium">投資機會聚</span>
+            <span class="px-3 py-1.5 rounded-full border border-white/10 text-slate-300 text-xs font-medium">看屋團（建商・案場）</span>
+            <span class="px-3 py-1.5 rounded-full border border-white/10 text-slate-300 text-xs font-medium">月例會（聚餐）</span>
+            <span class="px-3 py-1.5 rounded-full border border-white/10 text-slate-300 text-xs font-medium">海外考察團</span>
+            <span class="px-3 py-1.5 rounded-full border border-gold/30 text-gold text-xs font-bold">VIP 聚會（核心・理事）</span>
+          </div>
+        </div>
+
+      </div><!-- /divide -->
+
+      <!-- CTA -->
+      <div class="px-8 py-7 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4"
+           style="background:rgba(200,155,60,0.06);">
+        <div>
+          <div class="font-extrabold text-white mb-1">準備好了嗎？</div>
+          <div class="text-slate-400 text-sm">加入 LINE 群，與顧問確認入會方案</div>
+        </div>
+        <a href="https://line.me/R/ti/p/@180phkse" target="_blank"
+           class="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl font-extrabold text-slate-900 hover:opacity-90 transition whitespace-nowrap"
+           style="background:linear-gradient(135deg,#c89b3c,#e8c56e);">
+          <i class="fa-brands fa-line text-lg"></i> LINE 立即諮詢入會
+        </a>
+      </div>
+
+    </div><!-- /glass card -->
+
+    <!-- Divider -->
+    <div class="flex items-center gap-4 mt-12 mb-2">
+      <div class="flex-1 h-px bg-white/10"></div>
+      <div class="text-xs text-slate-500 font-bold tracking-widest uppercase">會員登入 / 註冊</div>
+      <div class="flex-1 h-px bg-white/10"></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- GUEST STATE (未登入) -->
+<section id="guest-section" class="px-6 pb-24">
+  <div class="mx-auto max-w-md">
+    <div class="glass rounded-3xl p-8">
+
+      <!-- Tabs -->
+      <div class="flex mb-8 border-b border-white/10">
+        <button id="tab-login" onclick="switchTab('login')" class="tab-active flex-1 pb-3 text-sm font-bold transition-colors">
+          <i class="fa-solid fa-sign-in-alt mr-2"></i>登入
+        </button>
+        <button id="tab-register" onclick="switchTab('register')" class="tab-inactive flex-1 pb-3 text-sm font-bold transition-colors">
+          <i class="fa-solid fa-user-plus mr-2"></i>註冊
+        </button>
+      </div>
+
+      <!-- Login Form -->
+      <div id="login-form">
+        <div class="space-y-4">
+          <div>
+            <label class="block text-xs text-slate-400 mb-1.5 font-medium">電子信箱</label>
+            <input id="login-email" type="email" class="input-field" placeholder="your@email.com" />
+          </div>
+          <div>
+            <label class="block text-xs text-slate-400 mb-1.5 font-medium">密碼</label>
+            <input id="login-password" type="password" class="input-field" placeholder="••••••••" />
+          </div>
+          <div id="login-error" class="hidden text-red-400 text-sm bg-red-400/10 border border-red-400/20 rounded-xl px-4 py-3">
+            <i class="fa-solid fa-circle-exclamation mr-2"></i><span id="login-error-msg">帳號或密碼錯誤</span>
+          </div>
+          <button onclick="doLogin()" class="btn-gold mt-2">
+            <i class="fa-solid fa-sign-in-alt mr-2"></i>登入
+          </button>
+        </div>
+
+        <!-- Social Login Placeholder -->
+        <div class="mt-6">
+          <div class="relative flex items-center gap-3 mb-4">
+            <div class="flex-1 h-px bg-white/10"></div>
+            <span class="text-xs text-slate-500">或使用社群帳號</span>
+            <div class="flex-1 h-px bg-white/10"></div>
+          </div>
+          <button disabled class="btn-outline opacity-50 cursor-not-allowed flex items-center justify-center gap-3">
+            <svg class="w-5 h-5" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+            使用 Google 登入
+            <span class="text-xs text-slate-500 ml-1">（即將推出）</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Register Form -->
+      <div id="register-form" class="hidden">
+        <div class="space-y-5">
+
+          <!-- 基本資料 -->
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div>
+              <label class="block text-xs text-slate-400 mb-1.5 font-medium">姓名 <span class="text-red-400">*</span></label>
+              <input id="reg-name" type="text" class="input-field" placeholder="王小明" />
+            </div>
+            <div>
+              <label class="block text-xs text-slate-400 mb-1.5 font-medium">聯絡電話 <span class="text-red-400">*</span></label>
+              <input id="reg-phone" type="tel" class="input-field" placeholder="0912345678" oninput="this.value=this.value.replace(/[^0-9]/g,'')" />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs text-slate-400 mb-1.5 font-medium">LINE ID</label>
+            <div class="relative">
+              <span class="absolute left-3 top-1/2 -translate-y-1/2 text-green-400 text-sm font-bold">LINE</span>
+              <input id="reg-line" type="text" class="input-field" style="padding-left:3.5rem;" placeholder="your_line_id" />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs text-slate-400 mb-1.5 font-medium">電子信箱 <span class="text-red-400">*</span></label>
+            <input id="reg-email" type="email" class="input-field" placeholder="your@email.com" />
+          </div>
+
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div>
+              <label class="block text-xs text-slate-400 mb-1.5 font-medium">密碼 <span class="text-red-400">*</span></label>
+              <input id="reg-password" type="password" class="input-field" placeholder="至少 8 個字元" />
+            </div>
+            <div>
+              <label class="block text-xs text-slate-400 mb-1.5 font-medium">確認密碼 <span class="text-red-400">*</span></label>
+              <input id="reg-confirm" type="password" class="input-field" placeholder="再次輸入密碼" />
+            </div>
+          </div>
+
+          <!-- 投資偏好 -->
+          <div style="border-top:1px solid rgba(255,255,255,0.08); padding-top:1.25rem;">
+            <div class="text-xs text-slate-400 font-bold uppercase tracking-wider mb-3">投資偏好（選填）</div>
+
+            <div class="mb-4">
+              <label class="block text-xs text-slate-400 mb-2 font-medium">感興趣的市場</label>
+              <div class="grid grid-cols-3 gap-2">
+                <label class="flex items-center gap-2 text-sm text-slate-300 cursor-pointer">
+                  <input type="checkbox" class="reg-market accent-gold w-4 h-4" value="泰國"> 🇹🇭 泰國
+                </label>
+                <label class="flex items-center gap-2 text-sm text-slate-300 cursor-pointer">
+                  <input type="checkbox" class="reg-market accent-gold w-4 h-4" value="新加坡"> 🇸🇬 新加坡
+                </label>
+                <label class="flex items-center gap-2 text-sm text-slate-300 cursor-pointer">
+                  <input type="checkbox" class="reg-market accent-gold w-4 h-4" value="馬來西亞"> 🇲🇾 馬來西亞
+                </label>
+                <label class="flex items-center gap-2 text-sm text-slate-300 cursor-pointer">
+                  <input type="checkbox" class="reg-market accent-gold w-4 h-4" value="越南"> 🇻🇳 越南
+                </label>
+                <label class="flex items-center gap-2 text-sm text-slate-300 cursor-pointer">
+                  <input type="checkbox" class="reg-market accent-gold w-4 h-4" value="日本"> 🇯🇵 日本
+                </label>
+                <label class="flex items-center gap-2 text-sm text-slate-300 cursor-pointer">
+                  <input type="checkbox" class="reg-market accent-gold w-4 h-4" value="土耳其"> 🇹🇷 土耳其
+                </label>
+                <label class="flex items-center gap-2 text-sm text-slate-300 cursor-pointer">
+                  <input type="checkbox" class="reg-market accent-gold w-4 h-4" value="美國"> 🇺🇸 美國
+                </label>
+                <label class="flex items-center gap-2 text-sm text-slate-300 cursor-pointer">
+                  <input type="checkbox" class="reg-market accent-gold w-4 h-4" value="澳洲"> 🇦🇺 澳洲
+                </label>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div>
+                <label class="block text-xs text-slate-400 mb-1.5 font-medium">預算範圍</label>
+                <select id="reg-budget" class="input-field">
+                  <option value="" disabled selected>請選擇</option>
+                  <option value="300萬以下">300 萬以下</option>
+                  <option value="300-600萬">300 – 600 萬</option>
+                  <option value="600-1000萬">600 – 1,000 萬</option>
+                  <option value="1000萬以上">1,000 萬以上</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs text-slate-400 mb-1.5 font-medium">投資目的</label>
+                <select id="reg-purpose" class="input-field">
+                  <option value="" disabled selected>請選擇</option>
+                  <option value="收租現金流">收租現金流</option>
+                  <option value="資產增值">資產增值</option>
+                  <option value="自住移居">自住移居</option>
+                  <option value="退休規劃">退休規劃</option>
+                  <option value="資產避險">資產避險</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <label class="block text-xs text-slate-400 mb-1.5 font-medium">如何得知 TIREA？</label>
+              <select id="reg-source" class="input-field">
+                <option value="" disabled selected>請選擇</option>
+                <option value="朋友介紹">朋友介紹</option>
+                <option value="LINE 群組">LINE 群組</option>
+                <option value="Google 搜尋">Google 搜尋</option>
+                <option value="社群媒體">社群媒體（FB / IG）</option>
+                <option value="說明會活動">說明會 / 活動</option>
+                <option value="其他">其他</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3">
+            <input id="reg-terms" type="checkbox" class="mt-1 w-4 h-4 accent-gold" />
+            <label for="reg-terms" class="text-xs text-slate-400 leading-relaxed">
+              我同意 TIREA 的
+              <a href="#" class="text-gold underline">服務條款</a>
+              及
+              <a href="#" class="text-gold underline">隱私政策</a>，並同意接收相關投資資訊
+            </label>
+          </div>
+
+          <div id="reg-error" class="hidden text-red-400 text-sm bg-red-400/10 border border-red-400/20 rounded-xl px-4 py-3">
+            <i class="fa-solid fa-circle-exclamation mr-2"></i><span id="reg-error-msg">請檢查填寫內容</span>
+          </div>
+          <div id="reg-success" class="hidden text-green-400 text-sm bg-green-400/10 border border-green-400/20 rounded-xl px-4 py-3">
+            <i class="fa-solid fa-check-circle mr-2"></i>註冊成功！正在登入…
+          </div>
+          <button onclick="doRegister()" class="btn-gold mt-2">
+            <i class="fa-solid fa-user-plus mr-2"></i>建立帳號
+          </button>
+        </div>
+      </div>
+
+    </div><!-- end glass card -->
+  </div>
+</section>
+
+<!-- LOGGED IN STATE (已登入) -->
+<section id="member-section" class="hidden px-6 pb-24">
+  <div class="mx-auto max-w-4xl">
+
+    <!-- Welcome bar -->
+    <div class="glass rounded-2xl px-6 py-5 mb-8 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-full bg-gold/20 border border-gold/30 flex items-center justify-center text-gold text-xl font-extrabold">
+          <i class="fa-solid fa-user"></i>
+        </div>
+        <div>
+          <div class="text-xs text-slate-400 mb-0.5">歡迎回來</div>
+          <div id="welcome-email" class="font-bold text-white text-lg"></div>
+        </div>
+      </div>
+      <button onclick="doLogout()" class="flex items-center gap-2 px-4 py-2 rounded-xl border border-white/10 text-slate-400 hover:text-white hover:border-white/30 text-sm font-medium transition-all">
+        <i class="fa-solid fa-sign-out-alt"></i>
+        登出
+      </button>
+    </div>
+
+    <!-- ☕ 領咖啡 -->
+    <div class="mb-8">
+      <div class="rounded-2xl overflow-hidden border border-amber-500/30" style="background:linear-gradient(135deg,rgba(200,155,60,0.15),rgba(200,155,60,0.05));">
+        <div class="p-6 flex flex-col sm:flex-row items-center gap-5">
+          <div class="text-5xl flex-shrink-0">☕</div>
+          <div class="flex-1 text-center sm:text-left">
+            <div class="text-xs font-extrabold tracking-[0.15em] text-amber-400 uppercase mb-1">會員專屬好禮</div>
+            <div class="text-xl font-extrabold text-white mb-1">您有一杯咖啡等待領取！</div>
+            <div class="text-slate-400 text-sm">點擊下方按鈕，透過 LINE 聯繫顧問，我們將立即傳送超商咖啡兌換券給您。</div>
+          </div>
+          <a href="https://line.me/R/ti/p/@180phkse" target="_blank"
+            class="flex-shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-xl font-extrabold text-slate-900 hover:opacity-90 transition whitespace-nowrap"
+            style="background:linear-gradient(135deg,#c89b3c,#e8c56e);">
+            <i class="fa-solid fa-mug-hot"></i> 立即領取咖啡
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🎯 考察團報名入口 -->
+    <div class="mb-8">
+      <h2 class="text-xl font-extrabold text-white mb-4 flex items-center gap-3">
+        <i class="fa-solid fa-plane text-gold"></i>
+        近期活動 · 會員優先報名
+      </h2>
+      <div class="glass rounded-2xl overflow-hidden border border-white/10">
+        <div class="flex flex-col sm:flex-row items-center gap-0">
+          <div class="w-full sm:w-48 h-36 sm:h-auto flex-shrink-0 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?auto=format&fit=crop&w=600&q=80"
+              alt="曼谷考察團" class="w-full h-full object-cover" style="min-height:140px;" />
+          </div>
+          <div class="flex-1 p-6">
+            <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-extrabold mb-2" style="background:rgba(239,68,68,0.15);color:#fca5a5;">🔥 5/19 出發 · 名額有限</div>
+            <div class="text-lg font-extrabold text-white mb-1">🇹🇭 曼谷4天3夜投資考察團</div>
+            <div class="text-slate-400 text-sm mb-4">NT$9,999（不含機票）· 全程中文顧問 · 四大建案場勘</div>
+            <div class="flex flex-wrap gap-3">
+              <a href="thailand-seminar.html#register"
+                class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-extrabold text-slate-900 hover:opacity-90 transition text-sm"
+                style="background:linear-gradient(135deg,#c89b3c,#e8c56e);">
+                會員優先報名 →
+              </a>
+              <a href="thailand-seminar.html"
+                class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/15 text-slate-300 hover:text-white hover:border-white/30 transition text-sm font-medium">
+                查看行程詳情
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 📄 專屬報告下載 -->
+    <div class="mb-10">
+      <h2 class="text-xl font-extrabold text-white mb-4 flex items-center gap-3">
+        <i class="fa-solid fa-file-arrow-down text-gold"></i>
+        會員專屬報告下載
+      </h2>
+      <!-- 動態文章區（從後台發布的報告） -->
+      <div id="published-articles-grid" class="grid sm:grid-cols-2 gap-4 mb-4">
+        <div class="text-slate-500 text-sm py-4 col-span-2 text-center">載入中...</div>
+      </div>
+      <!-- 固定資源卡：稅務比較表 -->
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div class="glass rounded-2xl p-5 border border-white/10 flex items-start gap-4 hover:border-gold/30 transition group">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 text-xl" style="background:rgba(200,155,60,0.15);">📊</div>
+          <div class="flex-1 min-w-0">
+            <div class="font-extrabold text-white text-sm mb-1">亞洲六市場稅務比較表</div>
+            <div class="text-slate-400 text-xs mb-3">泰國／日本／馬來西亞／新加坡／越南／杜拜</div>
+            <a href="knowledge.html"
+              class="inline-flex items-center gap-1.5 text-xs font-bold text-gold hover:underline">
+              <i class="fa-solid fa-arrow-right text-[10px]"></i> 前往知識中心閱讀
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- My Favorites -->
+    <div class="mb-10">
+      <h2 class="text-xl font-extrabold text-white mb-5 flex items-center gap-3">
+        <i class="fa-solid fa-heart text-gold"></i>
+        我的收藏建案
+      </h2>
+      <div id="favorites-container">
+        <div class="glass rounded-2xl p-8 text-center border border-white/10">
+          <div class="text-4xl mb-4 opacity-40">🏠</div>
+          <p class="text-slate-400 mb-4">尚無收藏，前往海外房源瀏覽</p>
+          <a href="global_pro.html" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gold text-slate-900 font-bold hover:opacity-90 transition-opacity">
+            瀏覽海外房源 <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- My Survey Records -->
+    <div class="mb-8">
+      <h2 class="text-xl font-extrabold text-white mb-5 flex items-center gap-3">
+        <i class="fa-solid fa-clipboard-list text-gold"></i>
+        我的問卷紀錄
+      </h2>
+      <div class="glass rounded-2xl p-8 text-center border border-white/10">
+        <div class="text-4xl mb-4 opacity-40">📋</div>
+        <p class="text-slate-400 mb-4">尚無紀錄，歡迎填寫需求分析</p>
+        <a href="survey.html" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gold text-slate-900 font-bold hover:opacity-90 transition-opacity">
+          填寫需求分析 <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  // ── Supabase config (replace when ready) ──────────────────────────────────
+  const SUPABASE_URL = 'YOUR_SUPABASE_URL'
+  const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY'
+  // Note: Supabase client initialization is deferred until keys are configured.
+  // const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+
+  // ── Tab switching ──────────────────────────────────────────────────────────
+  function switchTab(tab) {
+    const loginForm = document.getElementById('login-form')
+    const registerForm = document.getElementById('register-form')
+    const tabLogin = document.getElementById('tab-login')
+    const tabRegister = document.getElementById('tab-register')
+
+    if (tab === 'login') {
+      loginForm.classList.remove('hidden')
+      registerForm.classList.add('hidden')
+      tabLogin.className = 'tab-active flex-1 pb-3 text-sm font-bold transition-colors'
+      tabRegister.className = 'tab-inactive flex-1 pb-3 text-sm font-bold transition-colors'
+    } else {
+      loginForm.classList.add('hidden')
+      registerForm.classList.remove('hidden')
+      tabLogin.className = 'tab-inactive flex-1 pb-3 text-sm font-bold transition-colors'
+      tabRegister.className = 'tab-active flex-1 pb-3 text-sm font-bold transition-colors'
+    }
+  }
+
+  // ── Auth helpers (localStorage mock) ──────────────────────────────────────
+  function showError(id, msg) {
+    const el = document.getElementById(id)
+    document.getElementById(id + '-msg').textContent = msg
+    el.classList.remove('hidden')
+  }
+  function hideError(id) {
+    document.getElementById(id).classList.add('hidden')
+  }
+
+  function doLogin() {
+    const email = document.getElementById('login-email').value.trim()
+    const password = document.getElementById('login-password').value
+    hideError('login-error')
+
+    if (!email || !password) {
+      showError('login-error', '請輸入電子信箱與密碼')
+      return
+    }
+
+    const stored = localStorage.getItem('tirea_user')
+    if (!stored) {
+      showError('login-error', '帳號或密碼錯誤')
+      return
+    }
+
+    const user = JSON.parse(stored)
+    if (user.email !== email) {
+      showError('login-error', '帳號或密碼錯誤')
+      return
+    }
+
+    // Login success
+    showMemberSection(user)
+  }
+
+  function doRegister() {
+    const name    = document.getElementById('reg-name').value.trim()
+    const phone   = document.getElementById('reg-phone').value.trim()
+    const lineId  = document.getElementById('reg-line').value.trim()
+    const email   = document.getElementById('reg-email').value.trim()
+    const password= document.getElementById('reg-password').value
+    const confirm = document.getElementById('reg-confirm').value
+    const terms   = document.getElementById('reg-terms').checked
+    const budget  = document.getElementById('reg-budget').value
+    const purpose = document.getElementById('reg-purpose').value
+    const refSource = document.getElementById('reg-source').value
+    const markets = [...document.querySelectorAll('.reg-market:checked')].map(el => el.value)
+
+    hideError('reg-error')
+    document.getElementById('reg-success').classList.add('hidden')
+
+    if (!name)  { showError('reg-error', '請填寫姓名'); return }
+    if (!phone) { showError('reg-error', '請填寫聯絡電話'); return }
+    if (!email) { showError('reg-error', '請填寫電子信箱'); return }
+    if (!password) { showError('reg-error', '請設定密碼'); return }
+    if (password.length < 8) { showError('reg-error', '密碼至少需要 8 個字元'); return }
+    if (password !== confirm) { showError('reg-error', '兩次密碼輸入不一致'); return }
+    if (!terms) { showError('reg-error', '請同意服務條款與隱私政策'); return }
+
+    const user = { name, email, created_at: new Date().toISOString() }
+    localStorage.setItem('tirea_user', JSON.stringify(user))
+
+    // 通知後台 + Telegram 推播
+    fetch('/api/member-register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, phone, line_id: lineId, email, budget, purpose, markets, ref_source: refSource, source: 'member_center' })
+    }).catch(() => {})
+
+    document.getElementById('reg-success').classList.remove('hidden')
+    setTimeout(() => showMemberSection(user), 1200)
+  }
+
+  function doLogout() {
+    localStorage.removeItem('tirea_user')
+    document.getElementById('member-section').classList.add('hidden')
+    document.getElementById('guest-section').classList.remove('hidden')
+  }
+
+  // ── Render member section ──────────────────────────────────────────────────
+  function showMemberSection(user) {
+    document.getElementById('guest-section').classList.add('hidden')
+    document.getElementById('member-section').classList.remove('hidden')
+    document.getElementById('welcome-email').textContent = user.email
+
+    renderFavorites()
+    loadPublishedArticles()
+  }
+
+  async function loadPublishedArticles() {
+    const grid = document.getElementById('published-articles-grid')
+    if (!grid) return
+    try {
+      const res = await fetch('/api/admin-articles')
+      const json = await res.json()
+      const articles = (json.items || []).filter(a => a.published)
+      if (!articles.length) {
+        grid.innerHTML = ''
+        return
+      }
+      grid.innerHTML = articles.map(a => {
+        const hasFile = a.fileUrl && a.fileUrl.trim()
+        const actionHtml = hasFile
+          ? `<a href="${a.fileUrl}" download class="inline-flex items-center gap-1.5 text-xs font-bold text-gold hover:underline"><i class="fa-solid fa-download text-[10px]"></i> 下載 PDF</a>`
+          : `<span class="text-xs text-slate-500">尚無附件</span>`
+        return `
+          <div class="glass rounded-2xl p-5 border border-white/10 flex items-start gap-4 hover:border-gold/30 transition group">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 text-xl" style="background:rgba(200,155,60,0.15);">${a.emoji || '📄'}</div>
+            <div class="flex-1 min-w-0">
+              <div class="font-extrabold text-white text-sm mb-1">${a.title || ''}</div>
+              ${a.description ? `<div class="text-slate-400 text-xs mb-3">${a.description}</div>` : '<div class="mb-3"></div>'}
+              ${actionHtml}
+            </div>
+          </div>`
+      }).join('')
+    } catch (e) {
+      grid.innerHTML = ''
+    }
+  }
+
+  function renderFavorites() {
+    const container = document.getElementById('favorites-container')
+    let favorites = []
+    try {
+      favorites = JSON.parse(localStorage.getItem('tirea_favorites') || '[]')
+    } catch (e) {}
+
+    if (!favorites.length) {
+      container.innerHTML = `
+        <div class="glass rounded-2xl p-8 text-center">
+          <div class="text-4xl mb-4 opacity-40">🏠</div>
+          <p class="text-slate-400 mb-4">尚無收藏建案</p>
+          <a href="global_pro.html" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gold text-slate-900 font-bold hover:opacity-90 transition-opacity">
+            瀏覽海外房產 <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+      `
+      return
+    }
+
+    const cards = favorites.map(item => `
+      <div class="fav-card flex items-center justify-between">
+        <div class="flex items-center gap-4">
+          <div class="w-10 h-10 rounded-xl bg-gold/20 flex items-center justify-center text-gold">
+            <i class="fa-solid fa-building"></i>
+          </div>
+          <div>
+            <div class="font-bold text-white">${escapeHtml(item.name || item.listing_id || item)}</div>
+            <div class="text-xs text-slate-400 mt-0.5">${escapeHtml(item.location || '')}</div>
+          </div>
+        </div>
+        <button onclick="removeFavorite('${escapeHtml(String(item.listing_id || item))}')" class="text-slate-500 hover:text-red-400 transition-colors">
+          <i class="fa-solid fa-heart-crack"></i>
+        </button>
+      </div>
+    `).join('')
+
+    container.innerHTML = `<div class="space-y-3">${cards}</div>`
+  }
+
+  function removeFavorite(id) {
+    let favorites = []
+    try { favorites = JSON.parse(localStorage.getItem('tirea_favorites') || '[]') } catch (e) {}
+    favorites = favorites.filter(f => (f.listing_id || f) !== id)
+    localStorage.setItem('tirea_favorites', JSON.stringify(favorites))
+    renderFavorites()
+  }
+
+  function escapeHtml(str) {
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')
+  }
+
+  // ── Auto-check login on load ───────────────────────────────────────────────
+  document.addEventListener('DOMContentLoaded', () => {
+    const stored = localStorage.getItem('tirea_user')
+    if (stored) {
+      try {
+        const user = JSON.parse(stored)
+        if (user && user.email) showMemberSection(user)
+      } catch (e) {}
+    }
+  })
+</script>
+
+  <script>
+    (function(){
+      try {
+        fetch('/api/track-visit', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            page: location.pathname,
+            title: document.title,
+            referrer: document.referrer || 'direct',
+            device: /Mobile|Android|iPhone|iPad/i.test(navigator.userAgent) ? 'mobile' : 'desktop'
+          })
+        });
+      } catch(e){}
+    })();
+  </script>
+
+  <!-- Vercel Web Analytics -->
+  <script defer src="/_vercel/insights/script.js"></script>
+  <!-- Vercel Speed Insights -->
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

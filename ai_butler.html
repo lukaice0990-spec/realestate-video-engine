@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI 找房顧問｜TIREA 台灣國際不動產交流協會</title>
+  <meta name="description" content="TIREA AI 房產顧問，智能媒合你的海外房產需求。64個建案、8個市場、500+服務客戶，30秒找到最適合你的海外投資方案。" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            gold: '#c89b3c',
+            navy: '#0f172a',
+            primary: '#163a8a'
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      overflow-x: hidden;
+    }
+
+    /* ── Gold colour helper ── */
+    .text-gold { color: #c89b3c; }
+    .bg-gold { background-color: #c89b3c; }
+    .border-gold { border-color: #c89b3c; }
+
+    /* ── Grid background overlay ── */
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(22, 58, 138, 0.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(22, 58, 138, 0.12) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+
+    /* ── Glowing orbs ── */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      pointer-events: none;
+    }
+    .orb-blue  { width: 520px; height: 520px; background: radial-gradient(circle, rgba(22,58,138,0.55) 0%, transparent 70%); }
+    .orb-purple{ width: 400px; height: 400px; background: radial-gradient(circle, rgba(109,40,217,0.35) 0%, transparent 70%); }
+    .orb-gold  { width: 300px; height: 300px; background: radial-gradient(circle, rgba(200,155,60,0.25) 0%, transparent 70%); }
+
+    /* ── Animated status dot ── */
+    @keyframes pulse-dot {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: .5; transform: scale(0.7); }
+    }
+    .status-dot { animation: pulse-dot 1.4s ease-in-out infinite; }
+
+    /* ── Typing dots bounce ── */
+    @keyframes bounce-dot {
+      0%,80%,100% { transform: translateY(0); }
+      40%         { transform: translateY(-6px); }
+    }
+    .bounce-1 { animation: bounce-dot 1.2s ease-in-out infinite; }
+    .bounce-2 { animation: bounce-dot 1.2s ease-in-out infinite .18s; }
+    .bounce-3 { animation: bounce-dot 1.2s ease-in-out infinite .36s; }
+
+    /* ── Chat bubble animations ── */
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .bubble-anim { animation: slideUp 0.35s ease both; }
+
+    /* ── Chat container ── */
+    #chat-box {
+      background: linear-gradient(145deg, #0f1b35 0%, #0d1526 100%);
+      border: 1px solid rgba(22,58,138,0.55);
+      box-shadow:
+        0 0 0 1px rgba(22,58,138,0.2),
+        0 0 40px rgba(22,58,138,0.25),
+        0 25px 60px rgba(0,0,0,0.6);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    #chat-messages {
+      overflow-y: auto;
+      scroll-behavior: smooth;
+    }
+    #chat-messages::-webkit-scrollbar { width: 4px; }
+    #chat-messages::-webkit-scrollbar-track { background: transparent; }
+    #chat-messages::-webkit-scrollbar-thumb { background: rgba(22,58,138,0.5); border-radius: 2px; }
+
+    /* ── AI bubble ── */
+    .ai-bubble {
+      background: linear-gradient(135deg, #1e3a6e 0%, #162d57 100%);
+      border: 1px solid rgba(59,130,246,0.25);
+      border-radius: 4px 16px 16px 16px;
+      color: #e2e8f0;
+      padding: 10px 14px;
+      max-width: 88%;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    /* ── User bubble ── */
+    .user-bubble {
+      background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+      border: 1px solid rgba(59,130,246,0.4);
+      border-radius: 16px 4px 16px 16px;
+      color: #fff;
+      padding: 10px 14px;
+      max-width: 80%;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* ── Quick reply buttons ── */
+    .qr-btn {
+      background: rgba(22,58,138,0.3);
+      border: 1px solid rgba(59,130,246,0.4);
+      border-radius: 20px;
+      color: #93c5fd;
+      font-size: 13px;
+      padding: 6px 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .qr-btn:hover {
+      background: rgba(22,58,138,0.6);
+      border-color: #60a5fa;
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    /* ── Gradient border card ── */
+    .glass-card {
+      background: rgba(15,27,53,0.7);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(22,58,138,0.35);
+      border-radius: 16px;
+      transition: all 0.3s ease;
+    }
+    .glass-card:hover {
+      border-color: rgba(59,130,246,0.5);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px rgba(22,58,138,0.2);
+    }
+
+    /* ── Property card ── */
+    .prop-card {
+      background: rgba(13,21,38,0.85);
+      border: 1px solid rgba(22,58,138,0.3);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .prop-card:hover {
+      border-color: #c89b3c;
+      transform: translateY(-6px);
+      box-shadow: 0 24px 48px rgba(0,0,0,0.5), 0 0 24px rgba(200,155,60,0.15);
+    }
+
+    /* ── Stat counter ── */
+    .stat-num {
+      background: linear-gradient(135deg, #c89b3c, #f5c96a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-size: 3rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    /* ── Glowing border anim on chat box ── */
+    @keyframes border-glow {
+      0%,100% { box-shadow: 0 0 40px rgba(22,58,138,0.25), 0 25px 60px rgba(0,0,0,0.6); }
+      50%      { box-shadow: 0 0 60px rgba(22,58,138,0.45), 0 25px 60px rgba(0,0,0,0.6); }
+    }
+    #chat-box { animation: border-glow 3s ease-in-out infinite; }
+
+    /* ── Feature icon glow ── */
+    .icon-glow {
+      width: 56px; height: 56px;
+      background: linear-gradient(135deg, #163a8a22, #163a8a44);
+      border: 1px solid rgba(59,130,246,0.3);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      transition: all 0.3s ease;
+    }
+    .glass-card:hover .icon-glow {
+      background: linear-gradient(135deg, #163a8a55, #163a8a88);
+      border-color: rgba(59,130,246,0.6);
+      box-shadow: 0 0 20px rgba(22,58,138,0.4);
+    }
+
+    /* ── Result card inside chat ── */
+    .mini-prop-card {
+      background: rgba(22,42,80,0.7);
+      border: 1px solid rgba(59,130,246,0.3);
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-top: 8px;
+      transition: all 0.2s;
+    }
+    .mini-prop-card:hover {
+      border-color: #c89b3c;
+      background: rgba(22,42,80,0.9);
+    }
+
+    /* ── Hero section ── */
+    #hero {
+      min-height: 100vh;
+      padding-top: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ── CTA section ── */
+    .cta-section {
+      background: linear-gradient(135deg, #0d1a3a 0%, #0f172a 50%, #0d1a3a 100%);
+      border-top: 1px solid rgba(22,58,138,0.3);
+      border-bottom: 1px solid rgba(22,58,138,0.3);
+    }
+
+    /* ── Shimmer loading bar ── */
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    .shimmer-bar::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(200,155,60,0.3), transparent);
+      animation: shimmer 1.5s infinite;
+    }
+
+    /* ── Mobile hero layout ── */
+    @media (max-width: 1023px) {
+      .hero-grid { display: flex; flex-direction: column; gap: 2rem; }
+      .hero-left { order: 1; }
+      .hero-right { order: 2; }
+      .stat-num { font-size: 2.2rem; }
+    }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2XV1V9TS1P"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-2XV1V9TS1P');
+  </script>
+  <link rel="canonical" href="https://www.tirea.tw/ai_butler" />
+</head>
+<body>
+
+<!-- ════════════════════════════════════
+     NAV
+════════════════════════════════════ -->
+<nav class="fixed top-0 inset-x-0 z-50 border-b border-white/10 bg-slate-950/70 backdrop-blur-xl text-white">
+  <div class="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-3">
+      <img src="/tirea-logo.png" alt="TIREA Logo" class="w-11 h-11 rounded-xl shadow-lg object-contain bg-white p-1" />
+      <div>
+        <div class="font-extrabold tracking-tight text-lg leading-none">TIREA</div>
+        <div class="text-[10px] uppercase tracking-[0.28em] text-slate-300">Taiwan International REA</div>
+      </div>
+    </a>
+    <div class="hidden lg:flex items-center gap-7 text-sm font-medium text-slate-200">
+      <a href="ai_butler.html" class="hover:text-white font-bold text-blue-200">AI 找房</a>
+      <a href="global_pro.html" class="hover:text-white">找海外房產</a>
+      <a href="about.html" class="hover:text-white">關於協會</a>
+      <a href="invest_map.html" class="hover:text-white">投資地圖</a>
+      <a href="knowledge.html" class="hover:text-white">知識中心</a>
+      <a href="daily-real-estate-news.html" class="hover:text-white">每日新聞</a>
+      <a href="projects.html" class="hover:text-white text-gold font-bold">專案</a>
+      <a href="turkey-seminar.html" class="hover:text-white text-amber-300 font-bold">🇹🇷 土耳其指南</a>
+      <a href="thailand-seminar.html" class="hover:text-white text-amber-300 font-bold">🇹🇭 泰國說明會</a>
+      <a href="singapore-guide.html" class="hover:text-white text-amber-300 font-bold">🇸🇬 新加坡金融指南</a>
+    </div>
+    <div class="hidden sm:flex items-center gap-3">
+      <a href="member_center.html" class="px-4 py-2 text-sm text-slate-200 hover:text-white">MEMBER LOGIN</a>
+      <a href="admin/index.html" class="px-3 py-2 text-xs text-slate-500 hover:text-slate-300">管理中心</a>
+      <a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="px-5 py-2.5 rounded-full bg-gold text-slate-900 font-bold hover:opacity-90">加入 LINE 諮詢</a>
+    </div>
+    <button id="mobile-menu-button" class="lg:hidden inline-flex items-center gap-2 px-4 h-11 rounded-xl bg-gold text-slate-900 font-extrabold shadow-lg border border-gold/70">
+      <i class="fa-solid fa-bars text-base"></i><span class="text-sm">選單</span>
+    </button>
+  </div>
+  <!-- mobile menu -->
+  <div id="mobile-menu-overlay" class="lg:hidden fixed inset-0 bg-slate-950 text-white translate-x-full transition-transform duration-300 ease-in-out shadow-2xl overflow-y-auto">
+    <div class="px-6 py-5 flex items-center justify-between border-b border-white/10">
+      <div class="flex items-center gap-3">
+        <img src="/tirea-logo.png" alt="TIREA Logo" class="w-10 h-10 rounded-xl shadow-lg object-contain bg-white p-1" />
+        <div><div class="font-extrabold tracking-tight text-lg leading-none">TIREA</div><div class="text-[10px] uppercase tracking-[0.24em] text-slate-300">Taiwan International REA</div></div>
+      </div>
+      <button id="close-menu-button" class="w-11 h-11 rounded-xl border border-white/10 flex items-center justify-center text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+    </div>
+    <div class="px-6 py-8 flex flex-col gap-4 text-lg font-bold bg-slate-950">
+      <a href="ai_butler.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-blue-950 border border-blue-800 px-5 py-4 text-blue-100 shadow-lg">AI 找房 <i class="fa-solid fa-arrow-right text-sm text-blue-300"></i></a>
+      <a href="global_pro.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4 text-white shadow-lg">找海外房產 <i class="fa-solid fa-arrow-right text-sm text-slate-300"></i></a>
+      <a href="about.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4 text-white shadow-lg">關於協會 <i class="fa-solid fa-arrow-right text-sm text-slate-300"></i></a>
+      <a href="invest_map.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4 text-white shadow-lg">投資地圖 <i class="fa-solid fa-arrow-right text-sm text-slate-300"></i></a>
+      <a href="knowledge.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4 text-white shadow-lg">知識中心 <i class="fa-solid fa-arrow-right text-sm text-slate-300"></i></a>
+      <a href="daily-real-estate-news.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4 text-white shadow-lg">每日新聞 <i class="fa-solid fa-arrow-right text-sm text-slate-300"></i></a>
+      <a href="projects.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-yellow-950 border border-yellow-800 px-5 py-4 text-yellow-100 shadow-lg">專案 <i class="fa-solid fa-arrow-right text-sm text-yellow-300"></i></a>
+      <a href="turkey-seminar.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-amber-950 border border-amber-800 px-5 py-4 text-amber-100 shadow-lg">🇹🇷 土耳其投資指南 <i class="fa-solid fa-arrow-right text-sm text-amber-300"></i></a>
+      <a href="thailand-seminar.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-amber-950 border border-amber-800 px-5 py-4 text-amber-100 shadow-lg">🇹🇭 泰國說明會 <i class="fa-solid fa-arrow-right text-sm text-amber-300"></i></a>
+      <a href="singapore-guide.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-amber-950 border border-amber-800 px-5 py-4 text-amber-100 shadow-lg">🇸🇬 新加坡金融指南 <i class="fa-solid fa-arrow-right text-sm text-amber-300"></i></a>
+      <a href="member_center.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4 text-white shadow-lg">MEMBER LOGIN <i class="fa-solid fa-arrow-right text-sm text-slate-300"></i></a>
+      <a href="admin/index.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-800 border border-slate-700 px-5 py-4 text-slate-400 shadow-lg">⚙️ 管理中心 <i class="fa-solid fa-arrow-right text-sm text-slate-500"></i></a>
+    </div>
+    <div class="px-6 mt-auto pb-8 bg-slate-950">
+      <a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="mobile-menu-link w-full inline-flex justify-center items-center px-6 py-4 rounded-2xl bg-gold text-slate-900 font-extrabold shadow-lg">加入 LINE 諮詢</a>
+    </div>
+  </div>
+</nav>
+<script>
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const closeMenuButton = document.getElementById('close-menu-button');
+  const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+  const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+  mobileMenuButton?.addEventListener('click', () => mobileMenuOverlay.classList.remove('translate-x-full'));
+  closeMenuButton?.addEventListener('click', () => mobileMenuOverlay.classList.add('translate-x-full'));
+  mobileMenuLinks.forEach(link => link.addEventListener('click', () => mobileMenuOverlay.classList.add('translate-x-full')));
+</script>
+
+
+<!-- ════════════════════════════════════
+     HERO SECTION
+════════════════════════════════════ -->
+<section id="hero" class="grid-bg relative">
+  <!-- Orbs -->
+  <div class="orb orb-blue" style="top:-80px;left:-120px;"></div>
+  <div class="orb orb-purple" style="top:30%;right:-100px;"></div>
+  <div class="orb orb-gold" style="bottom:10%;left:20%;"></div>
+
+  <div class="relative z-10 mx-auto max-w-7xl px-6 pt-16 pb-20 lg:pt-24 lg:pb-28">
+    <div class="hero-grid grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+      <!-- LEFT: Copy + Stats -->
+      <div class="hero-left">
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-blue-700/50 bg-blue-900/30 text-blue-300 text-sm font-medium mb-6">
+          <span class="w-2 h-2 rounded-full bg-green-400 status-dot inline-block"></span>
+          AI 系統運作中 &nbsp;·&nbsp; 即時媒合
+        </div>
+
+        <!-- Title -->
+        <h1 class="text-4xl lg:text-6xl font-black leading-tight tracking-tight text-white mb-4">
+          TIREA<br>
+          <span style="background:linear-gradient(135deg,#c89b3c,#f5c96a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">AI 房產顧問</span>
+        </h1>
+        <p class="text-lg lg:text-xl text-slate-300 leading-relaxed mb-8 max-w-md">
+          30 秒釐清需求，智能媒合全亞洲<br class="hidden lg:block">最適合你的海外投資方案
+        </p>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-3 gap-6 mb-10">
+          <div class="text-center lg:text-left">
+            <div class="stat-num" id="stat-projects">0</div>
+            <div class="text-slate-400 text-sm mt-1">精選建案</div>
+          </div>
+          <div class="text-center lg:text-left">
+            <div class="stat-num" id="stat-markets">0</div>
+            <div class="text-slate-400 text-sm mt-1">投資市場</div>
+          </div>
+          <div class="text-center lg:text-left">
+            <div class="stat-num" id="stat-clients">0<span style="font-size:2rem">+</span></div>
+            <div class="text-slate-400 text-sm mt-1">服務客戶</div>
+          </div>
+        </div>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-wrap gap-3">
+          <a href="#ai-section" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-gold text-slate-900 font-bold hover:opacity-90 transition-all shadow-lg shadow-yellow-900/30 text-sm">
+            <i class="fa-solid fa-robot"></i> 立即開始 AI 配對
+          </a>
+          <a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-full border border-white/20 text-white font-medium hover:bg-white/10 transition-all text-sm">
+            <i class="fa-brands fa-line text-green-400"></i> LINE 直接諮詢
+          </a>
+        </div>
+      </div>
+
+      <!-- RIGHT: AI Chat Widget -->
+      <div class="hero-right" id="ai-section">
+        <div id="chat-box" style="height:520px; display:flex; flex-direction:column;">
+          <!-- Header -->
+          <div style="padding:16px 20px; border-bottom:1px solid rgba(22,58,138,0.4); background:linear-gradient(135deg,#0d1e45,#0f2050); flex-shrink:0;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#163a8a,#1d4ed8);display:flex;align-items:center;justify-content:center;box-shadow:0 0 16px rgba(22,58,138,0.6);">
+                  <i class="fa-solid fa-robot" style="color:#93c5fd;font-size:18px;"></i>
+                </div>
+                <div>
+                  <div style="font-weight:800;color:#fff;font-size:15px;letter-spacing:.03em;">TIREA AI</div>
+                  <div style="font-size:11px;color:#64748b;">房產投資顧問</div>
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span class="status-dot" style="width:8px;height:8px;border-radius:50%;background:#4ade80;display:inline-block;"></span>
+                <span style="font-size:12px;color:#4ade80;font-weight:600;">上線中</span>
+              </div>
+            </div>
+            <!-- Progress steps -->
+            <div style="display:flex;gap:4px;margin-top:12px;" id="progress-steps">
+              <div class="step-dot active" data-step="0" style="flex:1;height:3px;border-radius:2px;background:#1d4ed8;transition:background 0.4s;"></div>
+              <div class="step-dot" data-step="1" style="flex:1;height:3px;border-radius:2px;background:rgba(30,58,138,0.3);transition:background 0.4s;"></div>
+              <div class="step-dot" data-step="2" style="flex:1;height:3px;border-radius:2px;background:rgba(30,58,138,0.3);transition:background 0.4s;"></div>
+              <div class="step-dot" data-step="3" style="flex:1;height:3px;border-radius:2px;background:rgba(30,58,138,0.3);transition:background 0.4s;"></div>
+            </div>
+          </div>
+
+          <!-- Messages -->
+          <div id="chat-messages" style="flex:1;padding:16px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;">
+          </div>
+
+          <!-- Quick reply area -->
+          <div id="quick-reply-area" style="padding:12px 16px;border-top:1px solid rgba(22,58,138,0.3);background:rgba(10,18,38,0.6);flex-shrink:0;">
+            <div style="font-size:11px;color:#475569;margin-bottom:8px;">請選擇：</div>
+            <div id="quick-reply-buttons" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
+          </div>
+        </div>
+        <!-- Trust badges below chat -->
+        <div style="display:flex;gap:16px;margin-top:12px;padding:0 4px;">
+          <div style="flex:1;display:flex;align-items:center;gap:6px;padding:8px 12px;border-radius:10px;background:rgba(22,58,138,0.15);border:1px solid rgba(22,58,138,0.25);">
+            <i class="fa-solid fa-shield-halved" style="color:#c89b3c;font-size:13px;"></i>
+            <span style="font-size:11px;color:#94a3b8;">資料安全加密</span>
+          </div>
+          <div style="flex:1;display:flex;align-items:center;gap:6px;padding:8px 12px;border-radius:10px;background:rgba(22,58,138,0.15);border:1px solid rgba(22,58,138,0.25);">
+            <i class="fa-solid fa-clock" style="color:#c89b3c;font-size:13px;"></i>
+            <span style="font-size:11px;color:#94a3b8;">24 小時客服</span>
+          </div>
+          <div style="flex:1;display:flex;align-items:center;gap:6px;padding:8px 12px;border-radius:10px;background:rgba(22,58,138,0.15);border:1px solid rgba(22,58,138,0.25);">
+            <i class="fa-solid fa-star" style="color:#c89b3c;font-size:13px;"></i>
+            <span style="font-size:11px;color:#94a3b8;">500+ 好評</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════
+     FEATURES SECTION
+════════════════════════════════════ -->
+<section style="padding:80px 0;background:linear-gradient(180deg,#0f172a 0%,#0b1020 100%);">
+  <div class="mx-auto max-w-7xl px-6">
+    <div style="text-align:center;margin-bottom:48px;">
+      <div style="display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:20px;border:1px solid rgba(200,155,60,0.3);background:rgba(200,155,60,0.08);color:#c89b3c;font-size:13px;font-weight:600;margin-bottom:16px;">
+        <i class="fa-solid fa-sparkles"></i> AI 智能功能
+      </div>
+      <h2 style="font-size:2.2rem;font-weight:900;color:#fff;margin-bottom:12px;">為什麼選擇 TIREA AI？</h2>
+      <p style="color:#64748b;font-size:16px;max-width:480px;margin:0 auto;">不只是搜尋，而是真正理解你的需求，精準媒合最適合的海外投資機會</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;">
+      <!-- Feature 1 -->
+      <div class="glass-card" style="padding:28px 24px;">
+        <div class="icon-glow" style="margin-bottom:20px;">🧠</div>
+        <h3 style="font-size:17px;font-weight:800;color:#fff;margin-bottom:10px;">智能媒合</h3>
+        <p style="color:#64748b;font-size:14px;line-height:1.7;">根據預算、投資目的、偏好風格，AI 精準配對最符合需求的建案，省去大量搜尋時間。</p>
+      </div>
+      <!-- Feature 2 -->
+      <div class="glass-card" style="padding:28px 24px;">
+        <div class="icon-glow" style="margin-bottom:20px;">🌏</div>
+        <h3 style="font-size:17px;font-weight:800;color:#fff;margin-bottom:10px;">8 大市場</h3>
+        <p style="color:#64748b;font-size:14px;line-height:1.7;">覆蓋泰國、新加坡、馬來西亞、越南、日本、土耳其、英國、美國主要投資市場，一站式服務。</p>
+      </div>
+      <!-- Feature 3 -->
+      <div class="glass-card" style="padding:28px 24px;">
+        <div class="icon-glow" style="margin-bottom:20px;">📊</div>
+        <h3 style="font-size:17px;font-weight:800;color:#fff;margin-bottom:10px;">即時數據</h3>
+        <p style="color:#64748b;font-size:14px;line-height:1.7;">每日更新各市場行情與分析報告，匯率、利率、政策動態一目瞭然，讓你做出有據決策。</p>
+      </div>
+      <!-- Feature 4 -->
+      <div class="glass-card" style="padding:28px 24px;">
+        <div class="icon-glow" style="margin-bottom:20px;">👨‍💼</div>
+        <h3 style="font-size:17px;font-weight:800;color:#fff;margin-bottom:10px;">顧問接手</h3>
+        <p style="color:#64748b;font-size:14px;line-height:1.7;">AI 整理好需求後，專業顧問精準跟進。不是撒網式推銷，是有備而來的一對一諮詢。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════
+     TODAY'S PICKS SECTION
+════════════════════════════════════ -->
+<section style="padding:80px 0;background:#0b1020;">
+  <div class="mx-auto max-w-7xl px-6">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:40px;">
+      <div>
+        <div style="display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:20px;border:1px solid rgba(200,155,60,0.3);background:rgba(200,155,60,0.08);color:#c89b3c;font-size:13px;font-weight:600;margin-bottom:14px;">
+          <i class="fa-solid fa-fire"></i> AI 今日精選
+        </div>
+        <h2 style="font-size:2.2rem;font-weight:900;color:#fff;margin-bottom:8px;">精選建案推薦</h2>
+        <p style="color:#64748b;font-size:15px;">根據本週熱門查詢自動篩選的優質建案</p>
+      </div>
+      <a href="global_pro.html" style="display:inline-flex;align-items:center;gap:6px;color:#c89b3c;font-size:14px;font-weight:600;text-decoration:none;border:1px solid rgba(200,155,60,0.3);padding:8px 16px;border-radius:10px;background:rgba(200,155,60,0.08);transition:all 0.2s;" onmouseover="this.style.background='rgba(200,155,60,0.18)'" onmouseout="this.style.background='rgba(200,155,60,0.08)'">
+        瀏覽所有建案 <i class="fa-solid fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;">
+
+      <!-- Card 1: U Charoen -->
+      <div class="prop-card">
+        <div style="position:relative;height:200px;overflow:hidden;">
+          <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80" alt="U Charoen Residence" style="width:100%;height:100%;object-fit:cover;transition:transform 0.4s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"/>
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,20,50,0.85),transparent);"></div>
+          <div style="position:absolute;top:12px;left:12px;display:flex;gap:6px;">
+            <span style="padding:3px 10px;border-radius:20px;background:rgba(22,58,138,0.85);color:#93c5fd;font-size:11px;font-weight:600;border:1px solid rgba(59,130,246,0.4);">🇹🇭 泰國</span>
+            <span style="padding:3px 10px;border-radius:20px;background:rgba(200,155,60,0.2);color:#f5c96a;font-size:11px;font-weight:600;border:1px solid rgba(200,155,60,0.4);">曼谷</span>
+          </div>
+          <div style="position:absolute;top:12px;right:12px;padding:4px 10px;border-radius:20px;background:rgba(16,185,129,0.2);color:#34d399;font-size:11px;font-weight:700;border:1px solid rgba(52,211,153,0.3);">預售中</div>
+        </div>
+        <div style="padding:20px;">
+          <h3 style="font-size:17px;font-weight:800;color:#fff;margin-bottom:6px;">U Charoen Residence</h3>
+          <p style="font-size:13px;color:#64748b;margin-bottom:12px;line-height:1.6;">Bang Chak 核心地段，BTS 捷運直達，精品服務公寓設計，預估租金報酬率 5-7%。</p>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+            <div>
+              <div style="font-size:12px;color:#475569;">起價（TWD）</div>
+              <div style="font-size:20px;font-weight:900;color:#c89b3c;">NT$ 280 萬起</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:12px;color:#475569;">預估租報</div>
+              <div style="font-size:17px;font-weight:800;color:#4ade80;">6.2%</div>
+            </div>
+          </div>
+          <a href="global_pro.html" style="display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:10px;border-radius:10px;background:linear-gradient(135deg,#163a8a,#1d4ed8);color:#fff;font-weight:700;font-size:14px;text-decoration:none;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+            了解更多 <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 2: Chewathai Thonglor -->
+      <div class="prop-card">
+        <div style="position:relative;height:200px;overflow:hidden;">
+          <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=80" alt="Chewathai Thonglor" style="width:100%;height:100%;object-fit:cover;transition:transform 0.4s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"/>
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,20,50,0.85),transparent);"></div>
+          <div style="position:absolute;top:12px;left:12px;display:flex;gap:6px;">
+            <span style="padding:3px 10px;border-radius:20px;background:rgba(22,58,138,0.85);color:#93c5fd;font-size:11px;font-weight:600;border:1px solid rgba(59,130,246,0.4);">🇹🇭 泰國</span>
+            <span style="padding:3px 10px;border-radius:20px;background:rgba(200,155,60,0.2);color:#f5c96a;font-size:11px;font-weight:600;border:1px solid rgba(200,155,60,0.4);">Thonglor</span>
+          </div>
+          <div style="position:absolute;top:12px;right:12px;padding:4px 10px;border-radius:20px;background:rgba(245,158,11,0.2);color:#fbbf24;font-size:11px;font-weight:700;border:1px solid rgba(251,191,36,0.3);">熱銷</div>
+        </div>
+        <div style="padding:20px;">
+          <h3 style="font-size:17px;font-weight:800;color:#fff;margin-bottom:6px;">Chewathai Thonglor</h3>
+          <p style="font-size:13px;color:#64748b;margin-bottom:12px;line-height:1.6;">Thonglor 頂級商圈，泰國豪宅品牌 Chewathai 操刀，適合追求資產增值的成熟投資人。</p>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+            <div>
+              <div style="font-size:12px;color:#475569;">起價（TWD）</div>
+              <div style="font-size:20px;font-weight:900;color:#c89b3c;">NT$ 450 萬起</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:12px;color:#475569;">預估租報</div>
+              <div style="font-size:17px;font-weight:800;color:#4ade80;">5.8%</div>
+            </div>
+          </div>
+          <a href="global_pro.html" style="display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:10px;border-radius:10px;background:linear-gradient(135deg,#163a8a,#1d4ed8);color:#fff;font-weight:700;font-size:14px;text-decoration:none;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+            了解更多 <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 3: XT Phayathai -->
+      <div class="prop-card">
+        <div style="position:relative;height:200px;overflow:hidden;">
+          <img src="https://images.unsplash.com/photo-1555636222-cae831e670b3?auto=format&fit=crop&w=600&q=80" alt="XT Phayathai" style="width:100%;height:100%;object-fit:cover;transition:transform 0.4s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"/>
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,20,50,0.85),transparent);"></div>
+          <div style="position:absolute;top:12px;left:12px;display:flex;gap:6px;">
+            <span style="padding:3px 10px;border-radius:20px;background:rgba(22,58,138,0.85);color:#93c5fd;font-size:11px;font-weight:600;border:1px solid rgba(59,130,246,0.4);">🇹🇭 泰國</span>
+            <span style="padding:3px 10px;border-radius:20px;background:rgba(200,155,60,0.2);color:#f5c96a;font-size:11px;font-weight:600;border:1px solid rgba(200,155,60,0.4);">Phayathai</span>
+          </div>
+          <div style="position:absolute;top:12px;right:12px;padding:4px 10px;border-radius:20px;background:rgba(16,185,129,0.2);color:#34d399;font-size:11px;font-weight:700;border:1px solid rgba(52,211,153,0.3);">現房可看</div>
+        </div>
+        <div style="padding:20px;">
+          <h3 style="font-size:17px;font-weight:800;color:#fff;margin-bottom:6px;">XT Phayathai</h3>
+          <p style="font-size:13px;color:#64748b;margin-bottom:12px;line-height:1.6;">Ananda 開發商出品，Phayathai BTS 站 0 公尺，現房即可出租，是低門檻入門首選。</p>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+            <div>
+              <div style="font-size:12px;color:#475569;">起價（TWD）</div>
+              <div style="font-size:20px;font-weight:900;color:#c89b3c;">NT$ 230 萬起</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:12px;color:#475569;">預估租報</div>
+              <div style="font-size:17px;font-weight:800;color:#4ade80;">6.5%</div>
+            </div>
+          </div>
+          <a href="global_pro.html" style="display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:10px;border-radius:10px;background:linear-gradient(135deg,#163a8a,#1d4ed8);color:#fff;font-weight:700;font-size:14px;text-decoration:none;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+            了解更多 <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════
+     CTA SECTION
+════════════════════════════════════ -->
+<section class="cta-section" style="padding:80px 0;">
+  <div class="mx-auto max-w-3xl px-6 text-center">
+    <div style="display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:20px;border:1px solid rgba(200,155,60,0.3);background:rgba(200,155,60,0.08);color:#c89b3c;font-size:13px;font-weight:600;margin-bottom:20px;">
+      <i class="fa-solid fa-rocket"></i> 開始你的海外投資旅程
+    </div>
+    <h2 style="font-size:2.6rem;font-weight:900;margin-bottom:16px;">
+      <span style="background:linear-gradient(135deg,#c89b3c,#f5c96a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">準備好找到你的</span><br>
+      <span style="color:#fff;">海外房產了嗎？</span>
+    </h2>
+    <p style="color:#64748b;font-size:17px;line-height:1.7;margin-bottom:36px;">
+      不到 3 分鐘，讓 AI 替你整理需求、篩選建案，<br>然後由專業顧問為你量身規劃。
+    </p>
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;">
+      <a href="#ai-section" style="display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:40px;background:linear-gradient(135deg,#c89b3c,#d4a843);color:#0f172a;font-weight:800;font-size:16px;text-decoration:none;box-shadow:0 8px 24px rgba(200,155,60,0.3);transition:all 0.2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 12px 32px rgba(200,155,60,0.4)'" onmouseout="this.style.transform='';this.style.boxShadow='0 8px 24px rgba(200,155,60,0.3)'">
+        <i class="fa-solid fa-robot"></i> 開始 AI 配對
+      </a>
+      <a href="https://line.me/R/ti/p/@180phkse" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:40px;border:2px solid rgba(255,255,255,0.2);color:#fff;font-weight:700;font-size:16px;text-decoration:none;background:rgba(255,255,255,0.05);transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.1)';this.style.borderColor='rgba(255,255,255,0.4)'" onmouseout="this.style.background='rgba(255,255,255,0.05)';this.style.borderColor='rgba(255,255,255,0.2)'">
+        <i class="fa-brands fa-line" style="color:#4ade80;"></i> 加入 LINE 諮詢
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════
+     FOOTER
+════════════════════════════════════ -->
+<footer style="background:#070d1f;padding:40px 0;border-top:1px solid rgba(22,58,138,0.2);">
+  <div class="mx-auto max-w-7xl px-6" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <img src="/tirea-logo.png" alt="TIREA" style="width:36px;height:36px;border-radius:8px;background:#fff;padding:4px;object-fit:contain;">
+      <div>
+        <div style="font-weight:800;color:#fff;font-size:14px;">TIREA</div>
+        <div style="font-size:10px;color:#475569;text-transform:uppercase;letter-spacing:.2em;">Taiwan International REA</div>
+      </div>
+    </div>
+    <div style="font-size:12px;color:#334155;">© 2025 台灣國際不動產交流協會 TIREA. All rights reserved.</div>
+    <div style="display:flex;gap:16px;">
+      <a href="global_pro.html" style="font-size:13px;color:#475569;text-decoration:none;" onmouseover="this.style.color='#94a3b8'" onmouseout="this.style.color='#475569'">建案列表</a>
+      <a href="about.html" style="font-size:13px;color:#475569;text-decoration:none;" onmouseover="this.style.color='#94a3b8'" onmouseout="this.style.color='#475569'">關於我們</a>
+      <a href="knowledge.html" style="font-size:13px;color:#475569;text-decoration:none;" onmouseover="this.style.color='#94a3b8'" onmouseout="this.style.color='#475569'">知識中心</a>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ════════════════════════════════════
+     SCRIPTS
+════════════════════════════════════ -->
+<script>
+// ── Counter animation ──
+function animateCounter(el, target, suffix, duration) {
+  const start = Date.now();
+  const step = () => {
+    const elapsed = Date.now() - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const current = Math.round(eased * target);
+    if (suffix === '+') {
+      el.innerHTML = current + '<span style="font-size:2rem">+</span>';
+    } else {
+      el.textContent = current;
+    }
+    if (progress < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      animateCounter(document.getElementById('stat-projects'), 64, '', 1400);
+      animateCounter(document.getElementById('stat-markets'), 8, '', 900);
+      animateCounter(document.getElementById('stat-clients'), 500, '+', 1600);
+      observer.disconnect();
+    }
+  });
+}, { threshold: 0.3 });
+observer.observe(document.getElementById('hero'));
+
+
+// ════════════════════════════════════════
+// AI CHAT ENGINE
+// ════════════════════════════════════════
+const chatMessages = document.getElementById('chat-messages');
+const quickReplyArea = document.getElementById('quick-reply-area');
+const quickReplyButtons = document.getElementById('quick-reply-buttons');
+const stepDots = document.querySelectorAll('.step-dot');
+
+let currentStep = 0;
+
+// ── Chat data ──
+const chatFlow = [
+  {
+    step: 0,
+    aiMsg: '你好！我是 TIREA AI 房產顧問 👋\n請問你對海外投資的主要目標是什麼？',
+    choices: [
+      { label: '💰 租金收益', value: '租金收益' },
+      { label: '📈 資產增值', value: '資產增值' },
+      { label: '🏠 自住置產', value: '自住置產' },
+      { label: '🛡️ 資產避險', value: '資產避險' }
+    ]
+  },
+  {
+    step: 1,
+    aiMsg: '好的，{prev} 是很清楚的方向！\n你的投資預算大概是多少？（新台幣）',
+    choices: [
+      { label: '300 萬以下', value: '300萬以下' },
+      { label: '300 – 500 萬', value: '300-500萬' },
+      { label: '500 萬 – 1000 萬', value: '500萬-1000萬' },
+      { label: '1000 萬以上', value: '1000萬以上' }
+    ]
+  },
+  {
+    step: 2,
+    aiMsg: '了解！預算 {prev} 範圍內，我已整理出符合的建案。\n你比較感興趣哪個市場？',
+    choices: [
+      { label: '🇹🇭 泰國', value: '泰國' },
+      { label: '🇸🇬 新加坡', value: '新加坡' },
+      { label: '🇲🇾 馬來西亞', value: '馬來西亞' },
+      { label: '🇻🇳 越南', value: '越南' },
+      { label: '✨ 看 AI 推薦', value: '全市場 AI 推薦' }
+    ]
+  }
+];
+
+const PROPERTIES = [
+  { name: 'U Charoen Residence', market: '🇹🇭 曼谷', budget: 'NT$280萬起', yield: '6.2%' },
+  { name: 'Chewathai Thonglor', market: '🇹🇭 Thonglor', budget: 'NT$450萬起', yield: '5.8%' },
+  { name: 'XT Phayathai', market: '🇹🇭 Phayathai', budget: 'NT$230萬起', yield: '6.5%' }
+];
+
+// ── Helpers ──
+function scrollToBottom() {
+  setTimeout(() => { chatMessages.scrollTop = chatMessages.scrollHeight; }, 60);
+}
+
+function setStep(n) {
+  currentStep = n;
+  stepDots.forEach((dot, i) => {
+    dot.style.background = i <= n ? '#1d4ed8' : 'rgba(30,58,138,0.3)';
+  });
+}
+
+function addUserBubble(text) {
+  const row = document.createElement('div');
+  row.style.cssText = 'display:flex;justify-content:flex-end;';
+  const bubble = document.createElement('div');
+  bubble.className = 'user-bubble bubble-anim';
+  bubble.textContent = text;
+  row.appendChild(bubble);
+  chatMessages.appendChild(row);
+  scrollToBottom();
+}
+
+function showTypingIndicator() {
+  const row = document.createElement('div');
+  row.style.cssText = 'display:flex;align-items:center;gap:8px;';
+  row.id = 'typing-indicator';
+  const avatar = document.createElement('div');
+  avatar.style.cssText = 'width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#163a8a,#1d4ed8);display:flex;align-items:center;justify-content:center;flex-shrink:0;';
+  avatar.innerHTML = '<i class="fa-solid fa-robot" style="color:#93c5fd;font-size:12px;"></i>';
+  const bubble = document.createElement('div');
+  bubble.className = 'ai-bubble bubble-anim';
+  bubble.style.display = 'flex';
+  bubble.style.alignItems = 'center';
+  bubble.style.gap = '4px';
+  bubble.style.padding = '10px 14px';
+  bubble.innerHTML = `
+    <span style="font-size:12px;color:#64748b;margin-right:4px;">思考中</span>
+    <span class="bounce-1" style="width:7px;height:7px;border-radius:50%;background:#3b82f6;display:inline-block;"></span>
+    <span class="bounce-2" style="width:7px;height:7px;border-radius:50%;background:#3b82f6;display:inline-block;"></span>
+    <span class="bounce-3" style="width:7px;height:7px;border-radius:50%;background:#3b82f6;display:inline-block;"></span>
+  `;
+  row.appendChild(avatar);
+  row.appendChild(bubble);
+  chatMessages.appendChild(row);
+  scrollToBottom();
+  return row;
+}
+
+function removeTypingIndicator() {
+  const el = document.getElementById('typing-indicator');
+  if (el) el.remove();
+}
+
+function typewriterBubble(text, onDone) {
+  const row = document.createElement('div');
+  row.style.cssText = 'display:flex;align-items:flex-start;gap:8px;';
+  const avatar = document.createElement('div');
+  avatar.style.cssText = 'width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#163a8a,#1d4ed8);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;';
+  avatar.innerHTML = '<i class="fa-solid fa-robot" style="color:#93c5fd;font-size:12px;"></i>';
+  const bubble = document.createElement('div');
+  bubble.className = 'ai-bubble bubble-anim';
+  bubble.style.whiteSpace = 'pre-line';
+  row.appendChild(avatar);
+  row.appendChild(bubble);
+  chatMessages.appendChild(row);
+
+  let i = 0;
+  const chars = text.split('');
+  function tick() {
+    if (i < chars.length) {
+      bubble.textContent += chars[i++];
+      scrollToBottom();
+      setTimeout(tick, 28 + Math.random() * 20);
+    } else {
+      if (onDone) onDone();
+    }
+  }
+  tick();
+}
+
+function addAIMessage(text, delay, onDone) {
+  setTimeout(() => {
+    const indicator = showTypingIndicator();
+    const thinkTime = 900 + text.length * 15;
+    setTimeout(() => {
+      removeTypingIndicator();
+      typewriterBubble(text, onDone);
+    }, thinkTime);
+  }, delay);
+}
+
+function showQuickReplies(choices, onSelect) {
+  quickReplyButtons.innerHTML = '';
+  quickReplyArea.style.display = 'block';
+  choices.forEach(choice => {
+    const btn = document.createElement('button');
+    btn.className = 'qr-btn';
+    btn.textContent = choice.label;
+    btn.addEventListener('click', () => {
+      quickReplyArea.style.display = 'none';
+      addUserBubble(choice.label);
+      onSelect(choice.value);
+    });
+    quickReplyButtons.appendChild(btn);
+  });
+}
+
+function hideQuickReplies() {
+  quickReplyArea.style.display = 'none';
+  quickReplyButtons.innerHTML = '';
+}
+
+// ── Property result cards ──
+function showResultCards() {
+  const row = document.createElement('div');
+  row.className = 'bubble-anim';
+  row.style.cssText = 'display:flex;align-items:flex-start;gap:8px;';
+  const avatar = document.createElement('div');
+  avatar.style.cssText = 'width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#163a8a,#1d4ed8);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;';
+  avatar.innerHTML = '<i class="fa-solid fa-robot" style="color:#93c5fd;font-size:12px;"></i>';
+  const container = document.createElement('div');
+  container.style.cssText = 'flex:1;';
+
+  PROPERTIES.forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'mini-prop-card';
+    card.innerHTML = `
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+        <span style="font-size:13px;font-weight:800;color:#e2e8f0;">${p.name}</span>
+        <span style="font-size:11px;font-weight:700;color:#4ade80;">${p.yield} 租報</span>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        <span style="padding:2px 8px;border-radius:10px;background:rgba(22,58,138,0.4);color:#93c5fd;font-size:11px;">${p.market}</span>
+        <span style="padding:2px 8px;border-radius:10px;background:rgba(200,155,60,0.15);color:#f5c96a;font-size:11px;">${p.budget}</span>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+
+  row.appendChild(avatar);
+  row.appendChild(container);
+  chatMessages.appendChild(row);
+  scrollToBottom();
+}
+
+function showLineCTA() {
+  const row = document.createElement('div');
+  row.className = 'bubble-anim';
+  row.style.marginTop = '8px';
+  const btn = document.createElement('a');
+  btn.href = 'https://line.me/R/ti/p/@180phkse';
+  btn.target = '_blank';
+  btn.style.cssText = 'display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:20px;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;font-weight:700;font-size:14px;text-decoration:none;border:1px solid rgba(74,222,128,0.3);box-shadow:0 4px 16px rgba(22,163,74,0.3);transition:opacity 0.2s;';
+  btn.innerHTML = '<i class="fa-brands fa-line"></i> 💬 與顧問深入討論';
+  btn.onmouseover = () => { btn.style.opacity = '0.85'; };
+  btn.onmouseout = () => { btn.style.opacity = '1'; };
+  row.appendChild(btn);
+  chatMessages.appendChild(row);
+  scrollToBottom();
+}
+
+// ── Main flow engine ──
+let userAnswers = {};
+
+function runStep(stepIndex, prevAnswer) {
+  setStep(stepIndex);
+  const step = chatFlow[stepIndex];
+  if (!step) return;
+
+  let msg = step.aiMsg;
+  if (prevAnswer) msg = msg.replace('{prev}', prevAnswer);
+
+  const delay = stepIndex === 0 ? 800 : 400;
+  addAIMessage(msg, delay, () => {
+    setTimeout(() => {
+      showQuickReplies(step.choices, (val) => {
+        userAnswers[stepIndex] = val;
+        if (stepIndex < chatFlow.length - 1) {
+          runStep(stepIndex + 1, val);
+        } else {
+          // Final step
+          setStep(3);
+          addAIMessage(`根據你的需求，我為你找到了 3 個符合的建案，正在幫你整理…`, 500, () => {
+            setTimeout(() => {
+              showResultCards();
+              setTimeout(() => {
+                addAIMessage('以上是 AI 推薦的精選方案 ✨\n想了解更多細節，或安排實地考察嗎？', 400, () => {
+                  setTimeout(showLineCTA, 400);
+                });
+              }, 600);
+            }, 600);
+          });
+        }
+      });
+    }, 300);
+  });
+}
+
+// ── Init ──
+setTimeout(() => {
+  hideQuickReplies();
+  runStep(0, null);
+}, 1000);
+
+</script>
+
+  <script>
+    (function(){
+      try {
+        fetch('/api/track-visit', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            page: location.pathname,
+            title: document.title,
+            referrer: document.referrer || 'direct',
+            device: /Mobile|Android|iPhone|iPad/i.test(navigator.userAgent) ? 'mobile' : 'desktop'
+          })
+        });
+      } catch(e){}
+    })();
+  </script>
+
+  <!-- Vercel Web Analytics -->
+  <script defer src="/_vercel/insights/script.js"></script>
+  <!-- Vercel Speed Insights -->
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

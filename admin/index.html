@@ -1,0 +1,1844 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TIREA 管理中心</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Noto Sans TC', sans-serif; }
+    .tab-btn.active { background: white; box-shadow: 0 1px 4px rgba(0,0,0,0.1); color: #0f172a; }
+    .input-admin {
+      width: 100%; padding: 0.75rem 1rem; border-radius: 0.75rem;
+      border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.07);
+      color: white; outline: none; transition: border-color 0.2s; font-size: 0.95rem;
+    }
+    .input-admin::placeholder { color: #64748b; }
+    .input-admin:focus { border-color: #c89b3c; }
+    .badge-super { background:#fef3c7; color:#92400e; padding:2px 8px; border-radius:999px; font-size:11px; font-weight:800; }
+    .badge-admin { background:#e0f2fe; color:#0369a1; padding:2px 8px; border-radius:999px; font-size:11px; font-weight:800; }
+    .field-label { display:block; font-size:11px; font-weight:700; color:#64748b; text-transform:uppercase; letter-spacing:.05em; margin-bottom:4px; }
+    .field-input { width:100%; padding:8px 12px; border-radius:10px; border:1px solid #e2e8f0; font-size:13px; outline:none; background:white; color:#1e293b; transition:border-color .15s; }
+    .field-input:focus { border-color:#3b82f6; }
+    textarea.field-input { resize:vertical; }
+    select.field-input { cursor:pointer; }
+    .proj-tag-item { display:flex; align-items:center; gap:5px; padding:5px 10px; border-radius:20px; border:1px solid #e2e8f0; font-size:12px; font-weight:600; cursor:pointer; color:#475569; transition:all .15s; }
+    .proj-tag-item:hover { border-color:#c89b3c; color:#92400e; background:#fef3c7; }
+    .proj-tag-item input[type=checkbox] { accent-color:#c89b3c; }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2XV1V9TS1P"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-2XV1V9TS1P');
+  </script>
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen">
+
+  <!-- 登入畫面 -->
+  <div id="login-screen" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950">
+    <div class="w-full max-w-sm px-8 py-10 rounded-3xl" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);">
+      <div class="text-center mb-8">
+        <img src="/tirea-logo.png" alt="TIREA" class="w-14 h-14 rounded-2xl mx-auto mb-4 object-contain bg-white p-1 shadow-lg" onerror="this.style.display='none';document.getElementById('logo-fallback').style.display='flex'">
+        <div id="logo-fallback" class="w-14 h-14 rounded-2xl bg-white mx-auto mb-4 items-center justify-center text-slate-900 font-extrabold text-2xl shadow-lg hidden">T</div>
+        <div class="text-xs uppercase tracking-[0.3em] text-slate-400 mb-1">Admin Dashboard</div>
+        <h1 class="text-2xl font-extrabold text-white">TIREA 管理中心</h1>
+      </div>
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase tracking-wider">帳號</label>
+          <input id="login-username" type="text" placeholder="帳號" autocomplete="username" class="input-admin"
+            onkeydown="if(event.key==='Enter') document.getElementById('login-password').focus()">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase tracking-wider">密碼</label>
+          <input id="login-password" type="password" placeholder="••••••••" autocomplete="current-password" class="input-admin"
+            onkeydown="if(event.key==='Enter') doLogin()">
+        </div>
+        <div id="login-error" class="hidden text-red-400 text-sm text-center py-1"></div>
+        <button onclick="doLogin()" id="login-btn"
+          class="w-full py-3 rounded-xl font-extrabold text-slate-900 mt-2 transition-opacity"
+          style="background:#c89b3c;">登入</button>
+      </div>
+      <p class="text-center text-xs text-slate-600 mt-6">僅限授權管理員存取</p>
+    </div>
+  </div>
+
+  <!-- 後台主畫面 -->
+  <div id="dashboard" class="hidden min-h-screen p-6 md:p-10">
+    <div class="max-w-7xl mx-auto">
+
+      <!-- Header -->
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+        <div class="flex items-center gap-4">
+          <img src="/tirea-logo.png" alt="TIREA" class="w-10 h-10 rounded-xl object-contain bg-white p-1 shadow">
+          <div>
+            <div class="text-sm font-bold uppercase tracking-[0.2em] text-slate-400 mb-0.5">Admin Dashboard</div>
+            <h1 class="text-2xl font-extrabold leading-none">TIREA 後台管理</h1>
+          </div>
+        </div>
+        <div class="flex items-center gap-3 flex-wrap">
+          <span id="status" class="text-sm text-slate-500"></span>
+          <span id="admin-user" class="text-sm font-bold text-slate-600 px-3 py-1 rounded-lg bg-slate-200"></span>
+          <span id="admin-role-badge"></span>
+          <button onclick="doLogout()" class="px-4 py-2 rounded-xl border border-slate-300 text-sm font-bold text-slate-600 hover:bg-slate-200 transition">登出</button>
+        </div>
+      </div>
+
+      <!-- Quick links -->
+      <div class="flex gap-2 mb-4 flex-wrap">
+        <a href="/projects.html" target="_blank" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white/10 border border-white/15 text-slate-200 text-sm font-bold hover:bg-white/20 transition">
+          <i class="fa-solid fa-building-columns text-[#c89b3c]"></i> 前往專案頁面
+        </a>
+        <a href="/" target="_blank" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white/10 border border-white/15 text-slate-200 text-sm font-bold hover:bg-white/20 transition">
+          <i class="fa-solid fa-house text-blue-300"></i> 前往首頁
+        </a>
+      </div>
+
+      <!-- Tabs -->
+      <div class="flex gap-1 mb-6 bg-slate-200 rounded-2xl p-1 w-fit flex-wrap">
+        <button id="tab-leads-btn" onclick="switchTab('leads')" class="tab-btn active px-5 py-2.5 rounded-xl text-sm font-bold transition-all bg-white shadow text-slate-900">
+          📋 問卷名單 <span id="leads-count" class="ml-1 text-xs text-slate-400"></span>
+        </button>
+        <button id="tab-members-btn" onclick="switchTab('members')" class="tab-btn px-5 py-2.5 rounded-xl text-sm font-bold transition-all text-slate-500 hover:text-slate-700">
+          👤 會員名單 <span id="members-count" class="ml-1 text-xs text-slate-400"></span>
+        </button>
+        <button id="tab-projects-btn" onclick="switchTab('projects')" class="tab-btn px-5 py-2.5 rounded-xl text-sm font-bold transition-all text-slate-500 hover:text-slate-700">
+          🏢 建案管理 <span id="projects-count" class="ml-1 text-xs text-slate-400"></span>
+        </button>
+        <button id="tab-traffic-btn" onclick="switchTab('traffic')" class="tab-btn px-5 py-2.5 rounded-xl text-sm font-bold transition-all text-slate-500 hover:text-slate-700">
+          📊 流量分析
+        </button>
+        <button id="tab-articles-btn" onclick="switchTab('articles')" class="tab-btn px-5 py-2.5 rounded-xl text-sm font-bold transition-all text-slate-500 hover:text-slate-700">
+          📄 文章管理 <span id="articles-count" class="ml-1 text-xs text-slate-400"></span>
+        </button>
+        <button id="tab-activities-btn" onclick="switchTab('activities')" class="tab-btn px-5 py-2.5 rounded-xl text-sm font-bold transition-all text-slate-500 hover:text-slate-700">
+          🗓 近期活動 <span id="activities-count" class="ml-1 text-xs text-slate-400"></span>
+        </button>
+        <button id="tab-ticker-btn" onclick="switchTab('ticker')" class="tab-btn px-5 py-2.5 rounded-xl text-sm font-bold transition-all text-slate-500 hover:text-slate-700">
+          📢 跑馬燈 <span id="ticker-count" class="ml-1 text-xs text-slate-400"></span>
+        </button>
+        <button id="tab-users-btn" onclick="switchTab('users')" class="tab-btn hidden px-5 py-2.5 rounded-xl text-sm font-bold transition-all text-slate-500 hover:text-slate-700">
+          🔐 管理帳號
+        </button>
+      </div>
+
+      <!-- 問卷名單 -->
+      <div id="tab-leads" class="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm">
+        <div class="overflow-auto">
+          <table class="w-full min-w-[1380px] text-sm">
+            <thead class="bg-slate-50 text-slate-500">
+              <tr>
+                <th class="text-left px-4 py-3">建立時間</th>
+                <th class="text-left px-4 py-3">姓名</th>
+                <th class="text-left px-4 py-3">電話</th>
+                <th class="text-left px-4 py-3">區域</th>
+                <th class="text-left px-4 py-3">預算</th>
+                <th class="text-left px-4 py-3">目的</th>
+                <th class="text-left px-4 py-3">客戶備註</th>
+                <th class="text-left px-4 py-3">狀態</th>
+                <th class="text-left px-4 py-3">指派顧問</th>
+                <th class="text-left px-4 py-3">內部備註</th>
+                <th class="text-left px-4 py-3">操作</th>
+              </tr>
+            </thead>
+            <tbody id="leadRows">
+              <tr><td colspan="11" class="px-4 py-10 text-center text-slate-400">載入中...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 會員名單 -->
+      <div id="tab-members" class="hidden bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm">
+        <div class="overflow-auto">
+          <table class="w-full min-w-[700px] text-sm">
+            <thead class="bg-slate-50 text-slate-500">
+              <tr>
+                <th class="text-left px-4 py-3">註冊時間</th>
+                <th class="text-left px-4 py-3">姓名</th>
+                <th class="text-left px-4 py-3">電話</th>
+                <th class="text-left px-4 py-3">LINE ID</th>
+                <th class="text-left px-4 py-3">Email</th>
+                <th class="text-left px-4 py-3">預算</th>
+                <th class="text-left px-4 py-3">目的</th>
+                <th class="text-left px-4 py-3">感興趣市場</th>
+                <th class="text-left px-4 py-3">來源管道</th>
+              </tr>
+            </thead>
+            <tbody id="memberRows">
+              <tr><td colspan="9" class="px-4 py-10 text-center text-slate-400">載入中...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 管理帳號 (superadmin only) -->
+      <div id="tab-users" class="hidden space-y-6">
+
+        <!-- 新增帳號表單 -->
+        <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm">
+          <h2 class="text-lg font-extrabold mb-5 text-slate-800">➕ 新增管理員帳號</h2>
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+            <div>
+              <label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wide">帳號</label>
+              <input id="new-username" type="text" placeholder="輸入帳號（最少3字）"
+                class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-blue-500">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wide">密碼</label>
+              <input id="new-password" type="text" placeholder="輸入密碼（最少6字）"
+                class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-blue-500">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wide">角色</label>
+              <select id="new-role" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-blue-500">
+                <option value="admin">一般管理員</option>
+              </select>
+            </div>
+            <div>
+              <button onclick="addUser()" id="add-user-btn"
+                class="w-full px-6 py-2.5 rounded-xl bg-blue-600 text-white font-extrabold text-sm hover:bg-blue-700 transition">
+                新增帳號
+              </button>
+            </div>
+          </div>
+          <div id="user-msg" class="hidden mt-3 text-sm font-bold rounded-xl px-4 py-2.5"></div>
+        </div>
+
+        <!-- 現有帳號列表 -->
+        <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm">
+          <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+            <h2 class="text-lg font-extrabold text-slate-800">管理員帳號列表</h2>
+            <button onclick="loadUsers()" class="text-sm text-blue-600 font-bold hover:underline">重新整理</button>
+          </div>
+          <table class="w-full text-sm">
+            <thead class="bg-slate-50 text-slate-500">
+              <tr>
+                <th class="text-left px-5 py-3">帳號</th>
+                <th class="text-left px-5 py-3">角色</th>
+                <th class="text-left px-5 py-3">建立時間</th>
+                <th class="text-left px-5 py-3">重設密碼</th>
+                <th class="text-left px-5 py-3">操作</th>
+              </tr>
+            </thead>
+            <tbody id="userRows">
+              <tr><td colspan="5" class="px-5 py-8 text-center text-slate-400">載入中...</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div><!-- /tab-users -->
+
+      <!-- 建案管理 -->
+      <div id="tab-projects" class="hidden space-y-5">
+
+        <!-- 控制列 -->
+        <div class="flex flex-wrap gap-3 items-center">
+          <button onclick="openProjectModal(null)"
+            class="px-5 py-2.5 rounded-xl text-sm font-extrabold text-slate-900 flex items-center gap-2 shadow-sm transition hover:opacity-90"
+            style="background:#c89b3c">＋ 新增建案</button>
+          <button onclick="seedProjects()" id="seed-btn"
+            class="px-4 py-2.5 rounded-xl border border-slate-300 text-sm font-bold text-slate-600 hover:bg-slate-100 transition">
+            📥 匯入 JSON 資料
+          </button>
+          <input id="proj-search" oninput="filterProjects()" type="text" placeholder="搜尋名稱 / 城市..."
+            class="px-4 py-2 rounded-xl border border-slate-200 text-sm w-44 focus:outline-none focus:border-blue-400">
+          <select id="proj-country-filter" onchange="filterProjects()"
+            class="px-3 py-2 rounded-xl border border-slate-200 text-sm focus:outline-none">
+            <option value="">所有國家</option>
+            <option>Thailand</option><option>Malaysia</option><option>Singapore</option>
+            <option>Japan</option><option>Australia</option><option>USA</option>
+            <option>Turkey</option><option>Vietnam</option><option>UAE</option>
+          </select>
+          <select id="proj-status-filter" onchange="filterProjects()"
+            class="px-3 py-2 rounded-xl border border-slate-200 text-sm focus:outline-none">
+            <option value="">所有狀態</option>
+            <option value="active">上架中</option>
+            <option value="hidden">已隱藏</option>
+          </select>
+          <span id="proj-stats" class="text-sm text-slate-400 ml-auto font-medium"></span>
+        </div>
+
+        <!-- 建案卡片列表 -->
+        <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+          <div class="text-slate-400 text-center py-16 col-span-3">載入中...</div>
+        </div>
+
+      </div><!-- /tab-projects -->
+
+      <!-- 建案編輯 Modal -->
+      <div id="project-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4" style="background:rgba(0,0,0,0.55)">
+        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col">
+          <div class="flex items-center justify-between px-6 py-4 border-b border-slate-100 shrink-0">
+            <h2 id="modal-proj-title" class="text-lg font-extrabold text-slate-800">新增建案</h2>
+            <button onclick="closeProjectModal()" class="text-slate-400 hover:text-slate-700 text-3xl leading-none font-light">&times;</button>
+          </div>
+          <div class="overflow-y-auto p-6 space-y-4 flex-1">
+            <input type="hidden" id="proj-edit-id">
+
+            <!-- 基本資訊 -->
+            <div class="grid grid-cols-2 gap-4">
+              <div class="col-span-2">
+                <label class="field-label">建案名稱 *</label>
+                <input id="proj-title" type="text" class="field-input" placeholder="例：泰國 U Charoen Residence｜日式精品住宅">
+              </div>
+              <div>
+                <label class="field-label">國家 *</label>
+                <select id="proj-country" class="field-input">
+                  <option value="">選擇國家</option>
+                  <option>Thailand</option><option>Malaysia</option><option>Singapore</option>
+                  <option>Japan</option><option>Australia</option><option>USA</option>
+                  <option>Turkey</option><option>Vietnam</option><option>UAE</option>
+                </select>
+              </div>
+              <div>
+                <label class="field-label">城市 *</label>
+                <input id="proj-city" type="text" class="field-input" placeholder="例：Bangkok">
+              </div>
+              <div>
+                <label class="field-label">地區 / 商圈</label>
+                <input id="proj-district" type="text" class="field-input" placeholder="例：Sukhumvit">
+              </div>
+              <div>
+                <label class="field-label">預算等級</label>
+                <select id="proj-budget" class="field-input">
+                  <option value="entry">entry（入門）</option>
+                  <option value="mid">mid（中階）</option>
+                  <option value="high">high（高端）</option>
+                  <option value="luxury">luxury（豪華）</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- 標籤 -->
+            <div>
+              <label class="field-label">投資標籤</label>
+              <div id="proj-tags" class="flex flex-wrap gap-2 mt-1">
+                <label class="proj-tag-item"><input type="checkbox" value="收租"> 收租</label>
+                <label class="proj-tag-item"><input type="checkbox" value="自住"> 自住</label>
+                <label class="proj-tag-item"><input type="checkbox" value="退休"> 退休</label>
+                <label class="proj-tag-item"><input type="checkbox" value="避險"> 避險</label>
+                <label class="proj-tag-item"><input type="checkbox" value="增值"> 增值</label>
+                <label class="proj-tag-item"><input type="checkbox" value="移民"> 移民</label>
+                <label class="proj-tag-item"><input type="checkbox" value="養老"> 養老</label>
+                <label class="proj-tag-item"><input type="checkbox" value="預售"> 預售</label>
+              </div>
+            </div>
+
+            <!-- 摘要 -->
+            <div>
+              <label class="field-label">短摘要（列表頁顯示）</label>
+              <textarea id="proj-summary" class="field-input" rows="3" placeholder="100字以內精要描述"></textarea>
+            </div>
+            <div>
+              <label class="field-label">長摘要（詳細頁顯示）</label>
+              <textarea id="proj-long-summary" class="field-input" rows="4" placeholder="完整介紹內容"></textarea>
+            </div>
+
+            <!-- 亮點 -->
+            <div>
+              <label class="field-label">亮點（每行一條）</label>
+              <textarea id="proj-highlights" class="field-input" rows="5"
+                placeholder="每行一條，例：&#10;鄰近 BTS 捷運 5 分鐘&#10;全棟智慧家居系統&#10;預計 2026 Q3 交屋"></textarea>
+            </div>
+
+            <!-- 風險 -->
+            <div>
+              <label class="field-label">風險說明</label>
+              <textarea id="proj-risk" class="field-input" rows="2" placeholder="說明主要投資風險"></textarea>
+            </div>
+
+            <!-- 圖片與連結 -->
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="field-label">圖片 URL</label>
+                <input id="proj-image" type="text" class="field-input" placeholder="https://images.unsplash.com/...">
+              </div>
+              <div>
+                <label class="field-label">建案頁面連結</label>
+                <input id="proj-source-url" type="text" class="field-input" placeholder="thailand-seminar.html">
+              </div>
+            </div>
+
+            <!-- ID + 狀態 -->
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="field-label">建案 ID（留空自動生成）</label>
+                <input id="proj-id-input" type="text" class="field-input" placeholder="例：tirea-project-01">
+              </div>
+              <div>
+                <label class="field-label">上架狀態</label>
+                <select id="proj-status" class="field-input">
+                  <option value="active">上架中</option>
+                  <option value="hidden">隱藏</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex gap-3 justify-end px-6 py-4 border-t border-slate-100 shrink-0">
+            <button onclick="closeProjectModal()"
+              class="px-5 py-2.5 rounded-xl border border-slate-200 text-sm font-bold text-slate-600 hover:bg-slate-50 transition">取消</button>
+            <button onclick="saveProject()" id="save-proj-btn"
+              class="px-5 py-2.5 rounded-xl text-sm font-extrabold text-slate-900 hover:opacity-90 transition"
+              style="background:#c89b3c">儲存建案</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 流量分析 -->
+      <div id="tab-traffic" class="hidden space-y-6">
+
+        <!-- 統計摘要 -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 text-center">
+            <div class="text-3xl font-extrabold text-blue-600" id="stat-today">—</div>
+            <div class="text-xs font-bold text-slate-400 mt-1 uppercase tracking-wider">今日訪客</div>
+          </div>
+          <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 text-center">
+            <div class="text-3xl font-extrabold text-indigo-600" id="stat-week">—</div>
+            <div class="text-xs font-bold text-slate-400 mt-1 uppercase tracking-wider">本週訪客</div>
+          </div>
+          <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 text-center">
+            <div class="text-3xl font-extrabold text-violet-600" id="stat-total">—</div>
+            <div class="text-xs font-bold text-slate-400 mt-1 uppercase tracking-wider">紀錄總數</div>
+          </div>
+          <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 text-center">
+            <div class="text-3xl font-extrabold text-emerald-600" id="stat-device-mobile">—</div>
+            <div class="text-xs font-bold text-slate-400 mt-1 uppercase tracking-wider">行動裝置</div>
+          </div>
+        </div>
+
+        <!-- 14天趨勢圖 + 來源 -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="md:col-span-2 bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-sm font-extrabold text-slate-700 uppercase tracking-wider">近14日訪客趨勢</h3>
+              <button onclick="loadVisits()" class="text-xs text-blue-600 font-bold hover:underline">重新整理</button>
+            </div>
+            <div id="daily-chart" class="flex items-end gap-1 h-32">
+              <div class="text-slate-400 text-xs self-center">載入中...</div>
+            </div>
+          </div>
+          <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+            <h3 class="text-sm font-extrabold text-slate-700 uppercase tracking-wider mb-4">裝置分佈</h3>
+            <div id="device-breakdown" class="space-y-3 text-sm"></div>
+            <h3 class="text-sm font-extrabold text-slate-700 uppercase tracking-wider mt-6 mb-3">流量來源 Top 5</h3>
+            <div id="top-refs" class="space-y-2 text-sm"></div>
+          </div>
+        </div>
+
+        <!-- 熱門頁面 + 近期訪客 -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+            <h3 class="text-sm font-extrabold text-slate-700 uppercase tracking-wider mb-4">熱門頁面 Top 10</h3>
+            <ol id="top-pages" class="space-y-2 text-sm"></ol>
+          </div>
+          <div class="md:col-span-2 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+            <div class="px-6 py-4 border-b border-slate-100">
+              <h3 class="text-sm font-extrabold text-slate-700 uppercase tracking-wider">近期訪客記錄</h3>
+            </div>
+            <div class="overflow-auto max-h-[480px]">
+              <table class="w-full text-xs min-w-[600px]">
+                <thead class="bg-slate-50 text-slate-400 sticky top-0">
+                  <tr>
+                    <th class="text-left px-4 py-2.5 font-bold">時間</th>
+                    <th class="text-left px-4 py-2.5 font-bold">頁面</th>
+                    <th class="text-left px-4 py-2.5 font-bold">標題</th>
+                    <th class="text-left px-4 py-2.5 font-bold">裝置</th>
+                    <th class="text-left px-4 py-2.5 font-bold">來源</th>
+                    <th class="text-left px-4 py-2.5 font-bold">IP</th>
+                  </tr>
+                </thead>
+                <tbody id="visits-rows">
+                  <tr><td colspan="6" class="px-4 py-8 text-center text-slate-400">載入中...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /tab-traffic -->
+
+      <!-- 文章管理 -->
+      <div id="tab-articles" class="hidden space-y-5">
+
+        <!-- 控制列 -->
+        <div class="flex flex-wrap gap-3 items-center">
+          <button onclick="openArticleModal(null)"
+            class="px-5 py-2.5 rounded-xl text-sm font-extrabold text-slate-900 flex items-center gap-2 shadow-sm transition hover:opacity-90"
+            style="background:#c89b3c">＋ 新增文章</button>
+          <button onclick="seedArticles()" id="seed-articles-btn"
+            class="px-4 py-2.5 rounded-xl border border-slate-300 text-sm font-bold text-slate-600 hover:bg-slate-100 transition">
+            📥 預載3篇報告
+          </button>
+          <button onclick="loadArticles()" class="px-4 py-2.5 rounded-xl border border-slate-300 text-sm font-bold text-slate-600 hover:bg-slate-100 transition">🔄 重新整理</button>
+          <span id="articles-stats" class="text-sm text-slate-400 ml-auto font-medium"></span>
+        </div>
+
+        <!-- 說明 -->
+        <div class="bg-blue-50 border border-blue-200 rounded-2xl px-5 py-3 text-sm text-blue-700">
+          💡 <strong>發送給全體會員</strong>：點擊「發布」後，會員登入中心即可看到並下載此文章。點擊「取消發布」會從會員中心隱藏。
+        </div>
+
+        <!-- 文章列表 -->
+        <div id="articles-list" class="space-y-3">
+          <div class="text-slate-400 text-center py-16">載入中...</div>
+        </div>
+
+      </div><!-- /tab-articles -->
+
+      <!-- 文章編輯 Modal -->
+      <div id="article-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4" style="background:rgba(0,0,0,0.55)">
+        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-lg flex flex-col">
+          <div class="flex items-center justify-between px-6 py-4 border-b border-slate-100 shrink-0">
+            <h2 id="modal-article-title" class="text-lg font-extrabold text-slate-800">新增文章</h2>
+            <button onclick="closeArticleModal()" class="text-slate-400 hover:text-slate-700 text-3xl leading-none font-light">&times;</button>
+          </div>
+          <div class="overflow-y-auto p-6 space-y-4 flex-1">
+            <input type="hidden" id="article-edit-id">
+            <div>
+              <label class="field-label">標題 *</label>
+              <input id="article-title" type="text" class="field-input" placeholder="例：🇹🇭 2026 曼谷投資市場報告">
+            </div>
+            <div>
+              <label class="field-label">Emoji 圖示</label>
+              <input id="article-emoji" type="text" class="field-input" placeholder="📄" maxlength="4">
+            </div>
+            <div>
+              <label class="field-label">描述摘要</label>
+              <textarea id="article-description" class="field-input" rows="3" placeholder="簡短說明此文章內容..."></textarea>
+            </div>
+            <div>
+              <label class="field-label">檔案 URL（PDF 路徑）</label>
+              <input id="article-fileurl" type="text" class="field-input" placeholder="/public_reports/tirea-bangkok-2026.pdf">
+              <p class="text-xs text-slate-400 mt-1">填入 /public_reports/ 路徑，會員點擊可下載 PDF</p>
+            </div>
+          </div>
+          <div class="flex gap-3 justify-end px-6 py-4 border-t border-slate-100 shrink-0">
+            <button onclick="closeArticleModal()"
+              class="px-5 py-2.5 rounded-xl border border-slate-200 text-sm font-bold text-slate-600 hover:bg-slate-50 transition">取消</button>
+            <button onclick="saveArticle()" id="save-article-btn"
+              class="px-5 py-2.5 rounded-xl text-sm font-extrabold text-slate-900 hover:opacity-90 transition"
+              style="background:#c89b3c">儲存文章</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 近期活動 tab -->
+      <div id="tab-activities" class="hidden space-y-5">
+        <div class="flex flex-wrap gap-3 items-center">
+          <button onclick="openActivityModal(null)"
+            class="px-5 py-2.5 rounded-xl text-sm font-extrabold text-slate-900 flex items-center gap-2 shadow-sm hover:opacity-90 transition"
+            style="background:#c89b3c">＋ 新增活動</button>
+          <button onclick="seedActivities()" id="seed-activities-btn"
+            class="px-4 py-2.5 rounded-xl border border-slate-300 text-sm font-bold text-slate-600 hover:bg-slate-100 transition">
+            📥 預載預設活動
+          </button>
+          <button onclick="loadActivities()" class="px-4 py-2.5 rounded-xl border border-slate-300 text-sm font-bold text-slate-600 hover:bg-slate-100 transition">🔄 重新整理</button>
+          <span id="activities-stats" class="text-sm text-slate-400 ml-auto font-medium"></span>
+        </div>
+        <div class="bg-blue-50 border border-blue-200 rounded-2xl px-5 py-3 text-sm text-blue-700">
+          💡 此處管理的活動會顯示在<strong>首頁跑馬燈下方的近期活動列</strong>，上架後即時生效。
+        </div>
+        <div id="activities-mgmt-list" class="space-y-3">
+          <div class="text-slate-400 text-center py-16">載入中...</div>
+        </div>
+      </div><!-- /tab-activities -->
+
+      <!-- 跑馬燈管理 tab -->
+      <div id="tab-ticker" class="hidden space-y-5">
+
+        <!-- 控制列 -->
+        <div class="flex flex-wrap gap-3 items-center">
+          <button onclick="openTickerModal(null)"
+            class="px-5 py-2.5 rounded-xl text-sm font-extrabold text-slate-900 flex items-center gap-2 shadow-sm hover:opacity-90 transition"
+            style="background:#c89b3c">＋ 新增項目</button>
+          <button onclick="seedTickerDefaults()"
+            class="px-4 py-2.5 rounded-xl border border-slate-300 text-sm font-bold text-slate-600 hover:bg-slate-100 transition">
+            📥 載入預設內容
+          </button>
+          <button onclick="loadTicker()" class="px-4 py-2.5 rounded-xl border border-slate-300 text-sm font-bold text-slate-600 hover:bg-slate-100 transition">🔄 重新整理</button>
+          <span id="ticker-stats" class="text-sm text-slate-400 ml-auto font-medium"></span>
+        </div>
+
+        <div class="bg-amber-50 border border-amber-200 rounded-2xl px-5 py-3 text-sm text-amber-700">
+          📢 跑馬燈項目儲存於瀏覽器 localStorage，<strong>與首頁即時同步</strong>。新增或關閉項目後，重新整理首頁即可看到效果。
+        </div>
+
+        <!-- 即時預覽 -->
+        <div class="bg-slate-900 rounded-2xl overflow-hidden border border-slate-700">
+          <div class="px-4 py-2 border-b border-slate-700 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">即時預覽</span>
+          </div>
+          <div class="py-3 px-4 overflow-hidden">
+            <div id="ticker-preview-track" class="flex gap-6 text-[12px] text-slate-300 whitespace-nowrap overflow-x-auto pb-1"
+                 style="scrollbar-width:thin;scrollbar-color:#334155 transparent;">
+              <span class="text-slate-500">（新增項目後會顯示在此）</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 項目列表 -->
+        <div id="ticker-list" class="space-y-2">
+          <div class="text-slate-400 text-center py-16">載入中...</div>
+        </div>
+
+      </div><!-- /tab-ticker -->
+
+      <!-- 跑馬燈 Modal -->
+      <div id="ticker-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4" style="background:rgba(0,0,0,0.55)">
+        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-lg flex flex-col">
+          <div class="flex items-center justify-between px-6 py-4 border-b border-slate-100 shrink-0">
+            <h2 id="modal-ticker-title" class="text-lg font-extrabold text-slate-800">新增跑馬燈項目</h2>
+            <button onclick="closeTickerModal()" class="text-slate-400 hover:text-slate-700 text-3xl leading-none font-light">&times;</button>
+          </div>
+          <div class="overflow-y-auto p-6 space-y-4 flex-1">
+            <input type="hidden" id="ticker-edit-id">
+
+            <div>
+              <label class="field-label">主要文字 * <span class="text-slate-400 normal-case font-normal">(可包含 emoji)</span></label>
+              <input id="ticker-text" type="text" class="field-input" placeholder="例：🇹🇭 泰國曼谷｜租金報酬"
+                oninput="updateTickerPreviewModal()">
+              <p class="text-xs text-slate-400 mt-1">如不需強調文字，可將完整內容寫在此欄</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="field-label">強調文字 <span class="text-slate-400 normal-case font-normal">(選填)</span></label>
+                <input id="ticker-badge" type="text" class="field-input" placeholder="例：5–7%"
+                  oninput="updateTickerPreviewModal()">
+              </div>
+              <div>
+                <label class="field-label">強調顏色</label>
+                <select id="ticker-badge-color" class="field-input" onchange="updateTickerPreviewModal()">
+                  <option value="emerald">🟢 綠色（emerald）</option>
+                  <option value="amber">🟡 金黃（amber）</option>
+                  <option value="red">🔴 紅色（red）</option>
+                  <option value="blue">🔵 藍色（blue）</option>
+                  <option value="violet">🟣 紫色（violet）</option>
+                  <option value="sky">🩵 天藍（sky）</option>
+                  <option value="rose">🌸 玫瑰（rose）</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="field-label">連結 URL <span class="text-slate-400 normal-case font-normal">(選填)</span></label>
+              <input id="ticker-link" type="text" class="field-input" placeholder="例：/thailand-seminar.html">
+            </div>
+
+            <!-- 即時預覽 -->
+            <div class="bg-slate-900 rounded-xl px-4 py-3">
+              <div class="text-xs text-slate-500 mb-2 font-bold uppercase tracking-wider">預覽效果</div>
+              <div id="ticker-modal-preview" class="text-sm text-slate-300 font-medium">（輸入文字後預覽）</div>
+            </div>
+          </div>
+          <div class="flex gap-3 justify-end px-6 py-4 border-t border-slate-100 shrink-0">
+            <button onclick="closeTickerModal()"
+              class="px-5 py-2.5 rounded-xl border border-slate-200 text-sm font-bold text-slate-600 hover:bg-slate-50 transition">取消</button>
+            <button onclick="saveTicker()" id="save-ticker-btn"
+              class="px-5 py-2.5 rounded-xl text-sm font-extrabold text-slate-900 hover:opacity-90 transition"
+              style="background:#c89b3c">儲存項目</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 近期活動 Modal -->
+      <div id="activity-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4" style="background:rgba(0,0,0,0.55)">
+        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-md flex flex-col">
+          <div class="flex items-center justify-between px-6 py-4 border-b border-slate-100 shrink-0">
+            <h2 id="modal-activity-title" class="text-lg font-extrabold text-slate-800">新增活動</h2>
+            <button onclick="closeActivityModal()" class="text-slate-400 hover:text-slate-700 text-3xl leading-none font-light">&times;</button>
+          </div>
+          <div class="overflow-y-auto p-6 space-y-4 flex-1">
+            <input type="hidden" id="activity-edit-id">
+            <div>
+              <label class="field-label">活動標題 *</label>
+              <input id="activity-title" type="text" class="field-input" placeholder="例：🇹🇭 曼谷4天3夜投資考察團">
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="field-label">日期文字</label>
+                <input id="activity-date" type="text" class="field-input" placeholder="例：2026/05/19–22">
+              </div>
+              <div>
+                <label class="field-label">標籤文字</label>
+                <input id="activity-tag" type="text" class="field-input" placeholder="例：考察團">
+              </div>
+            </div>
+            <div>
+              <label class="field-label">標籤顏色</label>
+              <select id="activity-tag-color" class="field-input">
+                <option value="amber">琥珀（amber）</option>
+                <option value="red">紅色（red）</option>
+                <option value="blue">藍色（blue）</option>
+                <option value="violet">紫色（violet）</option>
+                <option value="emerald">綠色（emerald）</option>
+              </select>
+            </div>
+            <div>
+              <label class="field-label">連結 URL</label>
+              <input id="activity-link" type="text" class="field-input" placeholder="例：/thailand-seminar.html">
+            </div>
+            <div>
+              <label class="field-label">封面圖片 URL（選填）</label>
+              <input id="activity-image" type="text" class="field-input" placeholder="https://images.unsplash.com/...">
+              <p class="text-xs text-slate-400 mt-1">留空則自動使用預設圖片</p>
+            </div>
+          </div>
+          <div class="flex gap-3 justify-end px-6 py-4 border-t border-slate-100 shrink-0">
+            <button onclick="closeActivityModal()"
+              class="px-5 py-2.5 rounded-xl border border-slate-200 text-sm font-bold text-slate-600 hover:bg-slate-50 transition">取消</button>
+            <button onclick="saveActivity()" id="save-activity-btn"
+              class="px-5 py-2.5 rounded-xl text-sm font-extrabold text-slate-900 hover:opacity-90 transition"
+              style="background:#c89b3c">儲存活動</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    let currentToken = '';
+    let currentRole = '';
+    let currentUsername = '';
+
+    function esc(v) {
+      return String(v || '').replace(/[&<>"]/g, s => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[s]));
+    }
+
+    // ── 登入 ──────────────────────────────────────────────
+    async function doLogin() {
+      const username = document.getElementById('login-username').value.trim();
+      const password = document.getElementById('login-password').value;
+      const errEl = document.getElementById('login-error');
+      const btn = document.getElementById('login-btn');
+      if (!username || !password) { errEl.textContent = '請輸入帳號與密碼'; errEl.classList.remove('hidden'); return; }
+      btn.textContent = '驗證中...'; btn.disabled = true; errEl.classList.add('hidden');
+      try {
+        const res = await fetch('/api/admin-login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+        const json = await res.json();
+        if (!res.ok || !json.ok) {
+          errEl.textContent = json.error || '帳號或密碼錯誤';
+          errEl.classList.remove('hidden');
+          btn.textContent = '登入'; btn.disabled = false;
+          return;
+        }
+        currentToken = json.token;
+        currentRole = json.role || 'admin';
+        currentUsername = json.username || username;
+        sessionStorage.setItem('tirea_admin_token', json.token);
+        sessionStorage.setItem('tirea_admin_user', currentUsername);
+        sessionStorage.setItem('tirea_admin_role', currentRole);
+        showDashboard();
+      } catch (e) {
+        errEl.textContent = '連線失敗，請稍後再試';
+        errEl.classList.remove('hidden');
+        btn.textContent = '登入'; btn.disabled = false;
+      }
+    }
+
+    function doLogout() {
+      sessionStorage.clear();
+      currentToken = ''; currentRole = ''; currentUsername = '';
+      document.getElementById('dashboard').classList.add('hidden');
+      document.getElementById('login-screen').classList.remove('hidden');
+      document.getElementById('login-password').value = '';
+      document.getElementById('login-btn').textContent = '登入';
+      document.getElementById('login-btn').disabled = false;
+    }
+
+    function showDashboard() {
+      document.getElementById('login-screen').classList.add('hidden');
+      document.getElementById('dashboard').classList.remove('hidden');
+      document.getElementById('admin-user').textContent = '👤 ' + currentUsername;
+      const badge = document.getElementById('admin-role-badge');
+      badge.innerHTML = currentRole === 'superadmin'
+        ? '<span class="badge-super">超級管理員</span>'
+        : '<span class="badge-admin">管理員</span>';
+      // 只有 superadmin 顯示管理帳號 tab
+      if (currentRole === 'superadmin') {
+        document.getElementById('tab-users-btn').classList.remove('hidden');
+      }
+      loadAll();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const t = sessionStorage.getItem('tirea_admin_token');
+      const u = sessionStorage.getItem('tirea_admin_user');
+      const r = sessionStorage.getItem('tirea_admin_role');
+      if (t) { currentToken = t; currentUsername = u || 'admin'; currentRole = r || 'admin'; showDashboard(); }
+    });
+
+    // ── Tab 切換 ──────────────────────────────────────────
+    function switchTab(tab) {
+      ['leads','members','users','projects','traffic','articles','activities','ticker'].forEach(t => {
+        document.getElementById('tab-' + t).classList.toggle('hidden', tab !== t);
+        const btn = document.getElementById('tab-' + t + '-btn');
+        if (btn) {
+          btn.classList.toggle('active', tab === t);
+          if (tab === t) { btn.classList.add('bg-white','shadow','text-slate-900'); btn.classList.remove('text-slate-500'); }
+          else { btn.classList.remove('bg-white','shadow','text-slate-900'); btn.classList.add('text-slate-500'); }
+        }
+      });
+      if (tab === 'users') loadUsers();
+      if (tab === 'traffic') loadVisits();
+      if (tab === 'projects') loadProjects();
+      if (tab === 'articles') loadArticles();
+      if (tab === 'activities') loadActivities();
+      if (tab === 'ticker') loadTicker();
+    }
+
+    async function loadAll() {
+      document.getElementById('status').textContent = '載入中...';
+      await Promise.all([loadLeads(), loadMembers()]);
+      document.getElementById('status').textContent = '';
+    }
+
+    // ── 問卷名單 ──────────────────────────────────────────
+    function rowTemplate(lead) {
+      const statusOptions = ['new','contacted','qualified','closed','invalid']
+        .map(s => `<option value="${s}" ${lead.status===s?'selected':''}>${s}</option>`).join('');
+      return `<tr class="border-t border-slate-100 align-top" data-id="${esc(lead.id)}">
+        <td class="px-4 py-4 whitespace-nowrap text-slate-500">${esc(new Date(lead.created_at).toLocaleString('zh-TW'))}</td>
+        <td class="px-4 py-4 font-bold">${esc(lead.name)}</td>
+        <td class="px-4 py-4">${esc(lead.phone)}</td>
+        <td class="px-4 py-4">${esc(lead.area)}</td>
+        <td class="px-4 py-4">${esc(lead.budget)}</td>
+        <td class="px-4 py-4">${esc(lead.purpose)}</td>
+        <td class="px-4 py-4 max-w-[220px] whitespace-pre-wrap">${esc(lead.note)}</td>
+        <td class="px-4 py-4"><select class="status-input px-3 py-2 rounded-lg border border-slate-300 bg-white">${statusOptions}</select></td>
+        <td class="px-4 py-4"><input class="assigned-input px-3 py-2 rounded-lg border border-slate-300 bg-white min-w-[140px]" value="${esc(lead.assigned_to)}" placeholder="顧問名稱"></td>
+        <td class="px-4 py-4"><textarea class="admin-note-input px-3 py-2 rounded-lg border border-slate-300 bg-white min-w-[220px] h-24" placeholder="內部備註">${esc(lead.admin_note)}</textarea></td>
+        <td class="px-4 py-4"><button onclick="saveLead('${esc(lead.id)}',this)" class="px-4 py-2 rounded-lg bg-blue-600 text-white font-bold whitespace-nowrap">儲存</button></td>
+      </tr>`;
+    }
+
+    async function loadLeads() {
+      const rows = document.getElementById('leadRows');
+      rows.innerHTML = '<tr><td colspan="11" class="px-4 py-6 text-center text-slate-400">載入中...</td></tr>';
+      try {
+        const res = await fetch(`/api/admin-leads?token=${encodeURIComponent(currentToken)}`);
+        const json = await res.json();
+        if (!res.ok || !json.ok) throw new Error(json.error || '載入失敗');
+        const leads = json.leads || [];
+        document.getElementById('leads-count').textContent = `(${leads.length})`;
+        rows.innerHTML = leads.map(rowTemplate).join('') || '<tr><td colspan="11" class="px-4 py-10 text-center text-slate-400">目前沒有資料</td></tr>';
+      } catch (e) {
+        rows.innerHTML = `<tr><td colspan="11" class="px-4 py-10 text-center text-red-500">${esc(e.message)}</td></tr>`;
+      }
+    }
+
+    async function saveLead(id, button) {
+      const tr = button.closest('tr');
+      const original = button.textContent;
+      button.disabled = true; button.textContent = '儲存中...';
+      try {
+        const res = await fetch(`/api/admin-leads?token=${encodeURIComponent(currentToken)}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            id,
+            status: tr.querySelector('.status-input').value,
+            assigned_to: tr.querySelector('.assigned-input').value,
+            admin_note: tr.querySelector('.admin-note-input').value
+          })
+        });
+        const json = await res.json();
+        if (!res.ok || !json.ok) throw new Error(json.error || '更新失敗');
+        button.textContent = '✓ 已儲存';
+        setTimeout(() => { button.textContent = original; button.disabled = false; }, 1500);
+      } catch (e) {
+        button.textContent = '重試'; button.disabled = false;
+      }
+    }
+
+    // ── 會員名單 ──────────────────────────────────────────
+    async function loadMembers() {
+      const rows = document.getElementById('memberRows');
+      rows.innerHTML = '<tr><td colspan="9" class="px-4 py-6 text-center text-slate-400">載入中...</td></tr>';
+      try {
+        const res = await fetch(`/api/admin-members?token=${encodeURIComponent(currentToken)}`);
+        const json = await res.json();
+        if (!res.ok || !json.ok) throw new Error(json.error || '載入失敗');
+        const members = json.members || [];
+        document.getElementById('members-count').textContent = `(${members.length})`;
+        rows.innerHTML = members.map(m => `
+          <tr class="border-t border-slate-100">
+            <td class="px-4 py-3 whitespace-nowrap text-slate-500 text-xs">${esc(m.created_at ? new Date(m.created_at).toLocaleString('zh-TW') : '-')}</td>
+            <td class="px-4 py-3 font-bold">${esc(m.name||'-')}</td>
+            <td class="px-4 py-3">${esc(m.phone||'-')}</td>
+            <td class="px-4 py-3 text-green-700 font-medium">${esc(m.line_id||'-')}</td>
+            <td class="px-4 py-3 text-slate-600">${esc(m.email||'-')}</td>
+            <td class="px-4 py-3 text-slate-500">${esc(m.budget||'-')}</td>
+            <td class="px-4 py-3 text-slate-500">${esc(m.purpose||'-')}</td>
+            <td class="px-4 py-3 text-slate-500">${esc(Array.isArray(m.markets)?m.markets.join('、'):(m.markets||'-'))}</td>
+            <td class="px-4 py-3 text-slate-500">${esc(m.ref_source||'-')}</td>
+          </tr>`).join('')
+          || '<tr><td colspan="9" class="px-4 py-10 text-center text-slate-400">尚無會員</td></tr>';
+      } catch (e) {
+        rows.innerHTML = `<tr><td colspan="9" class="px-4 py-10 text-center text-red-500">${esc(e.message)}</td></tr>`;
+      }
+    }
+
+    // ── 管理帳號 (superadmin only) ───────────────────────
+    async function loadUsers() {
+      const rows = document.getElementById('userRows');
+      rows.innerHTML = '<tr><td colspan="5" class="px-5 py-8 text-center text-slate-400">載入中...</td></tr>';
+      try {
+        const res = await fetch(`/api/admin-manage-users?token=${encodeURIComponent(currentToken)}`);
+        const json = await res.json();
+        if (!res.ok || !json.ok) throw new Error(json.error || '載入失敗');
+        const users = json.users || [];
+
+        // 也顯示超級管理員（唯讀）
+        const superRow = `
+          <tr class="border-t border-slate-100 bg-yellow-50">
+            <td class="px-5 py-4 font-bold">${esc(sessionStorage.getItem('tirea_admin_user') || 'luke')}</td>
+            <td class="px-5 py-4"><span class="badge-super">超級管理員</span></td>
+            <td class="px-5 py-4 text-slate-400 text-xs">系統內建</td>
+            <td class="px-5 py-4 text-slate-400 text-xs">請聯絡系統管理員</td>
+            <td class="px-5 py-4 text-slate-400 text-xs">—</td>
+          </tr>`;
+
+        const userRows = users.map(u => `
+          <tr class="border-t border-slate-100 align-middle" data-uname="${esc(u.username)}">
+            <td class="px-5 py-4 font-bold">${esc(u.username)}</td>
+            <td class="px-5 py-4"><span class="badge-admin">一般管理員</span></td>
+            <td class="px-5 py-4 text-slate-500 text-xs">${esc(u.created_at ? new Date(u.created_at).toLocaleString('zh-TW') : '-')}</td>
+            <td class="px-5 py-4">
+              <div class="flex gap-2 items-center">
+                <input type="text" placeholder="新密碼（最少6字）" class="reset-pw-input px-3 py-1.5 rounded-lg border border-slate-300 text-sm min-w-[180px] focus:outline-none focus:border-blue-400">
+                <button onclick="resetPassword('${esc(u.username)}', this)" class="px-3 py-1.5 rounded-lg bg-amber-500 text-white text-sm font-bold whitespace-nowrap hover:bg-amber-600 transition">重設</button>
+              </div>
+            </td>
+            <td class="px-5 py-4">
+              <button onclick="deleteUser('${esc(u.username)}', this)" class="px-3 py-1.5 rounded-lg bg-red-500 text-white text-sm font-bold hover:bg-red-600 transition">刪除</button>
+            </td>
+          </tr>`).join('');
+
+        rows.innerHTML = superRow + (userRows || '<tr><td colspan="5" class="px-5 py-6 text-center text-slate-400">尚無其他管理員帳號</td></tr>');
+      } catch (e) {
+        rows.innerHTML = `<tr><td colspan="5" class="px-5 py-8 text-center text-red-500">${esc(e.message)}</td></tr>`;
+      }
+    }
+
+    function showUserMsg(text, isError) {
+      const el = document.getElementById('user-msg');
+      el.textContent = text;
+      el.className = `mt-3 text-sm font-bold rounded-xl px-4 py-2.5 ${isError ? 'bg-red-50 text-red-600 border border-red-200' : 'bg-green-50 text-green-700 border border-green-200'}`;
+      el.classList.remove('hidden');
+      setTimeout(() => el.classList.add('hidden'), 4000);
+    }
+
+    async function addUser() {
+      const username = document.getElementById('new-username').value.trim();
+      const password = document.getElementById('new-password').value.trim();
+      const role = document.getElementById('new-role').value;
+      const btn = document.getElementById('add-user-btn');
+      btn.disabled = true; btn.textContent = '新增中...';
+      try {
+        const res = await fetch(`/api/admin-manage-users?token=${encodeURIComponent(currentToken)}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'add', username, password, role })
+        });
+        const json = await res.json();
+        if (!res.ok || !json.ok) throw new Error(json.error || '新增失敗');
+        showUserMsg('✅ ' + json.message, false);
+        document.getElementById('new-username').value = '';
+        document.getElementById('new-password').value = '';
+        loadUsers();
+      } catch (e) {
+        showUserMsg('❌ ' + e.message, true);
+      } finally {
+        btn.disabled = false; btn.textContent = '新增帳號';
+      }
+    }
+
+    async function deleteUser(username, btn) {
+      if (!confirm(`確定要刪除管理員「${username}」嗎？`)) return;
+      btn.disabled = true; btn.textContent = '刪除中...';
+      try {
+        const res = await fetch(`/api/admin-manage-users?token=${encodeURIComponent(currentToken)}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'delete', username })
+        });
+        const json = await res.json();
+        if (!res.ok || !json.ok) throw new Error(json.error || '刪除失敗');
+        showUserMsg('✅ ' + json.message, false);
+        loadUsers();
+      } catch (e) {
+        showUserMsg('❌ ' + e.message, true);
+        btn.disabled = false; btn.textContent = '刪除';
+      }
+    }
+
+    async function resetPassword(username, btn) {
+      const tr = btn.closest('tr');
+      const newPw = tr.querySelector('.reset-pw-input').value.trim();
+      if (!newPw) { showUserMsg('❌ 請輸入新密碼', true); return; }
+      btn.disabled = true; btn.textContent = '更新中...';
+      try {
+        const res = await fetch(`/api/admin-manage-users?token=${encodeURIComponent(currentToken)}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'reset', username, password: newPw })
+        });
+        const json = await res.json();
+        if (!res.ok || !json.ok) throw new Error(json.error || '更新失敗');
+        showUserMsg('✅ ' + json.message, false);
+        tr.querySelector('.reset-pw-input').value = '';
+      } catch (e) {
+        showUserMsg('❌ ' + e.message, true);
+      } finally {
+        btn.disabled = false; btn.textContent = '重設';
+      }
+    }
+
+    // ── 建案管理 ──────────────────────────────────────────
+    let allProjects = [];
+
+    const COUNTRY_FLAGS = {
+      Thailand:'🇹🇭', Malaysia:'🇲🇾', Singapore:'🇸🇬',
+      Japan:'🇯🇵', Australia:'🇦🇺', USA:'🇺🇸', Turkey:'🇹🇷', Vietnam:'🇻🇳', UAE:'🇦🇪'
+    };
+    const BUDGET_META = {
+      entry:  { label:'入門', cls:'bg-green-100 text-green-700' },
+      mid:    { label:'中階', cls:'bg-blue-100 text-blue-700' },
+      high:   { label:'高端', cls:'bg-purple-100 text-purple-700' },
+      luxury: { label:'豪華', cls:'bg-yellow-100 text-yellow-700' },
+    };
+
+    async function loadProjects() {
+      try {
+        const res = await fetch(`/api/admin-projects?token=${encodeURIComponent(currentToken)}`);
+        const json = await res.json();
+        if (!res.ok || !json.ok) throw new Error(json.error || '載入失敗');
+        allProjects = json.items || [];
+        document.getElementById('projects-count').textContent = `(${allProjects.length})`;
+        filterProjects();
+      } catch (e) {
+        document.getElementById('projects-grid').innerHTML =
+          `<div class="text-red-500 text-center py-12 col-span-3">${esc(e.message)}</div>`;
+      }
+    }
+
+    function filterProjects() {
+      const q = (document.getElementById('proj-search').value || '').toLowerCase();
+      const country = document.getElementById('proj-country-filter').value;
+      const status = document.getElementById('proj-status-filter').value;
+
+      const filtered = allProjects.filter(p => {
+        if (q && !p.title.toLowerCase().includes(q) && !(p.city||'').toLowerCase().includes(q) && !(p.country||'').toLowerCase().includes(q)) return false;
+        if (country && p.country !== country) return false;
+        if (status && p.status !== status) return false;
+        return true;
+      });
+
+      const activeCount = allProjects.filter(p => p.status !== 'hidden').length;
+      document.getElementById('proj-stats').textContent =
+        `共 ${allProjects.length} 筆 · 上架 ${activeCount} · 顯示 ${filtered.length}`;
+
+      const grid = document.getElementById('projects-grid');
+      if (!filtered.length) {
+        grid.innerHTML = '<div class="text-slate-400 text-center py-16 col-span-3">找不到符合的建案</div>';
+        return;
+      }
+      grid.innerHTML = filtered.map(projectCard).join('');
+    }
+
+    function projectCard(p) {
+      const flag = COUNTRY_FLAGS[p.country] || '🌐';
+      const bm = BUDGET_META[p.budget] || { label: p.budget||'—', cls:'bg-slate-100 text-slate-600' };
+      const isHidden = p.status === 'hidden';
+      const tags = (p.tags||[]).slice(0,4).map(t =>
+        `<span class="px-2 py-0.5 rounded-full text-xs bg-slate-100 text-slate-500">${esc(t)}</span>`
+      ).join('');
+      const safeId = esc(p.id);
+      return `
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col${isHidden?' opacity-60':''}">
+          <div class="relative h-36 bg-slate-100 overflow-hidden shrink-0">
+            ${p.image
+              ? `<img src="${esc(p.image)}" alt="" class="w-full h-full object-cover" onerror="this.parentNode.innerHTML='<div class=\\'w-full h-full flex items-center justify-center text-slate-300 text-5xl\\'>🏘️</div>'">`
+              : '<div class="w-full h-full flex items-center justify-center text-slate-300 text-5xl">🏘️</div>'}
+            ${isHidden ? '<div class="absolute inset-0 bg-slate-900/50 flex items-center justify-center"><span class="text-white text-xs font-bold bg-slate-900/70 px-3 py-1 rounded-full">已隱藏</span></div>' : ''}
+            <span class="absolute top-2 right-2 px-2 py-0.5 rounded-lg text-xs font-bold ${bm.cls}">${esc(bm.label)}</span>
+          </div>
+          <div class="p-4 flex-1 flex flex-col gap-2">
+            <h3 class="font-bold text-sm text-slate-800 leading-snug">${esc(p.title)}</h3>
+            <div class="text-xs text-slate-400">${flag} ${esc(p.country||'')} · ${esc(p.city||'')}${p.district?' · '+esc(p.district):''}</div>
+            <div class="flex flex-wrap gap-1">${tags}</div>
+            <div class="flex gap-1.5 mt-auto pt-2">
+              <button onclick="openProjectModal('${safeId}')"
+                class="flex-1 py-1.5 rounded-lg border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50 transition">✏️ 編輯</button>
+              <button onclick="toggleProject('${safeId}')"
+                class="px-3 py-1.5 rounded-lg border text-xs font-bold transition ${isHidden
+                  ? 'border-green-200 text-green-600 hover:bg-green-50'
+                  : 'border-amber-200 text-amber-600 hover:bg-amber-50'}">
+                ${isHidden ? '上架' : '隱藏'}</button>
+              <button onclick="deleteProject('${safeId}')"
+                class="px-3 py-1.5 rounded-lg border border-red-200 text-xs font-bold text-red-500 hover:bg-red-50 transition">刪除</button>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    function openProjectModal(id) {
+      const modal = document.getElementById('project-modal');
+      const isNew = !id;
+      document.getElementById('modal-proj-title').textContent = isNew ? '新增建案' : '編輯建案';
+
+      // Reset form
+      ['proj-edit-id','proj-title','proj-city','proj-district','proj-image','proj-source-url','proj-id-input'].forEach(i => {
+        const el = document.getElementById(i);
+        if (el) el.value = '';
+      });
+      ['proj-country','proj-budget','proj-status'].forEach(i => {
+        const el = document.getElementById(i);
+        if (el) el.selectedIndex = 0;
+      });
+      document.getElementById('proj-summary').value = '';
+      document.getElementById('proj-long-summary').value = '';
+      document.getElementById('proj-highlights').value = '';
+      document.getElementById('proj-risk').value = '';
+      document.querySelectorAll('#proj-tags input[type=checkbox]').forEach(cb => cb.checked = false);
+
+      if (!isNew) {
+        const p = allProjects.find(x => x.id === id);
+        if (!p) return;
+        document.getElementById('proj-edit-id').value = p.id;
+        document.getElementById('proj-id-input').value = p.id;
+        document.getElementById('proj-title').value = p.title || '';
+        document.getElementById('proj-city').value = p.city || '';
+        document.getElementById('proj-district').value = p.district || '';
+        document.getElementById('proj-image').value = p.image || '';
+        document.getElementById('proj-source-url').value = p.source_url || '';
+        document.getElementById('proj-summary').value = p.summary || '';
+        document.getElementById('proj-long-summary').value = p.long_summary || '';
+        document.getElementById('proj-highlights').value = (p.highlights||[]).join('\n');
+        document.getElementById('proj-risk').value = p.risk || '';
+        // country
+        const countryEl = document.getElementById('proj-country');
+        for (let opt of countryEl.options) if (opt.value === p.country) { countryEl.value = p.country; break; }
+        // budget
+        const budgetEl = document.getElementById('proj-budget');
+        if (p.budget) budgetEl.value = p.budget;
+        // status
+        const statusEl = document.getElementById('proj-status');
+        if (p.status) statusEl.value = p.status;
+        // tags
+        document.querySelectorAll('#proj-tags input[type=checkbox]').forEach(cb => {
+          cb.checked = (p.tags||[]).includes(cb.value);
+        });
+      }
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.getElementById('proj-title').focus();
+    }
+
+    function closeProjectModal() {
+      const modal = document.getElementById('project-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    async function saveProject() {
+      const btn = document.getElementById('save-proj-btn');
+      const editId = document.getElementById('proj-edit-id').value;
+      const isNew = !editId;
+
+      const title = document.getElementById('proj-title').value.trim();
+      if (!title) { alert('請填寫建案名稱'); return; }
+      const country = document.getElementById('proj-country').value;
+      if (!country) { alert('請選擇國家'); return; }
+
+      const tags = [];
+      document.querySelectorAll('#proj-tags input[type=checkbox]:checked').forEach(cb => tags.push(cb.value));
+
+      const rawHighlights = document.getElementById('proj-highlights').value;
+      const highlights = rawHighlights.split('\n').map(s => s.trim()).filter(Boolean);
+
+      const project = {
+        id: document.getElementById('proj-id-input').value.trim() || undefined,
+        title,
+        country,
+        city: document.getElementById('proj-city').value.trim(),
+        district: document.getElementById('proj-district').value.trim(),
+        budget: document.getElementById('proj-budget').value,
+        tags,
+        summary: document.getElementById('proj-summary').value.trim(),
+        long_summary: document.getElementById('proj-long-summary').value.trim(),
+        highlights,
+        risk: document.getElementById('proj-risk').value.trim(),
+        image: document.getElementById('proj-image').value.trim(),
+        source_url: document.getElementById('proj-source-url').value.trim(),
+        status: document.getElementById('proj-status').value,
+        source: 'tirea',
+      };
+      if (!isNew) project.id = editId;
+
+      btn.disabled = true; btn.textContent = '儲存中...';
+      try {
+        const res = await fetch(`/api/admin-projects?token=${encodeURIComponent(currentToken)}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: isNew ? 'add' : 'update', project })
+        });
+        const json = await res.json();
+        if (!res.ok || !json.ok) throw new Error(json.error || '儲存失敗');
+        closeProjectModal();
+        await loadProjects();
+      } catch (e) {
+        alert('❌ ' + e.message);
+      } finally {
+        btn.disabled = false; btn.textContent = '儲存建案';
+      }
+    }
+
+    async function toggleProject(id) {
+      try {
+        const res = await fetch(`/api/admin-projects?token=${encodeURIComponent(currentToken)}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'toggle', id })
+        });
+        const json = await res.json();
+        if (!res.ok || !json.ok) throw new Error(json.error || '操作失敗');
+        await loadProjects();
+      } catch (e) { alert('❌ ' + e.message); }
+    }
+
+    async function deleteProject(id) {
+      const p = allProjects.find(x => x.id === id);
+      if (!confirm(`確定要刪除「${p ? p.title : id}」嗎？此操作無法復原。`)) return;
+      try {
+        const res = await fetch(`/api/admin-projects?token=${encodeURIComponent(currentToken)}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'delete', id })
+        });
+        const json = await res.json();
+        if (!res.ok || !json.ok) throw new Error(json.error || '刪除失敗');
+        await loadProjects();
+      } catch (e) { alert('❌ ' + e.message); }
+    }
+
+    async function seedProjects() {
+      const btn = document.getElementById('seed-btn');
+      if (!confirm('將從 JSON 資料檔匯入所有建案（已存在的不會重複）確定嗎？')) return;
+      btn.disabled = true; btn.textContent = '匯入中...';
+      try {
+        const res = await fetch(`/api/admin-projects?token=${encodeURIComponent(currentToken)}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'seed' })
+        });
+        const json = await res.json();
+        if (!res.ok || !json.ok) throw new Error(json.error || '匯入失敗');
+        alert('✅ ' + json.message);
+        await loadProjects();
+      } catch (e) {
+        alert('❌ ' + e.message);
+      } finally {
+        btn.disabled = false; btn.textContent = '📥 匯入 JSON 資料';
+      }
+    }
+
+    // 點 modal 背景關閉
+    document.getElementById('project-modal').addEventListener('click', function(e) {
+      if (e.target === this) closeProjectModal();
+    });
+
+    // ── 流量分析 ──────────────────────────────────────────
+    async function loadVisits() {
+      try {
+        const res = await fetch(`/api/admin-visits?token=${encodeURIComponent(currentToken)}`);
+        const json = await res.json();
+        if (!res.ok || !json.ok) throw new Error(json.error || '載入失敗');
+
+        const { stats, visits, dailyCounts, topPages, deviceCounts, topRefs } = json;
+
+        // 統計摘要
+        document.getElementById('stat-today').textContent = stats.today || 0;
+        document.getElementById('stat-week').textContent = stats.week || 0;
+        document.getElementById('stat-total').textContent = stats.total || 0;
+        const totalDev = (deviceCounts.mobile||0) + (deviceCounts.desktop||0) + (deviceCounts.tablet||0);
+        const mobPct = totalDev ? Math.round((deviceCounts.mobile||0)/totalDev*100) : 0;
+        document.getElementById('stat-device-mobile').textContent = mobPct + '%';
+
+        // 14天趨勢圖
+        const chartEl = document.getElementById('daily-chart');
+        if (dailyCounts && dailyCounts.length) {
+          const maxCount = Math.max(...dailyCounts.map(d => d.count), 1);
+          chartEl.innerHTML = dailyCounts.map(d => {
+            const barH = Math.max(4, Math.round((d.count / maxCount) * 80));
+            const label = d.date.slice(5); // MM-DD
+            const isToday = d.date === new Date().toISOString().slice(0,10);
+            return `<div class="flex-1 flex flex-col items-center justify-end gap-1 group cursor-default" title="${d.date}: ${d.count} 次">
+              <span class="text-[10px] text-slate-400 opacity-0 group-hover:opacity-100 transition font-bold">${d.count}</span>
+              <div class="w-full rounded-t-sm transition-all" style="height:${barH}px;background:${isToday?'#2563eb':'#93c5fd'};min-height:4px;"></div>
+              <span class="text-[9px] text-slate-400 whitespace-nowrap">${label}</span>
+            </div>`;
+          }).join('');
+        }
+
+        // 裝置分佈
+        const devEl = document.getElementById('device-breakdown');
+        const devData = [
+          { label: '桌機', key: 'desktop', color: '#2563eb', icon: '🖥️' },
+          { label: '行動', key: 'mobile', color: '#7c3aed', icon: '📱' },
+          { label: '平板', key: 'tablet', color: '#059669', icon: '📋' },
+        ];
+        devEl.innerHTML = devData.map(d => {
+          const cnt = deviceCounts[d.key] || 0;
+          const pct = totalDev ? Math.round(cnt / totalDev * 100) : 0;
+          return `<div>
+            <div class="flex justify-between mb-1">
+              <span class="text-slate-600 font-medium">${d.icon} ${d.label}</span>
+              <span class="font-bold text-slate-800">${cnt} <span class="text-slate-400 font-normal">(${pct}%)</span></span>
+            </div>
+            <div class="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+              <div class="h-full rounded-full" style="width:${pct}%;background:${d.color};"></div>
+            </div>
+          </div>`;
+        }).join('');
+
+        // 流量來源 Top 5
+        const refEl = document.getElementById('top-refs');
+        refEl.innerHTML = (topRefs || []).slice(0,5).map((r, i) => `
+          <div class="flex justify-between items-center">
+            <span class="text-slate-500 truncate max-w-[140px]" title="${esc(r.ref)}">${i+1}. ${esc(r.ref)}</span>
+            <span class="font-bold text-slate-700 ml-2 shrink-0">${r.count}</span>
+          </div>`).join('') || '<div class="text-slate-400">尚無資料</div>';
+
+        // 熱門頁面 Top 10
+        const pagesEl = document.getElementById('top-pages');
+        pagesEl.innerHTML = (topPages || []).map((p, i) => `
+          <li class="flex justify-between items-start gap-2">
+            <span class="text-slate-500 truncate text-xs" title="${esc(p.page)}">${i+1}. ${esc(p.page)}</span>
+            <span class="font-bold text-slate-700 shrink-0 text-xs">${p.count}</span>
+          </li>`).join('') || '<li class="text-slate-400">尚無資料</li>';
+
+        // 近期訪客表格
+        const visitsEl = document.getElementById('visits-rows');
+        const deviceIcon = d => d === 'mobile' ? '📱' : d === 'tablet' ? '📋' : '🖥️';
+        visitsEl.innerHTML = (visits || []).slice(0, 200).map(v => `
+          <tr class="border-t border-slate-50 hover:bg-slate-50 transition">
+            <td class="px-4 py-2 text-slate-400 whitespace-nowrap">${esc(v.ts ? new Date(v.ts).toLocaleString('zh-TW',{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'}) : '-')}</td>
+            <td class="px-4 py-2 text-slate-600 max-w-[160px] truncate" title="${esc(v.page)}">${esc(v.page||'/')}</td>
+            <td class="px-4 py-2 text-slate-500 max-w-[120px] truncate" title="${esc(v.title)}">${esc(v.title||'-')}</td>
+            <td class="px-4 py-2 whitespace-nowrap">${deviceIcon(v.device)} ${esc(v.device||'-')}</td>
+            <td class="px-4 py-2 text-slate-500 max-w-[100px] truncate" title="${esc(v.ref)}">${esc(v.ref||'direct')}</td>
+            <td class="px-4 py-2 text-slate-400 font-mono">${esc(v.ip||'-')}</td>
+          </tr>`).join('')
+          || '<tr><td colspan="6" class="px-4 py-8 text-center text-slate-400">尚無訪客記錄</td></tr>';
+
+      } catch (e) {
+        document.getElementById('visits-rows').innerHTML =
+          `<tr><td colspan="6" class="px-4 py-8 text-center text-red-500">${esc(e.message)}</td></tr>`;
+      }
+    }
+
+    // ── 文章管理 ──────────────────────────────────────────
+    let allArticles = [];
+
+    async function loadArticles() {
+      const el = document.getElementById('articles-list');
+      el.innerHTML = '<div class="text-slate-400 text-center py-16">載入中...</div>';
+      try {
+        const res = await fetch(`/api/admin-articles?token=${encodeURIComponent(currentToken)}`);
+        const json = await res.json();
+        if (!res.ok || !json.ok) throw new Error(json.error || '載入失敗');
+        allArticles = json.items || [];
+        document.getElementById('articles-count').textContent = allArticles.length ? `(${allArticles.length})` : '';
+        document.getElementById('articles-stats').textContent =
+          `共 ${allArticles.length} 篇，已發布 ${allArticles.filter(a=>a.published).length} 篇`;
+        renderArticles();
+      } catch (e) {
+        el.innerHTML = `<div class="text-red-500 text-center py-10">${esc(e.message)}</div>`;
+      }
+    }
+
+    function renderArticles() {
+      const el = document.getElementById('articles-list');
+      if (!allArticles.length) {
+        el.innerHTML = '<div class="text-slate-400 text-center py-16">尚無文章，點擊「新增文章」或「預載3篇報告」</div>';
+        return;
+      }
+      el.innerHTML = allArticles.map(a => `
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm px-6 py-4 flex flex-col md:flex-row md:items-center gap-4">
+          <div class="text-3xl shrink-0">${esc(a.emoji || '📄')}</div>
+          <div class="flex-1 min-w-0">
+            <div class="font-extrabold text-slate-800 text-base">${esc(a.title)}</div>
+            <div class="text-sm text-slate-500 mt-0.5 line-clamp-2">${esc(a.description || '')}</div>
+            <div class="text-xs text-slate-400 mt-1 font-mono truncate">${esc(a.fileUrl || '（無檔案）')}</div>
+          </div>
+          <div class="flex items-center gap-2 shrink-0 flex-wrap">
+            ${a.published
+              ? `<span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-extrabold">✅ 已發布</span>`
+              : `<span class="px-3 py-1 rounded-full bg-slate-100 text-slate-500 text-xs font-bold">草稿</span>`
+            }
+            ${a.published
+              ? `<button onclick="publishArticle('${esc(a.id)}', false)" class="px-3 py-2 rounded-xl border border-slate-300 text-xs font-bold text-slate-600 hover:bg-slate-50 transition">取消發布</button>`
+              : `<button onclick="publishArticle('${esc(a.id)}', true)" class="px-3 py-2 rounded-xl text-xs font-extrabold text-white bg-emerald-600 hover:bg-emerald-700 transition">📢 發送給全體會員</button>`
+            }
+            <button onclick="openArticleModal('${esc(a.id)}')" class="px-3 py-2 rounded-xl border border-slate-300 text-xs font-bold text-slate-600 hover:bg-slate-50 transition">✏️ 編輯</button>
+            <button onclick="deleteArticle('${esc(a.id)}')" class="px-3 py-2 rounded-xl border border-red-200 text-xs font-bold text-red-500 hover:bg-red-50 transition">🗑 刪除</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openArticleModal(id) {
+      const modal = document.getElementById('article-modal');
+      const titleEl = document.getElementById('modal-article-title');
+      if (id) {
+        const a = allArticles.find(x => x.id === id);
+        if (!a) return;
+        titleEl.textContent = '編輯文章';
+        document.getElementById('article-edit-id').value = id;
+        document.getElementById('article-title').value = a.title || '';
+        document.getElementById('article-emoji').value = a.emoji || '📄';
+        document.getElementById('article-description').value = a.description || '';
+        document.getElementById('article-fileurl').value = a.fileUrl || '';
+      } else {
+        titleEl.textContent = '新增文章';
+        document.getElementById('article-edit-id').value = '';
+        document.getElementById('article-title').value = '';
+        document.getElementById('article-emoji').value = '📄';
+        document.getElementById('article-description').value = '';
+        document.getElementById('article-fileurl').value = '';
+      }
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeArticleModal() {
+      const modal = document.getElementById('article-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    async function saveArticle() {
+      const id = document.getElementById('article-edit-id').value;
+      const article = {
+        title: document.getElementById('article-title').value.trim(),
+        emoji: document.getElementById('article-emoji').value.trim() || '📄',
+        description: document.getElementById('article-description').value.trim(),
+        fileUrl: document.getElementById('article-fileurl').value.trim()
+      };
+      if (!article.title) { alert('請輸入標題'); return; }
+      const btn = document.getElementById('save-article-btn');
+      btn.textContent = '儲存中...'; btn.disabled = true;
+      try {
+        const body = id
+          ? { action: 'update', id, article }
+          : { action: 'add', article };
+        const res = await fetch(`/api/admin-articles?token=${encodeURIComponent(currentToken)}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        });
+        const json = await res.json();
+        if (!json.ok) throw new Error(json.error || '儲存失敗');
+        closeArticleModal();
+        await loadArticles();
+      } catch (e) { alert('錯誤：' + e.message); }
+      btn.textContent = '儲存文章'; btn.disabled = false;
+    }
+
+    async function deleteArticle(id) {
+      if (!confirm('確定要刪除這篇文章嗎？')) return;
+      try {
+        const res = await fetch(`/api/admin-articles?token=${encodeURIComponent(currentToken)}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'delete', id })
+        });
+        const json = await res.json();
+        if (!json.ok) throw new Error(json.error || '刪除失敗');
+        await loadArticles();
+      } catch (e) { alert('錯誤：' + e.message); }
+    }
+
+    async function publishArticle(id, published) {
+      const label = published ? '確定發送此文章給全體會員？' : '確定取消發布？會員中心將看不到此文章。';
+      if (!confirm(label)) return;
+      try {
+        const res = await fetch(`/api/admin-articles?token=${encodeURIComponent(currentToken)}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'publish', id, published })
+        });
+        const json = await res.json();
+        if (!json.ok) throw new Error(json.error || '操作失敗');
+        alert(json.message);
+        await loadArticles();
+      } catch (e) { alert('錯誤：' + e.message); }
+    }
+
+    async function seedArticles() {
+      const btn = document.getElementById('seed-articles-btn');
+      btn.textContent = '預載中...'; btn.disabled = true;
+      try {
+        const res = await fetch(`/api/admin-articles?token=${encodeURIComponent(currentToken)}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'seed' })
+        });
+        const json = await res.json();
+        if (!json.ok) throw new Error(json.error || '預載失敗');
+        alert(json.message);
+        await loadArticles();
+      } catch (e) { alert('錯誤：' + e.message); }
+      btn.textContent = '📥 預載3篇報告'; btn.disabled = false;
+    }
+
+    // ── 近期活動管理 ─────────────────────────────────────
+    let allActivities = [];
+    const ACT_TAG_COLORS = {
+      red:'bg-red-100 text-red-700', amber:'bg-amber-100 text-amber-700',
+      blue:'bg-blue-100 text-blue-700', violet:'bg-violet-100 text-violet-700',
+      emerald:'bg-emerald-100 text-emerald-700'
+    };
+
+    async function loadActivities() {
+      const el = document.getElementById('activities-mgmt-list');
+      el.innerHTML = '<div class="text-slate-400 text-center py-16">載入中...</div>';
+      try {
+        const res = await fetch(`/api/admin-activities?token=${encodeURIComponent(currentToken)}`);
+        const json = await res.json();
+        if (!res.ok || !json.ok) throw new Error(json.error || '載入失敗');
+        allActivities = json.items || [];
+        document.getElementById('activities-count').textContent = allActivities.length ? `(${allActivities.length})` : '';
+        document.getElementById('activities-stats').textContent = `共 ${allActivities.length} 筆，上架 ${allActivities.filter(a=>a.published!==false).length} 筆`;
+        renderActivities();
+      } catch(e) {
+        el.innerHTML = `<div class="text-red-500 text-center py-10">${esc(e.message)}</div>`;
+      }
+    }
+
+    function renderActivities() {
+      const el = document.getElementById('activities-mgmt-list');
+      if (!allActivities.length) {
+        el.innerHTML = '<div class="text-slate-400 text-center py-16">尚無活動，點擊「新增活動」或「預載預設活動」</div>';
+        return;
+      }
+      el.innerHTML = allActivities.map(a => {
+        const tagCls = ACT_TAG_COLORS[a.tagColor] || 'bg-amber-100 text-amber-700';
+        return `
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm px-6 py-4 flex flex-col md:flex-row md:items-center gap-4">
+          <div class="flex-1 min-w-0 flex items-center gap-3 flex-wrap">
+            <span class="text-xs font-extrabold px-2.5 py-1 rounded-full ${tagCls}">${esc(a.tag)}</span>
+            <span class="font-extrabold text-slate-800">${esc(a.title)}</span>
+            ${a.date ? `<span class="text-sm text-slate-400">${esc(a.date)}</span>` : ''}
+            ${a.link ? `<a href="${esc(a.link)}" target="_blank" class="text-xs text-blue-500 hover:underline truncate max-w-[180px]">${esc(a.link)}</a>` : ''}
+          </div>
+          <div class="flex items-center gap-2 shrink-0 flex-wrap">
+            ${a.published !== false
+              ? `<span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-extrabold">✅ 上架中</span>`
+              : `<span class="px-3 py-1 rounded-full bg-slate-100 text-slate-500 text-xs font-bold">已下架</span>`
+            }
+            <button onclick="toggleActivity('${esc(a.id)}')" class="px-3 py-2 rounded-xl border border-slate-300 text-xs font-bold text-slate-600 hover:bg-slate-50 transition">
+              ${a.published !== false ? '下架' : '上架'}
+            </button>
+            <button onclick="openActivityModal('${esc(a.id)}')" class="px-3 py-2 rounded-xl border border-slate-300 text-xs font-bold text-slate-600 hover:bg-slate-50 transition">✏️ 編輯</button>
+            <button onclick="deleteActivity('${esc(a.id)}')" class="px-3 py-2 rounded-xl border border-red-200 text-xs font-bold text-red-500 hover:bg-red-50 transition">🗑 刪除</button>
+          </div>
+        </div>`;
+      }).join('');
+    }
+
+    function openActivityModal(id) {
+      const modal = document.getElementById('activity-modal');
+      document.getElementById('modal-activity-title').textContent = id ? '編輯活動' : '新增活動';
+      if (id) {
+        const a = allActivities.find(x => x.id === id);
+        if (!a) return;
+        document.getElementById('activity-edit-id').value = id;
+        document.getElementById('activity-title').value = a.title || '';
+        document.getElementById('activity-date').value = a.date || '';
+        document.getElementById('activity-tag').value = a.tag || '';
+        document.getElementById('activity-tag-color').value = a.tagColor || 'amber';
+        document.getElementById('activity-link').value = a.link || '';
+        document.getElementById('activity-image').value = a.image || '';
+      } else {
+        document.getElementById('activity-edit-id').value = '';
+        document.getElementById('activity-title').value = '';
+        document.getElementById('activity-date').value = '';
+        document.getElementById('activity-tag').value = '活動';
+        document.getElementById('activity-tag-color').value = 'amber';
+        document.getElementById('activity-link').value = '';
+        document.getElementById('activity-image').value = '';
+      }
+      modal.classList.remove('hidden'); modal.classList.add('flex');
+    }
+
+    function closeActivityModal() {
+      const modal = document.getElementById('activity-modal');
+      modal.classList.add('hidden'); modal.classList.remove('flex');
+    }
+
+    async function saveActivity() {
+      const id = document.getElementById('activity-edit-id').value;
+      const activity = {
+        title: document.getElementById('activity-title').value.trim(),
+        date: document.getElementById('activity-date').value.trim(),
+        tag: document.getElementById('activity-tag').value.trim() || '活動',
+        tagColor: document.getElementById('activity-tag-color').value,
+        link: document.getElementById('activity-link').value.trim(),
+        image: document.getElementById('activity-image').value.trim()
+      };
+      if (!activity.title) { alert('請輸入標題'); return; }
+      const btn = document.getElementById('save-activity-btn');
+      btn.textContent = '儲存中...'; btn.disabled = true;
+      try {
+        const body = id ? { action:'update', id, activity } : { action:'add', activity };
+        const res = await fetch(`/api/admin-activities?token=${encodeURIComponent(currentToken)}`, {
+          method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)
+        });
+        const json = await res.json();
+        if (!json.ok) throw new Error(json.error || '儲存失敗');
+        closeActivityModal();
+        await loadActivities();
+      } catch(e) { alert('錯誤：' + e.message); }
+      btn.textContent = '儲存活動'; btn.disabled = false;
+    }
+
+    async function deleteActivity(id) {
+      if (!confirm('確定刪除？')) return;
+      try {
+        const res = await fetch(`/api/admin-activities?token=${encodeURIComponent(currentToken)}`, {
+          method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ action:'delete', id })
+        });
+        const json = await res.json();
+        if (!json.ok) throw new Error(json.error);
+        await loadActivities();
+      } catch(e) { alert('錯誤：' + e.message); }
+    }
+
+    async function toggleActivity(id) {
+      try {
+        const res = await fetch(`/api/admin-activities?token=${encodeURIComponent(currentToken)}`, {
+          method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ action:'toggle', id })
+        });
+        const json = await res.json();
+        if (!json.ok) throw new Error(json.error);
+        await loadActivities();
+      } catch(e) { alert('錯誤：' + e.message); }
+    }
+
+    async function seedActivities() {
+      const btn = document.getElementById('seed-activities-btn');
+      btn.textContent = '預載中...'; btn.disabled = true;
+      try {
+        const res = await fetch(`/api/admin-activities?token=${encodeURIComponent(currentToken)}`, {
+          method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ action:'seed' })
+        });
+        const json = await res.json();
+        if (!json.ok) throw new Error(json.error);
+        alert(json.message);
+        await loadActivities();
+      } catch(e) { alert('錯誤：' + e.message); }
+      btn.textContent = '📥 預載預設活動'; btn.disabled = false;
+    }
+
+    // ── 跑馬燈管理（localStorage）────────────────────────
+    const TICKER_KEY = 'tirea_ticker_items';
+    const BADGE_COLOR_MAP = {
+      emerald: 'color:#34d399', amber: 'color:#fbbf24', red: 'color:#f87171',
+      blue: 'color:#60a5fa', violet: 'color:#a78bfa', sky: 'color:#38bdf8', rose: 'color:#fb7185'
+    };
+
+    function getTickerItems() {
+      try { return JSON.parse(localStorage.getItem(TICKER_KEY) || '[]'); } catch(e) { return []; }
+    }
+    function saveTickerItems(items) {
+      localStorage.setItem(TICKER_KEY, JSON.stringify(items));
+    }
+
+    function loadTicker() {
+      const items = getTickerItems();
+      document.getElementById('ticker-count').textContent = items.length ? `(${items.length})` : '';
+      document.getElementById('ticker-stats').textContent = `共 ${items.length} 筆，啟用 ${items.filter(i=>i.enabled!==false).length} 筆`;
+      renderTickerList(items);
+      renderTickerPreview(items);
+    }
+
+    function renderTickerList(items) {
+      const el = document.getElementById('ticker-list');
+      if (!items.length) {
+        el.innerHTML = '<div class="text-slate-400 text-center py-16">尚無項目，點擊「新增項目」或「載入預設內容」</div>';
+        return;
+      }
+      el.innerHTML = items.map((item, idx) => {
+        const badgeHtml = item.badge
+          ? ` <span style="${BADGE_COLOR_MAP[item.badgeColor]||'color:#34d399'};font-weight:700">${esc(item.badge)}</span>`
+          : '';
+        const previewText = `${esc(item.text)}${badgeHtml}`;
+        return `
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm px-5 py-4 flex flex-col md:flex-row md:items-center gap-3" data-ticker-id="${esc(item.id)}">
+          <!-- 排序按鈕 -->
+          <div class="flex flex-col gap-1 shrink-0">
+            <button onclick="moveTickerItem('${esc(item.id)}',-1)" ${idx===0?'disabled':''} class="w-7 h-7 rounded-lg border border-slate-200 text-slate-400 hover:bg-slate-50 disabled:opacity-30 text-xs flex items-center justify-center">▲</button>
+            <button onclick="moveTickerItem('${esc(item.id)}',1)" ${idx===items.length-1?'disabled':''} class="w-7 h-7 rounded-lg border border-slate-200 text-slate-400 hover:bg-slate-50 disabled:opacity-30 text-xs flex items-center justify-center">▼</button>
+          </div>
+          <!-- 順序 -->
+          <div class="w-8 text-center text-slate-400 font-extrabold text-sm shrink-0">${idx+1}</div>
+          <!-- 預覽文字 -->
+          <div class="flex-1 min-w-0">
+            <div class="text-sm font-medium text-slate-800">${previewText}</div>
+            ${item.link ? `<div class="text-xs text-blue-500 mt-0.5 truncate">${esc(item.link)}</div>` : ''}
+          </div>
+          <!-- 狀態 + 操作 -->
+          <div class="flex items-center gap-2 shrink-0 flex-wrap">
+            ${item.enabled !== false
+              ? `<span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-extrabold">✅ 啟用</span>`
+              : `<span class="px-3 py-1 rounded-full bg-slate-100 text-slate-500 text-xs font-bold">已停用</span>`
+            }
+            <button onclick="toggleTickerItem('${esc(item.id)}')" class="px-3 py-2 rounded-xl border border-slate-300 text-xs font-bold text-slate-600 hover:bg-slate-50 transition">
+              ${item.enabled !== false ? '停用' : '啟用'}
+            </button>
+            <button onclick="openTickerModal('${esc(item.id)}')" class="px-3 py-2 rounded-xl border border-slate-300 text-xs font-bold text-slate-600 hover:bg-slate-50 transition">✏️ 編輯</button>
+            <button onclick="deleteTickerItem('${esc(item.id)}')" class="px-3 py-2 rounded-xl border border-red-200 text-xs font-bold text-red-500 hover:bg-red-50 transition">🗑 刪除</button>
+          </div>
+        </div>`;
+      }).join('');
+    }
+
+    function renderTickerPreview(items) {
+      const el = document.getElementById('ticker-preview-track');
+      const enabled = items.filter(i => i.enabled !== false);
+      if (!enabled.length) {
+        el.innerHTML = '<span class="text-slate-600">（無啟用項目）</span>';
+        return;
+      }
+      el.innerHTML = enabled.map(item => {
+        const badgeHtml = item.badge
+          ? ` <span style="${BADGE_COLOR_MAP[item.badgeColor]||'color:#34d399'};font-weight:700">${esc(item.badge)}</span>`
+          : '';
+        return `<span>${esc(item.text)}${badgeHtml}</span><span style="color:#475569">·</span>`;
+      }).join('');
+    }
+
+    function toggleTickerItem(id) {
+      const items = getTickerItems();
+      const item = items.find(i => i.id === id);
+      if (!item) return;
+      item.enabled = item.enabled === false ? true : false;
+      saveTickerItems(items);
+      loadTicker();
+    }
+
+    function deleteTickerItem(id) {
+      if (!confirm('確定刪除此跑馬燈項目？')) return;
+      const items = getTickerItems().filter(i => i.id !== id);
+      saveTickerItems(items);
+      loadTicker();
+    }
+
+    function moveTickerItem(id, dir) {
+      const items = getTickerItems();
+      const idx = items.findIndex(i => i.id === id);
+      if (idx < 0) return;
+      const target = idx + dir;
+      if (target < 0 || target >= items.length) return;
+      [items[idx], items[target]] = [items[target], items[idx]];
+      saveTickerItems(items);
+      loadTicker();
+    }
+
+    function openTickerModal(id) {
+      document.getElementById('ticker-modal').classList.remove('hidden');
+      document.getElementById('ticker-modal').classList.add('flex');
+      document.getElementById('ticker-edit-id').value = id || '';
+      document.getElementById('modal-ticker-title').textContent = id ? '編輯跑馬燈項目' : '新增跑馬燈項目';
+      if (id) {
+        const item = getTickerItems().find(i => i.id === id);
+        if (item) {
+          document.getElementById('ticker-text').value = item.text || '';
+          document.getElementById('ticker-badge').value = item.badge || '';
+          document.getElementById('ticker-badge-color').value = item.badgeColor || 'emerald';
+          document.getElementById('ticker-link').value = item.link || '';
+          updateTickerPreviewModal();
+          return;
+        }
+      }
+      document.getElementById('ticker-text').value = '';
+      document.getElementById('ticker-badge').value = '';
+      document.getElementById('ticker-badge-color').value = 'emerald';
+      document.getElementById('ticker-link').value = '';
+      document.getElementById('ticker-modal-preview').textContent = '（輸入文字後預覽）';
+    }
+
+    function closeTickerModal() {
+      document.getElementById('ticker-modal').classList.add('hidden');
+      document.getElementById('ticker-modal').classList.remove('flex');
+    }
+
+    function updateTickerPreviewModal() {
+      const text = document.getElementById('ticker-text').value;
+      const badge = document.getElementById('ticker-badge').value;
+      const color = document.getElementById('ticker-badge-color').value;
+      const el = document.getElementById('ticker-modal-preview');
+      if (!text && !badge) { el.textContent = '（輸入文字後預覽）'; return; }
+      el.innerHTML = esc(text) + (badge ? ` <span style="${BADGE_COLOR_MAP[color]||'color:#34d399'};font-weight:700">${esc(badge)}</span>` : '');
+    }
+
+    function saveTicker() {
+      const text = document.getElementById('ticker-text').value.trim();
+      if (!text) { alert('請輸入主要文字'); return; }
+      const badge = document.getElementById('ticker-badge').value.trim();
+      const badgeColor = document.getElementById('ticker-badge-color').value;
+      const link = document.getElementById('ticker-link').value.trim();
+      const editId = document.getElementById('ticker-edit-id').value;
+      const items = getTickerItems();
+      if (editId) {
+        const item = items.find(i => i.id === editId);
+        if (item) { item.text = text; item.badge = badge; item.badgeColor = badgeColor; item.link = link; }
+      } else {
+        items.push({
+          id: 'ticker_' + Date.now(),
+          text, badge, badgeColor, link, enabled: true
+        });
+      }
+      saveTickerItems(items);
+      closeTickerModal();
+      loadTicker();
+    }
+
+    function seedTickerDefaults() {
+      if (!confirm('這將覆蓋現有跑馬燈內容，確定繼續？')) return;
+      const defaults = [
+        { id:'t1', text:'🇹🇭 泰國曼谷｜租金報酬', badge:'5–7%', badgeColor:'emerald', link:'/thailand-seminar.html', enabled:true },
+        { id:'t2', text:'🇦🇪 杜拜｜持有稅 0%・租金報酬', badge:'6–9%', badgeColor:'emerald', link:'/global_pro.html', enabled:true },
+        { id:'t3', text:'🇯🇵 日本東京｜BOJ 升息至 1.00%，日圓 154.20，折讓仍達', badge:'10~12%', badgeColor:'emerald', link:'/daily-real-estate-news.html', enabled:true },
+        { id:'t4', text:'🇹🇷 土耳其｜40萬 USD 投資可申請公民護照', badge:'', badgeColor:'amber', link:'/turkey-seminar.html', enabled:true },
+        { id:'t5', text:'🇲🇾 馬來西亞｜MM2H 長居簽｜吉隆坡租金年增', badge:'8%', badgeColor:'emerald', link:'/global_pro.html', enabled:true },
+        { id:'t6', text:'🇸🇬 新加坡｜SGD 強勢保值首選，外籍 ABSD', badge:'60%', badgeColor:'amber', link:'/singapore-guide.html', enabled:true },
+        { id:'t7', text:'✈️ 5/19–22 泰國曼谷考察團｜', badge:'NT$9,999', badgeColor:'amber', link:'/thailand-seminar.html', enabled:true },
+        { id:'t8', text:'📊 最新｜杜拜 Q1 2026 成交量年增', badge:'22%', badgeColor:'emerald', link:'/daily-real-estate-news.html', enabled:true },
+        { id:'t9', text:'🏦 泰國 FET 規定：匯款需附外匯憑證（外籍買房必知）', badge:'', badgeColor:'emerald', link:'/knowledge.html', enabled:true },
+      ];
+      saveTickerItems(defaults);
+      loadTicker();
+    }
+  </script>
+</body>
+</html>

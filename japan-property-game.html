@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🗾 日本地產實戰問答挑戰 | TIREA</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
+:root {
+  --gold:#D4A843; --gold2:#F0C96A; --gold-dim:rgba(212,168,67,.12);
+  --dark:#07070F; --surface:#0D0D1C; --card:#131325; --card2:#1A1A2E; --border:#22223A; --border2:#2E2E48;
+  --text:#EDE9DC; --muted:#7070A0; --muted2:#9898B8;
+  --green:#2ECC71; --green-dim:rgba(46,204,113,.12);
+  --red:#E74C3C; --red-dim:rgba(231,76,60,.12);
+  --blue:#3498DB; --purple:#9B59B6;
+  --sakura:#E8587A; --sakura-dim:rgba(232,88,122,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--dark);color:var(--text);min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse 70% 50% at 8% 8%,rgba(232,88,122,.06) 0%,transparent 65%),
+             radial-gradient(ellipse 60% 70% at 92% 92%,rgba(212,168,67,.07) 0%,transparent 65%);}
+.wrap{position:relative;z-index:1;max-width:980px;margin:0 auto;padding:14px;}
+
+/* ── HEADER ── */
+.hd{text-align:center;margin-bottom:14px;}
+.hd h1{font-size:clamp(1.4rem,3.5vw,2.1rem);font-weight:900;letter-spacing:.05em;margin-bottom:3px;
+  background:linear-gradient(135deg,#D4A843,#F0C96A,#E8587A);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hd p{color:var(--muted);font-size:.8rem;}
+
+/* ── SCORE BAR ── */
+.score-bar{display:flex;gap:10px;margin-bottom:14px;align-items:stretch;}
+.score-card{flex:1;background:var(--card);border:1.5px solid var(--border);border-radius:14px;padding:12px 14px;
+  display:flex;align-items:center;gap:10px;position:relative;overflow:hidden;transition:all .3s;}
+.score-card::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .4s;
+  background:linear-gradient(135deg,rgba(212,168,67,.1),transparent);}
+.score-card.active-player{border-color:var(--gold);}
+.score-card.active-player::before{opacity:1;}
+.score-card.ai-card{border-color:rgba(155,89,182,.4);}
+.sc-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:20px;border:2px solid transparent;flex-shrink:0;}
+.score-card.active-player .sc-avatar{border-color:var(--gold);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(212,168,67,.4)}50%{box-shadow:0 0 0 8px rgba(212,168,67,0)}}
+.sc-name{font-size:.78rem;color:var(--muted);}
+.sc-score{font-size:1.5rem;font-weight:900;color:var(--gold);line-height:1;}
+.sc-detail{font-size:.7rem;color:var(--muted2);margin-top:2px;}
+.sc-badge{margin-left:auto;font-size:.68rem;padding:3px 9px;border-radius:999px;
+  background:var(--gold-dim);border:1px solid rgba(212,168,67,.3);color:var(--gold);white-space:nowrap;}
+.sc-badge.ai{background:rgba(155,89,182,.15);border-color:rgba(155,89,182,.4);color:#c39bd3;}
+.sc-badge.winning{background:rgba(46,204,113,.15);border-color:rgba(46,204,113,.4);color:var(--green);}
+.sc-badge.losing{background:var(--red-dim);border-color:rgba(231,76,60,.3);color:#ec7063;}
+.vs-sep{display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:900;
+  color:var(--muted);padding:0 4px;flex-shrink:0;}
+
+/* ── PRIZES ── */
+.prizes-bar{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+.pz-card{flex:1;min-width:120px;background:var(--card);border:1.5px solid var(--border);
+  border-radius:12px;padding:10px 12px;display:flex;align-items:center;gap:8px;
+  position:relative;overflow:hidden;transition:all .3s;}
+.pz-card::before{content:'';position:absolute;inset:0;opacity:0;transition:.3s;
+  background:linear-gradient(135deg,rgba(212,168,67,.1),transparent);}
+.pz-card.won{border-color:var(--gold);}.pz-card.won::before{opacity:1;}
+.pz-icon{font-size:1.7rem;flex-shrink:0;}
+.pz-name{font-weight:700;font-size:.82rem;line-height:1.2;}
+.pz-prob{color:var(--muted);font-size:.68rem;margin-top:2px;}
+.pz-tag{margin-left:auto;font-size:.65rem;padding:2px 7px;border-radius:999px;
+  border:1px solid var(--border);color:var(--muted);white-space:nowrap;flex-shrink:0;}
+.pz-tag.won{background:var(--gold-dim);border-color:var(--gold);color:var(--gold);font-weight:700;}
+
+/* ── GAME AREA ── */
+.game-area{display:grid;grid-template-columns:1fr 270px;gap:12px;}
+@media(max-width:720px){.game-area{grid-template-columns:1fr;}}
+
+/* ── BOARD ── */
+.board-wrap{background:var(--card);border:1px solid var(--border);border-radius:18px;overflow:hidden;
+  box-shadow:0 8px 40px rgba(0,0,0,.5);}
+.board-grid{display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(6,1fr);
+  gap:3px;padding:10px;aspect-ratio:1;}
+.cell{border-radius:7px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:4px 2px;position:relative;border:1.5px solid transparent;overflow:hidden;transition:all .15s;min-height:0;}
+.cell.corner{background:linear-gradient(135deg,rgba(232,88,122,.18),rgba(212,168,67,.05));border-color:rgba(232,88,122,.5);}
+.cell.stop{background:var(--surface);border-color:var(--border);}
+.cell.stop.visited{background:rgba(46,204,113,.07);border-color:rgba(46,204,113,.28);}
+.cell-flag{font-size:clamp(14px,2.2vw,26px);line-height:1.1;}
+.cell-name{font-size:clamp(9px,1.05vw,13px);color:var(--muted);text-align:center;line-height:1.2;
+  word-break:keep-all;margin-top:2px;}
+.cell-check{position:absolute;top:2px;right:3px;font-size:clamp(8px,.9vw,11px);color:var(--green);}
+.token{position:absolute;font-size:clamp(10px,1.4vw,17px);filter:drop-shadow(0 1px 4px rgba(0,0,0,.9));animation:tPop .2s ease-out;}
+.token.p0{top:2px;left:3px;} .token.p1{bottom:2px;right:3px;}
+@keyframes tPop{from{transform:scale(0)}to{transform:scale(1)}}
+.cell.cur{box-shadow:0 0 0 2px var(--sakura),0 0 12px rgba(232,88,122,.5)!important;z-index:15!important;}
+.cell.ai-cur{box-shadow:0 0 0 2px #9b59b6,0 0 12px rgba(155,89,182,.4)!important;z-index:14!important;}
+
+/* ── BOARD CENTER ── */
+.board-center{grid-column:2/9;grid-row:2/9;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:7px;background:radial-gradient(ellipse 80% 70% at 50% 50%,rgba(232,88,122,.04),transparent);border-radius:8px;}
+.ctr-globe{font-size:clamp(28px,4vw,52px);animation:floatUpDown 3s ease-in-out infinite;}
+@keyframes floatUpDown{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.ctr-title{font-size:clamp(15px,2.2vw,26px);font-weight:900;color:var(--gold);text-align:center;letter-spacing:.05em;line-height:1.3;}
+.ctr-sub{font-size:clamp(10px,1.1vw,14px);color:var(--muted);text-align:center;}
+.prog-wrap{width:80%;}
+.prog-label{font-size:clamp(10px,1.05vw,13px);color:var(--muted);text-align:center;margin-bottom:4px;}
+.prog-track{height:6px;background:var(--border);border-radius:999px;overflow:hidden;}
+.prog-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#E8587A,#D4A843);transition:width .5s ease;}
+.score-display{display:flex;gap:12px;align-items:center;font-size:clamp(11px,1.2vw,15px);}
+.sd-item{text-align:center;}
+.sd-score{font-weight:900;font-size:clamp(16px,2vw,24px);}
+.sd-name{color:var(--muted);}
+.sd-vs{color:var(--border2);font-weight:700;}
+
+/* ── PANEL ── */
+.panel{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;}
+.panel-head{padding:12px 16px;border-bottom:1px solid var(--border);font-weight:700;font-size:.88rem;color:var(--gold);background:rgba(212,168,67,.05);}
+.panel-body{padding:13px 15px;flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:10px;}
+.sec{font-size:.65rem;font-weight:700;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-top:2px;}
+
+/* Dice */
+.dice-section{text-align:center;}
+.dice-row{display:flex;gap:10px;justify-content:center;margin-bottom:10px;}
+.die{width:50px;height:50px;background:var(--surface);border:2px solid var(--sakura);border-radius:11px;
+  display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;color:var(--sakura);
+  box-shadow:0 0 14px rgba(232,88,122,.18);}
+.die.rolling{animation:dR .07s ease-in-out infinite alternate;}
+@keyframes dR{from{transform:rotate(-10deg)scale(.94)}to{transform:rotate(10deg)scale(1.06)}}
+
+/* Buttons */
+.btn{width:100%;padding:10px;border:none;cursor:pointer;border-radius:9px;
+  font-family:'Noto Sans TC',sans-serif;font-size:.9rem;font-weight:700;transition:all .18s;}
+.btn-gold{background:linear-gradient(135deg,#E8587A,#D4A843);color:#fff;box-shadow:0 3px 14px rgba(232,88,122,.3);}
+.btn-gold:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 7px 22px rgba(232,88,122,.45);}
+.btn-gold:disabled{opacity:.35;cursor:not-allowed;transform:none!important;}
+.btn-outline{background:transparent;border:1.5px solid var(--border);color:var(--text);}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);}
+
+/* Stats */
+.stat{display:flex;justify-content:space-between;padding:5px 0;font-size:.8rem;border-bottom:1px solid rgba(255,255,255,.04);}
+.stat:last-child{border-bottom:none;}
+.stat-l{color:var(--muted);}
+.stat-r{font-weight:600;}
+.stat-r.gold{color:var(--gold);}
+.stat-r.green{color:var(--green);}
+.stat-r.red{color:var(--red);}
+
+/* Log */
+.log-list{max-height:110px;overflow-y:auto;}
+.log-list::-webkit-scrollbar{width:3px;}
+.log-list::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+.log-entry{font-size:.74rem;color:var(--muted);padding:3px 0;border-bottom:1px solid rgba(255,255,255,.03);line-height:1.5;}
+.log-entry:first-child{animation:sD .2s ease;}
+@keyframes sD{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+.g{color:var(--gold);font-weight:600;}.gn{color:var(--green);}.rd{color:var(--red);}.hi{color:var(--text);}
+
+/* ── MODAL ── */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.84);display:flex;align-items:center;justify-content:center;
+  z-index:200;backdrop-filter:blur(8px);}
+.modal{background:var(--card);border:1px solid var(--border2);border-radius:22px;padding:28px 24px;
+  max-width:440px;width:93%;box-shadow:0 28px 80px rgba(0,0,0,.8);animation:mPop .3s cubic-bezier(.34,1.56,.64,1);}
+@keyframes mPop{from{opacity:0;transform:scale(.87)}to{opacity:1;transform:scale(1)}}
+
+/* Quiz modal */
+.quiz-city{font-size:3rem;text-align:center;display:block;margin-bottom:6px;animation:iDrop .4s ease-out;}
+@keyframes iDrop{from{transform:scale(0)rotate(-15deg)}to{transform:scale(1)rotate(0)}}
+.quiz-location{text-align:center;font-size:.78rem;color:var(--muted);margin-bottom:12px;}
+.quiz-q{background:var(--card2);border:1px solid var(--border2);border-radius:12px;padding:14px 16px;
+  font-size:.95rem;font-weight:500;line-height:1.6;margin-bottom:14px;text-align:center;}
+.quiz-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+.opt-btn{padding:10px 8px;border-radius:10px;border:1.5px solid var(--border2);background:var(--card2);
+  color:var(--text);cursor:pointer;font-family:'Noto Sans TC',sans-serif;font-size:.85rem;font-weight:500;
+  transition:all .18s;line-height:1.3;}
+.opt-btn:hover:not(:disabled){border-color:var(--sakura);background:var(--sakura-dim);color:var(--sakura);}
+.opt-btn.correct{border-color:var(--green)!important;background:var(--green-dim)!important;color:var(--green)!important;}
+.opt-btn.wrong{border-color:var(--red)!important;background:var(--red-dim)!important;color:var(--red)!important;}
+.opt-btn:disabled{cursor:default;}
+.quiz-vs{display:flex;gap:10px;align-items:center;margin-bottom:12px;}
+.quiz-vs-item{flex:1;background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:10px;text-align:center;}
+.qvs-name{font-size:.72rem;color:var(--muted);margin-bottom:4px;}
+.qvs-score{font-size:1.6rem;font-weight:900;}
+.qvs-score.gold{color:var(--gold);}
+.qvs-score.purple{color:#c39bd3;}
+.qvs-sep{font-size:.8rem;color:var(--muted);font-weight:700;flex-shrink:0;}
+.quiz-timer{height:4px;background:var(--border);border-radius:999px;overflow:hidden;margin-bottom:12px;}
+.timer-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--green),var(--sakura));transition:width .1s linear;}
+
+/* Result panel */
+.result-icon{font-size:3.5rem;text-align:center;display:block;margin-bottom:8px;}
+.result-title{font-size:1.4rem;font-weight:900;text-align:center;margin-bottom:6px;}
+.result-box{border-radius:12px;padding:14px;margin:12px 0;text-align:center;}
+.result-box.win{background:var(--green-dim);border:1.5px solid rgba(46,204,113,.35);}
+.result-box.lose{background:var(--red-dim);border:1.5px solid rgba(231,76,60,.3);}
+.result-box.draw{background:var(--gold-dim);border:1.5px solid rgba(212,168,67,.35);}
+.result-box .rb-main{font-size:1.1rem;font-weight:700;margin-bottom:4px;}
+.result-box .rb-sub{font-size:.78rem;color:var(--muted);}
+
+/* Draw */
+.slot-wrap{display:flex;justify-content:center;margin:16px 0;}
+.slot-reel{width:84px;height:84px;background:var(--surface);border:2px solid var(--border2);
+  border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;overflow:hidden;}
+.slot-reel.spin .si{animation:ss .07s ease-in-out infinite alternate;}
+@keyframes ss{from{transform:translateY(-7px)scale(.88)}to{transform:translateY(7px)scale(1.12)}}
+.prize-won-box{background:var(--gold-dim);border:1.5px solid rgba(212,168,67,.35);border-radius:14px;
+  padding:16px;margin:12px 0;text-align:center;}
+.pwb-label{font-size:.7rem;color:var(--muted);margin-bottom:5px;}
+.pwb-name{font-size:1.35rem;font-weight:900;color:var(--gold);}
+.pwb-desc{font-size:.76rem;color:var(--muted);margin-top:4px;}
+.redeem-note{font-size:.72rem;color:var(--muted);text-align:center;margin-top:8px;
+  background:rgba(255,255,255,.04);border-radius:8px;padding:8px 10px;}
+
+.modal h2{font-size:1.45rem;font-weight:900;color:var(--gold);margin-bottom:6px;text-align:center;}
+.modal p{color:var(--muted);font-size:.85rem;line-height:1.6;text-align:center;}
+.m-btn{margin-top:12px;}
+.modal-btns{display:flex;gap:8px;margin-top:12px;}
+.modal-btns .btn{flex:1;}
+
+/* Confetti */
+.confetti-wrap{position:fixed;inset:0;pointer-events:none;z-index:300;overflow:hidden;}
+.cp{position:absolute;top:-10px;border-radius:2px;animation:cF linear forwards;}
+@keyframes cF{to{transform:translateY(110vh)rotate(720deg);opacity:0;}}
+
+/* AI thinking */
+.ai-thinking{display:inline-flex;align-items:center;gap:6px;font-size:.82rem;color:var(--muted);}
+.ai-dot{width:6px;height:6px;border-radius:50%;background:var(--purple);animation:aiBlink 1s infinite;}
+.ai-dot:nth-child(2){animation-delay:.2s;}
+.ai-dot:nth-child(3){animation-delay:.4s;}
+@keyframes aiBlink{0%,100%{opacity:.2}50%{opacity:1}}
+</style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2XV1V9TS1P"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-2XV1V9TS1P');
+  </script>
+  <meta name="description" content="日本房產投資模擬遊戲，了解東京、大阪、京都買房流程、稅費與租金投報率實際演練。" />
+  <link rel="canonical" href="https://www.tirea.tw/japan-property-game" />
+</head>
+<body>
+<div class="wrap">
+
+<div class="hd">
+  <h1>🗾 日本地產實戰問答挑戰</h1>
+  <p>從成田出發，探訪東京・大阪・九州 · 答對地產眉角，積分勝 AI 即可抽好禮！</p>
+</div>
+
+<!-- SCORE BAR -->
+<div class="score-bar" id="scoreBar"></div>
+
+<!-- GAME AREA -->
+<div class="game-area">
+  <div style="display:flex;flex-direction:column;gap:10px;min-width:0;">
+  <!-- PRIZES -->
+  <div class="prizes-bar" id="prizesBar"></div>
+  <div class="board-wrap">
+    <div class="board-grid" id="boardGrid"></div>
+  </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">🎮 旅行控制台</div>
+    <div class="panel-body">
+      <div class="sec">擲骰出發</div>
+      <div class="dice-section">
+        <div class="dice-row">
+          <div class="die" id="die1">⛩</div>
+        </div>
+        <button class="btn btn-gold" id="rollBtn" onclick="rollDice()">🎲 擲骰子！</button>
+        <button class="btn btn-outline" style="margin-top:8px;" onclick="initGame()">🔄 重新開始</button>
+      </div>
+
+      <div class="sec">旅行進度</div>
+      <div id="statsArea"></div>
+
+      <div class="sec">旅行日誌</div>
+      <div class="log-list" id="logList"></div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class="overlay" id="overlay" style="display:none;">
+  <div class="modal" id="modalBox"></div>
+</div>
+<div class="confetti-wrap" id="confettiWrap"></div>
+
+<script>
+// ══════════════════════════════════════════
+//  PRIZES
+// ══════════════════════════════════════════
+const PRIZES = [
+  { id:'coffee',  icon:'🍵', name:'日式抹茶禮盒',          desc:'感謝熱情參與！',          prob:55 },
+  { id:'book',    icon:'📖', name:'日本置產實戰手冊',       desc:'完整掌握日本房產知識',      prob:25 },
+  { id:'consult', icon:'🏠', name:'TIREA 日本諮詢一小時',   desc:'專業顧問一對一深度分析',    prob:15 },
+  { id:'tour',    icon:'✈️', name:'日本考察行程優惠券',     desc:'實地踏查東京・大阪精選物件', prob:5  },
+];
+
+// ══════════════════════════════════════════
+//  CITIES — 20 stations (4 corners + 16 stops)
+// ══════════════════════════════════════════
+const CITIES = [
+  // ── Corner 0
+  { type:'corner', name:'成田出發', icon:'✈️' },
+
+  // ── 東京東側 ─────────────────────────
+  {
+    type:'stop', name:'葛飾区', flag:'🏮',
+    q:'日本每年「固定資産税」的基本稅率是多少？',
+    opts:['0.3%','0.7%','1.4%','2.1%'], ans:2,
+    fact:'日本固定資産税標準稅率為 1.4%，以課稅標準額（通常低於市價）計算，是每年必付的持有成本。'
+  },
+  {
+    type:'stop', name:'墨田区', flag:'🗼',
+    q:'外國人在日本購置不動產，法律上有何限制？',
+    opts:['只能買公寓','不能持有土地','可自由購買土地與建物','需申請特別許可'], ans:2,
+    fact:'日本對外籍買家幾乎無限制，可直接登記持有土地與建物所有權，是少數允許外籍完整永久產權的亞洲市場。'
+  },
+  {
+    type:'stop', name:'新宿区', flag:'🌃',
+    q:'日本東京精華區（新宿・渋谷）的租金年報酬率通常落在哪個範圍？',
+    opts:['1–2%','3–5%','7–9%','12%以上'], ans:1,
+    fact:'東京精華區租金報酬約 3–5%，郊區或地方城市可達 6–8%。報酬率雖非最高，但資產保值性與匯率折讓是主要吸引力。'
+  },
+  {
+    type:'stop', name:'世田谷区', flag:'🏡',
+    q:'日本房仲「仲介手数料」依規定上限為多少？',
+    opts:['成交價 1%','成交價 2%','成交價 3%+6萬日圓（稅前）','成交價 5%'], ans:2,
+    fact:'日本法規規定仲介費上限為「成交價 × 3% + 6萬日圓 + 消費稅」，買賣雙方各自支付給各自的仲介。'
+  },
+
+  // ── 東京西側・橫濱 ───────────────────
+  {
+    type:'stop', name:'横浜市', flag:'🎡',
+    q:'購買日本不動產時，一次性繳交的「不動産取得税」稅率約為？',
+    opts:['0%（免稅）','1%','3%','8%'], ans:2,
+    fact:'不動産取得税稅率一般為 3%（土地與居住用建物優惠稅率），以課稅標準額計算，通常低於實際市價。'
+  },
+  {
+    type:'stop', name:'川崎市', flag:'🏭',
+    q:'2024~2026 年間日圓大幅貶值，對台灣買家換算成本有何影響？',
+    opts:['成本增加 20%','成本幾乎不變','換算台幣入場成本降低 15~18%','日圓升值，成本提高'], ans:2,
+    fact:'日圓從 2024 年均價約 JPY/TWD 0.238 貶至 2026 年的約 0.200，換算台幣購屋成本折讓約 16%，相當於買到打 8 折的日本資產。'
+  },
+
+  // ── Corner 1
+  { type:'corner', name:'東京駅', icon:'🚄' },
+
+  // ── 千葉・埼玉 ──────────────────────
+  {
+    type:'stop', name:'千葉市', flag:'🌊',
+    q:'日本公寓每月需繳的「管理費」與「修繕積立金」主要用途是什麼？',
+    opts:['租金的一部分','大樓公共設施維護與未來大修基金','支付給地方政府','只需業主自願繳納'], ans:1,
+    fact:'管理費支付日常公共設施維護，修繕積立金是大樓長期修繕準備金。這兩項合計每月約 1~3 萬日圓，買前必須確認金額。'
+  },
+  {
+    type:'stop', name:'大阪難波', flag:'🎰',
+    q:'在日本從事民泊（Airbnb 短租），依《住宅宿泊事業法》年可出租天數上限為？',
+    opts:['90天','120天','180天','365天（無限制）'], ans:2,
+    fact:'2018 年起日本《住宅宿泊事業法》規定，一般住宅區民泊年出租上限 180 天；部分自治體（如京都）更嚴格，需注意當地規定。'
+  },
+  {
+    type:'stop', name:'大阪梅田', flag:'🛍️',
+    q:'日本「登録免許税」（所有權移轉登記費）稅率約為多少？',
+    opts:['0.4%','2%','4%','10%'], ans:1,
+    fact:'所有權移轉登記（売買）的登録免許税為房屋課稅標準 2%（土地在優惠期間為 1.5%），是購買成本的重要組成部分。'
+  },
+  {
+    type:'stop', name:'京都市', flag:'⛩️',
+    q:'京都市針對空置住宅開徵何種稅，2026 年起大幅提高？',
+    opts:['民泊稅','空き家税（空屋稅）','觀光稅','外籍購屋稅'], ans:1,
+    fact:'京都市 2026 年起大幅提高「空き家税」（空屋稅），鼓勵屋主出租或出售閒置房屋，推動古民家活化，反而有利於投資型買家。'
+  },
+
+  // ── Corner 2
+  { type:'corner', name:'近畿休息站', icon:'🌸' },
+
+  // ── 九州・北海道 ─────────────────────
+  {
+    type:'stop', name:'福岡市', flag:'🍜',
+    q:'日本房產的「都市計画税」每年稅率約為多少，與固定資産税一起徵收？',
+    opts:['0%（無此稅）','0.3%','1.0%','2.0%'], ans:1,
+    fact:'都市計画税稅率上限 0.3%，僅城市計畫區域內課徵，與固定資産税（1.4%）合計每年持有稅約 1.7%。'
+  },
+  {
+    type:'stop', name:'札幌市', flag:'⛷️',
+    q:'北海道外籍投資人需特別注意哪項高額持有成本？',
+    opts:['海岸稅','冬季暖氣費與除雪費','觀光附加稅','外籍持有特別稅'], ans:1,
+    fact:'北海道冬季暖氣費（ガス代・灯油代）與除雪費是不可忽視的持有成本，管理委託費通常也高於本州；選擇前應充分評估。'
+  },
+  {
+    type:'stop', name:'仙台市', flag:'🏔️',
+    q:'日本 1981 年頒布「新耐震基準」，對舊屋買家最主要的影響是？',
+    opts:['舊屋完全不能貸款','1981年前建物（舊耐震）銀行貸款條件較嚴','舊屋持有稅較高','無任何影響'], ans:1,
+    fact:'1981 年前的「舊耐震」建物，日本本地銀行多不提供房貸，外籍投資人通常須現金購置；但價格顯著偏低，翻修後附加價值大。'
+  },
+  {
+    type:'stop', name:'名古屋市', flag:'🏯',
+    q:'台灣人在日本持有租賃收入，需在日本申報哪種稅？',
+    opts:['不需繳日本稅','日本所得稅（租賃收入）','消費稅 10%','地方法人稅'], ans:1,
+    fact:'日本非居住者的租賃收入需在日本申報所得稅，稅率依累進制計算；建議委託「稅理士」（日本稅務師）代辦確定申告。'
+  },
+
+  // ── Corner 3
+  { type:'corner', name:'帰国ゲート', icon:'🎌' },
+
+  // ── 補充：沖縄・BOJ ─────────────────
+  {
+    type:'stop', name:'沖縄', flag:'🌺',
+    q:'日本銀行（BOJ）2026 年升息對購置日本不動產有何最主要影響？',
+    opts:['日圓走強，換算成本上升','租金立即下跌','對外籍買家無任何影響','強制外籍賣出持有物件'], ans:0,
+    fact:'BOJ 升息通常推動日圓走強，意味著台灣買家換算成本將上升。2026 年 4/25~26 BOJ 會議受到高度關注，日圓折讓窗口可能縮短。'
+  },
+  {
+    type:'stop', name:'軽井沢', flag:'🏕️',
+    q:'日本「借地権」物件與「所有権」物件最主要的差異是什麼？',
+    opts:['借地権可繼承，所有権不行','借地権擁有土地，所有権只租地','所有権擁有土地，借地権只租用土地','兩者完全相同'], ans:2,
+    fact:'所有権物件：土地＋建物完整持有，最安全。借地権物件：只擁有建物，土地向地主租借，每年需付地代（租金），銀行貸款也較困難，購前需確認。'
+  },
+];
+
+// ══════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════
+let state = {};
+const TOTAL = CITIES.length; // 20
+
+function initGame() {
+  state = {
+    human: { id:0, name:'你', emoji:'👑', color:'#E8587A', pos:0, laps:0, score:0, visited:new Set([0]), prizes:[], canDraw:false },
+    ai:    { id:1, name:'AI 達人', emoji:'🤖', color:'#9B59B6', pos:0, laps:0, score:0, visited:new Set([0]), prizes:[] },
+    phase:'human',
+    rolled:false,
+    pendingSteps:0,
+  };
+  document.getElementById('logList').innerHTML='';
+  document.getElementById('confettiWrap').innerHTML='';
+  closeModal();
+  document.getElementById('rollBtn').disabled=false;
+  renderAll();
+  addLog('g','🗾 旅程從成田出發！答題積分，走完一圈且積分勝過 AI 才能抽獎！');
+  addLog('hi','👑 你先出發！');
+}
+
+// ══════════════════════════════════════════
+//  ROLL
+// ══════════════════════════════════════════
+function rollDice() {
+  if(state.rolled || state.phase!=='human') return;
+  state.rolled=true;
+  document.getElementById('rollBtn').disabled=true;
+
+  let t=0;
+  const iv=setInterval(()=>{
+    document.getElementById('die1').textContent=Math.ceil(Math.random()*4);
+    document.getElementById('die1').classList.add('rolling');
+    t++;
+    if(t>=10){
+      clearInterval(iv);
+      const d1=Math.ceil(Math.random()*4);
+      document.getElementById('die1').textContent=d1;
+      document.getElementById('die1').classList.remove('rolling');
+      addLog('hi',`👑 擲出 ${d1}，前進 ${d1} 格`);
+      state.pendingSteps=d1;
+      moveToken('human', d1, ()=>{
+        const city=CITIES[state.human.pos];
+        addLog('hi',`🛬 抵達 ${city.flag||city.icon} ${city.name}`);
+        if(city.type==='stop') showQuiz(city);
+        else { state.human.visited.add(state.human.pos); renderAll(); setTimeout(afterHumanTurn,400); }
+      });
+    }
+  },75);
+}
+
+// ══════════════════════════════════════════
+//  TOKEN ANIMATION
+// ══════════════════════════════════════════
+function moveToken(who, steps, cb) {
+  const p = who==='human'?state.human:state.ai;
+  const start=p.pos; let step=0;
+  const iv=setInterval(()=>{
+    step++;
+    p.pos=(start+step)%TOTAL;
+    if(step>1 && p.pos===0) completeLap(p);
+    renderBoard();
+    if(step>=steps){ clearInterval(iv); cb(); }
+  },120);
+}
+
+function completeLap(p) {
+  p.laps++;
+  p.visited=new Set([0]);
+  if(p===state.human){
+    addLog('gn',`🎉 你完成第 ${p.laps} 圈！可以抽獎了！`);
+    state.human.canDraw=true;
+  } else {
+    addLog('hi',`🤖 AI 完成第 ${p.laps} 圈`);
+  }
+}
+
+// ══════════════════════════════════════════
+//  QUIZ
+// ══════════════════════════════════════════
+let quizTimer=null;
+function showQuiz(city) {
+  state.phase='quiz';
+  let timeLeft=15;
+  const aiCorrect=Math.random()<0.08;
+
+  const html=`
+    <span class="quiz-city">${city.flag}</span>
+    <div class="quiz-location">📍 ${city.name} — 日本地產知識</div>
+    <div class="quiz-timer"><div class="timer-fill" id="timerFill" style="width:100%"></div></div>
+    <div class="quiz-vs">
+      <div class="quiz-vs-item">
+        <div class="qvs-name">👑 你</div>
+        <div class="qvs-score gold" id="qvs-human">${state.human.score}</div>
+      </div>
+      <div class="qvs-sep">VS</div>
+      <div class="quiz-vs-item">
+        <div class="qvs-name">🤖 AI 達人</div>
+        <div class="qvs-score purple" id="qvs-ai">${state.ai.score}</div>
+      </div>
+    </div>
+    <div class="quiz-q">${city.q}</div>
+    <div class="quiz-opts">
+      ${city.opts.map((o,i)=>`<button class="opt-btn" id="opt${i}" onclick="answerQuiz(${i},${city.ans},'${city.name}',${aiCorrect})">${o}</button>`).join('')}
+    </div>
+    <p style="font-size:.72rem;color:var(--muted);">⏱ 限時 <span id="timerNum">15</span> 秒答題</p>
+  `;
+  showModal(html);
+
+  quizTimer=setInterval(()=>{
+    timeLeft--;
+    const el=document.getElementById('timerNum');
+    const fill=document.getElementById('timerFill');
+    if(el) el.textContent=timeLeft;
+    if(fill) fill.style.width=(timeLeft/15*100)+'%';
+    if(timeLeft<=0){
+      clearInterval(quizTimer);
+      answerQuiz(-1, city.ans, city.name, aiCorrect);
+    }
+  },1000);
+}
+
+function answerQuiz(chosen, correct, cityName, aiCorrect) {
+  clearInterval(quizTimer);
+  const humanRight = chosen===correct;
+
+  document.querySelectorAll('.opt-btn').forEach((b,i)=>{
+    b.disabled=true;
+    if(i===correct) b.classList.add('correct');
+    else if(i===chosen) b.classList.add('wrong');
+  });
+
+  if(humanRight){ state.human.score+=15; addLog('gn','✅ 答對！+15 分'); }
+  else { addLog('rd',`❌ 答錯${chosen===-1?' (超時)':''}。正確答案：${CITIES.find(c=>c.name===cityName)?.opts[correct]||''}`); }
+  if(aiCorrect){ state.ai.score+=10; }
+
+  state.human.visited.add(state.human.pos);
+
+  const city=CITIES.find(c=>c.name===cityName);
+  setTimeout(()=>{ showQuizResult(humanRight, aiCorrect, city); }, 700);
+}
+
+function showQuizResult(humanRight, aiCorrect, city) {
+  const hPts=humanRight?15:0, aiPts=aiCorrect?10:0;
+  let outcome='', cls='', icon='';
+  if(hPts>aiPts){ outcome='你這題勝出！'; cls='win'; icon='🎉'; }
+  else if(hPts<aiPts){ outcome='AI 這題勝出！'; cls='lose'; icon='😤'; }
+  else if(humanRight&&aiCorrect){ outcome='平手！大家都答對'; cls='draw'; icon='🤝'; }
+  else { outcome='平手！大家都答錯'; cls='draw'; icon='😅'; }
+
+  const html=`
+    <span class="result-icon">${icon}</span>
+    <div class="result-title" style="color:${cls==='win'?'var(--green)':cls==='lose'?'var(--red)':'var(--gold)'};">${outcome}</div>
+    <div class="result-box ${cls}">
+      <div class="rb-main">你 +${hPts} 分 ｜ AI +${aiPts} 分</div>
+      <div class="rb-sub">累計：你 ${state.human.score} 分 ｜ AI ${state.ai.score} 分</div>
+    </div>
+    ${city?`<p style="font-size:.78rem;color:var(--muted);background:rgba(255,255,255,.04);border-radius:8px;padding:10px;margin-top:4px;line-height:1.7;">💡 <strong style="color:var(--gold)">地產知識：</strong>${city.fact}</p>`:''}
+    <button class="btn btn-gold m-btn" id="continueBtn" onclick="closeModal(); afterHumanTurn()">繼續旅行 → <span id="autoCount" style="opacity:.6;font-size:.8em">(3)</span></button>
+  `;
+  showModal(html, afterHumanTurn);
+}
+
+// ══════════════════════════════════════════
+//  AI TURN
+// ══════════════════════════════════════════
+function afterHumanTurn() {
+  state.phase='ai';
+  if(state.human.canDraw){
+    state.human.canDraw=false;
+    setTimeout(()=>showDrawPrompt(),300);
+    return;
+  }
+  renderAll();
+  setTimeout(()=>doAiTurn(), 600);
+}
+
+function doAiTurn() {
+  const d1=Math.ceil(Math.random()*4);
+  addLog('hi',`🤖 AI 擲出 ${d1}`);
+  document.getElementById('die1').textContent=d1;
+  moveToken('ai', d1, ()=>{
+    const city=CITIES[state.ai.pos];
+    addLog('hi',`🤖 AI 落在 ${city.flag||city.icon} ${city.name}`);
+    state.ai.visited.add(state.ai.pos);
+    if(city.type==='stop'){
+      const correct=Math.random()<0.55;
+      if(correct){ state.ai.score+=10; addLog('hi','🤖 AI 答對了 +10'); }
+      else { addLog('hi','🤖 AI 答錯了'); }
+    }
+    renderAll();
+    setTimeout(()=>{
+      state.phase='human';
+      state.rolled=false;
+      document.getElementById('rollBtn').disabled=false;
+      renderScoreBar();
+      addLog('g','👑 輪到你了！');
+    },400);
+  });
+}
+
+// ══════════════════════════════════════════
+//  DRAW
+// ══════════════════════════════════════════
+function showDrawPrompt() {
+  const leading = state.human.score > state.ai.score;
+  const html=`
+    <h2>🎰 抽獎機會！</h2>
+    <p>你完成了一圈旅行！</p>
+    <div class="result-box ${leading?'win':'lose'}" style="margin:12px 0;">
+      <div class="rb-main">你 ${state.human.score} 分 ｜ AI ${state.ai.score} 分</div>
+      <div class="rb-sub">${leading?'你領先 AI！抽到好禮機率更高 🎉':'AI 目前領先，繼續加油！'}</div>
+    </div>
+    <div class="modal-btns">
+      <button class="btn btn-gold" onclick="doDraw()">🎰 立即抽獎！</button>
+      <button class="btn btn-outline" onclick="closeModal(); state.phase='human'; state.rolled=false; document.getElementById('rollBtn').disabled=false;">繼續旅行</button>
+    </div>
+  `;
+  showModal(html);
+}
+
+function doDraw() {
+  const slot=document.createElement('div');
+  slot.className='slot-wrap';
+  slot.innerHTML=`<div class="slot-reel spin" id="slotReel"><span class="si">🎁</span></div>`;
+  const btns=document.querySelector('.modal-btns');
+  if(btns) btns.replaceWith(slot);
+
+  const icons=['🍵','📖','🏠','✈️','🎁','⛩️','🗼','🌸'];
+  let t=0;
+  const iv=setInterval(()=>{
+    const r=document.getElementById('slotReel');
+    if(r) r.querySelector('.si').textContent=icons[t%icons.length];
+    t++;
+    if(t>=24){
+      clearInterval(iv);
+      const r2=document.getElementById('slotReel');
+      if(r2) r2.classList.remove('spin');
+
+      const leading=state.human.score>state.ai.score;
+      const roll=Math.random()*100;
+      const boost=leading?15:0;
+      let cum=0, won=PRIZES[0];
+      for(const p of PRIZES){ cum+=p.prob+(p.id==='tour'?boost:p.id==='consult'?boost:0); if(roll<cum){won=p;break;} }
+
+      state.human.prizes.push(won);
+      if(r2) r2.querySelector('.si').textContent=won.icon;
+      launchConfetti();
+
+      setTimeout(()=>{
+        const html2=`
+          <h2>🎊 恭喜！</h2>
+          <div class="prize-won-box">
+            <div class="pwb-label">你獲得了</div>
+            <div class="pwb-name">${won.icon} ${won.name}</div>
+            <div class="pwb-desc">${won.desc}</div>
+          </div>
+          <div class="redeem-note">📩 請聯繫 TIREA 顧問兌換獎品<br>本次旅行得分：<strong style="color:var(--gold)">${state.human.score} 分</strong></div>
+          <button class="btn btn-gold m-btn" onclick="initGame()">🗾 再來一局</button>
+        `;
+        showModal(html2);
+      },600);
+    }
+  },80);
+}
+
+// ══════════════════════════════════════════
+//  RENDER
+// ══════════════════════════════════════════
+function renderAll() {
+  renderScoreBar();
+  renderPrizes();
+  renderBoard();
+  renderStats();
+}
+
+function renderScoreBar() {
+  const hLeading=state.human.score>state.ai.score;
+  const hActive=state.phase==='human';
+  document.getElementById('scoreBar').innerHTML=`
+    <div class="score-card ${hActive?'active-player':''}">
+      <div class="sc-avatar">${state.human.emoji}</div>
+      <div><div class="sc-name">你的旅程</div><div class="sc-score">${state.human.score}<span style="font-size:.8rem;color:var(--muted)"> pt</span></div><div class="sc-detail">圈數 ${state.human.laps}　步數 ${state.human.pos}</div></div>
+      <div class="sc-badge ${hLeading?'winning':'losing'}">${hLeading?'領先':'落後'}</div>
+    </div>
+    <div class="vs-sep">VS</div>
+    <div class="score-card ai-card ${!hActive&&state.phase!=='quiz'?'active-player':''}">
+      <div class="sc-avatar">${state.ai.emoji}</div>
+      <div><div class="sc-name">AI 達人</div><div class="sc-score">${state.ai.score}<span style="font-size:.8rem;color:var(--muted)"> pt</span></div><div class="sc-detail">圈數 ${state.ai.laps}　步數 ${state.ai.pos}</div></div>
+      <div class="sc-badge ai">${!hLeading?'領先':'落後'}</div>
+    </div>`;
+}
+
+function renderPrizes() {
+  document.getElementById('prizesBar').innerHTML=PRIZES.map(p=>{
+    const won=state.human.prizes.some(x=>x.id===p.id);
+    return `<div class="pz-card ${won?'won':''}">
+      <div class="pz-icon">${p.icon}</div>
+      <div><div class="pz-name">${p.name}</div><div class="pz-prob">機率 ${p.prob}%</div></div>
+      <div class="pz-tag ${won?'won':''}">${won?'已獲得':'未獲得'}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderBoard() {
+  const BOARD_SIZE=6;
+  const grid=document.getElementById('boardGrid');
+  if(!grid) return;
+
+  // Map board positions to grid cells (outer ring, clockwise from top-left)
+  const posToCell=[];
+  for(let c=0;c<BOARD_SIZE;c++) posToCell.push({r:0,c}); // top row L→R
+  for(let r=1;r<BOARD_SIZE-1;r++) posToCell.push({r,c:BOARD_SIZE-1}); // right col T→B
+  for(let c=BOARD_SIZE-1;c>=0;c--) posToCell.push({r:BOARD_SIZE-1,c}); // bottom row R→L
+  for(let r=BOARD_SIZE-2;r>=1;r--) posToCell.push({r,c:0}); // left col B→T
+
+  const cells=Array.from({length:BOARD_SIZE},()=>Array(BOARD_SIZE).fill(null));
+  posToCell.forEach(({r,c},i)=>{ if(i<TOTAL) cells[r][c]=i; });
+
+  let html='';
+  for(let r=0;r<BOARD_SIZE;r++){
+    for(let c=0;c<BOARD_SIZE;c++){
+      const idx=cells[r][c];
+      if(idx===null){
+        // center area
+        if(r===1&&c===1){
+          // Spanning center
+          html+=`<div style="grid-column:2/6;grid-row:2/6;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+            background:radial-gradient(ellipse 80% 70% at 50% 50%,rgba(232,88,122,.04),transparent);border-radius:8px;">
+            <div class="ctr-globe">🗾</div>
+            <div class="ctr-title">日本地產<br>實戰挑戰</div>
+            <div class="ctr-sub">答題積分 · 走完一圈 · 抽好禮</div>
+            <div class="prog-wrap">
+              <div class="prog-label">你的進度 ${Math.round(state.human.pos/TOTAL*100)}%</div>
+              <div class="prog-track"><div class="prog-fill" style="width:${state.human.pos/TOTAL*100}%"></div></div>
+            </div>
+            <div class="score-display">
+              <div class="sd-item"><div class="sd-score" style="color:var(--gold)">${state.human.score}</div><div class="sd-name">你</div></div>
+              <div class="sd-vs">vs</div>
+              <div class="sd-item"><div class="sd-score" style="color:#c39bd3">${state.ai.score}</div><div class="sd-name">AI</div></div>
+            </div>
+          </div>`;
+        } else if(!(r>=1&&r<=4&&c>=1&&c<=4&&!(r===1&&c===1))){
+          html+=`<div></div>`;
+        }
+        continue;
+      }
+      const city=CITIES[idx];
+      const isHuman=state.human.pos===idx;
+      const isAi=state.ai.pos===idx;
+      const visited=state.human.visited.has(idx);
+      const cls=['cell', city.type==='corner'?'corner':'stop', visited?'visited':'', isHuman?'cur':'', isAi&&!isHuman?'ai-cur':''].filter(Boolean).join(' ');
+      html+=`<div class="${cls}">
+        <div class="cell-flag">${city.flag||city.icon}</div>
+        <div class="cell-name">${city.name}</div>
+        ${visited?'<div class="cell-check">✓</div>':''}
+        ${isHuman?`<div class="token p0">${state.human.emoji}</div>`:''}
+        ${isAi?`<div class="token p1">${state.ai.emoji}</div>`:''}
+      </div>`;
+    }
+  }
+  grid.innerHTML=html;
+}
+
+function renderStats() {
+  const visited=state.human.visited.size;
+  const total=CITIES.filter(c=>c.type==='stop').length;
+  document.getElementById('statsArea').innerHTML=`
+    <div class="stat"><span class="stat-l">你的積分</span><span class="stat-r gold">${state.human.score} pt</span></div>
+    <div class="stat"><span class="stat-l">AI 積分</span><span class="stat-r">${state.ai.score} pt</span></div>
+    <div class="stat"><span class="stat-l">已走城市</span><span class="stat-r green">${visited-1} / ${total}</span></div>
+    <div class="stat"><span class="stat-l">完成圈數</span><span class="stat-r">${state.human.laps} 圈</span></div>
+    <div class="stat"><span class="stat-l">抽獎狀態</span><span class="stat-r ${state.human.laps>0&&state.human.score>state.ai.score?'green':''}">
+      ${state.human.laps>0?'✅ 可抽獎':'走完一圈才能抽'}</span></div>
+  `;
+}
+
+// ══════════════════════════════════════════
+//  MODAL HELPERS
+// ══════════════════════════════════════════
+function showModal(html, onAutoClose) {
+  document.getElementById('modalBox').innerHTML=html;
+  document.getElementById('overlay').style.display='flex';
+
+  // Auto-continue countdown for result screen
+  if(onAutoClose) {
+    let countdown=3;
+    const tick=setInterval(()=>{
+      countdown--;
+      const el=document.getElementById('autoCount');
+      if(el) el.textContent=`(${countdown})`;
+      if(countdown<=0){
+        clearInterval(tick);
+        closeModal();
+        onAutoClose();
+      }
+    },1000);
+    // clicking continue clears the timer
+    setTimeout(()=>{
+      const btn=document.getElementById('continueBtn');
+      if(btn) btn.addEventListener('click',()=>clearInterval(tick),{once:true});
+    },50);
+  }
+}
+
+function closeModal() {
+  document.getElementById('overlay').style.display='none';
+  document.getElementById('modalBox').innerHTML='';
+}
+
+// ══════════════════════════════════════════
+//  LOG
+// ══════════════════════════════════════════
+function addLog(type, msg) {
+  const list=document.getElementById('logList');
+  const div=document.createElement('div');
+  div.className='log-entry';
+  div.innerHTML=`<span class="${type}">${msg}</span>`;
+  list.insertBefore(div, list.firstChild);
+  while(list.children.length>20) list.removeChild(list.lastChild);
+}
+
+// ══════════════════════════════════════════
+//  CONFETTI
+// ══════════════════════════════════════════
+function launchConfetti() {
+  const wrap=document.getElementById('confettiWrap');
+  const colors=['#E8587A','#D4A843','#F0C96A','#2ECC71','#3498DB','#fff','#FFB7C5'];
+  for(let i=0;i<60;i++){
+    const el=document.createElement('div');
+    el.className='cp';
+    const size=4+Math.random()*8;
+    el.style.cssText=`left:${Math.random()*100}%;width:${size}px;height:${size*(0.4+Math.random()*0.6)}px;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      animation-duration:${2+Math.random()*2}s;animation-delay:${Math.random()*.8}s;`;
+    wrap.appendChild(el);
+  }
+  setTimeout(()=>wrap.innerHTML='', 5000);
+}
+
+// ══════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════
+initGame();
+</script>
+</body>
+</html>

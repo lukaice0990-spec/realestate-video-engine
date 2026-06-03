@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>海外房產投資地圖 | 全球市場風險與機會 | TIREA</title>
+  <meta name="keywords" content="海外房產投資地圖,全球房市比較,海外置產選擇,日本泰國馬來西亞比較" />
+  <meta name="description" content="互動式全球房產投資地圖，一眼比較日本、泰國、馬來西亞、杜拜、土耳其等市場的租金回報、進入門檻、風險評分。" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <style>
+    body { font-family: 'Noto Sans TC', sans-serif; }
+    .hero-bg {
+      background:
+        linear-gradient(135deg, rgba(15,23,42,.84), rgba(15,23,42,.58)),
+        url('https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat;
+    }
+    #map {
+      height: 720px;
+      width: 100%;
+      border-radius: 28px;
+      overflow: hidden;
+    }
+    .filter-chip.active {
+      background: #163a8a;
+      color: white;
+      border-color: #163a8a;
+    }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2XV1V9TS1P"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-2XV1V9TS1P');
+  </script>
+  <link rel="canonical" href="https://www.tirea.tw/invest_map" />
+</head>
+<body class="bg-slate-100 text-slate-800">
+  <nav class="fixed top-0 inset-x-0 z-50 border-b border-white/10 bg-slate-950/80 backdrop-blur-xl text-white">
+    <div class="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3">
+        <img src="/tirea-logo.png" alt="TIREA Logo" class="w-11 h-11 rounded-xl shadow-lg object-contain bg-white p-1" />
+        <div>
+          <div class="font-extrabold tracking-tight text-lg leading-none text-white">TIREA</div>
+          <div class="text-[10px] uppercase tracking-[0.28em] text-slate-300">Taiwan International REA</div>
+        </div>
+      </a>
+
+      <div class="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-200">
+        <a href="ai_butler.html" class="hover:text-white font-bold text-blue-200">AI 找房</a>
+        <a href="global_pro.html" class="hover:text-white">找海外房產</a>
+        <a href="invest_map.html" class="hover:text-white">投資地圖</a>
+        <a href="knowledge.html" class="hover:text-white">知識中心</a>
+        <a href="daily-real-estate-news.html" class="hover:text-white">每日新聞</a>
+        <a href="projects.html" class="hover:text-white text-gold font-bold">專案</a>
+        <a href="turkey-seminar.html" class="hover:text-white text-amber-300 font-bold">🇹🇷 土耳其指南</a>
+        <a href="thailand-seminar.html" class="hover:text-white text-amber-300 font-bold">🇹🇭 泰國說明會</a>
+        <a href="singapore-guide.html" class="hover:text-white text-amber-300 font-bold">🇸🇬 新加坡金融指南</a>
+      </div>
+
+      <div class="hidden sm:flex items-center gap-3">
+        <a href="member_center.html" class="px-4 py-2 text-sm text-slate-200 hover:text-white">MEMBER LOGIN</a>
+        <a href="admin/index.html" class="px-3 py-2 text-xs text-slate-500 hover:text-slate-300">管理中心</a>
+        <a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="px-5 py-2.5 rounded-full bg-[#c89b3c] text-slate-900 font-bold hover:opacity-90">加入 LINE 諮詢</a>
+      </div>
+
+      <button id="mobile-menu-button" class="lg:hidden inline-flex items-center gap-2 px-4 h-11 rounded-xl bg-[#c89b3c] text-slate-900 font-extrabold shadow-lg">
+        <i class="fa-solid fa-bars text-base"></i>
+        <span class="text-sm">選單</span>
+      </button>
+    </div>
+
+    <div id="mobile-menu-overlay" class="lg:hidden fixed inset-0 bg-slate-950 text-white translate-x-full transition-transform duration-300 ease-in-out z-50">
+      <div class="px-6 py-5 flex items-center justify-between border-b border-white/10">
+        <div class="flex items-center gap-3">
+          <img src="/tirea-logo.png" alt="TIREA Logo" class="w-10 h-10 rounded-xl shadow-lg object-contain bg-white p-1" />
+          <div>
+            <div class="font-extrabold tracking-tight text-lg leading-none">TIREA</div>
+            <div class="text-[10px] uppercase tracking-[0.24em] text-slate-300">Taiwan International REA</div>
+          </div>
+        </div>
+        <button id="close-menu-button" class="w-11 h-11 rounded-xl border border-white/10 flex items-center justify-center text-white">
+          <i class="fa-solid fa-xmark text-xl"></i>
+        </button>
+      </div>
+      <div class="px-6 py-8 flex flex-col gap-4 text-lg font-bold bg-slate-950 overflow-y-auto">
+        <a href="ai_butler.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-blue-950 border border-blue-800 px-5 py-4 text-blue-100 shadow-lg">AI 找房 <i class="fa-solid fa-arrow-right text-sm text-blue-300"></i></a>
+        <a href="global_pro.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4 text-white shadow-lg">找海外房產 <i class="fa-solid fa-arrow-right text-sm text-slate-300"></i></a>
+        <a href="invest_map.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4 text-white shadow-lg">投資地圖 <i class="fa-solid fa-arrow-right text-sm text-slate-300"></i></a>
+        <a href="knowledge.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4 text-white shadow-lg">知識中心 <i class="fa-solid fa-arrow-right text-sm text-slate-300"></i></a>
+        <a href="daily-real-estate-news.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4 text-white shadow-lg">每日新聞 <i class="fa-solid fa-arrow-right text-sm text-slate-300"></i></a>
+        <a href="projects.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-yellow-950 border border-yellow-800 px-5 py-4 text-yellow-100 shadow-lg">專案 <i class="fa-solid fa-arrow-right text-sm text-yellow-300"></i></a>
+        <a href="turkey-seminar.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-amber-950 border border-amber-800 px-5 py-4 text-amber-100 shadow-lg">🇹🇷 土耳其投資指南 <i class="fa-solid fa-arrow-right text-sm text-amber-300"></i></a>
+        <a href="thailand-seminar.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-amber-950 border border-amber-800 px-5 py-4 text-amber-100 shadow-lg">🇹🇭 泰國說明會 <i class="fa-solid fa-arrow-right text-sm text-amber-300"></i></a>
+        <a href="singapore-guide.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-amber-950 border border-amber-800 px-5 py-4 text-amber-100 shadow-lg">🇸🇬 新加坡金融指南 <i class="fa-solid fa-arrow-right text-sm text-amber-300"></i></a>
+        <a href="member_center.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4 text-white shadow-lg">MEMBER LOGIN <i class="fa-solid fa-arrow-right text-sm text-slate-300"></i></a>
+        <a href="admin/index.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-800 border border-slate-700 px-5 py-4 text-slate-400 shadow-lg">⚙️ 管理中心 <i class="fa-solid fa-arrow-right text-sm text-slate-500"></i></a>
+      </div>
+      <div class="px-6 pb-8 bg-slate-950">
+        <a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="mobile-menu-link w-full inline-flex justify-center items-center px-6 py-4 rounded-2xl bg-[#c89b3c] text-slate-900 font-extrabold shadow-lg">加入 LINE 諮詢</a>
+      </div>
+    </div>
+  </nav>
+
+  <script>
+    (function(){
+      var btn = document.getElementById('mobile-menu-button');
+      var cls = document.getElementById('close-menu-button');
+      var ov  = document.getElementById('mobile-menu-overlay');
+      if(!btn||!cls||!ov) return;
+      btn.addEventListener('click',()=>ov.classList.remove('translate-x-full'));
+      cls.addEventListener('click',()=>ov.classList.add('translate-x-full'));
+      document.querySelectorAll('.mobile-menu-link').forEach(l=>
+        l.addEventListener('click',()=>ov.classList.add('translate-x-full')));
+    })();
+  </script>
+
+
+
+  <header class="hero-bg text-white">
+    <div class="max-w-7xl mx-auto px-6 py-16 md:py-20 grid lg:grid-cols-12 gap-10 items-center">
+      <div class="lg:col-span-7">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/10 text-xs font-extrabold tracking-[0.2em] uppercase mb-6">
+          Google Maps × 區域定位 × 顧問導流
+        </div>
+        <h1 class="text-4xl md:text-6xl font-extrabold leading-[1.08] tracking-tight mb-6">先看區域，再看物件，<br />比直接看案源更有效率</h1>
+        <p class="text-lg md:text-xl text-slate-200 leading-relaxed max-w-3xl mb-8">這版 Invest Map 先以穩定為優先，使用 Google Maps 顯示真實城市與區域 marker，點擊後同步右側區域說明與推薦方向。</p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="#map-section" class="px-8 py-4 rounded-2xl bg-yellow-500 text-slate-900 font-extrabold text-center">開始看投資地圖</a>
+          <a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="px-8 py-4 rounded-2xl border border-white/20 bg-white/10 font-bold text-center">直接問顧問</a>
+        </div>
+      </div>
+      <div class="lg:col-span-5">
+        <div class="bg-white text-slate-900 rounded-[2rem] p-8 shadow-2xl">
+          <div class="text-sm font-extrabold text-blue-900 mb-3">現在這頁可以做的事</div>
+          <div class="space-y-4 text-sm text-slate-600">
+            <div class="flex gap-3"><span class="w-8 h-8 rounded-full bg-blue-50 text-blue-900 flex items-center justify-center font-bold">1</span><p>切換城市：曼谷、芭達雅、吉隆坡、新山、檳城、杜拜、東京、大阪、新加坡、伊斯坦堡、雪梨／黃金海岸</p></div>
+            <div class="flex gap-3"><span class="w-8 h-8 rounded-full bg-blue-50 text-blue-900 flex items-center justify-center font-bold">2</span><p>看每個區域的價格帶、標籤、適合族群與風險提醒</p></div>
+            <div class="flex gap-3"><span class="w-8 h-8 rounded-full bg-blue-50 text-blue-900 flex items-center justify-center font-bold">3</span><p>再決定是否進一步做需求分析或顧問諮詢</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="map-section" class="py-10 md:py-14">
+    <div class="max-w-7xl mx-auto px-6 space-y-8">
+      <section class="bg-white rounded-[2rem] p-6 md:p-8 border border-slate-200 shadow-sm">
+        <div class="grid lg:grid-cols-3 gap-6 items-end">
+          <div>
+            <label class="text-sm font-bold text-slate-500 block mb-2">城市</label>
+            <select id="cityFilter" class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white focus:outline-none">
+              <optgroup label="🇹🇭 泰國">
+                <option value="th">曼谷</option>
+                <option value="py">芭達雅</option>
+              </optgroup>
+              <optgroup label="🇲🇾 馬來西亞">
+                <option value="my">吉隆坡</option>
+                <option value="jb">新山</option>
+                <option value="pg">檳城</option>
+              </optgroup>
+              <optgroup label="🇦🇪 阿聯酋">
+                <option value="ae">杜拜</option>
+              </optgroup>
+              <optgroup label="🇯🇵 日本">
+                <option value="jp">東京</option>
+                <option value="os">大阪</option>
+                <option value="ok">沖繩</option>
+              </optgroup>
+              <optgroup label="🇸🇬 新加坡">
+                <option value="sg">新加坡</option>
+              </optgroup>
+              <optgroup label="🇹🇷 土耳其">
+                <option value="tr">伊斯坦堡</option>
+              </optgroup>
+              <optgroup label="🇦🇺 澳洲">
+                <option value="au">雪梨／黃金海岸</option>
+              </optgroup>
+            </select>
+          </div>
+          <div>
+            <label class="text-sm font-bold text-slate-500 block mb-2">投資目的</label>
+            <div id="purposeFilters" class="flex flex-wrap gap-2">
+              <button class="filter-chip active px-4 py-2 rounded-full border border-slate-300 text-sm font-bold" data-purpose="all">全部</button>
+              <button class="filter-chip px-4 py-2 rounded-full border border-slate-300 text-sm font-bold" data-purpose="收租">收租</button>
+              <button class="filter-chip px-4 py-2 rounded-full border border-slate-300 text-sm font-bold" data-purpose="自住">自住</button>
+              <button class="filter-chip px-4 py-2 rounded-full border border-slate-300 text-sm font-bold" data-purpose="教育">教育</button>
+              <button class="filter-chip px-4 py-2 rounded-full border border-slate-300 text-sm font-bold" data-purpose="退休">退休</button>
+              <button class="filter-chip px-4 py-2 rounded-full border border-slate-300 text-sm font-bold" data-purpose="避險">避險</button>
+            </div>
+          </div>
+          <div>
+            <label class="text-sm font-bold text-slate-500 block mb-2">價格級距</label>
+            <select id="budgetFilter" class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white focus:outline-none">
+              <option value="all">全部</option>
+              <option value="entry">入門型</option>
+              <option value="mid">主流型</option>
+              <option value="premium">高資產型</option>
+            </select>
+          </div>
+        </div>
+        <div id="mapStatus" class="mt-5 text-sm font-bold text-slate-500">正在載入地圖...</div>
+      </section>
+
+      <section class="grid xl:grid-cols-12 gap-8 items-start">
+        <div class="xl:col-span-8">
+          <div class="bg-white rounded-[2rem] border border-slate-200 p-4 shadow-sm">
+            <div id="map"></div>
+          </div>
+        </div>
+
+        <aside class="xl:col-span-4 space-y-6 xl:sticky xl:top-24">
+          <div class="bg-white rounded-[2rem] border border-slate-200 p-6 shadow-sm">
+            <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-900 mb-3">市場摘要</div>
+            <h2 id="marketTitle" class="text-3xl font-extrabold mb-4">曼谷</h2>
+            <p id="marketSummary" class="text-slate-600 leading-relaxed mb-5"></p>
+            <div class="grid grid-cols-2 gap-4 text-sm">
+              <div class="rounded-xl bg-slate-50 p-4 border border-slate-100">
+                <div class="text-slate-400 mb-1">可看區域</div>
+                <div id="marketDistrictCount" class="font-extrabold text-xl text-blue-900">-</div>
+              </div>
+              <div class="rounded-xl bg-slate-50 p-4 border border-slate-100">
+                <div class="text-slate-400 mb-1">主力策略</div>
+                <div id="marketStrategy" class="font-extrabold text-slate-900">-</div>
+              </div>
+            </div>
+            <a id="marketSeminarCta" href="#" target="_blank" rel="noopener" class="hidden mt-5 w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-white text-sm font-extrabold hover:opacity-90 transition">
+              <i class="fa-solid fa-calendar-check"></i> <span id="marketSeminarCtaLabel"></span>
+            </a>
+          </div>
+
+          <div class="bg-white rounded-[2rem] border border-slate-200 p-6 shadow-sm">
+            <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-900 mb-3">區域分析</div>
+            <h3 id="districtTitle" class="text-2xl font-extrabold mb-3">請先點擊地圖上的區域</h3>
+            <p id="districtDesc" class="text-slate-600 leading-relaxed mb-5">地圖上的 marker 點下去後，這裡會顯示該區的定位、風險與適合族群。</p>
+            <div id="districtTags" class="flex flex-wrap gap-2 mb-5">
+              <span class="px-3 py-2 rounded-full bg-slate-50 border border-slate-200 text-sm text-slate-400">尚未選擇區域</span>
+            </div>
+            <div class="grid grid-cols-1 gap-4 text-sm">
+              <div class="rounded-xl bg-slate-50 p-4 border border-slate-100">
+                <div class="text-slate-400 mb-1">均價帶</div>
+                <div id="districtPrice" class="font-extrabold text-lg text-blue-900">-</div>
+              </div>
+              <div class="rounded-xl bg-slate-50 p-4 border border-slate-100">
+                <div class="text-slate-400 mb-1">適合族群</div>
+                <div id="districtAudience" class="font-extrabold text-slate-900">-</div>
+              </div>
+              <div class="rounded-xl bg-slate-50 p-4 border border-slate-100">
+                <div class="text-slate-400 mb-1">風險提醒</div>
+                <div id="districtRisk" class="font-bold text-slate-700 leading-relaxed">-</div>
+              </div>
+            </div>
+            <a id="districtGoogleMapsLink" href="#" target="_blank" rel="noopener" class="hidden mt-5 w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-blue-600 text-white text-sm font-extrabold hover:bg-blue-700 transition">
+              <i class="fa-solid fa-location-dot"></i> 在 Google 地圖開啟
+            </a>
+          </div>
+
+          <div class="bg-white rounded-[2rem] border border-slate-200 p-6 shadow-sm">
+            <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-900 mb-3">TIREA 精選建案</div>
+            <h3 id="listingTitle" class="text-2xl font-extrabold mb-4">尚未選擇區域</h3>
+            <div id="listingGrid" class="space-y-4">
+              <div class="rounded-2xl border border-dashed border-slate-200 p-6 text-slate-400 text-center">點擊地圖上的區域後，這裡會顯示 TIREA 整理後的精選建案。</div>
+            </div>
+          </div>
+
+          <div class="bg-gradient-to-br from-blue-900 to-slate-900 text-white rounded-[2rem] p-6 shadow-xl">
+            <div class="text-sm font-extrabold uppercase tracking-[0.2em] text-blue-200 mb-3">下一步</div>
+            <h3 class="text-2xl font-extrabold mb-4">想知道哪區更適合你？</h3>
+            <p class="text-slate-200 leading-relaxed mb-6">先做需求分析，再由顧問依照你的預算、目標與市場偏好推薦對應區域。</p>
+            <div class="flex flex-col gap-3">
+              <a href="survey.html" class="w-full px-6 py-4 rounded-2xl bg-yellow-500 text-slate-900 font-extrabold text-center">先做需求分析</a>
+              <a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="w-full px-6 py-4 rounded-2xl border border-white/15 text-white font-bold text-center">直接問顧問</a>
+            </div>
+          </div>
+        </aside>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const FALLBACK_GOOGLE_MAPS_API_KEY = 'AIzaSyBWjx2Yf0Y-ofrG-1WkFI_RxID6gacG6Kw';
+    const state = { city: 'th', purpose: 'all', budget: 'all' };
+    let map;
+    let infoWindow;
+    let markers = [];
+    let mygoListings = [];
+
+    const markets = {
+      th: {
+        name: '曼谷',
+        center: { lat: 13.7563, lng: 100.5018 },
+        zoom: 12,
+        summary: '曼谷是東南亞最成熟的海外置產市場之一。外籍人士可全額持有公寓（Freehold）、可繼承、無房產稅、無資本利得稅，永久地契保障完整。泰國 2026 Q1 GDP +3.8%，觀光人次回升，外資公寓需求持續。TIREA 泰國說明會 5/25 截止報名，現場解析曼谷各區配置邏輯與 TIREA 精選建案。',
+        strategy: '收租 / 增值 / 保值',
+        seminarCta: { label:'5/25 截止 → 泰國說明會立即報名', href:'thailand-seminar.html', color:'#b45309' },
+        districts: [
+          { key:'phaya-thai', name:'Phaya Thai', lat:13.7797, lng:100.5447, price:'฿ 120,000–145,000 / sqm', budget:'mid', purposes:['收租','自住','增值'], audience:'首購型與交通導向投資人、BTS/ARL 通勤族', risk:'部分產品屋齡與管理品質差異大，需篩選品牌建商。', tags:['BTS + ARL 雙線', '交通核心', '出租穩定'], desc:'鄰近 BTS 與機場快線（ARL）交匯站，通勤效率高，出租需求穩定。Sansiri 旗下 XT Phayathai 起價 579 萬銖是此區精選案，適合看重出租效率的首購型投資人。月租 ฿ 18,000–30,000，毛租報酬率約 5–6.5%。' },
+          { key:'rama-9', name:'Rama 9 新 CBD', lat:13.7569, lng:100.5662, price:'฿ 100,000–160,000 / sqm', budget:'mid', purposes:['收租','避險','增值'], audience:'想押新 CBD 增值題材的中長線投資人', risk:'新供給量多，需嚴選建商品牌與樓層，持有週期需 5 年以上評估。', tags:['新 CBD', 'MRT 直達', '增值題材'], desc:'曼谷新興 CBD，MRT Phra Ram 9 站周邊，跨國企業辦公聚集。Noble Nue Epic（4 塔 3,107 戶）、ASHTON Asoke-Rama 9、COBE Ratchada 等多個品牌案坐落於此。商務租賃與增值題材明確，是台灣買家最集中的曼谷佈局板塊。' },
+          { key:'thonglor', name:'Thonglor / Ekkamai', lat:13.7307, lng:100.5789, price:'฿ 180,000–250,000 / sqm', budget:'premium', purposes:['收租','自住','避險','增值'], audience:'高資產自住、日本外派高管、保值型配置', risk:'入場門檻高；保證收益需仔細確認托管合約年限與條款。', tags:['高端自住', '日本外派熱區', 'TIREA 精選'], desc:'曼谷最成熟的高端外籍生活圈，精品餐廳、日系商場、米其林餐廳聚集。TIREA 精選 Chewathai Residence Thonglor（65 折、保證 6% 年化）、Hyde Heritage Thonglor、Culture Thonglor（Ascott 代管）在此區。月租 ฿ 35,000–80,000，是保值與形象配置首選。' },
+          { key:'sukhumvit', name:'Sukhumvit', lat:13.7377, lng:100.5606, price:'฿ 150,000–200,000 / sqm', budget:'premium', purposes:['收租','自住','教育'], audience:'自住與國際家庭型需求、BTS 沿線通勤族', risk:'區段差異很大（Soi 1–101 品質落差懸殊），需細分地段選案。', tags:['國際社群', 'BTS 沿線', '長租需求'], desc:'曼谷最國際化的成熟生活圈，外籍工作者與家庭長期聚居，BTS 沿線設施完整。Noble State 39、PITI Sukhumvit 101、IDEO 柏悅灣等多個品牌案在此。月租 ฿ 25,000–60,000，是曼谷租賃需求最穩定的地段。' },
+          { key:'pathum-wan', name:'Pathum Wan / Silom', lat:13.7305, lng:100.5308, price:'฿ 120,000–160,000 / sqm', budget:'entry', purposes:['收租','教育','避險'], audience:'追求穩定現金流、學區保值型買方', risk:'學生租金絕對值較低；寒暑假有短暫空置期需納入評估。', tags:['朱拉隆功學區', 'Lumpini 公園旁', '現金流抗跌'], desc:'緊鄰朱拉隆功大學（泰國第一學府），學區保值屬性強，空置率全曼谷最低。TIREA 精選遹羅學府、CULTURE CHULA、COCO PARC（Lumpini 公園旁）坐落於此。月租 ฿ 15,000–28,000，毛租報酬率約 5.5–7%，是最抗跌的曼谷板塊。' },
+          { key:'charoennakorn', name:'Charoennakorn 河畔', lat:13.7271, lng:100.5088, price:'฿ 130,000–170,000 / sqm', budget:'mid', purposes:['收租','自住','避險'], audience:'看重昭披耶河景與 ICON SIAM 生活圈的買方', risk:'BTS Gold Line 班次頻率較低，距核心商業區稍遠，以生活品質而非純通勤邏輯為主。', tags:['昭披耶河景', 'ICON SIAM', 'Sansiri 品牌'], desc:'昭披耶河西岸精品生活圈，鄰近 ICON SIAM（全泰最大購物中心），BTS Gold Line 直達 Saphan Taksin。FLO by Sansiri、Flexi Riverview-Charoennakorn 等河景品牌案在此。月租 ฿ 20,000–40,000，適合看重河景生活氛圍的中高端配置。' },
+          { key:'latphrao', name:'Latphrao / 廊曼', lat:13.8059, lng:100.5693, price:'฿ 80,000–110,000 / sqm', budget:'entry', purposes:['收租','自住'], audience:'入門預算型首購投資人、追求 MRT 捷運宅的年輕族群', risk:'區域正在發展中，部分地段商業機能尚在成熟，需評估去化週期。', tags:['入門門檻', 'MRT / BTS 站旁', '北曼谷新興'], desc:'廊曼（Lad Prao）沿線北曼谷發展帶，BTS/MRT 各站旁新案聚集，THE LINE Vibe、Life Phahon Ladprao、THE CREST PARK RESIDENCES 等案在此。入門定價親民，月租 ฿ 12,000–20,000，毛租報酬率約 6–7%，是追求低總價切入曼谷市場的首選。' },
+          { key:'on-nut', name:'On Nut / Udomsuk', lat:13.7054, lng:100.6020, price:'฿ 85,000–115,000 / sqm', budget:'entry', purposes:['收租','自住'], audience:'入門投資、年輕外籍租客導向買方', risk:'產品品質落差大，建商品牌篩選至關重要。', tags:['BTS 外擴', '入門門檻', '年輕租客聚居'], desc:'BTS Sukhumvit 線 On Nut 至 Bearing 延伸帶，年輕外籍工作者與學生聚居，生活機能完整。Aspire Onnut Station、Life Udomsuk Station、XELF by Sansiri 等案在此。月租 ฿ 12,000–22,000，毛租報酬率約 6–7%，入門門檻最低。' }
+        ]
+      },
+      py: {
+        name: '芭達雅',
+        center: { lat: 12.9200, lng: 100.8750 },
+        zoom: 12,
+        summary: '芭達雅是全球知名度假型海景置產市場，外籍人士可全額持有公寓、無房產稅，飯店式代管服務成熟（多平台可代管短租）。旺季出租月租可達 ฿ 30,000–60,000，毛租報酬率 6–8%。TIREA 5/25 泰國說明會，現場解析芭達雅各海灘帶地段差異、代管模式與旺季計算邏輯。',
+        strategy: '度假收租 / 退休移居 / 短租增值',
+        seminarCta: { label:'5/25 截止 → 芭達雅海景配置說明會', href:'thailand-seminar.html', color:'#0369a1' },
+        districts: [
+          {
+            key:'wongamat',
+            name:'Wongamat Beach',
+            lat:12.9650, lng:100.8820,
+            price:'฿ 120,000–180,000 / sqm',
+            budget:'premium',
+            purposes:['避險','自住','收租'],
+            audience:'高端海景自住、高資產短租配置、歐美退休買家',
+            risk:'入場門檻高，需評估淡旺季租賃落差及代管費用結構。',
+            tags:['一線私人沙灘','Riviera 品牌','芭達雅最高端'],
+            desc:'全芭達雅最受高端買家青睞的私人沙灘帶，Wongamat 海灘清靜、水質優，遠離鬧區。Riviera Wongamat Beach 品牌盤是此區地標。旺季月租 ฿ 40,000–80,000，是追求頂級海景保值與高端旺季收益的首選地段。'
+          },
+          {
+            key:'north-pattaya',
+            name:'North Pattaya',
+            lat:12.9548, lng:100.8898,
+            price:'฿ 100,000–140,000 / sqm',
+            budget:'mid',
+            purposes:['自住','退休','收租'],
+            audience:'長住自住型買方、度假兼退休配置',
+            risk:'鄰近娛樂區，需評估自住舒適度與長租市場深度。',
+            tags:['生活機能完整','Terminal 21 商場','中端海景'],
+            desc:'芭達雅生活機能最完整的地帶，Terminal 21 商場、超市、醫療設施聚集。距 Wongamat 海灘車程 5 分鐘，是兼顧城市便利與海灘生活的中端自住首選。月租 ฿ 18,000–35,000，毛租報酬率約 5.5–7%。'
+          },
+          {
+            key:'pratumnak',
+            name:'Pratumnak Hill',
+            lat:12.9100, lng:100.8710,
+            price:'฿ 100,000–150,000 / sqm',
+            budget:'mid',
+            purposes:['自住','退休','避險'],
+            audience:'歐洲退休移居者、長住高端自住買方',
+            risk:'距商業核心稍遠，短租需求不如 Central/Wongamat 旺盛，以長租自住邏輯為主。',
+            tags:['靜謐山頂', 'Cozy Beach 步行', '歐洲退休聚居'],
+            desc:'芭達雅最靜謐的山頂住宅區，俯瞰海景，步行可達 Cozy Beach 私人沙灘。歐洲長住退休買家聚居，遠離夜生活喧囂，生活品質感強。The Cloud Residences Pratumnak 是此區代表案，適合長期退休移居型配置。'
+          },
+          {
+            key:'central-pattaya',
+            name:'Central Pattaya',
+            lat:12.9318, lng:100.8833,
+            price:'฿ 110,000–180,000 / sqm',
+            budget:'mid',
+            purposes:['收租','自住','增值'],
+            audience:'短租收益導向投資人、喜歡核心熱區的買方',
+            risk:'觀光旺淡季落差大，短租平台競品多，需評估代管品質與費用。',
+            tags:['全市核心','短租熱區','Grand Solaire 地標'],
+            desc:'芭達雅商業與觀光核心，短租旺季需求最旺盛的地帶。Grand Solaire Pattaya（全市最高 59 層）坐落於此，俯瞰芭達雅灣全景。旺季月租 ฿ 30,000–60,000，是追求短租現金流的首選地段，需搭配代管服務運營。'
+          },
+          {
+            key:'jomtien',
+            name:'Jomtien Beach',
+            lat:12.8845, lng:100.8781,
+            price:'฿ 75,000–120,000 / sqm',
+            budget:'entry',
+            purposes:['退休','自住','收租'],
+            audience:'預算親民的退休移居者、首次切入芭達雅的投資人',
+            risk:'舊案供給量大，需嚴選管理品質優良的個案，避免老化社區。',
+            tags:['入門首選', '海灘長廊', '退休外籍聚居'],
+            desc:'全芭達雅最親民的海灘帶，Jomtien 沙灘長廊與海鮮餐廳聚集，外籍退休族長期聚居。Copacabana Beach Jomtien、Reflection Jomtien Beach 等品牌案在此。定價較 Central/Wongamat 親民 20–30%，月租 ฿ 15,000–30,000，毛租報酬率約 6–8%，性價比最高。'
+          }
+        ]
+      },
+      my: {
+        name: '吉隆坡',
+        center: { lat: 3.1450, lng: 101.6950 },
+        zoom: 12,
+        summary: '吉隆坡是馬來西亞首都，外籍人士可全額持有公寓（MM2H / 外資門檻 RM 60 萬起），無資本利得稅（RPGT 外籍 10%，持有 5 年後 0%），租金回報率 4–6%。2026 Q1 GDP +4.5%，新金融區 TRX 全面啟動，吉隆坡城中城持續升級。TIREA 5/23 馬來西亞說明會，解析吉隆坡各區差異與選案邏輯。',
+        strategy: '自住 / 收租 / 居留規劃',
+        seminarCta: { label:'5/23 吉隆坡 & 新山說明會 → 立即報名', href:'malaysia-seminar.html', color:'#0f766e' },
+        districts: [
+          {
+            key:'bukit-bintang',
+            name:'Bukit Bintang',
+            lat:3.1468, lng:101.7113,
+            price:'RM 1,400–1,700 / sqft',
+            budget:'premium',
+            purposes:['收租','自住'],
+            audience:'都會型收租與商務自住買方',
+            risk:'供給量偏多，需嚴選開發商品牌與樓層，避免入住率偏低的滯銷樓層。',
+            tags:['黃金三角','雙峰塔步行','都會收租'],
+            desc:'吉隆坡購物娛樂核心，Pavilion 商場、Lot 10 與 Berjaya Times Square 聚集，MRT2 TRX 站 350m。Pavilion Square 品牌盤坐鎮此區，月租 RM 3,000–5,000，毛租報酬率約 5–6%。適合兼顧收租與都會自住的中高端配置。'
+          },
+          {
+            key:'klcc',
+            name:'KLCC',
+            lat:3.1579, lng:101.7123,
+            price:'RM 2,000–2,500 / sqft',
+            budget:'premium',
+            purposes:['避險','自住','增值'],
+            audience:'地標核心資產配置、高端保值型買方',
+            risk:'租金回報率偏低（3–4%），以形象保值為主要邏輯，需長期持有視角。',
+            tags:['雙峰塔','地標核心','高端保值'],
+            desc:'雙峰塔（Petronas Twin Towers）核心生活圈，吉隆坡最具象徵性的精華地段。E&O × 三井不動產聯手開發的 The Conlay KLCC、Platinum Face II 坐落此區。月租 RM 5,000–9,000，毛租報酬率約 3–4%，偏向形象保值型高端資產配置。'
+          },
+          {
+            key:'trx',
+            name:'TRX 敦拉薩交易所',
+            lat:3.1408, lng:101.7228,
+            price:'RM 1,100–1,500 / sqft',
+            budget:'mid',
+            purposes:['收租','增值'],
+            audience:'新興金融區收租與增值導向投資人',
+            risk:'物件去化仍在爬坡期，需確認入住率與社區成熟度再決策。',
+            tags:['新 CBD','MRT2 直達','增值題材'],
+            desc:'吉隆坡最新 CBD，全馬最高建築 106 Exchange Tower 旁，220 萬平方尺 TRX Exchange Mall 已全面開幕。MRT2 TRX 站直達，2 站到雙峰塔。CORE RESIDENCE@TRX 中央公館是此區代表性住宅盤，月租 RM 2,500–4,500，毛租報酬率約 5–6%。'
+          },
+          {
+            key:'bangsar',
+            name:'Bangsar',
+            lat:3.1298, lng:101.6815,
+            price:'RM 900–1,200 / sqft',
+            budget:'mid',
+            purposes:['自住','收租'],
+            audience:'外派族群、吉隆坡中上端自住買方',
+            risk:'新舊建案分化明顯，舊案管理品質需確認；外籍租客租期波動需評估。',
+            tags:['外派熱區','餐飲生活圈','LRT 直達 KL Sentral'],
+            desc:'吉隆坡最受外籍人士喜愛的成熟自住生活圈，Bangsar Village、精品咖啡與國際餐廳聚集。LRT Bangsar 站步行 350m，1 站直達 KL Sentral 全馬最大轉乘樞紐。The Lantern Bangsar 在此。月租 RM 2,000–4,000，毛租報酬率約 4.5–5.5%。'
+          },
+          {
+            key:'mont-kiara',
+            name:'Mont Kiara',
+            lat:3.1705, lng:101.6524,
+            price:'RM 900–1,100 / sqft',
+            budget:'mid',
+            purposes:['教育','自住','收租'],
+            audience:'國際家庭、外派高管、MM2H 申請家庭',
+            risk:'外籍租客波動時有發生，租賃需求受全球外派人力市場影響，需長線評估。',
+            tags:['國際學校群','外派高管','生活機能'],
+            desc:'吉隆坡最集中的國際學校群（EtonHouse、SK International、Garden International），外籍高管家庭長期聚居。1-Mont Kiara、Publika 商場生活機能成熟。適合 MM2H 居留或攜子移居家庭。月租 RM 2,500–4,500，毛租報酬率約 5–5.5%。'
+          },
+          {
+            key:'damansara-heights',
+            name:'Damansara Heights 白沙羅嶺',
+            lat:3.1549, lng:101.6520,
+            price:'RM 1,000–1,400 / sqft',
+            budget:'premium',
+            purposes:['自住','退休','避險'],
+            audience:'高端自住買方、退休移居型配置、MM2H 高資產申請人',
+            risk:'流動性偏私房市場，需有 5 年以上長期持有視角，非短進短出型。',
+            tags:['山頂豪宅','高端自住','退休生活'],
+            desc:'吉隆坡最具地位感的山頂住宅區，距商業區僅 10 分鐘。Pavilion Damansara Heights（柏威年 × 加拿大退休基金 CPP Investments 聯營）16 英畝永久地契複合開發案坐落於此，是全吉隆坡最受矚目的新高端盤。適合追求生活品質的高端自住與退休配置。'
+          }
+        ]
+      },
+      jb: {
+        name: '新山',
+        center: { lat: 1.4850, lng: 103.7200 },
+        zoom: 12,
+        summary: '新山是東南亞成長最快的跨境生活圈。RTS 新柔捷運 2027 Q2 預計通車，直連新加坡烏節路 30 分鐘，吸引新加坡通勤族與台灣買家。馬來西亞 2026 Q1 GDP +4.5%，外資持續流入依斯干達特區。TIREA 5/23 新山說明會，現場解析 RTS 沿線物件與跨境配置策略。',
+        strategy: 'RTS 跨境通勤 / 跨境生活圈',
+        seminarCta: { label:'5/23 新山說明會 → 立即報名', href:'malaysia-seminar.html', color:'#0f766e' },
+        districts: [
+          {
+            key:'jb-city-centre',
+            name:'新山市中心 JB City Centre',
+            lat:1.4628, lng:103.7648,
+            price:'RM 700–850 / sqft',
+            budget:'mid',
+            purposes:['收租','增值'],
+            audience:'RTS 通勤題材投資人、短期增值型買方',
+            risk:'RTS 題材已有一定程度反映在價格，需評估個別樓盤供給量與租賃去化速度。',
+            tags:['RTS 捷運站旁','跨境增值','核心地段'],
+            desc:'RTS 新柔捷運新山終點站 Bukit Chagar 鄰近區域，步行可達 CIQ 出入境通關。通車前後題材最集中，近 3 年成交均價年增逾 12%。月租 RM 2,500–3,500，毛租報酬率約 5.5–6.5%。適合以 RTS 通車時機為切入點的增值型配置。'
+          },
+          {
+            key:'princess-cove',
+            name:'公主灣 Princess Cove',
+            lat:1.4558, lng:103.7716,
+            price:'RM 1,100–1,350 / sqft',
+            budget:'premium',
+            purposes:['避險','自住','增值'],
+            audience:'高端台新買家、看重跨境核心位置的資產配置者',
+            risk:'售價溢價明顯，出租回報率偏低（約 4–5%），以保值與話題性為主要邏輯。需確認實際租賃需求支撐。',
+            tags:['跨境核心','地標地段','高端保值'],
+            desc:'緊貼新柔長堤、俯瞰新加坡海峽，地理位置是全新山最具象徵性的跨境地標。品牌盤，提供大型高端社區設施，吸引台灣與新加坡高端買家。適合以跨境資產意義為主的配置，非純收租邏輯。'
+          },
+          {
+            key:'danga-bay',
+            name:'登加灣 Danga Bay',
+            lat:1.4780, lng:103.7250,
+            price:'RM 620–800 / sqft',
+            budget:'mid',
+            purposes:['收租','自住'],
+            audience:'預算中等、看重海景與生活機能的中長期持有型買方',
+            risk:'部分樓盤供給壓力較大，需挑選去化較快、社區管理優質的個案。',
+            tags:['海景水岸','中端自住','生活機能'],
+            desc:'新山西海岸水岸生活圈，鄰近 AEON 商場、餐飲與休閒設施。混合住宅與度假風格，適合長住自住或出租給外籍工作者。月租 RM 2,000–3,000，毛租報酬率約 5–6%，是兼顧生活品質與合理報酬的中端選項。'
+          },
+          {
+            key:'iskandar-puteri',
+            name:'依斯干達公主城 Iskandar Puteri',
+            lat:1.4170, lng:103.6603,
+            price:'RM 580–780 / sqft',
+            budget:'mid',
+            purposes:['教育','自住','家庭'],
+            audience:'攜子移居家庭、馬來西亞第二家園（MM2H）申請人、長住型買方',
+            risk:'區域整體發展進度仍在持續，部分次區段入住率尚低，需挑選已成熟社區。',
+            tags:['國際學校群','新市鎮','家庭自住'],
+            desc:'依斯干達特區核心規劃區，集中馬來西亞最密集的國際學校群（EtonHouse、Marlborough、Legoland 旁），適合攜子移居或子女教育導向買家。Puteri Harbour 遊艇碼頭、Medini 商業區鄰近。月租 RM 2,000–3,200，毛租報酬率約 5.5–6%。'
+          },
+          {
+            key:'medini',
+            name:'美迪尼 Medini',
+            lat:1.4250, lng:103.6400,
+            price:'RM 480–650 / sqft',
+            budget:'entry',
+            purposes:['增值','收租'],
+            audience:'預算有限但看好依斯干達長期開發的早期佈局型買方',
+            risk:'目前入住率仍偏低，短期租賃需求有限，適合以 5 年以上長期視角持有。',
+            tags:['特區免稅','低門檻','長線增值'],
+            desc:'依斯干達特區內唯一享有外資豁免條款的國際商業區，免土地增值稅（RPGT）優惠對外籍投資人友善。發展重心在商業與觀光設施，住宅定價目前仍是新山最親民的核心特區選項。適合低門檻切入、長期等待開發紅利。'
+          },
+          {
+            key:'bukit-indah',
+            name:'武吉英達 Bukit Indah',
+            lat:1.5200, lng:103.6700,
+            price:'RM 420–580 / sqft',
+            budget:'entry',
+            purposes:['自住','收租'],
+            audience:'新加坡通勤族、預算親民的自住型家庭、首購台灣投資人',
+            risk:'距 CIQ 通關點約 20–25 分鐘車程，通勤便利性略遜市中心，需評估自身需求。',
+            tags:['通勤住宅','入門首選','生活配套完整'],
+            desc:'新加坡通勤族最集中的成熟住宅區之一，AEON、IKEA 旗艦店、餐飲娛樂一應俱全。定價親民，是台灣買家首次切入新山的熱門入門選擇。月租 RM 1,500–2,500，毛租報酬率約 6–7%，出租需求相對穩定。'
+          },
+          {
+            key:'mount-austin',
+            name:'奧斯丁 Mount Austin',
+            lat:1.5500, lng:103.7700,
+            price:'RM 380–520 / sqft',
+            budget:'entry',
+            purposes:['收租','自住'],
+            audience:'出租收益導向投資人、長住型自住買方',
+            risk:'部分次區段供給較多，選擇樓盤時需確認已入住率與社區管理水準。',
+            tags:['高租報率','在地需求強','成熟住宅區'],
+            desc:'新山在地馬來西亞人與通勤族聚居的成熟住宅區，在地租賃需求穩定，流動性相對較高。定價為新山最親民區段之一，月租 RM 1,400–2,200，毛租報酬率可達 6.5–7.5%，是追求現金流回報的首選地段。'
+          }
+        ]
+      },
+      pg: {
+        name: '檳城',
+        center: { lat: 5.3900, lng: 100.3000 },
+        zoom: 11,
+        summary: '檳城是馬來西亞最受退休移居與生活型買家青睞的島嶼城市。UNESCO 世界遺產古城 George Town、一線海景 Gurney Drive、科技園區 Batu Kawan 三條主軸各有其受眾。MM2H 新制（資產門檻 RM 150 萬）對高資產買家友善，醫療品質全馬前三，無資本利得稅（持有 5 年後 0%）。TIREA 5/23 馬來西亞說明會，含檳城退休與配置策略專題。',
+        strategy: '退休移居 / 生活品質 / MM2H',
+        seminarCta: { label:'5/23 說明會 → 檳城退休配置專題', href:'malaysia-seminar.html', color:'#0369a1' },
+        districts: [
+          {
+            key:'george-town',
+            name:'George Town',
+            lat:5.4141, lng:100.3288,
+            price:'RM 550–750 / sqft',
+            budget:'mid',
+            purposes:['自住','退休','收租'],
+            audience:'喜歡城市文化生活、MM2H 退休買方、台灣移居家庭',
+            risk:'老城區部分舊建案管理品質參差，建議選有物業管理的品牌新案，避免獨立舊樓。',
+            tags:['UNESCO 世界遺產','文化生活圈','外籍聚居'],
+            desc:'全球 UNESCO 世界遺產古城，街頭藝術、精品咖啡館與多元美食文化聞名世界。外籍族群長期聚居，Setia Sky 88 等品牌新案坐落於此。月租 RM 1,500–2,500，毛租報酬率約 5–6%，適合中長期自住或退休移居配置。'
+          },
+          {
+            key:'gurney-drive',
+            name:'Gurney Drive',
+            lat:5.4376, lng:100.3108,
+            price:'RM 1,200–1,800 / sqft',
+            budget:'premium',
+            purposes:['自住','避險','退休'],
+            audience:'高端海景自住買方、高資產 MM2H 申請人',
+            risk:'售價已充分反映海景溢價，租金回報率偏低（約 3–4%），以保值生活品質為主，非收租邏輯。',
+            tags:['一線海景','YTL 品牌','高端保值'],
+            desc:'全檳城最高端的海景生活圈，面向檳城海峽，Gurney Drive 漫步道與 Gurney Paragon 商場鄰近。YTL Land 的 The Residence @ Gurney Paragon 是此區代表品牌盤。月租 RM 3,000–6,000，毛租報酬率約 3–4%，以生活品質與長期保值為主要邏輯。'
+          },
+          {
+            key:'tanjung-tokong',
+            name:'Tanjung Tokong / Pulau Tikus',
+            lat:5.4450, lng:100.3250,
+            price:'RM 700–1,000 / sqft',
+            budget:'mid',
+            purposes:['自住','收租'],
+            audience:'外派族群、台灣長住移居家庭、外籍高管',
+            risk:'近年部分新案供給增加，需挑選入住率高、社區管理優質的個案，避免滯銷樓層。',
+            tags:['外派熱區','國際學校','成熟生活圈'],
+            desc:'檳城最受外籍人士喜愛的成熟住宅區，國際學校、Cold Storage 精品超市、Straits Quay 水岸商場聚集。Gurney Drive 10 分鐘，E&O 東家集團 Tanjung Pinang 水岸社區坐落於此。月租 RM 2,000–3,500，毛租報酬率約 4.5–5.5%，是台灣買家長住自住的首選生活圈。'
+          },
+          {
+            key:'batu-ferringhi',
+            name:'Batu Ferringhi',
+            lat:5.4785, lng:100.2504,
+            price:'RM 600–900 / sqft',
+            budget:'mid',
+            purposes:['退休','自住','收租'],
+            audience:'度假生活型買方、退休移居、旺季短租收益型配置',
+            risk:'距市區核心約 20–30 分鐘車程，日常生活倚賴自駕；短租旺季明顯，淡旺季落差需審慎評估。',
+            tags:['白沙灘步行','度假退休','旺季短租'],
+            desc:'全馬最知名的白沙灘度假生活圈，Hard Rock、喜來登、玫瑰花園等國際連鎖飯店林立，Ferringhi Walk 夜市提供豐富消費場景。Ferringhi Residence 海景社區適合度假兼旺季短租。旺季月租可達 RM 3,000–5,000，是追求退休海景生活品質的性價比選項。'
+          },
+          {
+            key:'bayan-lepas',
+            name:'Bayan Lepas / Batu Kawan',
+            lat:5.2973, lng:100.2652,
+            price:'RM 420–620 / sqft',
+            budget:'entry',
+            purposes:['收租','教育'],
+            audience:'預算親民的收租型投資人、科技園就業族群、學生族配置',
+            risk:'供給量較大，競品眾多，個案篩選尤為重要，需確認管理品質與入住率。',
+            tags:['Batu Kawan 新城','IKEA 旗艦','科技園就業'],
+            desc:'Penang Science Park 與 Intel、Bosch 等跨國科技廠聚集地，就業需求支撐長期租賃市場。Batu Kawan 新城（IKEA 旗艦、Design Village Outlet、檳城第二大橋橋頭）引入大量消費人口。One Foresta Batu Kawan 是此區代表案。月租 RM 1,200–2,000，毛租報酬率可達 6–7%，是全檳城租報率最高的入門地段。'
+          }
+        ]
+      },
+
+      ae: {
+        name: '杜拜',
+        center: { lat: 25.1972, lng: 55.2796 },
+        zoom: 11,
+        summary: '杜拜提供 100% 外籍持有（Freehold 區）、0 房產稅、0 資本利得稅，Golden Visa 400 萬迪拉姆門檻，是中東最受海外投資人矚目的市場。',
+        strategy: '避險 / 增值 / 移居',
+        districts: [
+          { key:'jvc', name:'JVC（Jumeirah Village Circle）', lat:25.0539, lng:55.2074, price:'AED 950 / sqft', budget:'entry', purposes:['收租','增值'], audience:'入門海外資產配置與收租需求', risk:'新開發區出租市場尚在成熟中，需篩選管理品質好的物件。', tags:['入門首選','高供給','出租收益'], desc:'杜拜入門門檻最低的 Freehold 熱區，適合首次佈局、追求租金回報的投資人。' },
+          { key:'business-bay', name:'Business Bay', lat:25.1855, lng:55.2617, price:'AED 1,600 / sqft', budget:'mid', purposes:['收租','增值','避險'], audience:'商務型收租與中端資產配置', risk:'供給量大，建商品牌與樓層選擇很重要。', tags:['商業核心','辦公需求','出租穩定'], desc:'緊鄰 Downtown 的商業中心，適合商務型收租與資產組合配置。' },
+          { key:'dubai-marina', name:'Dubai Marina', lat:25.0801, lng:55.1404, price:'AED 1,800 / sqft', budget:'premium', purposes:['收租','自住','退休'], audience:'海景自住與高租賃回報需求', risk:'依賴旅遊短租波動，需評估長短租比例與持有成本。', tags:['海景','高端','短租熱區'], desc:'最成熟的高端海景生活圈，短租需求旺盛，適合海景資產與生活型配置。' },
+          { key:'downtown-dubai', name:'Downtown Dubai', lat:25.1972, lng:55.2796, price:'AED 2,800 / sqft', budget:'premium', purposes:['避險','自住','增值'], audience:'地標核心保值與高端自住', risk:'入場門檻高，租金回報率偏低，以保值與形象配置為主。', tags:['哈里發塔','地標核心','保值資產'], desc:'哈里發塔旁的頂級地標核心，偏向保值形象型資產配置，流動性佳。' }
+        ]
+      },
+
+      jp: {
+        name: '東京',
+        center: { lat: 35.6762, lng: 139.6503 },
+        zoom: 11,
+        summary: '東京外籍人士持有無限制、可繼承、無持有稅上限，是全球最法規友善的海外置產市場之一。日圓 149.00 仍處歷史低點（台幣兌日圓 2019 年約 0.29，現約 0.22），本輪累計升值空間超過 30%。適合以日幣匯差切入、長期保值增值為核心邏輯的資產配置。TIREA 整理東京市場 4 大板塊精選建案，歡迎預約諮詢。',
+        strategy: '匯差保值 / 增值 / 高端自住',
+        districts: [
+          {
+            key:'minato-ku',
+            name:'港區（Minato-ku）',
+            lat:35.6583, lng:139.7514,
+            price:'¥ 1,500,000–2,500,000 / sqm',
+            budget:'premium',
+            purposes:['避險','自住','增值'],
+            audience:'高端自住與頂級資產配置、以保值為首要邏輯的台灣高資產買方',
+            risk:'入場門檻極高（總價 1 億円以上），流動性偏私房市場，需有 7 年以上長期視角。',
+            tags:['頂級核心','使館區','東京最保值'],
+            desc:'六本木、赤坂、麻布、白金台聚集，是東京最高端的外籍保值住宅帶。プラウドタワー品川（野村不動産）與周邊品川再開發案坐落鄰近，2027 年磁浮リニア品川站預定啟用增值題材明確。月租 ¥ 30–80 萬，租報率約 3–4%，偏向形象保值配置。'
+          },
+          {
+            key:'shibuya',
+            name:'澀谷 / 文京（Shibuya / Bunkyo）',
+            lat:35.6595, lng:139.7005,
+            price:'¥ 1,100,000–1,600,000 / sqm',
+            budget:'premium',
+            purposes:['增值','收租','自住'],
+            audience:'科技族群、高台精品自住買方、教育學區需求',
+            risk:'產品稀缺度高，新築供給有限，需長期持有，流動性偏私房市場。',
+            tags:['時尚科技指標','高台低密度','文京學區'],
+            desc:'澀谷以科技品牌（Google、Apple 日本總部）與時尚指標聞名，品牌感與土地稀缺性強。文京区小石川高台（住友不動産 シティハウス系列）鄰近東京大學，教育環境絕佳。月租 ¥ 25–60 萬，適合以精品保值與高端學區自住為邏輯的台灣買方。'
+          },
+          {
+            key:'shinjuku',
+            name:'新宿 / 池袋（Shinjuku / Ikebukuro）',
+            lat:35.6938, lng:139.7034,
+            price:'¥ 700,000–1,100,000 / sqm',
+            budget:'mid',
+            purposes:['收租','增值','自住'],
+            audience:'都市型收租與增值配置、台灣首次切入東京的中端買方',
+            risk:'新宿競品多，池袋部分舊区段需篩選建商品牌與管理品質。',
+            tags:['交通核心','9路線池袋','收租首選'],
+            desc:'新宿為全東京最大交通樞紐，JR・地下鐵・小田急・京王各線交匯，外派出差族長租需求旺盛。池袋（Brillia Tower 東京建物）9 路線直達，是切入東京中價帶的性價比之選。月租 ¥ 15–30 萬，租報率約 4–5%，適合收租型首次配置。'
+          },
+          {
+            key:'koto-ku',
+            name:'江東區 / 豊洲（Koto-ku / Toyosu）',
+            lat:35.6475, lng:139.7954,
+            price:'¥ 700,000–1,000,000 / sqm',
+            budget:'mid',
+            purposes:['收租','自住','增值'],
+            audience:'看好東京灣岸再開發、預算中等的投資型買方',
+            risk:'非傳統精華地帶，流動性相對偏低，需長期持有視角。',
+            tags:['東京灣岸','奧運再開發','豊洲市場旁'],
+            desc:'東京灣岸開發帶，豊洲市場、有明 Arena、Harumi FLAG（東京奧運選手村轉住宅）聚集。ブランズタワー豊洲（東急不動産）、パークタワー勝どきミッド（三井不動産）在此區範圍。均價 ¥ 700k–1M/sqm，月租 ¥ 15–25 萬，租報率約 4.5–5.5%，是入門東京都心的性價比板塊。'
+          }
+        ]
+      },
+
+      os: {
+        name: '大阪',
+        center: { lat: 34.6937, lng: 135.5023 },
+        zoom: 12,
+        summary: '大阪是東京以外最受台灣投資人關注的日本城市。觀光復甦強勁（2025 年訪日外客再創新高），IR（整合型度假村）2030 年夢洲開業預期支撐長線增值，萬博遺址再開發持續。均價較東京低 30–50%，是同樣享有日幣匯差紅利的性價比切入點。外籍持有條件與東京相同，無限制。',
+        strategy: '觀光收租 / IR 增值 / 性價比保值',
+        districts: [
+          {
+            key:'namba',
+            name:'難波（Namba）',
+            lat:34.6661, lng:135.5024,
+            price:'¥ 550,000–800,000 / sqm',
+            budget:'mid',
+            purposes:['收租','增值'],
+            audience:'觀光收租導向投資人、看大阪旅遊復甦題材的買方',
+            risk:'旅宿法規（住宅宿泊事業法）需確認執行限制；觀光波動對出租率有影響，需評估長短租比例。',
+            tags:['觀光核心','道頓堀','短租旺盛'],
+            desc:'大阪旅遊核心，道頓堀、心斎橋、黒門市場聚集，訪日外客需求旺盛。ブランズタワー大阪難波（東急不動産）坐落鄰近，御堂筋線難波站步行圈。月租 ¥ 12–18 萬，租報率約 4.5–5.5%，是大阪入門收租的性價比首選。'
+          },
+          {
+            key:'umeda',
+            name:'梅田（Umeda）/ 北区',
+            lat:34.7055, lng:135.4983,
+            price:'¥ 700,000–1,000,000 / sqm',
+            budget:'premium',
+            purposes:['自住','避險','增值'],
+            audience:'大阪商務自住、高端保值配置、企業外派高管',
+            risk:'高端新築供給有限，流動性較低，需長期持有視角。',
+            tags:['大阪玄關','梅田商業圈','THE TOWER OSAKA'],
+            desc:'大阪 CBD 北端玄關，JR 大阪・阪急・地下鐵 12 路線交匯全大阪交通最優。THE TOWER OSAKA（48 層全市最高住宅，俯瞰大阪城・淀川）坐落福島区，步行至梅田 5 分鐘。均價 ¥ 700k–1M/sqm，IR 增值預期加持，是大阪保值首選。'
+          },
+          {
+            key:'tennoji',
+            name:'天王寺 / 阿倍野',
+            lat:34.6474, lng:135.5134,
+            price:'¥ 500,000–700,000 / sqm',
+            budget:'mid',
+            purposes:['收租','自住','退休'],
+            audience:'預算中等、看重大阪南部生活機能的自住或收租買方',
+            risk:'觀光客比例低，以在地長租需求為主，需評估租客背景與合約條款。',
+            tags:['あべのハルカス', 'JR・地下鐵交匯','生活機能完整'],
+            desc:'全日本最高摩天大樓 あべのハルカス（300m）所在地，天王寺公園、阿倍野 HARUKAS 商場聚集，是大阪南部最成熟的生活型自住圈。定價較梅田親民，月租 ¥ 10–16 萬，毛租報酬率約 5–6%，適合長租收益導向配置。'
+          },
+          {
+            key:'yumeshima',
+            name:'夢洲 IR 特區',
+            lat:34.6561, lng:135.4091,
+            price:'¥ 400,000–600,000 / sqm',
+            budget:'entry',
+            purposes:['增值','避險'],
+            audience:'看重 IR 開發長期題材、耐心持有的投資人',
+            risk:'IR 開發時程仍存在政策不確定性，進度延遲可能影響短期增值，需 7 年以上持有視角。',
+            tags:['IR 賭場 2030','萬博遺址再開發','長期增值'],
+            desc:'大阪 IR 整合型度假村（Casino + Hotel + Convention）2030 年預定開業地點，前身為 2025 萬博主場館。發展題材明確，入場定價相對低，是看大阪長線增值、願意耐心持有的投資人切入點。'
+          }
+        ]
+      },
+
+      ok: {
+        name: '沖繩',
+        center: { lat: 26.3344, lng: 127.8056 },
+        zoom: 10,
+        summary: '沖繩是日本唯一的亞熱帶島嶼，離台灣最近的日本目的地（直飛 1.5 小時）。外籍人士持有無限制、無資本利得稅，日圓匯差紅利與東京、大阪相同。均價 ¥ 200,000–450,000/sqm，是切入日本房市門檻最低的路徑之一。觀光人次快速回升（2025 年破疫前水準），民泊（短租）規範相對寬鬆，適合度假自住、旺季短租收益與退休移居配置。',
+        strategy: '度假短租 / 退休移居 / 日圓匯差',
+        districts: [
+          {
+            key:'naha',
+            name:'那霸（Naha）',
+            lat:26.2124, lng:127.6809,
+            price:'¥ 250,000–400,000 / sqm',
+            budget:'mid',
+            purposes:['收租','自住','退休'],
+            audience:'首次切入日本市場的台灣買方、長住型退休移居',
+            risk:'那霸市區部分舊建案管理品質參差，新築供給有限，需篩選建商品牌。',
+            tags:['首里城旁','那霸機場 10 分鐘','生活機能完整'],
+            desc:'沖繩縣廳所在地、交通與商業中心，國際通商店街、ゆいレール（單軌）覆蓋全市，那霸機場 10 分鐘車程直達。首里城鄰近，文化觀光需求旺盛。代表新築案：大和ハウス × 長谷工聯手打造的「ブランシエラ那霸開南プレミスト」（2026 年 3 月竣工，19F，¥ 6,980 萬–7,980 萬）。月租 ¥ 7–13 萬，毛租報酬率約 5–6%，是切入沖繩房市生活機能最完整的起點。'
+          },
+          {
+            key:'chatan',
+            name:'北谷（Chatan）/ 美浜',
+            lat:26.3167, lng:127.7564,
+            price:'¥ 300,000–500,000 / sqm',
+            budget:'mid',
+            purposes:['收租','自住','退休'],
+            audience:'喜歡美式海濱生活圈、旺季短租收益型買方',
+            risk:'美軍基地返還土地開發進度有不確定性；旺季短租依賴度高，需評估淡季空置。',
+            tags:['美浜アメリカンビレッジ','海景','旺季短租熱區'],
+            desc:'沖繩最具特色的美式海濱生活圈，北谷 American Village 摩天輪、海岸線餐廳、精品店聚集，觀光人潮全年穩定。距那霸 20 分鐘、恩納村 30 分鐘，兼具便利性與度假感。代表案例：「Rihga Royal Resort Okinawa Chatan」（209 戶、5 個月完銷，¥ 1 億起），印證本區高端度假宅需求。旺季民泊月租可達 ¥ 20–35 萬，是沖繩短租收益最旺的地帶之一。'
+          },
+          {
+            key:'onnason',
+            name:'恩納村（Onna-son）',
+            lat:26.4969, lng:127.8543,
+            price:'¥ 350,000–600,000 / sqm',
+            budget:'premium',
+            purposes:['退休','自住','收租'],
+            audience:'追求頂級海景度假生活、高端短租收益的買方',
+            risk:'距那霸市區約 1 小時，日常生活全倚賴自駕；高端租客需求有季節性，需搭配代管平台。',
+            tags:['珊瑚礁海景','五星飯店帶','沖繩最貴地帶'],
+            desc:'全沖繩最頂級的度假海岸，萬豪、ANAインターコンチ、ブセナテラスなど五星飯店林立，珊瑚礁透明海水舉世聞名。沖繩本島最高均價地帶，Villa 型與高層海景公寓並存。旺季民泊月租可達 ¥ 30–60 萬，是沖繩最受日本與台灣高端買家矚目的度假資產帶。'
+          },
+          {
+            key:'okinawa-city',
+            name:'沖繩市（Okinawa City）/ 宜野湾',
+            lat:26.3342, lng:127.8056,
+            price:'¥ 180,000–300,000 / sqm',
+            budget:'entry',
+            purposes:['收租','自住'],
+            audience:'預算友善的首次佈局型買方、在地長租需求導向投資人',
+            risk:'非觀光核心地帶，短租需求有限，以在地長租為主要邏輯，需評估租客背景。',
+            tags:['入門門檻','宜野湾海中道路','中部生活圈'],
+            desc:'沖繩本島中部核心，宜野湾市、沖繩市聚集地，定價為全沖繩最親民的地帶。在地居民與工作者長租需求穩定，月租 ¥ 6–10 萬，毛租報酬率可達 6–7%，是以低總價切入日本市場、追求穩定現金流的入門首選。'
+          },
+          {
+            key:'motobu-nago',
+            name:'本部／名護（Motobu/Nago）',
+            lat:26.6383, lng:127.9008,
+            price:'¥ 400,000–800,000 / sqm',
+            budget:'premium',
+            purposes:['增值','退休','自住'],
+            audience:'瞄準 JUNGLIA 開業紅利的前瞻型買方、沖繩北部大型度假村配置型投資人',
+            risk:'北部開發仍在起步階段，基礎建設與商業密度不及南部；JUNGLIA 為新開放，租客來源與管理體制仍在建立中，適合長線配置。',
+            tags:['JUNGLIA 度假村','美麗海水族館旁','北部新熱點'],
+            desc:'沖繩本島北部新興頂級度假帶。2025 年 7 月，耗資 700 億日圓的超大型度假村「JUNGLIA」正式開業，吸引全國矚目，帶動本部半島與名護市周邊土地與公寓需求急升。鄰近沖繩美麗海水族館、今歸仁城跡，世界遺產文化旅遊資源豐富。適合早期切入、搭乘大型開發紅利的前瞻型配置。'
+          }
+        ]
+      },
+
+      sg: {
+        name: '新加坡',
+        center: { lat: 1.3521, lng: 103.8198 },
+        zoom: 12,
+        summary: '新加坡法規健全、貨幣強勢，是東南亞財富管理核心。外籍人士需繳付額外買家印花稅（ABSD 60%），適合以財富保全、移居為主要目的的高資產買方。',
+        strategy: '避險 / 財富傳承',
+        districts: [
+          { key:'orchard', name:'烏節路（Orchard）', lat:1.3044, lng:103.8318, price:'SGD 3,800 / sqft', budget:'premium', purposes:['避險','自住'], audience:'頂級資產保全與高端自住', risk:'ABSD 60% 外籍稅負極高，淨回報需精算。', tags:['核心奢宅','品牌旗艦','保值首選'], desc:'新加坡頂級住宅街道，品牌形象與保值性極強，偏向資產地位型配置。' },
+          { key:'cbd-sg', name:'CBD 中央商業區', lat:1.2879, lng:103.8475, price:'SGD 3,200 / sqft', budget:'premium', purposes:['收租','避險'], audience:'商務長租型外派需求配置', risk:'租金回報扣除 ABSD 後需仔細計算實際報酬。', tags:['金融核心','外派長租','地標地段'], desc:'金融核心外派長租需求穩定，適合資產組合中的錨定型配置。' },
+          { key:'east-coast-sg', name:'東海岸（East Coast）', lat:1.3013, lng:103.9092, price:'SGD 2,200 / sqft', budget:'mid', purposes:['自住','教育'], audience:'家庭型自住與國際學校需求', risk:'ABSD 高稅負問題不因區域而消失，需明確以居住需求為主。', tags:['優質學區','家庭生活','海濱休閒'], desc:'優質學區加海濱生活環境，適合以長住或子女教育為主的家庭型配置。' },
+          { key:'jurong', name:'裕廊（Jurong）', lat:1.3397, lng:103.7082, price:'SGD 1,600 / sqft', budget:'mid', purposes:['收租','自住'], audience:'預算相對友善的新加坡入門配置', risk:'非核心區，流動性較中心區低。', tags:['產業就業','西部新發展','相對親民'], desc:'新加坡西部產業與商業中心，政府積極開發，相對親民的入門選項。' }
+        ]
+      },
+
+      tr: {
+        name: '伊斯坦堡',
+        center: { lat: 41.0082, lng: 28.9784 },
+        zoom: 11,
+        summary: '土耳其提供公民計劃（40 萬美元購房取得護照），外籍可全額持有，但里拉通膨與匯率波動需以美元計算真實報酬，建議鎖定外幣計價合約。',
+        strategy: '公民計劃 / 護照規劃',
+        districts: [
+          { key:'besiktas', name:'貝西克塔斯（Besiktas）', lat:41.0433, lng:29.0060, price:'$4,500 / sqm', budget:'premium', purposes:['避險','自住','增值'], audience:'高端自住與護照資格配置', risk:'里拉計價資產匯率風險高，建議選外幣計價合約。', tags:['海峽景觀','精華地段','高端自住'], desc:'伊斯坦堡頂級住宅區，臨博斯普魯斯海峽，高端保值與護照配置首選。' },
+          { key:'sisli', name:'席什里（Sisli）', lat:41.0682, lng:28.9942, price:'$2,500 / sqm', budget:'mid', purposes:['收租','增值'], audience:'商業核心收租型投資人', risk:'需以美元計算租金報酬，避免里拉侵蝕實際收益。', tags:['商業核心','外籍社群','商務地段'], desc:'商業與文化核心區，外籍社群聚集，適合商務型收租與護照門檻配置。' },
+          { key:'esenyurt', name:'埃森尤爾特（Esenyurt）', lat:41.0318, lng:28.6800, price:'$1,200 / sqm', budget:'entry', purposes:['增值','收租'], audience:'入門公民計劃與增值題材買方', risk:'新開發區品質差異大，需謹慎挑選有品牌的開發商。', tags:['入門公民計劃','新開發','增值題材'], desc:'最多入門護照計劃選擇的區域，新案源豐富，但需嚴格篩選建商品質。' },
+          { key:'basaksehir', name:'巴什阿克謝希爾（Basaksehir）', lat:41.0926, lng:28.8149, price:'$1,800 / sqm', budget:'mid', purposes:['自住','增值'], audience:'新城鎮型自住與增值配置', risk:'區域知名度較低，長期流動性需觀察。', tags:['新城鎮','醫療中心','奧運選手村'], desc:'土耳其政府重點建設的新城鎮，醫療與運動設施完善，適合長期自住增值型配置。' }
+        ]
+      },
+
+      au: {
+        name: '澳洲（雪梨/黃金海岸）',
+        center: { lat: -31.5000, lng: 152.0000 },
+        zoom: 5,
+        summary: '澳洲是台灣移民、教育與資產保全的首要目的地之一。外籍人士需申請 FIRB 批准，僅限購買新成屋（Off-the-plan 或全新建案），無資本利得稅豁免但持有 12 個月以上可享 50% 折扣。雪梨均價 AUD 12k–22k/sqm，黃金海岸 AUD 7k–15k/sqm。澳幣強勢、教育體系成熟，是重視資產安全性的長線配置首選。',
+        strategy: '移民配套 / 教育自住 / 度假保值',
+        districts: [
+          {
+            key:'sydney-cbd',
+            name:'雪梨 CBD',
+            lat:-33.8688, lng:151.2093,
+            price:'AUD 17,000–22,000 / sqm',
+            budget:'premium',
+            purposes:['避險','自住','增值'],
+            audience:'高端都心資產配置、移民高資產買方',
+            risk:'FIRB 審批週期 4–8 週；澳洲 Land Tax（土地稅）每年需精算，持有成本不低。',
+            tags:['都心精華','歌劇院步行圈','外資保值'],
+            desc:'雪梨 CBD 是全澳最具象徵性的精華地段，環形碼頭、歌劇院、QVB 步行可達。Greenland Centre Sydney（235m 地標塔）是此區代表性外資品牌建案。均價 AUD 17k–22k/sqm，月租 AUD 4,000–7,000，毛租報酬率約 3–4%，以移民保值與高端形象配置為主。'
+          },
+          {
+            key:'north-sydney',
+            name:'北雪梨 / Chatswood',
+            lat:-33.8404, lng:151.2037,
+            price:'AUD 13,000–18,000 / sqm',
+            budget:'premium',
+            purposes:['自住','教育','避險'],
+            audience:'攜子移民家庭、頂尖學區需求買方',
+            risk:'FIRB 流程建議提前半年以上啟動；部分學區供給有限需早規劃。',
+            tags:['頂尖學區','海港景觀','Metro 直達 CBD'],
+            desc:'雪梨最受移民家庭青睞的學區帶，靠近 Shore School、SCEGGS、Knox Grammar 等頂尖私校。The Landmark North Sydney（Aqualand 開發）俯瞰雪梨海港橋全景，Victoria Cross Metro 站步行 5 分鐘直達 CBD。是攜子移民家庭長期自住的首選地段。'
+          },
+          {
+            key:'parramatta',
+            name:'Parramatta 西部新都心',
+            lat:-33.8136, lng:151.0034,
+            price:'AUD 8,000–11,000 / sqm',
+            budget:'mid',
+            purposes:['收租','增值','自住'],
+            audience:'入門雪梨市場的投資人、新移民首購族',
+            risk:'距雪梨 CBD 約 25 分鐘火車，生活機能較 CBD 稍弱，需評估長期發展進度。',
+            tags:['雪梨西部 CBD', 'CBD 25分鐘', '政府投資帶動'],
+            desc:'雪梨市府指定的西部第二 CBD，政府持續投入基礎建設與行政機關遷入，定價較雪梨 CBD 親民約 40–50%。Parramatta Square 大型混合開發案坐落於此，火車 25 分鐘直達 Town Hall，是切入大雪梨市場性價比最高的入門選項。'
+          },
+          {
+            key:'surfers-paradise',
+            name:'Surfers Paradise',
+            lat:-27.9977, lng:153.4305,
+            price:'AUD 9,000–16,000 / sqm',
+            budget:'mid',
+            purposes:['退休','自住','收租'],
+            audience:'度假退休型買方、旺季短租收益導向投資人',
+            risk:'旺淡季落差明顯，短租平台管理費需確認；部分舊案管理品質需篩選。',
+            tags:['黃金海岸核心', '一線沙灘', 'Jewel 地標'],
+            desc:'黃金海岸最知名的海灘生活圈，觀光人潮與短租需求全年旺盛。Jewel Residences（三塔 75 層，坐落沙灘旁）是此區最受台灣買家矚目的地標案。月租 AUD 3,000–6,000，旺季短租收益可達 AUD 5,000–10,000，適合度假兼短租收益配置。'
+          },
+          {
+            key:'broadbeach',
+            name:'Broadbeach',
+            lat:-28.0247, lng:153.4320,
+            price:'AUD 8,000–13,000 / sqm',
+            budget:'mid',
+            purposes:['退休','自住','收租'],
+            audience:'看重生活機能與沙灘的長住退休買方',
+            risk:'觀光短租依賴度高，淡季空置率需評估；部分高層塔樓物業費偏高。',
+            tags:['The Star 賭場步行', 'Pacific Fair 商場', '成熟生活圈'],
+            desc:'黃金海岸最成熟的自住退休生活圈，The Star Gold Coast 賭場、Pacific Fair 購物中心、Broadbeach 沙灘步行 5 分鐘。The Oracle Broadbeach（Sunland，雙塔 73 層）是此區地標品牌案。定價較 Surfers Paradise 親民，月租 AUD 2,500–5,000，適合長住退休與短租收益雙用途。'
+          }
+        ]
+      }
+    };
+
+    async function getGoogleMapsApiKey() {
+      try {
+        const res = await fetch('/api/admin-articles?maps=1');
+        const json = await res.json();
+        if (json && json.googleMapsApiKey) return json.googleMapsApiKey;
+      } catch (e) {}
+      return FALLBACK_GOOGLE_MAPS_API_KEY;
+    }
+
+    async function loadMyGoListings() {
+      try {
+        const res = await fetch('data_mygo_international_clean.json');
+        const json = await res.json();
+        mygoListings = json.items || [];
+      } catch (e) {
+        mygoListings = [];
+      }
+    }
+
+    function getFilteredDistricts() {
+      const market = markets[state.city];
+      return market.districts.filter(d => {
+        const purposeOk = state.purpose === 'all' || d.purposes.includes(state.purpose);
+        const budgetOk = state.budget === 'all' || d.budget === state.budget;
+        return purposeOk && budgetOk;
+      });
+    }
+
+    function updateMarketSummary() {
+      const market = markets[state.city];
+      const filtered = getFilteredDistricts();
+      document.getElementById('marketTitle').textContent = market.name;
+      document.getElementById('marketSummary').textContent = market.summary;
+      document.getElementById('marketDistrictCount').textContent = filtered.length;
+      document.getElementById('marketStrategy').textContent = market.strategy;
+      const ctaEl = document.getElementById('marketSeminarCta');
+      const ctaLabel = document.getElementById('marketSeminarCtaLabel');
+      if (market.seminarCta) {
+        ctaEl.href = market.seminarCta.href;
+        ctaEl.style.background = market.seminarCta.color;
+        ctaLabel.textContent = market.seminarCta.label;
+        ctaEl.classList.remove('hidden');
+      } else {
+        ctaEl.classList.add('hidden');
+      }
+    }
+
+    function resetDistrictPanel() {
+      document.getElementById('districtTitle').textContent = '請先點擊地圖上的區域';
+      document.getElementById('districtDesc').textContent = '地圖上的 marker 點下去後，這裡會顯示該區的定位、風險與適合族群。';
+      document.getElementById('districtTags').innerHTML = '<span class="px-3 py-2 rounded-full bg-slate-50 border border-slate-200 text-sm text-slate-400">尚未選擇區域</span>';
+      document.getElementById('districtPrice').textContent = '-';
+      document.getElementById('districtAudience').textContent = '-';
+      document.getElementById('districtRisk').textContent = '-';
+      document.getElementById('listingTitle').textContent = '尚未選擇區域';
+      document.getElementById('listingGrid').innerHTML = '<div class="rounded-2xl border border-dashed border-slate-200 p-6 text-slate-400 text-center">點擊地圖上的區域後，這裡會顯示 TIREA 整理後的精選建案。</div>';
+    }
+
+    function renderListingsForDistrict(d) {
+      const cityMap = { th: 'Bangkok', py: 'Pattaya', my: 'Kuala Lumpur', jb: 'Johor Bahru', pg: 'Penang', au: 'Australia', jp: 'Tokyo', os: 'Osaka', ok: 'Okinawa' };
+      const currentCity = cityMap[state.city] || '';
+      const matches = mygoListings.filter(item => {
+        const districtMatch = item.district && d.name.toLowerCase().includes(item.district.toLowerCase()) || item.district && item.district.toLowerCase().includes(d.name.toLowerCase());
+        const cityMatch = item.city === currentCity;
+        return districtMatch || cityMatch;
+      });
+
+      document.getElementById('listingTitle').textContent = `${d.name} 精選建案`;
+      if (!matches.length) {
+        document.getElementById('listingGrid').innerHTML = `<div class="rounded-2xl border border-dashed border-slate-200 p-6 text-slate-500 text-center">${d.name} 目前尚未整理進 TIREA 精選建案池，可先透過需求分析或顧問諮詢取得推薦。</div>`;
+        return;
+      }
+
+      const fallbackImageByCity = {
+        Bangkok: 'https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=1200&q=80',
+        'Johor Bahru': 'https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1200&q=80',
+        'Kuala Lumpur': 'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=1200&q=80',
+        Penang: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80',
+        Pattaya: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80',
+        Australia: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1200&q=80',
+        Tokyo: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=1200&q=80',
+        Osaka: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1200&q=80',
+        Okinawa: 'https://images.unsplash.com/photo-1542640244-9e9efc80b4ba?auto=format&fit=crop&w=1200&q=80'
+      };
+
+      document.getElementById('listingGrid').innerHTML = matches.map(item => {
+        const fallbackImage = fallbackImageByCity[item.city] || 'https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1200&q=80';
+        return `
+        <article class="rounded-[1.5rem] border border-slate-200 overflow-hidden bg-white">
+          <img src="${item.image || fallbackImage}" alt="${item.title}" class="w-full h-40 object-cover" onerror="this.onerror=null;this.src='${fallbackImage}'" />
+          <div class="p-5">
+            <div class="text-[10px] uppercase tracking-[0.16em] text-slate-400 mb-2">${item.country} · ${item.city}${item.district ? ' · ' + item.district : ''}</div>
+            <h4 class="font-extrabold text-lg leading-snug mb-3">${item.title}</h4>
+            <div class="flex flex-wrap gap-2 mb-3">${(item.tags || []).map(tag => `<span class="px-2.5 py-1 rounded-full bg-blue-50 text-blue-900 text-xs font-bold">${tag}</span>`).join('')}</div>
+            <p class="text-sm text-slate-600 leading-relaxed mb-4">${item.summary || ''}</p>
+            <div class="flex flex-col sm:flex-row gap-3">
+              <a href="listing_detail.html?id=${item.id}" class="inline-flex items-center justify-center px-4 py-2 rounded-xl bg-slate-900 text-white text-sm font-extrabold">查看詳情</a>
+              <a href="survey.html" class="inline-flex items-center justify-center px-4 py-2 rounded-xl border border-slate-200 text-sm font-bold text-slate-700">詢問此案</a>
+            </div>
+          </div>
+        </article>
+      `}).join('');
+    }
+
+    function updateDistrictPanel(d) {
+      document.getElementById('districtTitle').textContent = d.name;
+      document.getElementById('districtDesc').textContent = d.desc;
+      document.getElementById('districtTags').innerHTML = d.tags.map(tag => `<span class="px-3 py-2 rounded-full bg-blue-50 text-blue-900 text-sm font-bold">${tag}</span>`).join('');
+      document.getElementById('districtPrice').textContent = d.price;
+      document.getElementById('districtAudience').textContent = d.audience;
+      document.getElementById('districtRisk').textContent = d.risk;
+      const mapsLink = document.getElementById('districtGoogleMapsLink');
+      mapsLink.href = `https://www.google.com/maps?q=${d.lat},${d.lng}`;
+      mapsLink.classList.remove('hidden');
+      renderListingsForDistrict(d);
+    }
+
+    function clearMarkers() {
+      markers.forEach(marker => marker.setMap(null));
+      markers = [];
+    }
+
+    function renderMarkers() {
+      clearMarkers();
+      const districts = getFilteredDistricts();
+      if (!districts.length) {
+        document.getElementById('mapStatus').textContent = '目前沒有符合條件的區域，請放寬篩選條件。';
+        return;
+      }
+
+      const bounds = new google.maps.LatLngBounds();
+      districts.forEach(d => {
+        const marker = new google.maps.Marker({
+          map,
+          position: { lat: d.lat, lng: d.lng },
+          title: `${d.name}｜${d.price}`
+        });
+        marker.addListener('click', () => {
+          updateDistrictPanel(d);
+          map.panTo({ lat: d.lat, lng: d.lng });
+          map.setZoom(15);
+          infoWindow.setContent(`
+            <div style="padding:12px 14px; min-width:240px; font-family: 'Noto Sans TC', sans-serif;">
+              <div style="font-weight:800; font-size:16px; color:#0f172a; margin-bottom:4px;">${d.name}</div>
+              <div style="font-weight:700; font-size:13px; color:#163a8a; margin-bottom:8px;">${d.price}</div>
+              <div style="font-size:13px; line-height:1.6; color:#475569; margin-bottom:10px;">${d.desc}</div>
+              <a href="https://www.google.com/maps?q=${d.lat},${d.lng}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:8px;background:#1a73e8;color:#fff;font-size:12px;font-weight:700;text-decoration:none;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                在 Google 地圖開啟
+              </a>
+            </div>
+          `);
+          infoWindow.open({ map, anchor: marker });
+        });
+        markers.push(marker);
+        bounds.extend(marker.getPosition());
+      });
+      map.fitBounds(bounds);
+      document.getElementById('mapStatus').textContent = 'Google Maps 已連接，可切換城市並點擊 marker。';
+    }
+
+    function refreshMap() {
+      const market = markets[state.city];
+      updateMarketSummary();
+      resetDistrictPanel();
+      map.setCenter(market.center);
+      map.setZoom(market.zoom);
+      renderMarkers();
+    }
+
+    async function initInvestMap() {
+      const status = document.getElementById('mapStatus');
+      try {
+        const apiKey = await getGoogleMapsApiKey();
+        if (!apiKey) {
+          status.textContent = '找不到 GOOGLE_MAPS_API_KEY';
+          return;
+        }
+
+        await new Promise((resolve, reject) => {
+          const script = document.createElement('script');
+          script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&v=weekly&callback=__tireaInvestMapInit`;
+          script.async = true;
+          script.defer = true;
+          script.onerror = reject;
+          window.__tireaInvestMapInit = resolve;
+          document.head.appendChild(script);
+        });
+
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: markets[state.city].center,
+          zoom: markets[state.city].zoom,
+          streetViewControl: false,
+          mapTypeControl: false,
+          fullscreenControl: false
+        });
+
+        infoWindow = new google.maps.InfoWindow();
+        refreshMap();
+      } catch (error) {
+        status.textContent = 'Google Maps 載入失敗';
+        console.error(error);
+      }
+    }
+
+    document.getElementById('cityFilter').addEventListener('change', (e) => {
+      state.city = e.target.value;
+      if (map) refreshMap();
+    });
+
+    document.querySelectorAll('.filter-chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-chip').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        state.purpose = btn.dataset.purpose;
+        if (map) refreshMap();
+      });
+    });
+
+    document.getElementById('budgetFilter').addEventListener('change', (e) => {
+      state.budget = e.target.value;
+      if (map) refreshMap();
+    });
+
+    updateMarketSummary();
+    resetDistrictPanel();
+    loadMyGoListings().then(initInvestMap);
+  </script>
+  <script>
+    (function(){
+      try {
+        fetch('/api/track-visit', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            page: location.pathname,
+            title: document.title,
+            referrer: document.referrer || 'direct',
+            device: /Mobile|Android|iPhone|iPad/i.test(navigator.userAgent) ? 'mobile' : 'desktop'
+          })
+        });
+      } catch(e){}
+    })();
+  </script>
+
+  <!-- Vercel Web Analytics -->
+  <script defer src="/_vercel/insights/script.js"></script>
+  <!-- Vercel Speed Insights -->
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

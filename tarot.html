@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>免費塔羅占卜｜AI八字紫微平台</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --pu:#6a0dad;--pud:#3a0060;--gold:#C8902A;--dark:#0d0020;
+  --card-w:90px;--card-h:148px;
+}
+body{
+  font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif;
+  background:radial-gradient(ellipse at 50% 0%,#1a0040 0%,#0d0020 60%,#000010 100%);
+  color:#e8d5ff;min-height:100vh;
+}
+
+/* ── Stars bg ── */
+#stars-bg{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.star{position:absolute;border-radius:50%;background:#fff;animation:twk ease-in-out infinite;}
+@keyframes twk{0%,100%{opacity:.05}50%{opacity:.5}}
+
+/* ── Header ── */
+.topbar{background:rgba(0,0,0,.5);color:rgba(255,255,255,.5);font-size:11px;padding:5px 16px;display:flex;justify-content:space-between;position:relative;z-index:10;}
+.topbar a{color:rgba(200,144,42,.7);text-decoration:none;}
+header{background:rgba(10,0,30,.8);backdrop-filter:blur(10px);border-bottom:1px solid rgba(200,144,42,.3);padding:12px 20px;display:flex;align-items:center;gap:14px;position:relative;z-index:10;}
+.hdr-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.hdr-logo img{height:50px;width:50px;object-fit:contain;border-radius:8px;}
+.hdr-logo h1{font-size:17px;color:#C8902A;font-weight:bold;}
+.hdr-logo p{font-size:11px;color:rgba(200,180,255,.5);}
+.hdr-back{margin-left:auto;font-size:12px;color:#C8902A;text-decoration:none;border:1px solid rgba(200,144,42,.4);border-radius:6px;padding:5px 12px;}
+
+/* ── Main ── */
+.wrap{max-width:780px;margin:0 auto;padding:24px 14px 50px;position:relative;z-index:1;}
+
+/* ── Hero ── */
+.hero{text-align:center;margin-bottom:32px;}
+.hero-icon{font-size:48px;margin-bottom:8px;filter:drop-shadow(0 0 20px rgba(200,144,42,.6));}
+.hero h2{font-size:26px;font-weight:700;letter-spacing:4px;color:#C8902A;margin-bottom:6px;}
+.hero p{font-size:13px;color:rgba(200,180,255,.5);letter-spacing:1px;}
+
+/* ── Question ── */
+.q-card{background:rgba(255,255,255,.04);border:1px solid rgba(200,144,42,.2);border-radius:16px;padding:20px;margin-bottom:20px;backdrop-filter:blur(8px);}
+.q-label{font-size:12px;color:rgba(200,144,42,.7);letter-spacing:2px;margin-bottom:8px;}
+.q-input{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(200,144,42,.25);border-radius:10px;color:#e8d5ff;font-size:15px;padding:12px 16px;outline:none;font-family:inherit;transition:border-color .2s;}
+.q-input::placeholder{color:rgba(200,180,255,.25);}
+.q-input:focus{border-color:rgba(200,144,42,.6);}
+
+/* ── Spread selector ── */
+.spread-row{display:flex;gap:10px;margin-bottom:20px;}
+.spread-btn{flex:1;padding:12px 8px;background:rgba(255,255,255,.04);border:1px solid rgba(200,144,42,.2);border-radius:10px;color:rgba(200,180,255,.6);cursor:pointer;font-size:12px;font-family:inherit;transition:all .2s;text-align:center;}
+.spread-btn.active{background:rgba(200,144,42,.15);border-color:#C8902A;color:#C8902A;font-weight:bold;}
+.spread-btn .spread-icon{font-size:18px;display:block;margin-bottom:4px;}
+
+/* ── Draw button ── */
+.btn-draw{width:100%;padding:15px;background:linear-gradient(135deg,#7a1fa0,#C8902A);border:none;border-radius:12px;color:#fff;font-size:17px;font-weight:700;letter-spacing:3px;cursor:pointer;margin-bottom:28px;font-family:inherit;box-shadow:0 4px 20px rgba(200,144,42,.3);transition:opacity .2s,transform .1s;}
+.btn-draw:hover{opacity:.9;}
+.btn-draw:active{transform:scale(.98);}
+
+/* ── Card area ── */
+#card-area{margin-bottom:24px;}
+.spread-title{text-align:center;font-size:12px;color:rgba(200,144,42,.6);letter-spacing:3px;margin-bottom:16px;}
+
+.cards-row{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;}
+
+/* Celtic cross layout */
+.celtic-grid{display:grid;grid-template-areas:
+  ". . top . ."
+  "left cross right . future-top"
+  ". cover . . future-2"
+  ". below . . future-3"
+  ". . . . future-bot";
+gap:8px;justify-content:center;max-width:480px;margin:0 auto;}
+.celtic-grid .card-slot{width:var(--card-w);}
+[data-pos=cross]{grid-area:cross;}
+[data-pos=cover]{grid-area:cover;transform:rotate(90deg);margin-top:-20px;margin-bottom:-20px;}
+[data-pos=top]{grid-area:top;}
+[data-pos=below]{grid-area:below;}
+[data-pos=left]{grid-area:left;}
+[data-pos=right]{grid-area:right;}
+[data-pos=future-top]{grid-area:future-top;}
+[data-pos=future-2]{grid-area:future-2;}
+[data-pos=future-3]{grid-area:future-3;}
+[data-pos=future-bot]{grid-area:future-bot;}
+
+/* ── Card ── */
+.card-slot{text-align:center;cursor:pointer;}
+.card-wrap{
+  width:var(--card-w);height:var(--card-h);
+  perspective:600px;margin:0 auto 6px;
+  position:relative;
+}
+.card-inner{
+  width:100%;height:100%;
+  transform-style:preserve-3d;
+  transition:transform .7s cubic-bezier(.4,0,.2,1);
+  position:relative;
+}
+.card-wrap.revealed .card-inner{transform:rotateY(180deg);}
+.card-face,.card-back{
+  position:absolute;inset:0;
+  backface-visibility:hidden;
+  border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;
+}
+.card-back{
+  background:linear-gradient(135deg,#1a0040,#2d0060);
+  border:1.5px solid rgba(200,144,42,.4);
+  box-shadow:0 4px 16px rgba(0,0,0,.5);
+}
+.card-back-inner{
+  width:76px;height:134px;
+  border:1px solid rgba(200,144,42,.3);
+  border-radius:7px;
+  display:flex;align-items:center;justify-content:center;
+  background:repeating-linear-gradient(45deg,rgba(200,144,42,.05) 0px,rgba(200,144,42,.05) 2px,transparent 2px,transparent 8px);
+}
+.card-back-inner::after{content:"✦";font-size:22px;color:rgba(200,144,42,.5);}
+.card-face{
+  background:linear-gradient(160deg,#12003a,#1e0050);
+  border:1.5px solid rgba(200,144,42,.5);
+  box-shadow:0 4px 16px rgba(0,0,0,.5);
+  transform:rotateY(180deg);
+  padding:8px 4px;
+  gap:4px;
+}
+.card-face.reversed{transform:rotateY(180deg) rotate(180deg);}
+.card-symbol{font-size:28px;line-height:1;filter:drop-shadow(0 0 8px rgba(200,144,42,.5));}
+.card-number{font-size:9px;color:rgba(200,144,42,.5);letter-spacing:1px;}
+.card-name-zh{font-size:12px;font-weight:bold;color:#e8d5ff;line-height:1.2;text-align:center;}
+.card-name-en{font-size:8px;color:rgba(200,180,255,.4);text-align:center;}
+.reversed-tag{font-size:8px;color:#ff6b6b;letter-spacing:1px;}
+.card-pos-label{font-size:10px;color:rgba(200,144,42,.5);margin-top:4px;letter-spacing:1px;}
+
+/* hint */
+.card-hint{text-align:center;font-size:12px;color:rgba(200,180,255,.35);margin-bottom:12px;animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:.35}50%{opacity:.7}}
+
+/* ── Interpretation ── */
+#interp{display:none;}
+.interp-card{background:rgba(255,255,255,.04);border:1px solid rgba(200,144,42,.2);border-radius:14px;padding:18px;margin-bottom:12px;backdrop-filter:blur(8px);}
+.interp-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.interp-sym{font-size:24px;}
+.interp-name{font-size:16px;font-weight:bold;color:#C8902A;}
+.interp-sub{font-size:11px;color:rgba(200,180,255,.45);}
+.interp-rev{font-size:11px;color:#ff6b6b;margin-left:auto;}
+.interp-pos{font-size:11px;color:rgba(200,144,42,.6);border:1px solid rgba(200,144,42,.3);border-radius:10px;padding:2px 8px;}
+.kw-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;}
+.kw{background:rgba(200,144,42,.1);border:1px solid rgba(200,144,42,.3);border-radius:12px;padding:2px 10px;font-size:11px;color:#C8902A;}
+.interp-text{font-size:13px;color:rgba(200,180,255,.8);line-height:1.8;}
+.interp-section{margin-top:8px;}
+.interp-section-title{font-size:10px;color:rgba(200,144,42,.5);letter-spacing:2px;margin-bottom:4px;}
+
+/* ── Again btn ── */
+.btn-again{width:100%;padding:12px;background:rgba(255,255,255,.05);border:1px solid rgba(200,144,42,.3);border-radius:10px;color:#C8902A;font-size:14px;cursor:pointer;font-family:inherit;margin-top:6px;transition:all .2s;}
+.btn-again:hover{background:rgba(200,144,42,.1);}
+
+/* ── Footer note ── */
+.footer-note{text-align:center;font-size:11px;color:rgba(200,180,255,.2);margin-top:24px;line-height:1.6;}
+
+@media(max-width:500px){
+  :root{--card-w:72px;--card-h:118px;}
+  .spread-btn{font-size:11px;padding:8px 4px;}
+  .hero h2{font-size:20px;}
+}
+</style>
+</head>
+<body>
+
+<div id="stars-bg"></div>
+
+<div class="topbar">
+  <span>☎ 服務專線：0800-XXX-XXX</span>
+  <span><a href="ziwei.html">← 回主站</a></span>
+</div>
+
+<header>
+  <a class="hdr-logo" href="ziwei.html">
+    <img src="logo.png" alt="AI八字紫微平台">
+    <div>
+      <h1>AI八字紫微平台</h1>
+      <p>專業命理占卜・紫微斗數・塔羅牌</p>
+    </div>
+  </a>
+  <a class="hdr-back" href="ziwei.html">← 回主站</a>
+</header>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="hero-icon">🔮</div>
+    <h2>塔 羅 占 卜</h2>
+    <p>靜下心來，想著你的問題，讓星光指引答案</p>
+  </div>
+
+  <!-- 問題輸入 -->
+  <div class="q-card">
+    <div class="q-label">✦ 你想詢問的問題（選填）</div>
+    <input class="q-input" id="question" placeholder="例：我的感情未來走向如何？／事業何時會有突破？" maxlength="60">
+  </div>
+
+  <!-- 牌陣選擇 -->
+  <div class="spread-row">
+    <button class="spread-btn active" onclick="setSpread('one',this)">
+      <span class="spread-icon">🃏</span>每日一牌
+    </button>
+    <button class="spread-btn" onclick="setSpread('three',this)">
+      <span class="spread-icon">🃏🃏🃏</span>三牌陣
+    </button>
+    <button class="spread-btn" onclick="setSpread('five',this)">
+      <span class="spread-icon">✦✦✦✦✦</span>五牌陣
+    </button>
+    <button class="spread-btn" onclick="setSpread('celtic',this)">
+      <span class="spread-icon">⚜️</span>凱爾特十字
+    </button>
+  </div>
+
+  <button class="btn-draw" onclick="startReading()">🌙 洗牌・抽牌 ✦</button>
+
+  <!-- 牌區 -->
+  <div id="card-area" style="display:none;">
+    <div class="spread-title" id="spread-title"></div>
+    <div class="card-hint" id="card-hint">點擊牌背，逐一揭示塔羅的訊息</div>
+    <div id="cards-container"></div>
+  </div>
+
+  <!-- 解讀 -->
+  <div id="interp"></div>
+
+  <div class="footer-note">
+    塔羅牌是內心智慧的投影，解讀僅供參考<br>
+    重要決策請結合實際狀況與專業建議
+  </div>
+</div>
+
+<script>
+// ── 生成背景星星 ──
+(function(){
+  const c = document.getElementById('stars-bg');
+  for(let i=0;i<80;i++){
+    const s = document.createElement('div');
+    s.className='star';
+    const sz = i%7===0?2:1;
+    s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;width:${sz}px;height:${sz}px;animation-duration:${2+Math.random()*4}s;animation-delay:${Math.random()*4}s;`;
+    c.appendChild(s);
+  }
+})();
+
+// ── 全 78 張牌資料 ──
+const MAJOR = [
+  {id:0,name:'愚者',en:'The Fool',sym:'🌟',num:'0',
+    up:{kw:['新開始','冒險','自由','純真','潛能'],
+      txt:'愚者代表全新的出發點，帶著開放的心踏上未知旅程。現在正是大膽行動、相信直覺的時刻，不要被恐懼限制。',
+      love:'感情上可能有新的相遇，或關係進入全新階段。保持輕鬆與開放的態度。',
+      career:'工作上有新機會正在等待，勇於嘗試不熟悉的領域。'},
+    rev:{kw:['魯莽','衝動','缺乏計畫','不成熟'],
+      txt:'逆位愚者提醒你，冒險前需要更多準備，衝動行事可能帶來遺憾。先穩定腳步，做好規劃再前進。'}},
+  {id:1,name:'魔術師',en:'The Magician',sym:'⚡',num:'Ⅰ',
+    up:{kw:['意志力','創造','技能','主動','機遇'],
+      txt:'魔術師象徵你擁有實現目標所需的一切資源與能力。現在是施展才能、主動出擊的最佳時機。',
+      love:'主動表達心意，感情將有進展。你有能力創造美好的關係。',
+      career:'技能與才幹備受肯定，創業或新計畫大吉。'},
+    rev:{kw:['操控','欺騙','才能閒置','浮誇'],
+      txt:'逆位魔術師提醒你警惕虛偽或誇大其詞的人，也反思自己是否未能善用天賦。'}},
+  {id:2,name:'女祭司',en:'The High Priestess',sym:'🌙',num:'Ⅱ',
+    up:{kw:['直覺','神秘','內在智慧','等待','洞察'],
+      txt:'女祭司引導你聆聽內在的聲音。現在不是急於行動的時候，靜下心來觀察，答案自會浮現。',
+      love:'感情中有隱藏的訊息，耐心等待，不要強求。對方內心仍在考慮中。',
+      career:'暫時不要表態，觀察局勢，蒐集更多資訊再做決策。'},
+    rev:{kw:['壓抑直覺','秘密','情緒困擾','優柔寡斷'],
+      txt:'逆位女祭司提醒你，過度依賴他人意見而忽略自身直覺，可能導致判斷失誤。'}},
+  {id:3,name:'女皇',en:'The Empress',sym:'🌿',num:'Ⅲ',
+    up:{kw:['豐盛','創造力','母性','感官','生育'],
+      txt:'女皇帶來豐盛與繁榮，象徵創造力旺盛、充滿愛與滋養的能量。生活各方面都將逐漸豐盛。',
+      love:'感情甜蜜溫暖，可能有婚育喜訊。關係充滿呵護與關愛。',
+      career:'創意工作大放光彩，與美學、藝術、養育相關的事業吉祥。'},
+    rev:{kw:['依賴','創意受阻','過度保護','感情問題'],
+      txt:'逆位女皇提醒你，過度付出或依賴可能造成關係失衡，需要找回自我。'}},
+  {id:4,name:'皇帝',en:'The Emperor',sym:'👑',num:'Ⅳ',
+    up:{kw:['權威','穩定','紀律','領導','結構'],
+      txt:'皇帝代表穩固的基礎與強大的領導力。建立規則與紀律，將帶來長久的成功與安全感。',
+      love:'感情進入穩定期，可能涉及承諾與責任。需要清晰的溝通與界限。',
+      career:'在職場中展現領導力，建立系統與規範，事業將更穩定發展。'},
+    rev:{kw:['獨裁','控制慾','缺乏彈性','父系壓力'],
+      txt:'逆位皇帝警示過度控制或剛愎自用，需要學習放手與彈性。'}},
+  {id:5,name:'教皇',en:'The Hierophant',sym:'⛪',num:'Ⅴ',
+    up:{kw:['傳統','信仰','導師','學習','群體'],
+      txt:'教皇指引你尋求前輩的智慧，遵循傳統或信仰體系。與志同道合的人合作，共同成長。',
+      love:'感情傾向傳統方式，可能涉及家人認可或婚嫁。重視承諾與責任。',
+      career:'從傳統行業或機構中尋求機會，正規培訓與學習有益。'},
+    rev:{kw:['叛逆','打破常規','教條束縛','質疑信仰'],
+      txt:'逆位教皇提醒你，過時的規則可能成為枷鎖，勇於打破框架，找到屬於自己的路。'}},
+  {id:6,name:'戀人',en:'The Lovers',sym:'💕',num:'Ⅵ',
+    up:{kw:['愛情','選擇','結合','和諧','價值觀'],
+      txt:'戀人牌代表重要的選擇與深刻的連結。感情、合作或價值觀的抉擇即將到來，跟隨內心做出真實的選擇。',
+      love:'感情大吉，深度連結，可能確認關係或求婚。單身者有美好邂逅。',
+      career:'與夥伴的合作將帶來好結果，選擇符合自身價值觀的工作。'},
+    rev:{kw:['關係失衡','誤解','分離','選擇困難'],
+      txt:'逆位戀人提醒你，價值觀的差異或溝通問題可能造成摩擦，需要誠實面對關係中的問題。'}},
+  {id:7,name:'戰車',en:'The Chariot',sym:'🏆',num:'Ⅶ',
+    up:{kw:['意志','勝利','掌控','決心','前進'],
+      txt:'戰車象徵堅定意志帶來的勝利。儘管前路有障礙，只要保持專注與決心，終將克服一切達成目標。',
+      love:'感情需要主動出擊，克服阻礙。異地戀或有緣分的相遇。',
+      career:'事業衝刺期，競爭中脫穎而出，出差或移動相關的機遇。'},
+    rev:{kw:['失控','方向不明','衝動','受阻'],
+      txt:'逆位戰車提醒你，強硬推進可能適得其反，需要重新調整方向與策略。'}},
+  {id:8,name:'力量',en:'Strength',sym:'🦁',num:'Ⅷ',
+    up:{kw:['勇氣','耐心','內在力量','柔中帶剛','慈悲'],
+      txt:'力量牌展示的不是蠻力，而是以愛與耐心馴服挑戰的智慧。你擁有足夠的內在力量面對一切困境。',
+      love:'以溫柔包容化解衝突，感情在耐心中加深。',
+      career:'面對壓力時保持冷靜，以柔克剛，最終贏得尊重。'},
+    rev:{kw:['軟弱','自我懷疑','情緒失控','恐懼'],
+      txt:'逆位力量提醒你，過度壓抑或放任情緒都不健康，需要找到平衡點。'}},
+  {id:9,name:'隱士',en:'The Hermit',sym:'🕯️',num:'Ⅸ',
+    up:{kw:['孤獨','沉思','智慧','內省','指引'],
+      txt:'隱士引導你向內探索，在安靜與沉思中找到深層的智慧。暫時退出喧囂，給自己空間思考人生方向。',
+      love:'感情需要獨處時間，思考自己真正想要什麼。可能需要暫時的距離。',
+      career:'深度研究或獨立工作帶來成就，不需要他人認可。'},
+    rev:{kw:['孤立','逃避','拒絕幫助','迷失'],
+      txt:'逆位隱士警示過度孤立或逃避現實，是時候重新與外界連結，尋求支持。'}},
+  {id:10,name:'命運之輪',en:'Wheel of Fortune',sym:'☸️',num:'Ⅹ',
+    up:{kw:['轉機','命運','循環','好運','機遇'],
+      txt:'命運之輪轉動，帶來改變與轉機。順應命運的流動，好運正在靠近。把握機遇，因為時機至關重要。',
+      love:'感情出現轉折，可能有意外的相遇或關係升溫。',
+      career:'事業迎來轉機，抓住稍縱即逝的機會。'},
+    rev:{kw:['厄運','抵制改變','逆境','錯過機會'],
+      txt:'逆位命運之輪提醒你，固執抵抗改變只會帶來更多阻礙，學會順勢而為。'}},
+  {id:11,name:'正義',en:'Justice',sym:'⚖️',num:'Ⅺ',
+    up:{kw:['公正','因果','真相','誠實','法律'],
+      txt:'正義牌代表公平與因果法則。誠實面對自己與他人，做出符合良知的選擇，終將得到公正的結果。',
+      love:'感情需要坦誠相對，解決懸而未決的問題。',
+      career:'法律事務、合同或職場糾紛將得到公平處理。'},
+    rev:{kw:['不公正','逃避責任','偏見','法律糾紛'],
+      txt:'逆位正義警示不公平或逃避責任的行為，可能面臨法律或道德上的後果。'}},
+  {id:12,name:'倒吊人',en:'The Hanged Man',sym:'🙃',num:'Ⅻ',
+    up:{kw:['暫停','放下','新視角','犧牲','等待'],
+      txt:'倒吊人邀請你從不同角度看待問題。暫時放下控制，接受暫停，在等待中往往能獲得意想不到的頓悟。',
+      love:'感情需要暫停思考，也許放手才能帶來轉機。',
+      career:'項目暫時停滯，但這段時間是重新思考策略的好機會。'},
+    rev:{kw:['拖延','固執','無意義的犧牲','停滯不前'],
+      txt:'逆位倒吊人提醒你，無謂的等待或犧牲並不會帶來回報，是時候採取行動了。'}},
+  {id:13,name:'死神',en:'Death',sym:'🌹',num:'ⅩⅢ',
+    up:{kw:['轉變','結束','更新','蛻變','放下過去'],
+      txt:'死神牌並非預示肉體之死，而是代表一個階段的結束與全新的開始。放下舊有的模式，為生命的蛻變騰出空間。',
+      love:'舊有的感情模式結束，讓位給更真實的連結，可能有重大轉變。',
+      career:'舊工作或合作關係告一段落，新的職涯方向正在萌芽。'},
+    rev:{kw:['抗拒改變','停滯','腐朽','執著過去'],
+      txt:'逆位死神提醒你，執著於無法挽回的事物只會阻礙自己前進，接受結束才能迎來新生。'}},
+  {id:14,name:'節制',en:'Temperance',sym:'🏺',num:'ⅩⅣ',
+    up:{kw:['平衡','耐心','調和','中庸','療癒'],
+      txt:'節制牌代表和諧與平衡的能量。在極端之間找到中道，耐心等待，慢慢調整，生活將逐漸回歸和諧。',
+      love:'感情平穩發展，需要耐心與包容，雙方共同努力達到平衡。',
+      career:'工作生活的平衡很重要，合理分配資源與時間。'},
+    rev:{kw:['失衡','過度放縱','缺乏耐心','衝突'],
+      txt:'逆位節制警示生活的某個方面嚴重失衡，需要重新調整，避免走向極端。'}},
+  {id:15,name:'惡魔',en:'The Devil',sym:'🔗',num:'ⅩⅤ',
+    up:{kw:['束縛','物質執著','慾望','陰暗面','成癮'],
+      txt:'惡魔牌揭示你被某種慾望、習慣或恐懼所束縛。認清這些鎖鏈，是打破束縛的第一步。',
+      love:'感情中可能存在控制或不健康的依賴關係，需要重新評估。',
+      career:'可能被金錢或名利的慾望所驅使，小心道德風險。'},
+    rev:{kw:['解放','覺醒','打破束縛','走出陰暗'],
+      txt:'逆位惡魔是解脫的信號，你正在從束縛中解放，重新獲得自由與選擇的能力。'}},
+  {id:16,name:'高塔',en:'The Tower',sym:'⚡',num:'ⅩⅥ',
+    up:{kw:['突變','崩塌','啟示','混亂','清除'],
+      txt:'高塔代表突如其來的劇變。雖然過程痛苦，但倒塌的是虛假的基礎，真實的自我得以重建。',
+      love:'感情面臨衝擊，可能有意外的分手或大衝突，但這可能是清除問題的機會。',
+      career:'職場上有突發事件或顛覆性變化，需要迅速應對。'},
+    rev:{kw:['逃避災難','延遲崩塌','拒絕接受改變'],
+      txt:'逆位高塔提醒你，雖然避開了一次危機，但根本問題仍未解決，需要誠實面對。'}},
+  {id:17,name:'星星',en:'The Star',sym:'⭐',num:'ⅩⅦ',
+    up:{kw:['希望','療癒','靈感','平靜','信念'],
+      txt:'星星牌帶來希望與療癒的光芒。在黑暗過後，平靜與信心正在恢復。相信自己的美好未來。',
+      love:'感情走向溫柔與療癒，心靈相通的伴侶正在靠近。',
+      career:'靈感湧現，創意工作大放光彩，對未來充滿美好期待。'},
+    rev:{kw:['失望','絕望','自我懷疑','失去信念'],
+      txt:'逆位星星提醒你，暫時的失望不代表永遠的黑暗，試著重新找回對生命的信心。'}},
+  {id:18,name:'月亮',en:'The Moon',sym:'🌛',num:'ⅩⅧ',
+    up:{kw:['幻象','直覺','夢境','迷惑','潛意識'],
+      txt:'月亮牌揭示隱藏在表面之下的恐懼與幻象。事情並不如表面所見，運用直覺穿透迷霧，找到真相。',
+      love:'感情中存在誤解或不確定性，不要輕信表面，需要更深入的溝通。',
+      career:'職場上有隱藏的競爭或不透明的資訊，保持警覺。'},
+    rev:{kw:['清明','解除迷惑','走出恐懼','真相大白'],
+      txt:'逆位月亮代表迷霧正在散去，真相逐漸清晰，是時候面對現實了。'}},
+  {id:19,name:'太陽',en:'The Sun',sym:'☀️',num:'ⅩⅨ',
+    up:{kw:['成功','喜悅','活力','光明','樂觀'],
+      txt:'太陽是塔羅中最吉祥的牌之一，代表成功、快樂與生命力的充盈。充滿活力地迎接美好的一天！',
+      love:'感情幸福美滿，充滿歡笑與溫暖，可能有喜事到來。',
+      career:'事業蒸蒸日上，能力獲得認可，是展現自我的最佳時機。'},
+    rev:{kw:['過度自信','暫時陰霾','喜悅受阻'],
+      txt:'逆位太陽提醒你，雖然光芒暫時被遮掩，但陽光終將回來，保持樂觀的心態。'}},
+  {id:20,name:'審判',en:'Judgement',sym:'🎺',num:'ⅩⅩ',
+    up:{kw:['覺醒','召喚','反思','重生','清算'],
+      txt:'審判牌代表人生重大的覺醒與召喚。重新評估自己的人生選擇，聆聽內心深處的呼喚，踏上更真實的道路。',
+      love:'感情中有重大的決定或轉折，是否要繼續這段關係值得深思。',
+      career:'職涯出現重大轉機，過去的努力得到回報，迎來新的召喚。'},
+    rev:{kw:['自我懷疑','拒絕審視','逃避決定','停滯'],
+      txt:'逆位審判提醒你，逃避對自己的檢視只會讓問題積累，勇敢面對才能真正重生。'}},
+  {id:21,name:'世界',en:'The World',sym:'🌍',num:'ⅩⅩⅠ',
+    up:{kw:['完成','圓滿','整合','成就','新循環'],
+      txt:'世界牌代表一個完整循環的圓滿結束。你的努力帶來了豐盛的成果，同時也準備好迎接下一個嶄新的旅程。',
+      love:'感情達到圓滿的階段，可能有婚姻或深化承諾的喜訊。',
+      career:'重大目標達成，事業進入全新的高度，可能有跨國或擴展機遇。'},
+    rev:{kw:['半途而廢','延遲完成','不完整','停滯在終點前'],
+      txt:'逆位世界提醒你，距離完成只差一步，不要在終點前放棄，堅持就是勝利。'}},
+];
+
+// 小阿爾克那
+const SUITS = [
+  {name:'權杖',sym:'🔥',elem:'火',theme:'行動・熱情・創造'},
+  {name:'聖杯',sym:'💧',elem:'水',theme:'情感・直覺・關係'},
+  {name:'寶劍',sym:'⚔️',elem:'風',theme:'思想・溝通・衝突'},
+  {name:'金幣',sym:'💰',elem:'土',theme:'物質・工作・穩定'},
+];
+const RANKS = ['王牌','二','三','四','五','六','七','八','九','十','侍者','騎士','王后','國王'];
+const MINOR_MEANINGS = {
+  0:{up:'新的開始，火花，潛力',rev:'延誤，猶豫，錯失機會'},
+  1:{up:'平衡，選擇，十字路口',rev:'失衡，阻礙'},
+  2:{up:'合作，成長，初步成果',rev:'混亂，失去方向'},
+  3:{up:'穩固，建立基礎，回顧',rev:'停滯，固執'},
+  4:{up:'衝突，挑戰，變化',rev:'困難中蘊藏機會'},
+  5:{up:'小小勝利，進展',rev:'過度競爭'},
+  6:{up:'創意，直覺，獨立',rev:'缺乏計畫'},
+  7:{up:'完成，評估，接近目標',rev:'不知足，急躁'},
+  8:{up:'接近完成，積累',rev:'太過謹慎'},
+  9:{up:'完成一階段，豐收',rev:'過度負擔'},
+  10:{up:'新鮮視角，學習，信使',rev:'不成熟，輕率'},
+  11:{up:'行動，熱情，驅動力',rev:'衝動，魯莽'},
+  12:{up:'滋養，創造，關懷',rev:'控制，過度情緒'},
+  13:{up:'成熟，穩定，領導',rev:'固執，守舊'},
+};
+
+// 建立全牌組
+let DECK = [...MAJOR];
+SUITS.forEach((suit,si)=>{
+  RANKS.forEach((rank,ri)=>{
+    DECK.push({
+      id:22+si*14+ri,
+      name:`${suit.name}${rank}`,
+      en:`${rank} of ${suit.name}`,
+      sym:suit.sym,
+      num:rank,
+      suit:suit,
+      isMajor:false,
+      up:{
+        kw:[suit.theme,...(ri<10?['進展','發展']:['成熟','完成'])],
+        txt:`${suit.name}${rank}屬${suit.elem}元素（${suit.theme}）。${MINOR_MEANINGS[ri%14]?.up||'能量流動，把握當下。'}`,
+        love:suit.name==='聖杯'?'感情上有溫柔的流動，真誠表達情感。':'感情受'+suit.elem+'元素影響，順其自然。',
+        career:suit.name==='金幣'?'財務與工作上有穩定的進展。':'工作方面受'+suit.elem+'元素影響，保持行動力。'
+      },
+      rev:{
+        kw:[suit.theme,'受阻','需調整'],
+        txt:`${suit.name}${rank}逆位：${suit.elem}元素的能量受阻。${MINOR_MEANINGS[ri%14]?.rev||'需要重新檢視方向。'}建議暫停，重新調整策略。`
+      }
+    });
+  });
+});
+
+// ── 牌陣設定 ──
+const SPREADS = {
+  one:{name:'每日一牌',count:1,positions:['今日指引']},
+  three:{name:'三牌陣（過去・現在・未來）',count:3,positions:['過去','現在','未來']},
+  five:{name:'五牌陣（全面解讀）',count:5,positions:['現況','挑戰','建議','結果','整體能量']},
+  celtic:{name:'凱爾特十字（深度解讀）',count:10,positions:['核心','橫跨','遠因','近因','潛意識','環境','建議','外在影響','希望恐懼','最終結果']},
+};
+const celticPos = ['cross','cover','below','top','left','right','future-bot','future-3','future-2','future-top'];
+
+let currentSpread = 'one';
+let drawnCards = [];
+let revealed = [];
+
+function setSpread(type, btn) {
+  currentSpread = type;
+  document.querySelectorAll('.spread-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for(let i=a.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+function startReading() {
+  const sp = SPREADS[currentSpread];
+  const shuffled = shuffle(DECK);
+  drawnCards = shuffled.slice(0, sp.count).map(c=>({
+    ...c,
+    reversed: Math.random() > 0.6
+  }));
+  revealed = new Array(sp.count).fill(false);
+
+  document.getElementById('card-area').style.display = 'block';
+  document.getElementById('interp').style.display = 'none';
+  document.getElementById('interp').innerHTML = '';
+  document.getElementById('spread-title').textContent = '✦ ' + sp.name + ' ✦';
+  document.getElementById('card-hint').style.display = 'block';
+
+  renderCards();
+  document.getElementById('card-area').scrollIntoView({behavior:'smooth'});
+}
+
+function renderCards() {
+  const sp = SPREADS[currentSpread];
+  const cont = document.getElementById('cards-container');
+
+  if(currentSpread === 'celtic') {
+    cont.innerHTML = `<div class="celtic-grid">${drawnCards.map((c,i)=>cardHTML(c,i,sp.positions[i],celticPos[i])).join('')}</div>`;
+  } else {
+    cont.innerHTML = `<div class="cards-row">${drawnCards.map((c,i)=>cardHTML(c,i,sp.positions[i])).join('')}</div>`;
+  }
+}
+
+function cardHTML(card, idx, posLabel, celticArea='') {
+  const areaAttr = celticArea ? `data-pos="${celticArea}"` : '';
+  return `<div class="card-slot" ${areaAttr} onclick="revealCard(${idx})">
+    <div class="card-wrap" id="cw-${idx}">
+      <div class="card-inner">
+        <div class="card-back"><div class="card-back-inner"></div></div>
+        <div class="card-face${card.reversed?' reversed':''}" id="cf-${idx}">
+          <div class="card-number">${card.num||''}</div>
+          <div class="card-symbol">${card.sym}</div>
+          <div class="card-name-zh">${card.name}</div>
+          <div class="card-name-en">${card.en}</div>
+          ${card.reversed?'<div class="reversed-tag">逆位</div>':''}
+        </div>
+      </div>
+    </div>
+    <div class="card-pos-label">${posLabel}</div>
+  </div>`;
+}
+
+function revealCard(idx) {
+  if(revealed[idx]) return;
+  revealed[idx] = true;
+  document.getElementById('cw-'+idx).classList.add('revealed');
+
+  // 顯示提示直到全部翻開
+  const allRevealed = revealed.every(v=>v);
+  if(allRevealed) {
+    document.getElementById('card-hint').style.display = 'none';
+    showInterpretation();
+  }
+}
+
+function showInterpretation() {
+  const sp = SPREADS[currentSpread];
+  const q = document.getElementById('question').value.trim();
+  let html = '';
+
+  if(q) html += `<div style="background:rgba(200,144,42,.08);border:1px solid rgba(200,144,42,.2);border-radius:12px;padding:14px 16px;margin-bottom:16px;font-size:13px;color:rgba(200,180,255,.7);">💬 你的問題：<strong style="color:#C8902A;">${q}</strong></div>`;
+
+  drawnCards.forEach((card,i)=>{
+    const data = card.reversed ? card.rev : card.up;
+    html += `<div class="interp-card">
+      <div class="interp-header">
+        <div class="interp-sym">${card.sym}</div>
+        <div>
+          <div class="interp-name">${card.name} ${card.reversed?'<span style="color:#ff6b6b;font-size:12px;">（逆位）</span>':''}</div>
+          <div class="interp-sub">${card.en}${card.num?' · '+card.num:''}</div>
+        </div>
+        <div class="interp-pos">${sp.positions[i]}</div>
+      </div>
+      <div class="kw-row">${data.kw.map(k=>`<span class="kw">${k}</span>`).join('')}</div>
+      <div class="interp-text">${data.txt}</div>
+      ${!card.reversed && card.up.love ? `
+      <div class="interp-section">
+        <div class="interp-section-title">❤️ 感情</div>
+        <div class="interp-text">${card.up.love}</div>
+      </div>
+      <div class="interp-section">
+        <div class="interp-section-title">💼 事業</div>
+        <div class="interp-text">${card.up.career}</div>
+      </div>` : ''}
+    </div>`;
+  });
+
+  // 整體總結
+  const majorCount = drawnCards.filter(c=>c.id<22).length;
+  const revCount = drawnCards.filter(c=>c.reversed).length;
+  let summary = '';
+  if(majorCount >= Math.ceil(drawnCards.length/2)) summary += `本次牌陣中大阿爾克那佔多數（${majorCount}張），代表此問題與命運、靈魂層面的課題高度相關。`;
+  if(revCount === 0) summary += '所有牌均為正位，能量流動順暢，方向明確。';
+  else if(revCount >= drawnCards.length) summary += '所有牌均為逆位，建議暫停、重新審視，能量正在醞釀轉化。';
+
+  if(summary) html += `<div class="interp-card" style="border-color:rgba(200,144,42,.4);">
+    <div class="interp-header"><div class="interp-sym">✦</div><div><div class="interp-name">整體訊息</div></div></div>
+    <div class="interp-text">${summary}</div>
+  </div>`;
+
+  html += `<button class="btn-again" onclick="resetReading()">🔮 重新抽牌</button>`;
+
+  const interp = document.getElementById('interp');
+  interp.innerHTML = html;
+  interp.style.display = 'block';
+  interp.scrollIntoView({behavior:'smooth'});
+}
+
+function resetReading() {
+  document.getElementById('card-area').style.display = 'none';
+  document.getElementById('interp').style.display = 'none';
+  document.getElementById('interp').innerHTML = '';
+  document.getElementById('question').value = '';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

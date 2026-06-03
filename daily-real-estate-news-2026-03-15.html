@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TIREA｜每日地產新聞 2026-03-15</title>
+  <meta name="description" content="TIREA 國際地產每日晨報，涵蓋東南亞、美國、中國、香港與中東市場重點。" />
+  <style>
+    :root {
+      --bg: #eef3f9;
+      --panel: #ffffff;
+      --panel-soft: #f8fbff;
+      --navy: #0f2747;
+      --navy-2: #173b67;
+      --blue: #2f80ed;
+      --blue-soft: #eaf3ff;
+      --text: #101828;
+      --muted: #475467;
+      --line: #d7e2f0;
+      --shadow: 0 14px 34px rgba(15, 39, 71, 0.08);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 18px;
+      --max: 1200px;
+    }
+
+    * { box-sizing: border-box; }
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+    body {
+      overflow-x: hidden;
+      margin: 0;
+      background:
+        radial-gradient(circle at top left, rgba(47,128,237,0.10), transparent 28%),
+        linear-gradient(180deg, #f7faff 0%, var(--bg) 100%);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.7;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(14px);
+      background: rgba(255,255,255,0.78);
+      border-bottom: 1px solid rgba(15,39,71,0.08);
+    }
+
+    .topbar-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-badge {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      box-shadow: var(--shadow);
+    }
+
+    .brand-text {
+      min-width: 0;
+    }
+
+    .brand-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1.2;
+    }
+
+    .brand-sub {
+      font-size: 12px;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav a {
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      color: var(--muted);
+      background: rgba(15,39,71,0.04);
+    }
+
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 28px 20px 56px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 52%, #25579a 100%);
+      color: #fff;
+      border-radius: 32px;
+      padding: 34px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -80px -80px auto;
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle, rgba(255,255,255,0.14), transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.12);
+      color: #dceaff;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: clamp(30px, 4vw, 44px);
+      line-height: 1.16;
+      max-width: 860px;
+    }
+
+    .hero .sub {
+      margin: 0;
+      font-size: 18px;
+      color: #d6e4ff;
+      max-width: 840px;
+    }
+
+    .hero-meta {
+      min-width: 220px;
+      text-align: right;
+    }
+
+    .hero-date {
+      font-size: 32px;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .hero-note {
+      color: #d6e4ff;
+      font-size: 14px;
+    }
+
+    .quickfacts {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .fact {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .fact-label {
+      color: #cfe1ff;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .fact-value {
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1.4;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      margin: 30px 0 16px;
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: 28px;
+      color: var(--navy);
+    }
+
+    .section-desc {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      grid-column: span 6;
+      min-width: 0;
+      background: var(--panel);
+      border: 1px solid rgba(15,39,71,0.06);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--blue), #85b8ff);
+    }
+
+    .region {
+      display: inline-block;
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: var(--blue-soft);
+      color: var(--navy);
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .headline {
+      margin: 0 0 10px;
+      font-size: 30px;
+      line-height: 1.25;
+      font-weight: 850;
+      letter-spacing: -0.02em;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+    }
+
+    .summary {
+      margin: 0;
+      color: var(--muted);
+      font-size: 17px;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+    }
+
+    .market-panel {
+      margin-top: 24px;
+      background: linear-gradient(135deg, #0f2747 0%, #163a66 100%);
+      color: white;
+      border-radius: 26px;
+      padding: 28px 30px;
+      box-shadow: var(--shadow);
+    }
+
+    .market-label {
+      color: #9cc0ff;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .market-text {
+      font-size: clamp(24px, 3vw, 34px);
+      line-height: 1.42;
+      font-weight: 850;
+      letter-spacing: -0.02em;
+      margin: 0;
+    }
+
+    .source-panel {
+      margin-top: 24px;
+      background: var(--panel);
+      border-radius: 22px;
+      padding: 22px 24px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(15,39,71,0.06);
+    }
+
+    .source-title {
+      margin: 0 0 12px;
+      color: var(--navy);
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .source-list {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .source-list li + li {
+      margin-top: 8px;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      margin-top: 22px;
+      color: #667085;
+      font-size: 13px;
+    }
+
+    @media (max-width: 980px) {
+      .hero-top,
+      .footer,
+      .topbar-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .hero-meta {
+        text-align: left;
+        min-width: 0;
+      }
+
+      .quickfacts,
+      .cards {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .card,
+      .card[style] {
+        grid-column: 1 / -1 !important;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .wrap { padding: 20px 14px 40px; }
+      .hero { padding: 24px 20px; border-radius: 24px; }
+      .headline { font-size: 24px; }
+      .summary { font-size: 16px; }
+      .market-text { font-size: 22px; }
+      .section-title { font-size: 24px; }
+      .hero-date { font-size: 26px; }
+    }
+  </style>
+  <link rel="canonical" href="https://tirearedesign.vercel.app/daily-real-estate-news-2026-03-15.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="TIREA｜每日地產新聞 2026-03-15" />
+  <meta property="og:description" content="TIREA 國際地產每日晨報，涵蓋東南亞、美國、中國、香港與中東市場重點。" />
+  <meta property="og:url" content="https://tirearedesign.vercel.app/daily-real-estate-news-2026-03-15.html" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&w=1600&q=80" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2XV1V9TS1P"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-2XV1V9TS1P');
+  </script>
+</head>
+<body>
+  <main class="wrap" style="padding-top:80px;">
+    <section class="hero" id="focus">
+      <div class="hero-top">
+        <div>
+          <div class="eyebrow">International Real Estate Daily Brief</div>
+          <h1>國際地產市場延續分化：東南亞偏資本市場訊號，美國受 AI 帶動局部升溫，中國仍在修復週期。</h1>
+          <p class="sub">今天可見訊號顯示，新加坡以 REIT 掛牌表現反映資本市場情緒，美國由 AI 產業推動舊金山房市回暖，中國房地產仍處於高成本重整期；香港延續修復跡象，杜拜則面臨地緣衝突對避風港敘事的測試。</p>
+        </div>
+        <div class="hero-meta">
+          <div class="hero-date">2026.03.15</div>
+          <div class="hero-note">更新時間｜America/Los_Angeles</div>
+        </div>
+      </div>
+
+      <div class="quickfacts">
+        <div class="fact">
+          <div class="fact-label">今日主軸</div>
+          <div class="fact-value">全球房市仍是區域分化，不是同步回暖。</div>
+        </div>
+        <div class="fact">
+          <div class="fact-label">最強訊號</div>
+          <div class="fact-value">美國科技核心城市受 AI 產業帶動升溫。</div>
+        </div>
+        <div class="fact">
+          <div class="fact-label">最大變數</div>
+          <div class="fact-value">中國修復進度與中東地緣風險仍壓抑全球情緒。</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="regions">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">各區域新聞重點</h2>
+          <p class="section-desc">依你指定順序整理：新加坡、馬來西亞、泰國、印尼、越南、澳洲、日本、美國、杜拜、中國。</p>
+        </div>
+      </div>
+
+      <div class="cards">
+        <article class="card">
+          <div class="region">新加坡</div>
+          <h3 class="headline">REIT 大型 IPO 首日走弱</h3>
+          <p class="summary">UI Boustead REIT 作為今年新加坡最大 IPO 之一，上市首日股價下跌，反映資本市場對地產收益型產品仍偏審慎。</p>
+        </article>
+
+        <article class="card">
+          <div class="region">馬來西亞</div>
+          <h3 class="headline">今日無明確關鍵更新</h3>
+          <p class="summary">今天未見足夠強度、足以列為區域主標的馬來西亞房地產重磅新聞；後續可持續追蹤柔佛、新山與 JS-SEZ 相關資金流向。</p>
+        </article>
+
+        <article class="card">
+          <div class="region">泰國</div>
+          <h3 class="headline">今日無明確關鍵更新</h3>
+          <p class="summary">今天未見足夠強度、足以列為區域主標的泰國房地產重磅新聞；可續看曼谷住宅去化、觀光復甦與外資購屋政策訊號。</p>
+        </article>
+
+        <article class="card">
+          <div class="region">印尼</div>
+          <h3 class="headline">今日無明確關鍵更新</h3>
+          <p class="summary">今天未見足夠強度、足以列為區域主標的印尼房地產重磅新聞；可續看雅加達商辦、首都遷移與利率環境對市場的影響。</p>
+        </article>
+
+        <article class="card">
+          <div class="region">越南</div>
+          <h3 class="headline">今日無明確關鍵更新</h3>
+          <p class="summary">今天未見足夠強度、足以列為區域主標的越南房地產重磅新聞；可續追蹤胡志明市住宅供給、法規鬆綁與製造業資金外溢效應。</p>
+        </article>
+
+        <article class="card">
+          <div class="region">澳洲</div>
+          <h3 class="headline">今日無明確關鍵更新</h3>
+          <p class="summary">今天未見足夠強度、足以列為區域主標的澳洲房地產重磅新聞；後續可持續關注利率預期、移民人口與主要城市租售比變化。</p>
+        </article>
+
+        <article class="card">
+          <div class="region">日本</div>
+          <h3 class="headline">今日無明確關鍵更新</h3>
+          <p class="summary">今天未見足夠強度、足以列為區域主標的日本房地產重磅新聞；可續看東京商辦空置、旅宿資產與日圓走勢對外資配置的影響。</p>
+        </article>
+
+        <article class="card">
+          <div class="region">美國</div>
+          <h3 class="headline">舊金山房市受 AI 熱潮推升</h3>
+          <p class="summary">可見條目指出，AI 產業擴張正帶動舊金山住宅市場升溫，顯示資金與需求正集中回到科技核心城市。</p>
+        </article>
+
+        <article class="card">
+          <div class="region">杜拜</div>
+          <h3 class="headline">避風港敘事受戰事考驗</h3>
+          <p class="summary">Bloomberg 可見條目提到，戰爭風險可能打斷阿聯酋房地產與相關債券的強勢敘事，杜拜市場預期開始轉趨保守。</p>
+        </article>
+
+        <article class="card">
+          <div class="region">中國</div>
+          <h3 class="headline">房市重整壓力未解</h3>
+          <p class="summary">Reuters 指出，中國房地產重置仍伴隨沉重代價，代表市場修復尚未完成，開發商與整體信心面依然承壓。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="market-panel" id="market">
+      <div class="market-label">市場觀察</div>
+      <p class="market-text">今天的重點不是全面回暖，而是資金只回到少數強城市與強題材。新加坡反映資本市場情緒，美國由 AI 產業帶動局部升溫，杜拜與中國則分別承受地緣風險與修復壓力；其餘市場今日以追蹤觀察為主。</p>
+    </section>
+
+    <section class="source-panel" id="sources">
+      <h3 class="source-title">來源摘要</h3>
+      <ol class="source-list">
+        <li>Reuters｜UI Boustead REIT falls in market debut after Singapore's biggest IPO this year</li>
+        <li>WSJ｜The AI Boom Has Exploded the San Francisco Housing Market</li>
+        <li>Reuters｜China's property reset comes with a heavy price</li>
+        <li>Bloomberg｜Hong Kong’s Housing Market Rebounds With Renewed City Buzz</li>
+        <li>Bloomberg｜War Threatens Abrupt End to UAE Real Estate Bond Bonanza</li>
+      </ol>
+    </section>
+
+
+    <section class="source-panel" id="daily-nav">
+      <h3 class="source-title">每日新聞導覽</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;">
+        <a href="daily-real-estate-news.html" style="padding:16px 18px;border-radius:18px;background:var(--panel-soft);border:1px solid var(--line);font-weight:800;color:var(--navy);">回每日新聞總覽</a>
+        <a href="daily-real-estate-news.html" style="padding:16px 18px;border-radius:18px;background:var(--panel-soft);border:1px solid var(--line);font-weight:800;color:var(--navy);">查看每日新聞總覽</a>
+        <a href="daily-real-estate-news-2026-03-16.html" style="padding:16px 18px;border-radius:18px;background:var(--panel-soft);border:1px solid var(--line);font-weight:800;color:var(--navy);">後一天｜2026-03-16</a>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;">
+        <a href="knowledge.html" style="padding:10px 14px;border-radius:999px;background:var(--blue-soft);font-size:13px;font-weight:800;color:var(--navy);">回知識中心</a>
+        <a href="global_pro.html" style="padding:10px 14px;border-radius:999px;background:var(--blue-soft);font-size:13px;font-weight:800;color:var(--navy);">看海外案源</a>
+        <a href="survey.html" style="padding:10px 14px;border-radius:999px;background:var(--blue-soft);font-size:13px;font-weight:800;color:var(--navy);">做需求分析</a>
+      </div>
+    </section>
+
+    <div class="footer">
+      <div>TIREA 戰略與行政｜Web Briefing v2</div>
+      <div>Designed for daily HTML reuse</div>
+    </div>
+  </main>
+  <script>
+    (function(){
+      try {
+        fetch('/api/track-visit', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            page: location.pathname,
+            title: document.title,
+            referrer: document.referrer || 'direct',
+            device: /Mobile|Android|iPhone|iPad/i.test(navigator.userAgent) ? 'mobile' : 'desktop'
+          })
+        });
+      } catch(e){}
+    })();
+  </script>
+
+  <!-- Vercel Web Analytics -->
+  <script defer src="/_vercel/insights/script.js"></script>
+  <!-- Vercel Speed Insights -->
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

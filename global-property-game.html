@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>環遊世界地產問答大挑戰</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
+:root {
+  --gold:#D4A843; --gold2:#F0C96A; --gold-dim:rgba(212,168,67,.12);
+  --dark:#07070F; --surface:#0D0D1C; --card:#131325; --card2:#1A1A2E; --border:#22223A; --border2:#2E2E48;
+  --text:#EDE9DC; --muted:#7070A0; --muted2:#9898B8;
+  --green:#2ECC71; --green-dim:rgba(46,204,113,.12);
+  --red:#E74C3C; --red-dim:rgba(231,76,60,.12);
+  --blue:#3498DB; --purple:#9B59B6;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--dark);color:var(--text);min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse 70% 50% at 8% 8%,rgba(212,168,67,.07) 0%,transparent 65%),
+             radial-gradient(ellipse 60% 70% at 92% 92%,rgba(100,80,200,.06) 0%,transparent 65%);}
+.wrap{position:relative;z-index:1;max-width:980px;margin:0 auto;padding:14px;}
+
+/* ── HEADER ── */
+.hd{text-align:center;margin-bottom:14px;}
+.hd h1{font-size:clamp(1.4rem,3.5vw,2.1rem);font-weight:900;letter-spacing:.05em;margin-bottom:3px;
+  background:linear-gradient(135deg,#D4A843,#F0C96A,#C9960A);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hd p{color:var(--muted);font-size:.8rem;}
+
+/* ── SCORE BAR ── */
+.score-bar{display:flex;gap:10px;margin-bottom:14px;align-items:stretch;}
+.score-card{flex:1;background:var(--card);border:1.5px solid var(--border);border-radius:14px;padding:12px 14px;
+  display:flex;align-items:center;gap:10px;position:relative;overflow:hidden;transition:all .3s;}
+.score-card::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .4s;
+  background:linear-gradient(135deg,rgba(212,168,67,.1),transparent);}
+.score-card.active-player{border-color:var(--gold);}
+.score-card.active-player::before{opacity:1;}
+.score-card.ai-card{border-color:rgba(155,89,182,.4);}
+.sc-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:20px;border:2px solid transparent;flex-shrink:0;}
+.score-card.active-player .sc-avatar{border-color:var(--gold);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(212,168,67,.4)}50%{box-shadow:0 0 0 8px rgba(212,168,67,0)}}
+.sc-name{font-size:.78rem;color:var(--muted);}
+.sc-score{font-size:1.5rem;font-weight:900;color:var(--gold);line-height:1;}
+.sc-detail{font-size:.7rem;color:var(--muted2);margin-top:2px;}
+.sc-badge{margin-left:auto;font-size:.68rem;padding:3px 9px;border-radius:999px;
+  background:var(--gold-dim);border:1px solid rgba(212,168,67,.3);color:var(--gold);white-space:nowrap;}
+.sc-badge.ai{background:rgba(155,89,182,.15);border-color:rgba(155,89,182,.4);color:#c39bd3;}
+.sc-badge.winning{background:rgba(46,204,113,.15);border-color:rgba(46,204,113,.4);color:var(--green);}
+.sc-badge.losing{background:var(--red-dim);border-color:rgba(231,76,60,.3);color:#ec7063;}
+.vs-sep{display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:900;
+  color:var(--muted);padding:0 4px;flex-shrink:0;}
+
+/* ── PRIZES ── */
+.prizes-bar{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+.pz-card{flex:1;min-width:120px;background:var(--card);border:1.5px solid var(--border);
+  border-radius:12px;padding:10px 12px;display:flex;align-items:center;gap:8px;
+  position:relative;overflow:hidden;transition:all .3s;}
+.pz-card::before{content:'';position:absolute;inset:0;opacity:0;transition:.3s;
+  background:linear-gradient(135deg,rgba(212,168,67,.1),transparent);}
+.pz-card.won{border-color:var(--gold);}.pz-card.won::before{opacity:1;}
+.pz-icon{font-size:1.7rem;flex-shrink:0;}
+.pz-name{font-weight:700;font-size:.82rem;line-height:1.2;}
+.pz-prob{color:var(--muted);font-size:.68rem;margin-top:2px;}
+.pz-tag{margin-left:auto;font-size:.65rem;padding:2px 7px;border-radius:999px;
+  border:1px solid var(--border);color:var(--muted);white-space:nowrap;flex-shrink:0;}
+.pz-tag.won{background:var(--gold-dim);border-color:var(--gold);color:var(--gold);font-weight:700;}
+
+/* ── GAME AREA ── */
+.game-area{display:grid;grid-template-columns:1fr 270px;gap:12px;}
+@media(max-width:720px){.game-area{grid-template-columns:1fr;}}
+
+/* ── BOARD ── */
+.board-wrap{background:var(--card);border:1px solid var(--border);border-radius:18px;overflow:hidden;
+  box-shadow:0 8px 40px rgba(0,0,0,.5);}
+.board-grid{display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(6,1fr);
+  gap:2px;padding:8px;aspect-ratio:1;}
+.cell{border-radius:5px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:2px;position:relative;border:1.5px solid transparent;overflow:hidden;transition:all .15s;min-height:0;}
+.cell.corner{background:linear-gradient(135deg,rgba(212,168,67,.18),rgba(212,168,67,.05));border-color:rgba(212,168,67,.5);}
+.cell.stop{background:var(--surface);border-color:var(--border);}
+.cell.stop.visited{background:rgba(46,204,113,.07);border-color:rgba(46,204,113,.28);}
+.cell-flag{font-size:clamp(9px,1.5vw,18px);line-height:1.1;}
+.cell-name{font-size:clamp(4px,.65vw,7.5px);color:var(--muted);text-align:center;line-height:1.1;
+  word-break:break-all;max-height:2.4em;overflow:hidden;}
+.cell-check{position:absolute;top:1px;right:2px;font-size:clamp(4px,.6vw,7px);color:var(--green);}
+.token{position:absolute;font-size:clamp(7px,1.1vw,13px);filter:drop-shadow(0 1px 4px rgba(0,0,0,.9));animation:tPop .2s ease-out;}
+.token.p0{top:2px;left:2px;} .token.p1{bottom:2px;right:2px;}
+@keyframes tPop{from{transform:scale(0)}to{transform:scale(1)}}
+.cell.cur{box-shadow:0 0 0 2px var(--gold),0 0 12px rgba(212,168,67,.5)!important;z-index:15!important;}
+.cell.ai-cur{box-shadow:0 0 0 2px #9b59b6,0 0 12px rgba(155,89,182,.4)!important;z-index:14!important;}
+
+/* ── BOARD CENTER ── */
+.board-center{grid-column:2/9;grid-row:2/9;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:7px;background:radial-gradient(ellipse 80% 70% at 50% 50%,rgba(212,168,67,.04),transparent);border-radius:8px;}
+.ctr-globe{font-size:clamp(22px,3.2vw,42px);animation:spin 20s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ctr-title{font-size:clamp(11px,1.6vw,19px);font-weight:900;color:var(--gold);text-align:center;letter-spacing:.05em;line-height:1.2;}
+.ctr-sub{font-size:clamp(5px,.7vw,8px);color:var(--muted);text-align:center;}
+.prog-wrap{width:80%;}
+.prog-label{font-size:clamp(5px,.68vw,8px);color:var(--muted);text-align:center;margin-bottom:3px;}
+.prog-track{height:5px;background:var(--border);border-radius:999px;overflow:hidden;}
+.prog-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#D4A843,#F0C96A);transition:width .5s ease;}
+.score-display{display:flex;gap:10px;align-items:center;font-size:clamp(7px,.85vw,11px);}
+.sd-item{text-align:center;}
+.sd-score{font-weight:900;font-size:clamp(10px,1.3vw,16px);}
+.sd-name{color:var(--muted);}
+.sd-vs{color:var(--border2);font-weight:700;}
+
+/* ── PANEL ── */
+.panel{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;}
+.panel-head{padding:12px 16px;border-bottom:1px solid var(--border);font-weight:700;font-size:.88rem;color:var(--gold);background:rgba(212,168,67,.05);}
+.panel-body{padding:13px 15px;flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:10px;}
+.sec{font-size:.65rem;font-weight:700;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-top:2px;}
+
+/* Dice */
+.dice-section{text-align:center;}
+.dice-row{display:flex;gap:10px;justify-content:center;margin-bottom:10px;}
+.die{width:50px;height:50px;background:var(--surface);border:2px solid var(--gold);border-radius:11px;
+  display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;color:var(--gold);
+  box-shadow:0 0 14px rgba(212,168,67,.18);}
+.die.rolling{animation:dR .07s ease-in-out infinite alternate;}
+@keyframes dR{from{transform:rotate(-10deg)scale(.94)}to{transform:rotate(10deg)scale(1.06)}}
+
+/* Buttons */
+.btn{width:100%;padding:10px;border:none;cursor:pointer;border-radius:9px;
+  font-family:'Noto Sans TC',sans-serif;font-size:.9rem;font-weight:700;transition:all .18s;}
+.btn-gold{background:linear-gradient(135deg,#D4A843,#C9960A);color:#000;box-shadow:0 3px 14px rgba(212,168,67,.3);}
+.btn-gold:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 7px 22px rgba(212,168,67,.45);}
+.btn-gold:disabled{opacity:.35;cursor:not-allowed;transform:none!important;}
+.btn-outline{background:transparent;border:1.5px solid var(--border);color:var(--text);}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);}
+
+/* Stats */
+.stat{display:flex;justify-content:space-between;padding:5px 0;font-size:.8rem;border-bottom:1px solid rgba(255,255,255,.04);}
+.stat:last-child{border-bottom:none;}
+.stat-l{color:var(--muted);}
+.stat-r{font-weight:600;}
+.stat-r.gold{color:var(--gold);}
+.stat-r.green{color:var(--green);}
+.stat-r.red{color:var(--red);}
+
+/* Log */
+.log-list{max-height:110px;overflow-y:auto;}
+.log-list::-webkit-scrollbar{width:3px;}
+.log-list::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+.log-entry{font-size:.74rem;color:var(--muted);padding:3px 0;border-bottom:1px solid rgba(255,255,255,.03);line-height:1.5;}
+.log-entry:first-child{animation:sD .2s ease;}
+@keyframes sD{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+.g{color:var(--gold);font-weight:600;}.gn{color:var(--green);}.rd{color:var(--red);}.hi{color:var(--text);}
+
+/* ── MODAL ── */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.84);display:flex;align-items:center;justify-content:center;
+  z-index:200;backdrop-filter:blur(8px);}
+.modal{background:var(--card);border:1px solid var(--border2);border-radius:22px;padding:28px 24px;
+  max-width:440px;width:93%;box-shadow:0 28px 80px rgba(0,0,0,.8);animation:mPop .3s cubic-bezier(.34,1.56,.64,1);}
+@keyframes mPop{from{opacity:0;transform:scale(.87)}to{opacity:1;transform:scale(1)}}
+
+/* Quiz modal */
+.quiz-city{font-size:3rem;text-align:center;display:block;margin-bottom:6px;animation:iDrop .4s ease-out;}
+@keyframes iDrop{from{transform:scale(0)rotate(-15deg)}to{transform:scale(1)rotate(0)}}
+.quiz-location{text-align:center;font-size:.78rem;color:var(--muted);margin-bottom:12px;}
+.quiz-q{background:var(--card2);border:1px solid var(--border2);border-radius:12px;padding:14px 16px;
+  font-size:.95rem;font-weight:500;line-height:1.6;margin-bottom:14px;text-align:center;}
+.quiz-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+.opt-btn{padding:10px 8px;border-radius:10px;border:1.5px solid var(--border2);background:var(--card2);
+  color:var(--text);cursor:pointer;font-family:'Noto Sans TC',sans-serif;font-size:.85rem;font-weight:500;
+  transition:all .18s;line-height:1.3;}
+.opt-btn:hover:not(:disabled){border-color:var(--gold);background:var(--gold-dim);color:var(--gold);}
+.opt-btn.correct{border-color:var(--green)!important;background:var(--green-dim)!important;color:var(--green)!important;}
+.opt-btn.wrong{border-color:var(--red)!important;background:var(--red-dim)!important;color:var(--red)!important;}
+.opt-btn:disabled{cursor:default;}
+.quiz-vs{display:flex;gap:10px;align-items:center;margin-bottom:12px;}
+.quiz-vs-item{flex:1;background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:10px;text-align:center;}
+.qvs-name{font-size:.72rem;color:var(--muted);margin-bottom:4px;}
+.qvs-score{font-size:1.6rem;font-weight:900;}
+.qvs-score.gold{color:var(--gold);}
+.qvs-score.purple{color:#c39bd3;}
+.qvs-sep{font-size:.8rem;color:var(--muted);font-weight:700;flex-shrink:0;}
+.quiz-timer{height:4px;background:var(--border);border-radius:999px;overflow:hidden;margin-bottom:12px;}
+.timer-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--green),var(--gold));transition:width .1s linear;}
+
+/* Result panel */
+.result-icon{font-size:3.5rem;text-align:center;display:block;margin-bottom:8px;}
+.result-title{font-size:1.4rem;font-weight:900;text-align:center;margin-bottom:6px;}
+.result-box{border-radius:12px;padding:14px;margin:12px 0;text-align:center;}
+.result-box.win{background:var(--green-dim);border:1.5px solid rgba(46,204,113,.35);}
+.result-box.lose{background:var(--red-dim);border:1.5px solid rgba(231,76,60,.3);}
+.result-box.draw{background:var(--gold-dim);border:1.5px solid rgba(212,168,67,.35);}
+.result-box .rb-main{font-size:1.1rem;font-weight:700;margin-bottom:4px;}
+.result-box .rb-sub{font-size:.78rem;color:var(--muted);}
+
+/* Draw */
+.slot-wrap{display:flex;justify-content:center;margin:16px 0;}
+.slot-reel{width:84px;height:84px;background:var(--surface);border:2px solid var(--border2);
+  border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;overflow:hidden;}
+.slot-reel.spin .si{animation:ss .07s ease-in-out infinite alternate;}
+@keyframes ss{from{transform:translateY(-7px)scale(.88)}to{transform:translateY(7px)scale(1.12)}}
+.prize-won-box{background:var(--gold-dim);border:1.5px solid rgba(212,168,67,.35);border-radius:14px;
+  padding:16px;margin:12px 0;text-align:center;}
+.pwb-label{font-size:.7rem;color:var(--muted);margin-bottom:5px;}
+.pwb-name{font-size:1.35rem;font-weight:900;color:var(--gold);}
+.pwb-desc{font-size:.76rem;color:var(--muted);margin-top:4px;}
+.redeem-note{font-size:.72rem;color:var(--muted);text-align:center;margin-top:8px;
+  background:rgba(255,255,255,.04);border-radius:8px;padding:8px 10px;}
+
+.modal h2{font-size:1.45rem;font-weight:900;color:var(--gold);margin-bottom:6px;text-align:center;}
+.modal p{color:var(--muted);font-size:.85rem;line-height:1.6;text-align:center;}
+.m-btn{margin-top:12px;}
+.modal-btns{display:flex;gap:8px;margin-top:12px;}
+.modal-btns .btn{flex:1;}
+
+/* Confetti */
+.confetti-wrap{position:fixed;inset:0;pointer-events:none;z-index:300;overflow:hidden;}
+.cp{position:absolute;top:-10px;border-radius:2px;animation:cF linear forwards;}
+@keyframes cF{to{transform:translateY(110vh)rotate(720deg);opacity:0;}}
+
+/* AI thinking */
+.ai-thinking{display:inline-flex;align-items:center;gap:6px;font-size:.82rem;color:var(--muted);}
+.ai-dot{width:6px;height:6px;border-radius:50%;background:var(--purple);animation:aiBlink 1s infinite;}
+.ai-dot:nth-child(2){animation-delay:.2s;}
+.ai-dot:nth-child(3){animation-delay:.4s;}
+@keyframes aiBlink{0%,100%{opacity:.2}50%{opacity:1}}
+</style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2XV1V9TS1P"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-2XV1V9TS1P');
+  </script>
+  <meta name="description" content="海外房產投資模擬遊戲，體驗曼谷、東京、吉隆坡置產決策，學習投報率計算與風險評估。" />
+  <link rel="canonical" href="https://www.tirea.tw/global-property-game" />
+</head>
+<body>
+<div class="wrap">
+
+<div class="hd">
+  <h1>🌍 環遊世界地產問答大挑戰</h1>
+  <p>答對地產小常識 · 積分勝過 AI · 走完一圈即可抽好禮！</p>
+</div>
+
+<!-- SCORE BAR -->
+<div class="score-bar" id="scoreBar"></div>
+
+<!-- GAME AREA -->
+<div class="game-area">
+  <div style="display:flex;flex-direction:column;gap:10px;min-width:0;">
+  <!-- PRIZES -->
+  <div class="prizes-bar" id="prizesBar"></div>
+  <div class="board-wrap">
+    <div class="board-grid" id="boardGrid"></div>
+  </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">🎮 旅行控制台</div>
+    <div class="panel-body">
+      <div class="sec">擲骰出發</div>
+      <div class="dice-section">
+        <div class="dice-row">
+          <div class="die" id="die1">✈</div>
+        </div>
+        <button class="btn btn-gold" id="rollBtn" onclick="rollDice()">🎲 擲骰子！</button>
+        <button class="btn btn-outline" style="margin-top:8px;" onclick="initGame()">🔄 重新開始</button>
+      </div>
+
+      <div class="sec">旅行進度</div>
+      <div id="statsArea"></div>
+
+      <div class="sec">旅行日誌</div>
+      <div class="log-list" id="logList"></div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class="overlay" id="overlay" style="display:none;">
+  <div class="modal" id="modalBox"></div>
+</div>
+<div class="confetti-wrap" id="confettiWrap"></div>
+
+<script>
+// ══════════════════════════════════════════
+//  PRIZES
+// ══════════════════════════════════════════
+const PRIZES = [
+  { id:'coffee', icon:'☕', name:'精品咖啡一杯',        desc:'感謝熱情參與！',      prob:60 },
+  { id:'book',   icon:'📖', name:'房產經營學 2 書籍',   desc:'掌握房產投資知識',    prob:25 },
+  { id:'lounge', icon:'🛋️', name:'機場貴賓室體驗券',   desc:'享受頂級候機禮遇',    prob:10 },
+  { id:'tour',   icon:'✈️', name:'考察團優惠 $5,999',  desc:'探索世界絕佳機會',    prob:5  },
+];
+
+// ══════════════════════════════════════════
+//  CITIES + TRIVIA
+// ══════════════════════════════════════════
+const CITIES = [
+  { type:'corner', name:'出發', icon:'🏁' },
+  // ── 泰國 ─────────────────────────────
+  {
+    type:'stop', name:'曼谷', flag:'🇹🇭',
+    q:'泰國曼谷的租金報酬率通常在哪個範圍？',
+    opts:['1–2%','3–4%','5–7%','10–12%'],ans:2,
+    fact:'曼谷捷運沿線公寓年租金報酬約 5–7%，是東南亞最受台灣投資人關注的市場之一。'
+  },
+  {
+    type:'stop', name:'泰國', flag:'🇹🇭',
+    q:'外國人在泰國買公寓，同棟大樓外籍持有比例上限為？',
+    opts:['10%','30%','49%','無限制'],ans:2,
+    fact:'泰國法規規定，同一大樓外籍持有比例不得超過 49%，超過上限時外國人便無法購買。'
+  },
+  {
+    type:'stop', name:'泰國稅費', flag:'🇹🇭',
+    q:'泰國房產移轉時，過戶費加印花稅合計約為？',
+    opts:['1%','3%','5%','8%'],ans:1,
+    fact:'泰國過戶費約 2%，印花稅約 0.5%，合計約 2.5–3%，是東南亞交易成本相對透明的市場。'
+  },
+  // ── 日本 ─────────────────────────────
+  {
+    type:'stop', name:'東京', flag:'🇯🇵',
+    q:'日本每年固定資產稅（持有稅）稅率約為多少？',
+    opts:['0%','0.5%','1.4%','3%'],ans:2,
+    fact:'日本每年固定資產稅約 1.4%，是主要海外市場中持有成本偏高的代表，選物件時要一起計算。'
+  },
+  {
+    type:'stop', name:'日本', flag:'🇯🇵',
+    q:'外國人在日本購置不動產，法律上有何限制？',
+    opts:['只能買公寓','不能持有土地','可自由購買土地與建物','需申請特別許可'],ans:2,
+    fact:'日本對外籍買家幾乎無限制，可直接持有土地與建物，是少數允許外籍完整產權的亞洲市場。'
+  },
+  {
+    type:'stop', name:'日本稅費', flag:'🇯🇵',
+    q:'日本東京的租金報酬率通常落在哪個範圍？',
+    opts:['1–2%','3–5%','6–8%','10%以上'],ans:1,
+    fact:'東京租金報酬約 3–5%，相對其他亞洲市場偏低，但日圓匯率與資產保值性吸引長期持有者。'
+  },
+  // ── 馬來西亞 ─────────────────────────
+  {
+    type:'stop', name:'吉隆坡', flag:'🇲🇾',
+    q:'外國人在馬來西亞購屋的最低門檻為多少？',
+    opts:['50萬令吉','100萬令吉','200萬令吉','500萬令吉'],ans:1,
+    fact:'馬來西亞規定外籍買家最低購屋門檻為 100 萬令吉（約台幣 700 萬），低於此價格不得購買。'
+  },
+  {
+    type:'stop', name:'馬來西亞', flag:'🇲🇾',
+    q:'馬來西亞 RPGT（房地產盈利稅）在持有 5 年內出售，外籍稅率為多少？',
+    opts:['0%','10%','20%','30%'],ans:3,
+    fact:'外籍買家在持有 5 年內賣出，需繳 30% RPGT；第 6 年起降為 10%，持有越久稅率越低。'
+  },
+  { type:'corner', name:'加油站', icon:'⛽' },
+  // ── 新加坡 ────────────────────────────
+  {
+    type:'stop', name:'新加坡', flag:'🇸🇬',
+    q:'外國人購買新加坡住宅需額外繳交 ABSD（額外買家印花稅），稅率為？',
+    opts:['10%','20%','40%','60%'],ans:3,
+    fact:'新加坡外籍買家 ABSD 高達 60%，是全球對外籍投資人最高的房產附加稅之一。'
+  },
+  {
+    type:'stop', name:'新加坡稅費', flag:'🇸🇬',
+    q:'新加坡的年租金報酬率通常在哪個範圍？',
+    opts:['2–3%','4–5%','6–7%','8–9%'],ans:0,
+    fact:'新加坡租金報酬約 2–3%，是主要海外市場中最低的，但強勢新幣與資產保值性吸引長線資金。'
+  },
+  // ── 杜拜 ─────────────────────────────
+  {
+    type:'stop', name:'杜拜', flag:'🇦🇪',
+    q:'杜拜房產的年持有稅與租金所得稅分別為多少？',
+    opts:['1% / 15%','0.5% / 5%','0% / 0%','2% / 20%'],ans:2,
+    fact:'杜拜年持有稅 0%、租金所得稅 0%、資本利得稅 0%，是全球稅負最低的主要房產市場。'
+  },
+  {
+    type:'stop', name:'杜拜稅費', flag:'🇦🇪',
+    q:'杜拜房產的土地局登記費（DLD Fee）為多少？',
+    opts:['1%','2%','4%','6%'],ans:2,
+    fact:'杜拜購買房產需繳 4% DLD 登記費（買家通常負擔），為主要的一次性交易成本。'
+  },
+  {
+    type:'stop', name:'杜拜簽證', flag:'🇦🇪',
+    q:'在杜拜購置多少價值以上的房產，可申請 10 年黃金簽證？',
+    opts:['50萬迪拉姆','100萬迪拉姆','200萬迪拉姆','500萬迪拉姆'],ans:2,
+    fact:'杜拜置產達 200 萬迪拉姆（約台幣 1,500 萬）以上，可申請 10 年黃金居留簽證。'
+  },
+  // ── 土耳其 ────────────────────────────
+  {
+    type:'stop', name:'伊斯坦堡', flag:'🇹🇷',
+    q:'土耳其房產的年持有稅（房屋稅）稅率約為？',
+    opts:['0%','0.1–0.6%','1.4%','3%'],ans:1,
+    fact:'土耳其年持有稅約 0.1–0.6%，交易稅（Tapu Harcı）約 4%，整體稅負在中等水準。'
+  },
+  {
+    type:'stop', name:'土耳其入籍', flag:'🇹🇷',
+    q:'在土耳其置產達到多少金額可申請投資入籍？',
+    opts:['10萬美元','20萬美元','40萬美元','100萬美元'],ans:2,
+    fact:'土耳其投資入籍門檻為 40 萬美元不動產，持有至少 3 年且物件須符合估值與合規要求。'
+  },
+  { type:'corner', name:'休息站', icon:'🌙' },
+  // ── 越南 ─────────────────────────────
+  {
+    type:'stop', name:'越南', flag:'🇻🇳',
+    q:'外國人在越南持有房產的產權型態為何？',
+    opts:['永久產權','70年土地使用權','50年使用權（可續租）','不得購買'],ans:2,
+    fact:'外籍人士在越南通常取得 50 年使用權（可申請續期），並非台灣概念中的完整永久產權。'
+  },
+  {
+    type:'stop', name:'越南規定', flag:'🇻🇳',
+    q:'越南同一棟公寓大樓，外籍人士持有比例上限為？',
+    opts:['10%','30%','49%','無限制'],ans:2,
+    fact:'越南規定同棟公寓外籍持有上限為 30%，且每個行政區外籍戶數也有整體上限。'
+  },
+  // ── 香港 ─────────────────────────────
+  {
+    type:'stop', name:'香港', flag:'🇭🇰',
+    q:'外籍買家在香港購置住宅，需額外繳交哪項高額印花稅？',
+    opts:['無額外稅','BSD買家印花稅 15%','BSD 買家印花稅 7.5%','只需繳一般地稅'],ans:1,
+    fact:'香港外籍買家須繳 15% 買家印花稅（BSD），加上其他印花稅，總交易稅率可超過 25%。'
+  },
+  {
+    type:'stop', name:'馬來西亞②', flag:'🇲🇾',
+    q:'馬來西亞 MM2H 計畫主要提供外籍人士什麼？',
+    opts:['永久居留權','10年多次入境長居簽','自動取得公民身份','免稅購屋資格'],ans:1,
+    fact:'MM2H（第二家園）計畫提供外籍人士長達 10 年的多次入境居留許可，是退休與資產配置熱門選項。'
+  },
+  // ── 澳洲 ─────────────────────────────
+  {
+    type:'stop', name:'澳洲', flag:'🇦🇺',
+    q:'澳洲外籍投資人購置房產需向哪個單位申請審查？',
+    opts:['海關','FIRB（外國投資審查委員會）','移民局','稅務局'],ans:1,
+    fact:'外籍人士購買澳洲住宅前須向 FIRB 申請，一般限購新屋，二手住宅有更嚴格的限制。'
+  },
+  {
+    type:'stop', name:'澳洲稅費', flag:'🇦🇺',
+    q:'澳洲持有滿 12 個月後出售，本地居民可享哪項資本利得優惠？',
+    opts:['完全免稅','50% CGT 折扣','固定 10% 稅率','無任何折扣'],ans:1,
+    fact:'澳洲居民持有超過 12 個月出售房產，資本利得可享 50% 折扣；外籍人士則無此優惠。'
+  },
+  // ── 英國 ─────────────────────────────
+  {
+    type:'stop', name:'英國', flag:'🇬🇧',
+    q:'英國海外買家購置住宅須額外繳多少印花稅附加費（surcharge）？',
+    opts:['1%','2%','5%','10%'],ans:1,
+    fact:'英國對海外買家加收 2% 印花稅附加費，加上一般累進印花稅，整體交易成本不低。'
+  },
+  // ── 加拿大 ────────────────────────────
+  {
+    type:'stop', name:'加拿大', flag:'🇨🇦',
+    q:'外籍人士出售加拿大房產時，需預扣多少稅款（FIRPTA 類似機制）？',
+    opts:['5%','10%','25%','50%'],ans:2,
+    fact:'加拿大非居民出售房產時，買方依法預扣約 25% 稅款，事後可申報實際資本利得調整退稅。'
+  },
+  { type:'corner', name:'終點站', icon:'🎉' },
+  // ── 美國 ─────────────────────────────
+  {
+    type:'stop', name:'美國', flag:'🇺🇸',
+    q:'外國人出售美國房產，依 FIRPTA 規定需預扣多少稅款？',
+    opts:['5%','10%','15%','25%'],ans:2,
+    fact:'依據 FIRPTA，外籍賣家需預扣 15% 稅款；符合特定條件（如售價低於 30 萬美元自住）可申請豁免。'
+  },
+  {
+    type:'stop', name:'美國稅費', flag:'🇺🇸',
+    q:'美國房產每年最主要的持有成本是哪一項？',
+    opts:['租金所得稅','資本利得稅','房產稅（Property Tax）','遺產稅'],ans:2,
+    fact:'美國年度房產稅（Property Tax）依州郡不同，通常佔房屋市值 0.5–2.5%，是主要持有成本。'
+  },
+  {
+    type:'stop', name:'美國②', flag:'🇺🇸',
+    q:'美國哪種房產結構讓投資者可參與商業地產並分散風險？',
+    opts:['個人持有','REITs（不動產投資信託）','LLC 公司持有','信託持有'],ans:1,
+    fact:'REITs 允許一般投資人以股票形式參與辦公室、購物中心等商業地產，門檻低且流動性高。'
+  },
+  {
+    type:'stop', name:'日本②', flag:'🇯🇵',
+    q:'日本近年日圓走弱，對台灣買家最主要的影響是什麼？',
+    opts:['租金收益歸零','換算台幣的入場成本降低','需繳更多稅','不能匯款出境'],ans:1,
+    fact:'日圓貶值使換算台幣的購屋成本顯著下降，吸引台灣買家趁低入場；但匯率風險也需一併評估。'
+  },
+  {
+    type:'stop', name:'新加坡②', flag:'🇸🇬',
+    q:'新加坡公民購買「組屋」（HDB）後多久才能出售？',
+    opts:['隨時可賣','滿 1 年','滿 5 年','終身不能賣'],ans:2,
+    fact:'新加坡 HDB 組屋設有 5 年最低居住年限（MOP），期滿才可在公開市場出售，外籍人士不能購買。'
+  },
+];
+
+// ══════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════
+let state = {};
+
+function initGame() {
+  state = {
+    human: { id:0, name:'你', emoji:'👑', color:'#D4A843', pos:0, laps:0, score:0, visited:new Set([0]), prizes:[], canDraw:false },
+    ai:    { id:1, name:'AI 達人', emoji:'🤖', color:'#9B59B6', pos:0, laps:0, score:0, visited:new Set([0]), prizes:[] },
+    phase:'human', // 'human' | 'ai' | 'quiz'
+    rolled:false,
+    pendingSteps:0,
+  };
+  document.getElementById('logList').innerHTML='';
+  document.getElementById('confettiWrap').innerHTML='';
+  closeModal();
+  document.getElementById('rollBtn').disabled=false;
+  renderAll();
+  addLog('g','🌍 旅程開始！答題積分，走完一圈且積分勝過 AI 才能抽獎！');
+  addLog('hi','👑 你先出發！');
+}
+
+// ══════════════════════════════════════════
+//  ROLL
+// ══════════════════════════════════════════
+function rollDice() {
+  if(state.rolled || state.phase!=='human') return;
+  state.rolled=true;
+  document.getElementById('rollBtn').disabled=true;
+
+  let t=0;
+  const iv=setInterval(()=>{
+    document.getElementById('die1').textContent=Math.ceil(Math.random()*4);
+    document.getElementById('die1').classList.add('rolling');
+    t++;
+    if(t>=10){
+      clearInterval(iv);
+      const d1=Math.ceil(Math.random()*4);
+      document.getElementById('die1').textContent=d1;
+      document.getElementById('die1').classList.remove('rolling');
+      addLog('hi',`👑 擲出 ${d1}，前進 ${d1} 格`);
+      state.pendingSteps=d1;
+      moveToken('human', d1, ()=>{
+        const city=CITIES[state.human.pos];
+        addLog('hi',`🛬 落在 ${city.flag||city.icon} ${city.name}`);
+        if(city.type==='stop') showQuiz(city);
+        else { state.human.visited.add(state.human.pos); renderAll(); setTimeout(afterHumanTurn,400); }
+      });
+    }
+  },75);
+}
+
+// ══════════════════════════════════════════
+//  TOKEN ANIMATION
+// ══════════════════════════════════════════
+function moveToken(who, steps, cb) {
+  const p = who==='human'?state.human:state.ai;
+  const start=p.pos; let step=0;
+  const iv=setInterval(()=>{
+    step++;
+    p.pos=(start+step)%20;
+    if(step>1 && p.pos===0) completeLap(p);
+    renderBoard();
+    if(step>=steps){ clearInterval(iv); cb(); }
+  },120);
+}
+
+function completeLap(p) {
+  p.laps++;
+  p.visited=new Set([0]);
+  if(p===state.human){
+    addLog('gn',`🎉 你完成第 ${p.laps} 圈！可以抽獎了！`);
+    state.human.canDraw=true;
+  } else {
+    addLog('hi',`🤖 AI 完成第 ${p.laps} 圈`);
+  }
+}
+
+// ══════════════════════════════════════════
+//  QUIZ
+// ══════════════════════════════════════════
+let quizTimer=null;
+function showQuiz(city) {
+  state.phase='quiz';
+  let timeLeft=15; // seconds
+  const aiCorrect=Math.random()<0.08; // AI 8% chance correct
+
+  const html=`
+    <span class="quiz-city">${city.flag}</span>
+    <div class="quiz-location">📍 ${city.name} — 地產小常識</div>
+    <div class="quiz-timer"><div class="timer-fill" id="timerFill" style="width:100%"></div></div>
+    <div class="quiz-vs">
+      <div class="quiz-vs-item">
+        <div class="qvs-name">👑 你</div>
+        <div class="qvs-score gold" id="qvs-human">${state.human.score}</div>
+      </div>
+      <div class="qvs-sep">VS</div>
+      <div class="quiz-vs-item">
+        <div class="qvs-name">🤖 AI 達人</div>
+        <div class="qvs-score purple" id="qvs-ai">${state.ai.score}</div>
+      </div>
+    </div>
+    <div class="quiz-q">${city.q}</div>
+    <div class="quiz-opts">
+      ${city.opts.map((o,i)=>`<button class="opt-btn" id="opt${i}" onclick="answerQuiz(${i},${city.ans},'${city.name}',${aiCorrect})">${o}</button>`).join('')}
+    </div>
+    <p style="font-size:.72rem;color:var(--muted);">⏱ 限時 <span id="timerNum">15</span> 秒答題</p>
+  `;
+  showModal(html);
+
+  quizTimer=setInterval(()=>{
+    timeLeft--;
+    const el=document.getElementById('timerNum');
+    const fill=document.getElementById('timerFill');
+    if(el) el.textContent=timeLeft;
+    if(fill) fill.style.width=(timeLeft/15*100)+'%';
+    if(timeLeft<=0){
+      clearInterval(quizTimer);
+      answerQuiz(-1, city.ans, city.name, aiCorrect); // timeout = wrong
+    }
+  },1000);
+}
+
+function answerQuiz(chosen, correct, cityName, aiCorrect) {
+  clearInterval(quizTimer);
+  const humanRight = chosen===correct;
+
+  // disable all opts
+  document.querySelectorAll('.opt-btn').forEach((b,i)=>{
+    b.disabled=true;
+    if(i===correct) b.classList.add('correct');
+    else if(i===chosen) b.classList.add('wrong');
+  });
+
+  if(humanRight){ state.human.score+=15; addLog('gn','✅ 答對！+15 分'); }
+  else { addLog('rd',`❌ 答錯${chosen===-1?' (超時)':''}。正確答案：${CITIES.find(c=>c.name===cityName)?.opts[correct]||''}`); }
+  if(aiCorrect){ state.ai.score+=10; }
+
+  state.human.visited.add(state.human.pos);
+
+  const city=CITIES.find(c=>c.name===cityName);
+  setTimeout(()=>{
+    showQuizResult(humanRight, aiCorrect, city);
+  },700);
+}
+
+function showQuizResult(humanRight, aiCorrect, city) {
+  const hPts = humanRight?15:0, aiPts=aiCorrect?10:0;
+  let outcome='', cls='', icon='';
+  if(hPts>aiPts){ outcome='你這題勝出！'; cls='win'; icon='🎉'; }
+  else if(hPts<aiPts){ outcome='AI 這題勝出！'; cls='lose'; icon='😤'; }
+  else if(humanRight&&aiCorrect){ outcome='平手！大家都答對'; cls='draw'; icon='🤝'; }
+  else { outcome='平手！大家都答錯'; cls='draw'; icon='😅'; }
+
+  const html=`
+    <span class="result-icon">${icon}</span>
+    <div class="result-title" style="color:${cls==='win'?'var(--green)':cls==='lose'?'var(--red)':'var(--gold)'};">${outcome}</div>
+    <div class="result-box ${cls}">
+      <div class="rb-main">你 +${hPts} 分 ｜ AI +${aiPts} 分</div>
+      <div class="rb-sub">累計：你 ${state.human.score} 分 ｜ AI ${state.ai.score} 分</div>
+    </div>
+    ${city?`<p style="font-size:.78rem;color:var(--muted);background:rgba(255,255,255,.04);border-radius:8px;padding:10px;margin-top:4px;line-height:1.7;">💡 <strong style="color:var(--gold)">地產知識：</strong>${city.fact}</p>`:''}
+    <button class="btn btn-gold m-btn" id="continueBtn" onclick="closeModal(); afterHumanTurn()">繼續旅行 → <span id="autoCount" style="opacity:.6;font-size:.8em">(3)</span></button>
+  `;
+  showModal(html, afterHumanTurn);
+}
+
+// ══════════════════════════════════════════
+//  AI TURN
+// ══════════════════════════════════════════
+function afterHumanTurn() {
+  state.phase='ai';
+  // check draw eligibility
+  if(state.human.canDraw){
+    state.human.canDraw=false;
+    setTimeout(()=>showDrawPrompt(),300);
+    return;
+  }
+  renderAll();
+  setTimeout(()=>doAiTurn(), 600);
+}
+
+function doAiTurn() {
+  const d1=Math.ceil(Math.random()*4);
+  addLog('hi',`🤖 AI 擲出 ${d1}`);
+  document.getElementById('die1').textContent=d1;
+  moveToken('ai', d1, ()=>{
+    const city=CITIES[state.ai.pos];
+    addLog('hi',`🤖 AI 落在 ${city.flag||city.icon} ${city.name}`);
+    state.ai.visited.add(state.ai.pos);
+    if(city.type==='stop'){
+      // AI answers with 55% accuracy
+      const correct=Math.random()<0.08;
+      setTimeout(()=>{
+        showModal(`
+          <span class="quiz-city">${city.flag}</span>
+          <h2>AI 思考中…</h2>
+          <p>${city.q}</p>
+          <div style="text-align:center;margin-top:16px;">
+            <div class="ai-thinking"><div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div></div>
+          </div>
+        `);
+        setTimeout(()=>{
+          if(correct){ state.ai.score+=10; addLog('hi',`🤖 AI 答對！+10 分`); }
+          else { addLog('hi',`🤖 AI 答錯`); }
+          closeModal();
+          renderAll();
+          setTimeout(()=>endRound(), 500);
+        },1400);
+      },300);
+    } else {
+      renderAll();
+      setTimeout(()=>endRound(), 400);
+    }
+  });
+}
+
+function endRound() {
+  state.phase='human';
+  state.rolled=false;
+  document.getElementById('rollBtn').disabled=false;
+  addLog('hi','─── 你的回合 ───');
+  renderAll();
+}
+
+// ══════════════════════════════════════════
+//  DRAW
+// ══════════════════════════════════════════
+function showDrawPrompt() {
+  showModal(`
+    <span class="quiz-city">🎊</span>
+    <h2>環遊世界完成！</h2>
+    <p>恭喜完成一圈！轉動幸運轉盤抽好禮！</p>
+    <div style="display:flex;justify-content:center;gap:16px;margin:12px 0;font-size:.85rem;">
+      <span style="color:var(--gold)">👑 你 ${state.human.score} 分</span>
+      <span style="color:#c39bd3">🤖 AI ${state.ai.score} 分</span>
+    </div>
+    <button class="btn btn-gold m-btn" onclick="startDraw()">🎡 前往轉盤抽獎！</button>
+  `);
+  spawnConfetti();
+}
+
+function startDraw() {
+  const segments = PRIZES.map((p,i)=>({ ...p, idx:i }));
+  // Build HTML with inline canvas spinner
+  showModal(`
+    <h2 style="margin-bottom:10px;">🎡 幸運轉盤</h2>
+    <div style="position:relative;display:flex;align-items:center;justify-content:center;margin-bottom:12px;">
+      <div id="wheelPointer" style="position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:1.8rem;z-index:10;filter:drop-shadow(0 2px 4px rgba(0,0,0,.5));">▼</div>
+      <canvas id="wheelCanvas" width="260" height="260" style="border-radius:50%;box-shadow:0 4px 24px rgba(0,0,0,.5);"></canvas>
+    </div>
+    <button class="btn btn-gold m-btn" id="spinBtn" onclick="spinWheel()">🎰 轉動轉盤！</button>
+  `);
+  drawWheel(0);
+}
+
+const WHEEL_COLORS = ['#D4A843','#2980B9','#27AE60','#E74C3C'];
+
+function drawWheel(rotation) {
+  const canvas = document.getElementById('wheelCanvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const cx=130, cy=130, r=120;
+  const slice = (Math.PI * 2) / PRIZES.length; // equal segments
+  let angle = rotation;
+  ctx.clearRect(0,0,260,260);
+
+  PRIZES.forEach((prize, i) => {
+    // slice
+    ctx.beginPath();
+    ctx.moveTo(cx,cy);
+    ctx.arc(cx,cy,r,angle,angle+slice);
+    ctx.closePath();
+    ctx.fillStyle = WHEEL_COLORS[i % WHEEL_COLORS.length];
+    ctx.fill();
+    ctx.strokeStyle='rgba(255,255,255,.15)';
+    ctx.lineWidth=2;
+    ctx.stroke();
+
+    // icon
+    ctx.save();
+    ctx.translate(cx,cy);
+    ctx.rotate(angle + slice/2);
+    ctx.textAlign='center';
+    ctx.font = '20px serif';
+    ctx.fillText(prize.icon, r*0.62, 7);
+    // label
+    ctx.font = 'bold 9px "Noto Sans TC", sans-serif';
+    ctx.fillStyle = '#fff';
+    ctx.shadowColor='rgba(0,0,0,.7)';
+    ctx.shadowBlur=3;
+    const name = prize.name.length > 8 ? prize.name.slice(0,8)+'…' : prize.name;
+    ctx.fillText(name, r*0.62, 20);
+    ctx.restore();
+    angle += slice;
+  });
+
+  // center circle
+  ctx.beginPath();
+  ctx.arc(cx,cy,22,0,Math.PI*2);
+  ctx.fillStyle='#0D0D1C';
+  ctx.fill();
+  ctx.strokeStyle='rgba(212,168,67,.6)';
+  ctx.lineWidth=3;
+  ctx.stroke();
+  ctx.fillStyle='#D4A843';
+  ctx.font='bold 14px serif';
+  ctx.textAlign='center';
+  ctx.fillText('GO',cx,cy+5);
+}
+
+function spinWheel() {
+  document.getElementById('spinBtn').disabled=true;
+  document.getElementById('spinBtn').textContent='旋轉中…';
+
+  const prize = pickPrize();
+  const slice = (Math.PI * 2) / PRIZES.length; // equal segments
+  const prizeIdx = PRIZES.findIndex(p=>p.id===prize.id);
+
+  // target: pointer at top (-π/2), prize center lands there
+  const targetAngle = -Math.PI/2 - (prizeIdx * slice + slice/2);
+  const fullSpins = (5 + Math.floor(Math.random()*4)) * Math.PI * 2;
+  const totalRotation = fullSpins + targetAngle + Math.PI*2;
+  const duration = 4000;
+  const start = performance.now();
+
+  function easeOut(t){ return 1 - Math.pow(1-t, 3); }
+
+  function frame(now){
+    const elapsed = now - start;
+    const t = Math.min(elapsed/duration, 1);
+    const rot = totalRotation * easeOut(t);
+    drawWheel(rot);
+    if(t < 1){ requestAnimationFrame(frame); }
+    else {
+      state.human.prizes.push(prize);
+      setTimeout(()=>showPrizeResult(prize), 400);
+    }
+  }
+  requestAnimationFrame(frame);
+}
+
+function pickPrize(){
+  const tot=PRIZES.reduce((s,p)=>s+p.prob,0);
+  let r=Math.random()*tot;
+  for(const p of PRIZES){ r-=p.prob; if(r<=0) return p; }
+  return PRIZES[0];
+}
+
+function showPrizeResult(prize){
+  spawnConfetti();
+  showModal(`
+    <span class="quiz-city">${prize.icon}</span>
+    <h2>🎉 恭喜獲獎！</h2>
+    <div class="prize-won-box">
+      <div class="pwb-label">🏆 您的獎品</div>
+      <div class="pwb-name">${prize.name}</div>
+      <div class="pwb-desc">${prize.desc}</div>
+    </div>
+    <p style="font-size:.82rem;color:var(--muted2);margin:10px 0 4px;">加入 TIREA 會員以兌換獎品並享受更多專屬優惠</p>
+    <button class="btn btn-gold m-btn" onclick="window.location.href='/membership.html'" style="margin-bottom:8px;">📝 立即註冊會員兌換獎品</button>
+    <button class="btn m-btn" onclick="window.location.href='/member_center.html'" style="background:rgba(255,255,255,.06);border:1px solid var(--border2);color:var(--text);">🔑 已是會員？登入兌換</button>
+    <p style="font-size:.7rem;color:var(--muted);margin-top:10px;">自動跳轉 <span id="autoCount" style="color:var(--gold)">(5)</span></p>
+  `, ()=>{ window.location.href='/membership.html'; }, 5);
+  addLog('g',`🏆 獲得：${prize.icon} ${prize.name}`);
+  renderAll();
+}
+
+// ══════════════════════════════════════════
+//  RENDER
+// ══════════════════════════════════════════
+function renderAll(){ renderBoard(); renderScoreBar(); renderPrizes(); renderPanel(); }
+
+function renderBoard(){
+  const grid=document.getElementById('boardGrid');
+  grid.innerHTML='';
+  const positions=[];
+  for(let c=0;c<6;c++) positions.push([0,c]);
+  for(let r=1;r<5;r++) positions.push([r,5]);
+  for(let c=5;c>=0;c--) positions.push([5,c]);
+  for(let r=4;r>=1;r--) positions.push([r,0]);
+  const layout=Array.from({length:6},()=>Array(6).fill(null));
+  positions.forEach(([r,c],i)=>{ if(i<20) layout[r][c]={idx:i,city:CITIES[i]}; });
+
+  for(let r=0;r<6;r++){
+    for(let c=0;c<6;c++){
+      const el=document.createElement('div');
+      if(r>=1&&r<=4&&c>=1&&c<=4){
+        if(r===1&&c===1){
+          el.className='board-center';
+          el.style.gridColumn='2/6'; el.style.gridRow='2/6';
+          const h=state.human, a=state.ai;
+          const pct=Math.min(100,Math.round((h.pos/20)*100));
+          el.innerHTML=`
+            <div class="ctr-globe">🌍</div>
+            <div class="ctr-title">環遊世界<br>地產問答挑戰</div>
+            <div class="ctr-sub">答題積分，勝過 AI 才能抽獎</div>
+            <div class="score-display">
+              <div class="sd-item"><div class="sd-score" style="color:var(--gold)">${h.score}</div><div class="sd-name">👑 你</div></div>
+              <div class="sd-vs">VS</div>
+              <div class="sd-item"><div class="sd-score" style="color:#c39bd3">${a.score}</div><div class="sd-name">🤖 AI</div></div>
+            </div>
+            <div class="prog-wrap">
+              <div class="prog-label">👑 本圈 ${pct}%</div>
+              <div class="prog-track"><div class="prog-fill" style="width:${pct}%"></div></div>
+            </div>
+          `;
+          grid.appendChild(el);
+        }
+        if(r>1||c>1) continue;
+      } else {
+        const data=layout[r][c];
+        if(!data){ grid.appendChild(document.createElement('div')); continue; }
+        const {idx,city}=data;
+        el.dataset.idx=idx;
+        if(city.type==='corner'){
+          el.className='cell corner';
+          el.innerHTML=`<div style="font-size:clamp(10px,1.5vw,17px)">${city.icon}</div><div style="font-size:clamp(3px,.55vw,6.5px);color:var(--muted);text-align:center">${city.name}</div>`;
+        } else {
+          const vis=state.human.visited.has(idx);
+          el.className=`cell stop${vis?' visited':''}`;
+          el.innerHTML=`
+            <div class="cell-flag">${city.flag||city.icon}</div>
+            <div class="cell-name">${city.name}</div>
+            ${vis?'<div class="cell-check">✓</div>':''}
+          `;
+        }
+        if(state.human.pos===idx){ const t=document.createElement('span'); t.className='token p0'; t.textContent='👑'; el.appendChild(t); el.classList.add('cur'); }
+        if(state.ai.pos===idx){ const t=document.createElement('span'); t.className='token p1'; t.textContent='🤖'; el.appendChild(t); el.classList.add('ai-cur'); }
+        grid.appendChild(el);
+      }
+    }
+  }
+}
+
+function renderScoreBar(){
+  const h=state.human, a=state.ai;
+  const leading=h.score>=a.score;
+  document.getElementById('scoreBar').innerHTML=`
+    <div class="score-card${state.phase==='human'?' active-player':''}">
+      <div class="sc-avatar" style="background:rgba(212,168,67,.15)">👑</div>
+      <div>
+        <div class="sc-name">${h.name}</div>
+        <div class="sc-score">${h.score}<span style="font-size:.8rem;color:var(--muted);font-weight:400"> 分</span></div>
+        <div class="sc-detail">第 ${h.laps} 圈 · 位置 ${CITIES[h.pos].name}</div>
+      </div>
+      <div class="sc-badge ${leading?'winning':'losing'}">${leading?'🏆 領先':'📉 落後'}</div>
+    </div>
+    <div class="vs-sep">VS</div>
+    <div class="score-card ai-card${state.phase==='ai'?' active-player':''}">
+      <div class="sc-avatar" style="background:rgba(155,89,182,.15)">🤖</div>
+      <div>
+        <div class="sc-name">${a.name}</div>
+        <div class="sc-score" style="color:#c39bd3">${a.score}<span style="font-size:.8rem;color:var(--muted);font-weight:400"> 分</span></div>
+        <div class="sc-detail">第 ${a.laps} 圈 · 位置 ${CITIES[a.pos].name}</div>
+      </div>
+      <div class="sc-badge ai">🤖 AI</div>
+    </div>
+  `;
+}
+
+function renderPrizes(){
+  document.getElementById('prizesBar').innerHTML=PRIZES.map(pz=>{
+    const w=state.human.prizes.some(p=>p.id===pz.id);
+    return `<div class="pz-card${w?' won':''}">
+      <div class="pz-icon">${pz.icon}</div>
+      <div><div class="pz-name">${pz.name}</div><div class="pz-prob">${pz.desc}</div></div>
+      <div class="pz-tag${w?' won':''}">${w?'✅ 已獲得':'待抽取'}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderPanel(){
+  const h=state.human, a=state.ai;
+  const pct=Math.min(100,Math.round((h.pos/20)*100));
+  document.getElementById('statsArea').innerHTML=`
+    <div class="stat"><span class="stat-l">📍 你的位置</span><span class="stat-r">${CITIES[h.pos].flag||CITIES[h.pos].icon} ${CITIES[h.pos].name}</span></div>
+    <div class="stat"><span class="stat-l">🔄 圈數</span><span class="stat-r gold">${h.laps} 圈</span></div>
+    <div class="stat"><span class="stat-l">📊 本圈進度</span><span class="stat-r">${pct}%</span></div>
+    <div class="stat"><span class="stat-l">🏆 你的積分</span><span class="stat-r ${h.score>=a.score?'green':'red'}">${h.score} 分</span></div>
+    <div class="stat"><span class="stat-l">🤖 AI 積分</span><span class="stat-r" style="color:#c39bd3">${a.score} 分</span></div>
+    <div class="stat"><span class="stat-l">🎁 獲得獎品</span><span class="stat-r green">${h.prizes.length?h.prizes.map(p=>p.icon).join(' '):'尚未獲獎'}</span></div>
+  `;
+}
+
+function addLog(cls,msg){
+  const el=document.getElementById('logList');
+  const d=document.createElement('div');
+  d.className='log-entry';
+  d.innerHTML=`<span class="${cls}">${msg}</span>`;
+  el.insertBefore(d,el.firstChild);
+  while(el.children.length>50) el.removeChild(el.lastChild);
+}
+
+let autoTimer=null;
+let autoCallback=null;
+function showModal(html, cb, delay){
+  if(autoTimer){ clearInterval(autoTimer); autoTimer=null; }
+  document.getElementById('modalBox').innerHTML=html;
+  document.getElementById('overlay').style.display='flex';
+  autoCallback=cb||null;
+  if(cb){
+    let n=delay||3;
+    autoTimer=setInterval(()=>{
+      n--;
+      const el=document.getElementById('autoCount');
+      if(el) el.textContent='('+n+')';
+      if(n<=0){
+        clearInterval(autoTimer); autoTimer=null;
+        closeModal();
+        cb();
+      }
+    },1000);
+  }
+}
+function closeModal(){
+  if(autoTimer){ clearInterval(autoTimer); autoTimer=null; }
+  autoCallback=null;
+  document.getElementById('overlay').style.display='none';
+}
+
+function spawnConfetti(colors=['#D4A843','#F0C96A','#E74C3C','#3498DB','#2ECC71','#9B59B6','#fff','#FF8C00']){
+  const wrap=document.getElementById('confettiWrap');
+  wrap.innerHTML='';
+  for(let i=0;i<90;i++){
+    const el=document.createElement('div');
+    el.className='cp';
+    el.style.cssText=`left:${Math.random()*100}%;background:${colors[Math.floor(Math.random()*colors.length)]};animation-duration:${1.4+Math.random()*2}s;animation-delay:${Math.random()*.5}s;width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;border-radius:${Math.random()>.5?'50%':'2px'};`;
+    wrap.appendChild(el);
+  }
+  setTimeout(()=>wrap.innerHTML='',3800);
+}
+
+initGame();
+</script>
+
+  <!-- Vercel Web Analytics -->
+  <script defer src="/_vercel/insights/script.js"></script>
+  <!-- Vercel Speed Insights -->
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

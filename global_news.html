@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>國際房產情勢 | 日圓走勢・東南亞政策・海外市場週報 | TIREA</title>
+  <meta name="keywords" content="國際房產新聞,日圓走勢,泰國房產政策,海外房市,東南亞不動產" />
+  <meta name="description" content="即時追蹤影響海外房產投資的關鍵訊號：日圓匯率、泰國外籍政策、馬來西亞市場、BOJ 升息動向，台灣投資人專屬分析。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="國際房產情勢 | 日圓走勢・東南亞政策・海外市場週報 | TIREA" />
+  <meta property="og:description" content="即時追蹤影響海外房產投資的關鍵訊號：日圓匯率、泰國外籍政策、馬來西亞市場、BOJ 升息動向，台灣投資人專屬分析。" />
+  <meta property="og:url" content="https://tirea.tw/global_news.html" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&w=1600&q=80" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: '#0f172a',
+            primary: '#163a8a',
+            gold: '#c89b3c',
+            soft: '#f8fafc'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Noto Sans TC', sans-serif; }
+
+    @keyframes ticker {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    #ticker-track { animation: ticker 40s linear infinite; }
+    #ticker-track:hover { animation-play-state: paused; }
+
+    .news-card { transition: transform .2s, box-shadow .2s; }
+    .news-card:hover { transform: translateY(-3px); }
+
+    .tab-btn { transition: all .2s; }
+    .tab-btn.active {
+      background: #c89b3c;
+      color: #0f172a;
+    }
+
+    .skeleton {
+      background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+    }
+    @keyframes shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    .market-up   { color: #34d399; }
+    .market-down { color: #f87171; }
+    .market-neu  { color: #c89b3c; }
+
+    .hero-bg {
+      background:
+        linear-gradient(135deg, rgba(15,23,42,.92), rgba(22,58,138,.60)),
+        url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat;
+    }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2XV1V9TS1P"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-2XV1V9TS1P');
+  </script>
+  <link rel="canonical" href="https://www.tirea.tw/global_news" />
+</head>
+<body class="bg-slate-950 text-slate-200 antialiased">
+
+  <!-- Navigation (共用) -->
+  <nav class="fixed top-0 inset-x-0 z-50 border-b border-white/10 bg-slate-950/70 backdrop-blur-xl text-white">
+    <div class="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3">
+        <img src="/tirea-logo.png" alt="TIREA Logo" class="w-11 h-11 rounded-xl shadow-lg object-contain bg-white p-1" />
+        <div class="font-extrabold tracking-tight text-lg leading-none">TIREA</div>
+      </a>
+
+      <div class="hidden lg:flex items-center gap-4 text-sm font-semibold text-slate-200 whitespace-nowrap">
+        <a href="ai_butler.html" class="hover:text-white text-blue-300">AI 找房</a>
+        <a href="global_pro.html" class="hover:text-white">找海外房產</a>
+        <a href="invest_map.html" class="hover:text-white">投資地圖</a>
+        <a href="market-dashboard.html" class="hover:text-white text-[#c89b3c] font-bold">市場儀表板</a>
+        <a href="knowledge.html" class="hover:text-white">知識中心</a>
+        <a href="global_news.html" class="text-emerald-400 font-bold border-b border-emerald-400 pb-0.5">國際情勢</a>
+        <!-- 活動下拉 -->
+        <div class="relative group">
+          <button class="flex items-center gap-1 hover:text-white text-amber-300 font-bold">
+            活動 <i class="fa-solid fa-chevron-down text-[10px] mt-0.5"></i>
+          </button>
+          <div class="absolute top-full left-1/2 -translate-x-1/2 pt-3 hidden group-hover:block z-50">
+            <div class="bg-slate-900 border border-white/10 rounded-2xl shadow-2xl py-2 w-48 text-sm">
+              <a href="thailand-seminar.html" class="flex items-center gap-2 px-4 py-2.5 hover:bg-white/10 text-slate-200 hover:text-white">🇹🇭 泰國考察團</a>
+              <a href="turkey-seminar.html"   class="flex items-center gap-2 px-4 py-2.5 hover:bg-white/10 text-slate-200 hover:text-white">🇹🇷 土耳其指南</a>
+              <a href="singapore-guide.html"  class="flex items-center gap-2 px-4 py-2.5 hover:bg-white/10 text-slate-200 hover:text-white">🇸🇬 新加坡金融指南</a>
+            </div>
+          </div>
+        </div>
+        <!-- 更多下拉 -->
+        <div class="relative group">
+          <button class="flex items-center gap-1 hover:text-white text-slate-400">
+            更多 <i class="fa-solid fa-chevron-down text-[10px] mt-0.5"></i>
+          </button>
+          <div class="absolute top-full right-0 pt-3 hidden group-hover:block z-50">
+            <div class="bg-slate-900 border border-white/10 rounded-2xl shadow-2xl py-2 w-44 text-sm">
+              <a href="roi-calculator.html"         class="flex items-center gap-2 px-4 py-2.5 hover:bg-white/10 text-slate-200 hover:text-white">📊 投報計算</a>
+              <a href="daily-real-estate-news.html" class="flex items-center gap-2 px-4 py-2.5 hover:bg-white/10 text-slate-200 hover:text-white">📰 每日新聞</a>
+              <a href="membership.html"             class="flex items-center gap-2 px-4 py-2.5 hover:bg-white/10 text-[#c89b3c] hover:text-white font-bold">⭐ 會員方案</a>
+              <a href="about.html"                  class="flex items-center gap-2 px-4 py-2.5 hover:bg-white/10 text-slate-200 hover:text-white">關於協會</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hidden sm:flex items-center gap-2">
+        <a href="member_center.html" class="px-3 py-2 text-sm text-slate-300 hover:text-white whitespace-nowrap">會員登入</a>
+        <a href="https://line.me/R/ti/p/@180phkse" target="_blank"
+          class="px-4 py-2 rounded-full text-sm font-bold text-slate-900 whitespace-nowrap hover:opacity-90 transition"
+          style="background:#c89b3c;">加入 LINE 諮詢</a>
+      </div>
+
+      <button id="mobile-menu-button" class="lg:hidden inline-flex items-center gap-2 px-4 h-11 rounded-xl text-slate-900 font-extrabold shadow-lg" style="background:#c89b3c;">
+        <i class="fa-solid fa-bars text-base"></i>
+        <span class="text-sm">選單</span>
+      </button>
+    </div>
+
+    <!-- 跑馬燈 -->
+    <div class="border-t border-white/8 bg-slate-950/80 overflow-hidden" style="height:30px;">
+      <div class="flex items-center h-full">
+        <div class="shrink-0 flex items-center gap-1.5 px-3 border-r border-white/10 h-full" style="background:rgba(200,155,60,0.12)">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#c89b3c] animate-pulse"></span>
+          <span class="text-[10px] font-extrabold tracking-widest text-[#c89b3c] uppercase">LIVE</span>
+        </div>
+        <div class="relative flex-1 overflow-hidden">
+          <div id="ticker-track" class="flex items-center gap-0 whitespace-nowrap">
+            <span class="ticker-content flex items-center gap-6 px-6 text-[11px] text-slate-300 font-medium">
+              <span>🇺🇸 聯準會｜降息預期升溫，Q3 可能啟動</span>
+              <span class="text-slate-600">·</span>
+              <span>🇯🇵 日銀｜維持正利率 <span class="market-up font-bold">0.50%</span>，東京房價連18月上漲</span>
+              <span class="text-slate-600">·</span>
+              <span>🇹🇭 泰國｜外資持有年限延長至50年，芭達雅成交量週增 <span class="market-up font-bold">43%</span></span>
+              <span class="text-slate-600">·</span>
+              <span>🇦🇪 杜拜｜Q1 2026 交易量年增 <span class="market-up font-bold">34%</span>，黃金簽證申請破10萬</span>
+              <span class="text-slate-600">·</span>
+              <span>🇸🇬 新加坡｜ABSD 下調，外資回流豪宅市場，烏節路反彈 <span class="market-up font-bold">8%</span></span>
+              <span class="text-slate-600">·</span>
+              <span>💱 USD/TWD｜<span class="market-down font-bold">32.45</span>（-0.12%）・JPY/TWD｜<span class="market-up font-bold">0.213</span>（+0.31%）</span>
+              <span class="text-slate-600">·</span>
+            </span>
+            <span class="ticker-content flex items-center gap-6 px-6 text-[11px] text-slate-300 font-medium" aria-hidden="true">
+              <span>🇺🇸 聯準會｜降息預期升溫，Q3 可能啟動</span>
+              <span class="text-slate-600">·</span>
+              <span>🇯🇵 日銀｜維持正利率 <span class="market-up font-bold">0.50%</span>，東京房價連18月上漲</span>
+              <span class="text-slate-600">·</span>
+              <span>🇹🇭 泰國｜外資持有年限延長至50年，芭達雅成交量週增 <span class="market-up font-bold">43%</span></span>
+              <span class="text-slate-600">·</span>
+              <span>🇦🇪 杜拜｜Q1 2026 交易量年增 <span class="market-up font-bold">34%</span>，黃金簽證申請破10萬</span>
+              <span class="text-slate-600">·</span>
+              <span>🇸🇬 新加坡｜ABSD 下調，外資回流豪宅市場，烏節路反彈 <span class="market-up font-bold">8%</span></span>
+              <span class="text-slate-600">·</span>
+              <span>💱 USD/TWD｜<span class="market-down font-bold">32.45</span>（-0.12%）・JPY/TWD｜<span class="market-up font-bold">0.213</span>（+0.31%）</span>
+              <span class="text-slate-600">·</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 手機選單 -->
+    <div id="mobile-menu-overlay" class="lg:hidden fixed inset-0 bg-slate-950 text-white translate-x-full transition-transform duration-300 ease-in-out shadow-2xl z-50">
+      <div class="px-6 py-5 flex items-center justify-between border-b border-white/10">
+        <div class="flex items-center gap-3">
+          <img src="/tirea-logo.png" alt="TIREA Logo" class="w-10 h-10 rounded-xl shadow-lg object-contain bg-white p-1" />
+          <div>
+            <div class="font-extrabold tracking-tight text-lg leading-none">TIREA</div>
+            <div class="text-[10px] uppercase tracking-[0.24em] text-slate-300">Taiwan International REA</div>
+          </div>
+        </div>
+        <button id="close-menu-button" class="w-11 h-11 rounded-xl border border-white/10 flex items-center justify-center">
+          <i class="fa-solid fa-xmark text-xl"></i>
+        </button>
+      </div>
+      <div class="px-6 py-8 flex flex-col gap-4 text-lg font-bold overflow-y-auto" style="max-height:calc(100vh - 80px);">
+        <a href="ai_butler.html"             class="mobile-menu-link flex items-center justify-between rounded-2xl bg-blue-950 border border-blue-800 px-5 py-4 text-blue-100 shadow-lg">AI 找房 <i class="fa-solid fa-arrow-right text-sm text-blue-300"></i></a>
+        <a href="global_pro.html"            class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4 text-white shadow-lg">找海外房產 <i class="fa-solid fa-arrow-right text-sm text-slate-300"></i></a>
+        <a href="invest_map.html"            class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4 text-white shadow-lg">投資地圖 <i class="fa-solid fa-arrow-right text-sm text-slate-300"></i></a>
+        <a href="market-dashboard.html"      class="mobile-menu-link flex items-center justify-between rounded-2xl border px-5 py-4 text-white shadow-lg font-bold" style="background:rgba(200,155,60,0.15);border-color:rgba(200,155,60,0.3);color:#c89b3c">📊 市場儀表板 <i class="fa-solid fa-arrow-right text-sm"></i></a>
+        <a href="knowledge.html"             class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4 text-white shadow-lg">知識中心 <i class="fa-solid fa-arrow-right text-sm text-slate-300"></i></a>
+        <a href="global_news.html"           class="mobile-menu-link flex items-center justify-between rounded-2xl border border-emerald-800 px-5 py-4 text-emerald-100 shadow-lg font-bold" style="background:rgba(16,185,129,0.1);">🌏 國際情勢 <i class="fa-solid fa-arrow-right text-sm text-emerald-300"></i></a>
+        <a href="daily-real-estate-news.html" class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4 text-white shadow-lg">每日新聞 <i class="fa-solid fa-arrow-right text-sm text-slate-300"></i></a>
+        <a href="membership.html"            class="mobile-menu-link flex items-center justify-between rounded-2xl bg-yellow-950 border border-yellow-800 px-5 py-4 text-yellow-100 shadow-lg">⭐ 會員方案 <i class="fa-solid fa-arrow-right text-sm text-yellow-300"></i></a>
+        <a href="thailand-seminar.html"      class="mobile-menu-link flex items-center justify-between rounded-2xl bg-amber-950 border border-amber-800 px-5 py-4 text-amber-100 shadow-lg">🇹🇭 泰國說明會 <i class="fa-solid fa-arrow-right text-sm text-amber-300"></i></a>
+        <a href="turkey-seminar.html"        class="mobile-menu-link flex items-center justify-between rounded-2xl bg-amber-950 border border-amber-800 px-5 py-4 text-amber-100 shadow-lg">🇹🇷 土耳其投資指南 <i class="fa-solid fa-arrow-right text-sm text-amber-300"></i></a>
+        <a href="singapore-guide.html"       class="mobile-menu-link flex items-center justify-between rounded-2xl bg-amber-950 border border-amber-800 px-5 py-4 text-amber-100 shadow-lg">🇸🇬 新加坡金融指南 <i class="fa-solid fa-arrow-right text-sm text-amber-300"></i></a>
+        <a href="member_center.html"         class="mobile-menu-link flex items-center justify-between rounded-2xl bg-slate-900 border border-slate-800 px-5 py-4 text-white shadow-lg">MEMBER LOGIN <i class="fa-solid fa-arrow-right text-sm text-slate-300"></i></a>
+        <a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="mobile-menu-link w-full inline-flex justify-center items-center px-6 py-4 rounded-2xl text-slate-900 font-extrabold shadow-lg" style="background:#c89b3c;">加入 LINE 諮詢</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero-bg pt-40 pb-20 relative">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="text-emerald-400 text-xs font-bold tracking-widest uppercase">即時更新 · Global Situation</span>
+      </div>
+      <h1 class="text-5xl md:text-6xl font-extrabold text-white leading-tight mb-5">
+        國際情勢中心<br>
+        <span style="color:#c89b3c;">全球房市脈動</span>
+      </h1>
+      <p class="text-slate-300 text-lg max-w-2xl leading-relaxed">
+        地緣政治、央行政策、匯率走勢、各國房市動態——<br class="hidden md:block"/>
+        TIREA 為你整理全球不動產投資關鍵情報。
+      </p>
+    </div>
+  </header>
+
+  <!-- 市場指標列 -->
+  <section class="bg-slate-900 border-y border-white/8 py-5">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="flex items-center gap-2 mb-4">
+        <i class="fa-solid fa-chart-bar text-[#c89b3c] text-sm"></i>
+        <span class="text-xs font-bold text-slate-400 tracking-widest uppercase">Market Indicators · 2026/04/03</span>
+      </div>
+      <div class="grid grid-cols-3 md:grid-cols-6 gap-3">
+        <div class="bg-slate-800/60 border border-white/8 rounded-xl p-3">
+          <div class="text-[10px] text-slate-500 mb-1 tracking-wide">USD / TWD</div>
+          <div class="text-lg font-bold text-white">32.45</div>
+          <div class="text-xs market-down mt-0.5"><i class="fa-solid fa-arrow-down mr-0.5"></i>-0.12%</div>
+        </div>
+        <div class="bg-slate-800/60 border border-white/8 rounded-xl p-3">
+          <div class="text-[10px] text-slate-500 mb-1 tracking-wide">JPY / TWD</div>
+          <div class="text-lg font-bold text-white">0.213</div>
+          <div class="text-xs market-up mt-0.5"><i class="fa-solid fa-arrow-up mr-0.5"></i>+0.31%</div>
+        </div>
+        <div class="bg-slate-800/60 border border-white/8 rounded-xl p-3">
+          <div class="text-[10px] text-slate-500 mb-1 tracking-wide">THB / TWD</div>
+          <div class="text-lg font-bold text-white">0.912</div>
+          <div class="text-xs market-up mt-0.5"><i class="fa-solid fa-arrow-up mr-0.5"></i>+0.08%</div>
+        </div>
+        <div class="bg-slate-800/60 border border-white/8 rounded-xl p-3">
+          <div class="text-[10px] text-slate-500 mb-1 tracking-wide">SGD / TWD</div>
+          <div class="text-lg font-bold text-white">24.18</div>
+          <div class="text-xs market-neu mt-0.5"><i class="fa-solid fa-minus mr-0.5"></i>持平</div>
+        </div>
+        <div class="bg-slate-800/60 border border-white/8 rounded-xl p-3">
+          <div class="text-[10px] text-slate-500 mb-1 tracking-wide">Fed 利率</div>
+          <div class="text-lg font-bold text-white">4.50%</div>
+          <div class="text-xs market-down mt-0.5"><i class="fa-solid fa-arrow-down mr-0.5"></i>降息預期 Q3</div>
+        </div>
+        <div class="bg-slate-800/60 border border-white/8 rounded-xl p-3">
+          <div class="text-[10px] text-slate-500 mb-1 tracking-wide">日銀利率</div>
+          <div class="text-lg font-bold text-white">0.50%</div>
+          <div class="text-xs market-up mt-0.5"><i class="fa-solid fa-arrow-up mr-0.5"></i>升息週期中</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 主內容 -->
+  <section class="py-14">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="flex flex-col lg:flex-row gap-10">
+
+        <!-- 新聞主區 -->
+        <div class="flex-1 min-w-0">
+
+          <!-- 分頁篩選 -->
+          <div class="flex flex-wrap gap-2 mb-8">
+            <button onclick="filterNews('all')"    id="tab-all"    class="tab-btn active px-5 py-2 rounded-full text-xs font-bold border border-white/10">全部</button>
+            <button onclick="filterNews('asia')"   id="tab-asia"   class="tab-btn px-5 py-2 rounded-full text-xs font-bold bg-slate-800 border border-white/10 text-slate-300 hover:text-white">🌏 亞太市場</button>
+            <button onclick="filterNews('us')"     id="tab-us"     class="tab-btn px-5 py-2 rounded-full text-xs font-bold bg-slate-800 border border-white/10 text-slate-300 hover:text-white">🌎 歐美中東</button>
+            <button onclick="filterNews('policy')" id="tab-policy" class="tab-btn px-5 py-2 rounded-full text-xs font-bold bg-slate-800 border border-white/10 text-slate-300 hover:text-white">🏛 政策動態</button>
+            <button onclick="filterNews('fx')"     id="tab-fx"     class="tab-btn px-5 py-2 rounded-full text-xs font-bold bg-slate-800 border border-white/10 text-slate-300 hover:text-white">💱 匯率分析</button>
+          </div>
+
+          <!-- 新聞列表 -->
+          <div id="news-container" class="space-y-5">
+            <div class="skeleton h-44 rounded-2xl"></div>
+            <div class="skeleton h-44 rounded-2xl"></div>
+            <div class="skeleton h-44 rounded-2xl"></div>
+          </div>
+
+          <div class="text-center mt-10">
+            <button id="load-more-btn" onclick="loadMore()"
+              class="px-8 py-3 border border-[#c89b3c] text-[#c89b3c] font-bold rounded-full hover:bg-[#c89b3c] hover:text-slate-900 transition text-sm">
+              載入更多
+            </button>
+          </div>
+        </div>
+
+        <!-- 側欄 -->
+        <div class="lg:w-72 space-y-6 shrink-0">
+
+          <!-- TIREA 本週研判 -->
+          <div class="border border-[#c89b3c]/30 rounded-2xl p-6" style="background:rgba(200,155,60,0.07);">
+            <div class="flex items-center gap-2 mb-4">
+              <i class="fa-solid fa-brain text-[#c89b3c] text-sm"></i>
+              <span class="text-xs font-bold tracking-widest text-[#c89b3c] uppercase">TIREA 本週研判</span>
+            </div>
+            <p class="text-slate-300 text-sm leading-relaxed mb-4">
+              美聯準會降息預期升溫，日圓緩步回升，日本房市布局窗口值得關注。東南亞（泰國、越南）受惠製造業轉移，工業不動產需求走強；杜拜黃金簽證持續吸引全球高淨值買家。
+            </p>
+            <div class="border-t border-white/10 pt-4">
+              <p class="text-[10px] text-slate-500 mb-3 uppercase tracking-wide">重點關注地區</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 bg-slate-800 border border-white/10 rounded-full text-xs">🇯🇵 日本</span>
+                <span class="px-3 py-1 bg-slate-800 border border-white/10 rounded-full text-xs">🇹🇭 泰國</span>
+                <span class="px-3 py-1 bg-slate-800 border border-white/10 rounded-full text-xs">🇦🇪 杜拜</span>
+                <span class="px-3 py-1 bg-slate-800 border border-white/10 rounded-full text-xs">🇸🇬 新加坡</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 熱門主題 -->
+          <div class="bg-slate-900 border border-white/8 rounded-2xl p-6">
+            <h3 class="text-xs font-bold tracking-widest text-slate-400 uppercase mb-4">
+              <i class="fa-solid fa-fire text-orange-400 mr-2"></i>熱門主題
+            </h3>
+            <div class="space-y-1">
+              <button onclick="filterNews('policy')" class="w-full text-left flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-white/5 transition group">
+                <span class="text-slate-300 text-sm group-hover:text-white">Fed 降息路徑分析</span>
+                <span class="text-[10px] text-slate-500 bg-slate-800 px-2 py-0.5 rounded-full">熱門</span>
+              </button>
+              <button onclick="filterNews('asia')" class="w-full text-left flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-white/5 transition group">
+                <span class="text-slate-300 text-sm group-hover:text-white">日圓升值與置產時機</span>
+                <span class="text-[10px] text-slate-500 bg-slate-800 px-2 py-0.5 rounded-full">新增</span>
+              </button>
+              <button onclick="filterNews('asia')" class="w-full text-left flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-white/5 transition group">
+                <span class="text-slate-300 text-sm group-hover:text-white">東南亞工業地產崛起</span>
+                <span class="text-[10px] text-slate-500 bg-slate-800 px-2 py-0.5 rounded-full">熱門</span>
+              </button>
+              <button onclick="filterNews('us')" class="w-full text-left flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-white/5 transition group">
+                <span class="text-slate-300 text-sm group-hover:text-white">杜拜黃金簽證新政</span>
+                <span class="text-[10px] text-slate-500 bg-slate-800 px-2 py-0.5 rounded-full">新增</span>
+              </button>
+              <button onclick="filterNews('policy')" class="w-full text-left flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-white/5 transition group">
+                <span class="text-slate-300 text-sm group-hover:text-white">泰國外資持有上限</span>
+                <span class="text-[10px] text-slate-500 bg-slate-800 px-2 py-0.5 rounded-full">熱門</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- LINE 諮詢 CTA -->
+          <a href="https://line.me/R/ti/p/@180phkse" target="_blank"
+            class="block rounded-2xl p-6 text-center hover:opacity-90 transition"
+            style="background:linear-gradient(135deg,#c89b3c,#a07830);">
+            <i class="fa-brands fa-line text-3xl text-white mb-3 block"></i>
+            <div class="font-bold text-white mb-1">加入 LINE 諮詢</div>
+            <div class="text-xs text-yellow-100 opacity-80">專業顧問即時回覆你的國際置產問題</div>
+          </a>
+
+          <!-- 每日新聞連結 -->
+          <a href="daily-real-estate-news.html"
+            class="flex items-center justify-between bg-slate-900 border border-white/8 rounded-2xl p-5 hover:bg-slate-800 transition">
+            <div>
+              <div class="text-xs text-slate-400 mb-1">更多內容</div>
+              <div class="font-bold text-white text-sm">📰 每日地產新聞</div>
+            </div>
+            <i class="fa-solid fa-arrow-right text-slate-400"></i>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/8 bg-slate-950 py-12 mt-8">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <img src="/tirea-logo.png" alt="TIREA" class="w-9 h-9 rounded-lg object-contain bg-white p-1" />
+            <span class="font-extrabold text-white">TIREA</span>
+          </div>
+          <p class="text-slate-400 text-sm leading-relaxed">台灣國際不動產交流協會，連結全球不動產專業人士，提供市場分析、法律諮詢與跨境資金運作服務。</p>
+        </div>
+        <div>
+          <h4 class="text-white font-bold mb-4 text-sm tracking-wide">快速連結</h4>
+          <ul class="space-y-2 text-sm text-slate-400">
+            <li><a href="index.html" class="hover:text-white transition">首頁</a></li>
+            <li><a href="global_news.html" class="hover:text-white transition text-emerald-400">國際情勢</a></li>
+            <li><a href="daily-real-estate-news.html" class="hover:text-white transition">每日新聞</a></li>
+            <li><a href="knowledge.html" class="hover:text-white transition">知識中心</a></li>
+            <li><a href="membership.html" class="hover:text-white transition">會員方案</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-bold mb-4 text-sm tracking-wide">聯絡我們</h4>
+          <a href="https://line.me/R/ti/p/@180phkse" target="_blank"
+            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-slate-900 font-bold text-sm hover:opacity-90 transition mb-4"
+            style="background:#c89b3c;"><i class="fa-brands fa-line"></i> LINE 官方帳號</a>
+        </div>
+      </div>
+      <div class="border-t border-white/8 pt-6 text-center text-xs text-slate-600">
+        © 2026 台灣國際不動產交流協會 TIREA. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  // ── 行動選單 ──
+  const mobileMenuButton  = document.getElementById('mobile-menu-button');
+  const closeMenuButton   = document.getElementById('close-menu-button');
+  const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+  const mobileMenuLinks   = document.querySelectorAll('.mobile-menu-link');
+  if (mobileMenuButton) {
+    mobileMenuButton.addEventListener('click',  () => mobileMenuOverlay.classList.remove('translate-x-full'));
+    closeMenuButton.addEventListener('click',   () => mobileMenuOverlay.classList.add('translate-x-full'));
+    mobileMenuLinks.forEach(l => l.addEventListener('click', () => mobileMenuOverlay.classList.add('translate-x-full')));
+  }
+
+  // ── 新聞資料 ──
+  const NEWS_DATA = [
+    {
+      id:1, category:'policy', region:'🇺🇸 美國', badge:'政策動態', badgeColor:'rgba(139,92,246,0.2)', badgeText:'#a78bfa',
+      title:'聯準會官員暗示：若通膨持續降溫，2026 Q3 降息時機成熟',
+      summary:'多位聯準會官員釋出鴿派信號，指出若通膨指標持續回落至 2.5% 以下，今年下半年可望啟動降息週期。利率下行將直接降低購房成本，提振商業不動產市場信心。',
+      source:'Reuters', date:'2026-04-03', readTime:'5',
+      img:'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80', featured:true
+    },
+    {
+      id:2, category:'asia', region:'🇯🇵 日本', badge:'亞太市場', badgeColor:'rgba(249,115,22,0.2)', badgeText:'#fb923c',
+      title:'日銀升息週期持續：東京核心區房價連續 18 個月上漲，大阪京都跟進',
+      summary:'日本央行維持正利率政策，日圓緩步升值帶動外資湧入。東京港區、澀谷住宅均價年漲幅達 12%，專家預測 2026 全年仍有上行空間。',
+      source:'Nikkei Asia', date:'2026-04-02', readTime:'4',
+      img:'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800&q=80'
+    },
+    {
+      id:3, category:'asia', region:'🇹🇭 泰國', badge:'亞太市場', badgeColor:'rgba(249,115,22,0.2)', badgeText:'#fb923c',
+      title:'泰國政府推出外資購房新優惠：持有年限延長至 50 年，芭達雅成交量週增 43%',
+      summary:'泰國內閣通過修正法案，外國買家在特定區域持有年限由 30 年延長至 50 年，申請程序同步簡化。曼谷 Sukhumvit 核心區成交量單週暴增 43%。',
+      source:'Bangkok Post', date:'2026-04-01', readTime:'6',
+      img:'https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80'
+    },
+    {
+      id:4, category:'us', region:'🇦🇪 杜拜', badge:'歐美中東', badgeColor:'rgba(16,185,129,0.2)', badgeText:'#34d399',
+      title:'杜拜 2026 Q1 房產交易量創歷史新高，黃金簽證申請突破 10 萬',
+      summary:'杜拜土地局數據顯示，Q1 不動產交易總額突破 970 億迪拉姆，年增 34%。黃金簽證持續吸引全球高淨值人士，印度、俄羅斯、中國買家列前三大來源國。',
+      source:'Gulf News', date:'2026-03-31', readTime:'5',
+      img:'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800&q=80'
+    },
+    {
+      id:5, category:'fx', region:'🌐 全球', badge:'匯率分析', badgeColor:'rgba(6,182,212,0.2)', badgeText:'#22d3ee',
+      title:'美元走弱趨勢下，亞幣資產吸引力提升：分析師看好日圓、新幣回升',
+      summary:'美元指數跌破 103 關卡，若聯準會啟動降息，日圓、新加坡幣有望顯著走強。台灣投資人現階段布局日本、新加坡，可望同時受益資產增值與匯差收益。',
+      source:'Bloomberg', date:'2026-03-30', readTime:'7',
+      img:'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80'
+    },
+    {
+      id:6, category:'asia', region:'🇸🇬 新加坡', badge:'亞太市場', badgeColor:'rgba(249,115,22,0.2)', badgeText:'#fb923c',
+      title:'新加坡下調額外印花稅，外資重返豪宅市場，烏節路均價反彈 8%',
+      summary:'新加坡政府將外國買家額外印花稅（ABSD）由 60% 下調至 45%，烏節路核心豪宅區單月成交量翻倍，外資比例由 18% 回升至 29%。',
+      source:'Straits Times', date:'2026-03-29', readTime:'4',
+      img:'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=800&q=80'
+    },
+    {
+      id:7, category:'policy', region:'🇻🇳 越南', badge:'政策動態', badgeColor:'rgba(139,92,246,0.2)', badgeText:'#a78bfa',
+      title:'越南新不動產法正式生效：外資持有公寓年限延長、轉售限制鬆綁',
+      summary:'越南修正後的不動產法已於 2026 年 1 月生效，外國人持有年限由 50 年延長至 70 年，轉售條件大幅鬆綁。胡志明市、河內詢問量較去年同期成長 120%。',
+      source:'VnExpress', date:'2026-03-28', readTime:'5',
+      img:'https://images.unsplash.com/photo-1583417267826-aebc4d1542e1?w=800&q=80'
+    },
+    {
+      id:8, category:'us', region:'🇬🇧 英國', badge:'歐美中東', badgeColor:'rgba(16,185,129,0.2)', badgeText:'#34d399',
+      title:'英格蘭銀行降息 1 碼至 4.25%，倫敦房市出現買氣回溫訊號',
+      summary:'英格蘭銀行宣布降息 25 個基點，為 2022 年以來首次。倫敦中心區（Zone 1-2）住宅詢問量隨即上升 17%，分析師預期降息週期若持續，將在 2026 下半年走出谷底。',
+      source:'Financial Times', date:'2026-03-27', readTime:'4',
+      img:'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800&q=80'
+    }
+  ];
+
+  let currentFilter = 'all';
+  let displayCount = 4;
+
+  function getFiltered() {
+    return currentFilter === 'all' ? NEWS_DATA : NEWS_DATA.filter(n => n.category === currentFilter);
+  }
+
+  function badge(color, text, label) {
+    return `<span style="background:${color};color:${text};" class="text-[10px] font-bold px-2 py-0.5 rounded-full">${label}</span>`;
+  }
+
+  function createCard(n, featured = false) {
+    if (featured) {
+      return `<div class="news-card bg-slate-900 border border-white/8 rounded-2xl overflow-hidden">
+        <div class="md:flex">
+          <div class="md:w-2/5 h-52 md:h-auto overflow-hidden">
+            <img src="${n.img}" class="w-full h-full object-cover hover:scale-105 transition duration-500" onerror="this.src='https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80'"/>
+          </div>
+          <div class="flex-1 p-7">
+            <div class="flex flex-wrap items-center gap-2 mb-4">
+              <span class="text-[10px] text-slate-400 border border-white/10 rounded-full px-2 py-0.5">${n.region}</span>
+              ${badge(n.badgeColor, n.badgeText, n.badge)}
+              <span class="text-[10px] text-slate-500 ml-auto">${n.date}</span>
+            </div>
+            <h2 class="text-xl font-bold text-white mb-3 leading-snug">${n.title}</h2>
+            <p class="text-slate-400 text-sm leading-relaxed mb-5 line-clamp-3">${n.summary}</p>
+            <div class="flex items-center justify-between text-xs text-slate-500">
+              <span><i class="fa-solid fa-newspaper mr-1"></i>${n.source} · ${n.readTime} 分鐘閱讀</span>
+              <span class="text-[#c89b3c] font-bold cursor-pointer hover:underline">閱讀全文 →</span>
+            </div>
+          </div>
+        </div>
+      </div>`;
+    }
+    return `<div class="news-card bg-slate-900 border border-white/8 rounded-2xl flex overflow-hidden">
+      <div class="w-36 shrink-0 overflow-hidden">
+        <img src="${n.img}" class="w-full h-full object-cover hover:scale-110 transition duration-500" onerror="this.src='https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80'"/>
+      </div>
+      <div class="flex-1 p-5 min-w-0">
+        <div class="flex flex-wrap items-center gap-2 mb-2">
+          <span class="text-[10px] text-slate-400 border border-white/10 rounded-full px-2 py-0.5 shrink-0">${n.region}</span>
+          ${badge(n.badgeColor, n.badgeText, n.badge)}
+          <span class="text-[10px] text-slate-500 ml-auto shrink-0">${n.date}</span>
+        </div>
+        <h3 class="text-base font-bold text-white mb-2 leading-snug line-clamp-2">${n.title}</h3>
+        <p class="text-slate-400 text-xs leading-relaxed line-clamp-2 mb-3">${n.summary}</p>
+        <div class="flex items-center justify-between text-[11px] text-slate-500">
+          <span>${n.source} · ${n.readTime} 分鐘</span>
+          <span class="text-[#c89b3c] font-bold cursor-pointer hover:underline">閱讀 →</span>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  function renderNews() {
+    const container = document.getElementById('news-container');
+    const list = getFiltered().slice(0, displayCount);
+    if (!list.length) {
+      container.innerHTML = `<div class="text-center py-20 text-slate-500"><i class="fa-solid fa-search text-4xl mb-4 block"></i>此分類暫無內容</div>`;
+      return;
+    }
+    container.innerHTML = list.map((n, i) => createCard(n, i === 0 && currentFilter === 'all')).join('');
+    document.getElementById('load-more-btn').style.display = displayCount >= getFiltered().length ? 'none' : 'inline-block';
+  }
+
+  function filterNews(cat) {
+    currentFilter = cat; displayCount = 4;
+    document.querySelectorAll('.tab-btn').forEach(b => {
+      b.classList.remove('active'); b.classList.add('bg-slate-800', 'text-slate-300');
+    });
+    const t = document.getElementById('tab-' + cat);
+    if (t) { t.classList.add('active'); t.classList.remove('bg-slate-800', 'text-slate-300'); }
+    renderNews();
+  }
+
+  function loadMore() { displayCount += 4; renderNews(); }
+
+  // 嘗試 RSS 抓取
+  async function fetchRSS() {
+    const API = 'https://api.rss2json.com/v1/api.json?rss_url=';
+    const feeds = [
+      encodeURIComponent('https://feeds.reuters.com/reuters/businessNews'),
+      encodeURIComponent('https://feeds.bbci.co.uk/news/business/rss.xml')
+    ];
+    for (const f of feeds) {
+      try {
+        const r = await fetch(API + f, { signal: AbortSignal.timeout(5000) });
+        if (!r.ok) continue;
+        const d = await r.json();
+        if (d.status === 'ok' && d.items?.length) {
+          const items = d.items.slice(0, 3).map((item, i) => ({
+            id: 100 + i, category: 'us', region: '🌐 即時', badge: '即時新聞',
+            badgeColor: 'rgba(100,116,139,0.3)', badgeText: '#94a3b8',
+            title: item.title,
+            summary: (item.description || '').replace(/<[^>]*>/g,'').slice(0, 160) + '…',
+            source: d.feed.title || 'RSS', date: (item.pubDate||'').slice(0,10),
+            readTime: '3',
+            img: item.thumbnail || item.enclosure?.link || 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80'
+          }));
+          NEWS_DATA.unshift(...items);
+          break;
+        }
+      } catch {}
+    }
+    renderNews();
+  }
+
+  renderNews();
+  fetchRSS();
+  </script>
+
+  <!-- Vercel Web Analytics -->
+  <script defer src="/_vercel/insights/script.js"></script>
+  <!-- Vercel Speed Insights -->
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

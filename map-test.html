@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TIREA Google Maps Test</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Noto Sans TC', sans-serif; }
+    #map { height: 70vh; width: 100%; border-radius: 24px; }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2XV1V9TS1P"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-2XV1V9TS1P');
+  </script>
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen p-6 md:p-10">
+  <div class="max-w-6xl mx-auto space-y-6">
+    <div>
+      <div class="text-sm font-bold uppercase tracking-[0.2em] text-slate-400 mb-2">Map Test</div>
+      <h1 class="text-4xl font-extrabold mb-3">Google Maps 最小測試頁</h1>
+      <p class="text-slate-600 text-lg">這頁只做一件事：確認 Google Maps JavaScript API 能不能正常把地圖畫出來。</p>
+    </div>
+
+    <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm">
+      <div id="status" class="text-sm font-bold text-slate-500 mb-4">正在載入設定...</div>
+      <div id="map"></div>
+    </div>
+  </div>
+
+  <script>
+    const FALLBACK_GOOGLE_MAPS_API_KEY = 'AIzaSyBWjx2Yf0Y-ofrG-1WkFI_RxID6gacG6Kw';
+
+    async function getGoogleMapsApiKey() {
+      try {
+        const res = await fetch('/api/maps-config');
+        const json = await res.json();
+        if (json && json.googleMapsApiKey) return json.googleMapsApiKey;
+      } catch (e) {
+        // ignore and fallback for static local testing
+      }
+      return FALLBACK_GOOGLE_MAPS_API_KEY;
+    }
+
+    async function initMapTest() {
+      const status = document.getElementById('status');
+      try {
+        const apiKey = await getGoogleMapsApiKey();
+
+        if (!apiKey) {
+          status.textContent = '找不到 GOOGLE_MAPS_API_KEY';
+          return;
+        }
+
+        await new Promise((resolve, reject) => {
+          const script = document.createElement('script');
+          script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&v=weekly&callback=__tireaMapTestInit`;
+          script.async = true;
+          script.defer = true;
+          script.onerror = reject;
+          window.__tireaMapTestInit = resolve;
+          document.head.appendChild(script);
+        });
+
+        new google.maps.Map(document.getElementById('map'), {
+          center: { lat: 13.7563, lng: 100.5018 },
+          zoom: 11,
+          streetViewControl: false,
+          mapTypeControl: false,
+          fullscreenControl: false
+        });
+
+        status.textContent = 'Google Maps 載入成功';
+      } catch (error) {
+        status.textContent = 'Google Maps 載入失敗';
+        console.error(error);
+      }
+    }
+
+    initMapTest();
+  </script>
+  <script>
+    (function(){
+      try {
+        fetch('/api/track-visit', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            page: location.pathname,
+            title: document.title,
+            referrer: document.referrer || 'direct',
+            device: /Mobile|Android|iPhone|iPad/i.test(navigator.userAgent) ? 'mobile' : 'desktop'
+          })
+        });
+      } catch(e){}
+    })();
+  </script>
+
+  <!-- Vercel Web Analytics -->
+  <script defer src="/_vercel/insights/script.js"></script>
+  <!-- Vercel Speed Insights -->
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

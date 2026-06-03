@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>新加坡置產與金融指南 | 銀行開戶・ABSD稅率・置業策略 | TIREA</title>
+  <meta name="description" content="新加坡金融中心銀行開戶條件、外籍人士置業 ABSD 稅率比較、台灣投資人實用指南。TIREA 整理。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0f172a;
+      --blue: #163a8a;
+      --blue-mid: #1e4db7;
+      --sg-red: #ef4444;
+      --sg-white: #f8fafc;
+      --gold: #c89b3c;
+      --gold-light: #e8c56e;
+      --white: #f8fafc;
+      --gray: #94a3b8;
+      --glass: rgba(255,255,255,0.06);
+      --glass-border: rgba(255,255,255,0.12);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 48px;
+      background: rgba(15,23,42,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo-badge {
+      width: 38px; height: 38px; border-radius: 8px;
+      background: linear-gradient(135deg, var(--blue), var(--blue-mid));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 14px; color: var(--gold);
+      border: 1px solid var(--gold);
+    }
+    .nav-logo-text { font-size: 14px; font-weight: 600; color: var(--white); }
+    .nav-logo-sub { font-size: 11px; color: var(--gray); font-weight: 300; }
+    .nav-cta {
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: var(--navy);
+      padding: 10px 24px; border-radius: 8px;
+      font-weight: 700; font-size: 14px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.88; }
+    @media (max-width: 640px) {
+      nav { padding: 14px 20px; }
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 420px;
+      padding: 120px 48px 64px;
+      background: linear-gradient(135deg, #0f172a 0%, #163a8a 60%, #1e4db7 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '🇸🇬';
+      position: absolute; top: 80px; right: 60px;
+      font-size: 160px; opacity: 0.12;
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 16px; border-radius: 100px;
+      background: var(--glass); border: 1px solid var(--glass-border);
+      font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gray); margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 900; line-height: 1.1;
+      margin-bottom: 12px;
+    }
+    .hero h1 span { color: var(--gold); }
+    .hero-sub {
+      font-size: 1rem; color: var(--gray); max-width: 560px; margin-bottom: 32px;
+    }
+
+    /* ── CONTROLS BAR ── */
+    .controls-bar {
+      display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+      padding: 16px 48px;
+      background: rgba(22,58,138,0.25);
+      border-bottom: 1px solid var(--glass-border);
+      position: sticky; top: 72px; z-index: 90;
+      backdrop-filter: blur(12px);
+    }
+    .toggle-group {
+      display: flex; border-radius: 10px; overflow: hidden;
+      border: 1px solid var(--glass-border);
+    }
+    .toggle-btn {
+      padding: 8px 18px; font-size: 13px; font-weight: 700;
+      border: none; cursor: pointer;
+      background: var(--glass); color: var(--gray);
+      transition: all 0.2s;
+    }
+    .toggle-btn.active {
+      background: var(--gold);
+      color: var(--navy);
+    }
+    .fx-display {
+      margin-left: auto;
+      display: flex; align-items: center; gap-6px;
+      font-size: 12px; color: var(--gray);
+    }
+    .fx-badge {
+      padding: 6px 14px; border-radius: 8px;
+      background: var(--glass); border: 1px solid var(--glass-border);
+      font-size: 12px; font-weight: 700; color: var(--gold);
+    }
+    @media (max-width: 640px) {
+      .controls-bar { padding: 12px 20px; }
+    }
+
+    /* ── MAIN ── */
+    main { max-width: 900px; margin: 0 auto; padding: 48px 24px 80px; }
+
+    /* ── SECTION HEADER ── */
+    .section-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--gold); color: var(--navy);
+      font-weight: 900; font-size: 15px;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(1.3rem, 3vw, 1.8rem);
+      font-weight: 900; margin-bottom: 6px;
+    }
+    .section-sub {
+      font-size: 14px; color: var(--gray); margin-bottom: 24px;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+    .card-title {
+      font-size: 13px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 16px;
+      display: flex; align-items: center; gap: 8px;
+    }
+
+    /* ── TABLE ── */
+    .tbl-wrap { overflow-x: auto; margin-bottom: 4px; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    thead tr { border-bottom: 1px solid var(--glass-border); }
+    thead th {
+      text-align: left; padding: 10px 14px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--gray);
+    }
+    tbody tr { border-bottom: 1px solid rgba(255,255,255,0.04); transition: background 0.15s; }
+    tbody tr:hover { background: rgba(255,255,255,0.04); }
+    tbody td { padding: 13px 14px; vertical-align: top; line-height: 1.5; }
+    .td-bank { font-weight: 700; color: var(--white); }
+    .td-name { font-size: 12px; color: var(--gray); }
+    .td-amt { font-weight: 700; color: var(--gold); white-space: nowrap; }
+    .td-amt-twd { font-size: 11px; color: var(--gray); margin-top: 2px; }
+    .badge {
+      display: inline-block; padding: 3px 10px; border-radius: 100px;
+      font-size: 11px; font-weight: 700;
+    }
+    .badge-easy { background: rgba(34,197,94,0.15); color: #4ade80; }
+    .badge-med  { background: rgba(251,191,36,0.15); color: #fbbf24; }
+    .badge-hard { background: rgba(239,68,68,0.15); color: #f87171; }
+
+    /* ── GROUP HEADER ── */
+    .group-hdr td {
+      background: rgba(22,58,138,0.35);
+      font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+      color: #93c5fd; padding: 10px 14px;
+    }
+
+    /* ── PROPERTY TABLE ── */
+    .absd-pct { font-size: 1.5rem; font-weight: 900; }
+    .absd-high { color: #f87171; }
+    .absd-ok   { color: #4ade80; }
+    .absd-zero { color: #34d399; }
+    .eval-badge {
+      display: inline-block; padding: 4px 12px; border-radius: 100px;
+      font-size: 11px; font-weight: 700;
+    }
+    .eval-bad  { background: rgba(239,68,68,0.15); color: #f87171; }
+    .eval-warn { background: rgba(251,191,36,0.15); color: #fbbf24; }
+    .eval-good { background: rgba(34,197,94,0.15); color: #4ade80; }
+
+    /* ── CALCULATOR ── */
+    .calc-box {
+      background: linear-gradient(135deg, rgba(22,58,138,0.4), rgba(30,77,183,0.25));
+      border: 1px solid rgba(99,137,255,0.3);
+      border-radius: 20px; padding: 28px;
+      margin-bottom: 24px;
+    }
+    .calc-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; margin-bottom: 20px; }
+    .calc-input-wrap { flex: 1; min-width: 200px; }
+    .calc-input-wrap label { display: block; font-size: 12px; font-weight: 700; color: var(--gray); margin-bottom: 6px; }
+    .calc-input {
+      width: 100%; padding: 12px 16px; border-radius: 10px;
+      background: rgba(255,255,255,0.08); border: 1px solid var(--glass-border);
+      color: var(--white); font-size: 16px; font-weight: 700;
+      font-family: 'Noto Sans TC', sans-serif;
+      outline: none;
+    }
+    .calc-input:focus { border-color: var(--gold); }
+    .calc-result {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+    }
+    .calc-item {
+      background: var(--glass); border: 1px solid var(--glass-border);
+      border-radius: 14px; padding: 16px;
+    }
+    .calc-item-label { font-size: 11px; color: var(--gray); font-weight: 600; margin-bottom: 4px; }
+    .calc-item-val { font-size: 1.1rem; font-weight: 900; color: var(--gold); }
+    .calc-item-sub { font-size: 11px; color: var(--gray); margin-top: 2px; }
+    .calc-item.total { border-color: rgba(239,68,68,0.4); background: rgba(239,68,68,0.08); }
+    .calc-item.total .calc-item-val { color: #f87171; }
+    .calc-item.good { border-color: rgba(34,197,94,0.4); background: rgba(34,197,94,0.08); }
+    .calc-item.good .calc-item-val { color: #4ade80; }
+
+    /* ── STEPS ── */
+    .steps { display: grid; gap: 16px; }
+    .step {
+      display: flex; gap: 16px;
+      background: var(--glass); border: 1px solid var(--glass-border);
+      border-radius: 16px; padding: 20px;
+    }
+    .step-num {
+      flex-shrink: 0;
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--gold); color: var(--navy);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 14px;
+    }
+    .step-body { flex: 1; }
+    .step-title { font-weight: 700; margin-bottom: 4px; }
+    .step-desc { font-size: 14px; color: var(--gray); line-height: 1.6; }
+
+    /* ── DISCLAIMER ── */
+    .disclaimer {
+      margin-top: 48px;
+      padding: 20px 24px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--glass-border);
+      font-size: 12px; color: var(--gray); line-height: 1.7;
+    }
+
+    /* ── DIVIDER ── */
+    .divider { border: none; border-top: 1px solid var(--glass-border); margin: 48px 0; }
+
+    /* ── LANG HIDDEN ── */
+    [data-en] { display: none; }
+    body.lang-en [data-zh] { display: none; }
+    body.lang-en [data-en] { display: revert; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .hero { padding: 100px 20px 48px; }
+      main { padding: 32px 16px 60px; }
+      .absd-pct { font-size: 1.1rem; }
+    }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2XV1V9TS1P"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-2XV1V9TS1P');
+  </script>
+  <link rel="canonical" href="https://www.tirea.tw/singapore-guide" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-badge">T</div>
+      <div>
+        <div class="nav-logo-text">TIREA</div>
+        <div class="nav-logo-sub">Taiwan International REA</div>
+      </div>
+    </a>
+    <a href="https://line.me/R/ti/p/@180phkse" target="_blank" class="nav-cta">加入 LINE 諮詢</a>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-badge">🇸🇬 Singapore Financial Guide</div>
+    <h1>
+      <span data-zh>新加坡</span><span data-en>Singapore</span>
+      <span style="color:var(--gold)"> · </span>
+      <span data-zh>台灣商人指南</span><span data-en>Guide for Taiwanese</span>
+    </h1>
+    <p class="hero-sub" data-zh>銀行開戶 &amp; 置業策略 · 外籍人士關鍵數字總整理</p>
+    <p class="hero-sub" data-en>Banking &amp; Property Strategy · Key Numbers for Foreign Investors</p>
+  </header>
+
+  <!-- CONTROLS BAR -->
+  <div class="controls-bar">
+    <div style="font-size:12px;color:var(--gray);font-weight:600;margin-right:4px;" data-zh>語言</div>
+    <div style="font-size:12px;color:var(--gray);font-weight:600;margin-right:4px;" data-en>Language</div>
+    <div class="toggle-group">
+      <button class="toggle-btn active" id="btnZh" onclick="setLang('zh')">繁中</button>
+      <button class="toggle-btn" id="btnEn" onclick="setLang('en')">EN</button>
+    </div>
+
+    <div style="font-size:12px;color:var(--gray);font-weight:600;margin-right:4px;margin-left:16px;" data-zh>金額顯示</div>
+    <div style="font-size:12px;color:var(--gray);font-weight:600;margin-right:4px;margin-left:16px;" data-en>Currency</div>
+    <div class="toggle-group">
+      <button class="toggle-btn active" id="btnSGD" onclick="setCurrency('sgd')">SGD $</button>
+      <button class="toggle-btn" id="btnTWD" onclick="setCurrency('twd')">TWD 台幣</button>
+    </div>
+
+    <div class="fx-badge" style="margin-left:auto;">
+      <span data-zh>💱 1 SGD ≈ </span><span data-en>💱 1 SGD ≈ </span>
+      <span id="fxRate">23.0</span>
+      <span data-zh> TWD（參考匯率）</span><span data-en> TWD (reference)</span>
+    </div>
+  </div>
+
+  <!-- INTRO -->
+  <main>
+    <p style="color:var(--gray);line-height:1.8;margin-bottom:40px;font-size:15px;" data-zh>
+      作為台灣商人，您對新加坡的銀行與房地產市場可能充滿好奇。新加坡是亞洲最重要的金融中心之一，但外籍人士在開戶與置業方面面臨截然不同的條件與成本。本指南協助您在拜訪前先掌握關鍵數字。
+    </p>
+    <p style="color:var(--gray);line-height:1.8;margin-bottom:40px;font-size:15px;" data-en>
+      As a Taiwanese businessperson, you may be curious about Singapore's banking and real estate market. Singapore is one of Asia's most important financial centres, but foreigners face very different conditions and costs. This guide helps you understand the key numbers before your visit.
+    </p>
+
+    <!-- ══ SECTION 01 ══ -->
+    <div class="section-num">01</div>
+    <h2 class="section-title" data-zh>新加坡銀行開戶指南</h2>
+    <h2 class="section-title" data-en>Singapore Banking Guide</h2>
+    <p class="section-sub" data-zh>依身份類別整理——有無就業准証（EP）對開戶條件影響極大</p>
+    <p class="section-sub" data-en>Conditions differ significantly depending on whether you hold an Employment Pass (EP)</p>
+
+    <div class="card">
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th data-zh>銀行</th><th data-en>Bank</th>
+              <th data-zh>戶口類型</th><th data-en>Account Type</th>
+              <th data-zh>最低存款</th><th data-en>Min. Deposit</th>
+              <th data-zh>持續最低結餘</th><th data-en>Min. Balance</th>
+              <th data-zh>難度</th><th data-en>Difficulty</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- EP holders -->
+            <tr class="group-hdr">
+              <td colspan="5" data-zh>✅ 持有就業准証（EP / S Pass / 家屬准証）</td>
+              <td colspan="5" data-en>✅ With Employment Pass (EP / S Pass / Dependant's Pass)</td>
+            </tr>
+            <tr>
+              <td class="td-bank">DBS<div class="td-name">星展銀行</div></td>
+              <td data-zh>Multiplier 儲蓄戶口</td><td data-en>Multiplier Savings Account</td>
+              <td><span class="td-amt" data-currency data-sgd="—" data-twd="—">—</span><div class="td-amt-twd" data-currency-sub data-sgd="" data-twd=""></div></td>
+              <td data-zh>無手續費</td><td data-en>No fee</td>
+              <td><span class="badge badge-easy" data-zh>容易</span><span class="badge badge-easy" data-en>Easy</span></td>
+            </tr>
+            <tr>
+              <td class="td-bank">OCBC<div class="td-name">華僑銀行</div></td>
+              <td data-zh>360 儲蓄戶口</td><td data-en>360 Savings Account</td>
+              <td><span class="td-amt" data-currency data-sgd="SGD 3,000" data-twd="TWD 69,000">SGD 3,000</span><div class="td-amt-twd" data-currency-sub data-sgd="" data-twd="≈ TWD 69,000"></div></td>
+              <td><span data-currency data-sgd="SGD 3,000" data-twd="TWD 69,000">SGD 3,000</span></td>
+              <td><span class="badge badge-easy" data-zh>容易</span><span class="badge badge-easy" data-en>Easy</span></td>
+            </tr>
+            <tr>
+              <td class="td-bank">UOB<div class="td-name">大華銀行</div></td>
+              <td data-zh>One Account（需親臨分行）</td><td data-en>One Account (branch visit required)</td>
+              <td><span class="td-amt" data-currency data-sgd="SGD 1,000–3,000" data-twd="TWD 23,000–69,000">SGD 1,000–3,000</span><div class="td-amt-twd" data-currency-sub data-sgd="" data-twd="≈ TWD 23,000–69,000"></div></td>
+              <td><span data-currency data-sgd="SGD 1,000" data-twd="TWD 23,000">SGD 1,000</span></td>
+              <td><span class="badge badge-easy" data-zh>容易</span><span class="badge badge-easy" data-en>Easy</span></td>
+            </tr>
+            <tr>
+              <td class="td-bank">HSBC<div class="td-name">滙豐銀行</div></td>
+              <td data-zh>Everyday Global 多幣戶口</td><td data-en>Everyday Global Account</td>
+              <td><span class="td-amt" data-currency data-sgd="—" data-twd="—">—</span><div class="td-amt-twd" data-currency-sub data-sgd="" data-twd=""></div></td>
+              <td data-zh>無</td><td data-en>None</td>
+              <td><span class="badge badge-easy" data-zh>容易</span><span class="badge badge-easy" data-en>Easy</span></td>
+            </tr>
+            <!-- Non-residents -->
+            <tr class="group-hdr">
+              <td colspan="5" data-zh>⚠️ 無就業准証（非居民 / 純商務訪客）</td>
+              <td colspan="5" data-en>⚠️ Without Employment Pass (Non-resident / Business visitor)</td>
+            </tr>
+            <tr>
+              <td class="td-bank">DBS Treasures<div class="td-name">私人理財服務</div></td>
+              <td data-zh>非居民私人理財</td><td data-en>Non-resident Private Banking</td>
+              <td><span class="td-amt" data-currency data-sgd="SGD 350,000" data-twd="TWD 8,050,000">SGD 350,000</span><div class="td-amt-twd" data-currency-sub data-sgd="" data-twd="≈ TWD 805萬"></div></td>
+              <td><span data-currency data-sgd="SGD 350,000 AUM" data-twd="TWD 8,050,000 AUM">SGD 350,000 AUM</span></td>
+              <td><span class="badge badge-med" data-zh>中等門檻</span><span class="badge badge-med" data-en>Moderate</span></td>
+            </tr>
+            <tr>
+              <td class="td-bank">OCBC Premier<div class="td-name">私人理財服務</div></td>
+              <td data-zh>非居民私人理財</td><td data-en>Non-resident Premier Banking</td>
+              <td><span class="td-amt" data-currency data-sgd="SGD 350,000" data-twd="TWD 8,050,000">SGD 350,000</span><div class="td-amt-twd" data-currency-sub data-sgd="" data-twd="≈ TWD 805萬"></div></td>
+              <td><span data-currency data-sgd="SGD 350,000" data-twd="TWD 8,050,000">SGD 350,000</span></td>
+              <td><span class="badge badge-med" data-zh>中等</span><span class="badge badge-med" data-en>Moderate</span></td>
+            </tr>
+            <tr>
+              <td class="td-bank">UOB Privilege<div class="td-name">最具彈性的非居民選擇</div></td>
+              <td data-zh>非居民理財戶口</td><td data-en>Non-resident Banking</td>
+              <td><span class="td-amt" data-currency data-sgd="SGD 350,000" data-twd="TWD 8,050,000">SGD 350,000</span><div class="td-amt-twd" data-currency-sub data-sgd="" data-twd="≈ TWD 805萬"></div></td>
+              <td><span data-currency data-sgd="SGD 350,000" data-twd="TWD 8,050,000">SGD 350,000</span></td>
+              <td><span class="badge badge-med" data-zh>中等</span><span class="badge badge-med" data-en>Moderate</span></td>
+            </tr>
+            <!-- Company -->
+            <tr class="group-hdr">
+              <td colspan="5" data-zh>🏢 在新加坡成立公司（商業戶口）</td>
+              <td colspan="5" data-en>🏢 Via Singapore Company (Business Account)</td>
+            </tr>
+            <tr>
+              <td class="td-bank">OCBC<div class="td-name">Business Growth</div></td>
+              <td data-zh>中小企業首選</td><td data-en>SME First Choice</td>
+              <td><span class="td-amt" data-currency data-sgd="SGD 1,000" data-twd="TWD 23,000">SGD 1,000</span><div class="td-amt-twd" data-currency-sub data-sgd="" data-twd="≈ TWD 23,000"></div></td>
+              <td data-zh>無最低</td><td data-en>No minimum</td>
+              <td><span class="badge badge-easy" data-zh>容易</span><span class="badge badge-easy" data-en>Easy</span></td>
+            </tr>
+            <tr>
+              <td class="td-bank">DBS / UOB<div class="td-name">Starter 套餐</div></td>
+              <td data-zh>中小企業套餐</td><td data-en>SME Package</td>
+              <td><span class="td-amt" data-currency data-sgd="SGD 1,000" data-twd="TWD 23,000">SGD 1,000</span><div class="td-amt-twd" data-currency-sub data-sgd="" data-twd="≈ TWD 23,000"></div></td>
+              <td data-zh>視乎戶口類型</td><td data-en>Depends on account type</td>
+              <td><span class="badge badge-easy" data-zh>容易</span><span class="badge badge-easy" data-en>Easy</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- ══ SECTION 02 ══ -->
+    <div class="section-num">02</div>
+    <h2 class="section-title" data-zh>外籍人士置業：ABSD 稅率比較</h2>
+    <h2 class="section-title" data-en>Property Purchase: ABSD Tax Comparison</h2>
+    <p class="section-sub" data-zh>台灣護照持有人（無 PR / EP）購買新加坡住宅物業，稅負極重</p>
+    <p class="section-sub" data-en>Taiwanese passport holders (no PR/EP) face significant tax burdens on residential property</p>
+
+    <div class="card">
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th data-zh>購買方式</th><th data-en>Purchase Method</th>
+              <th data-zh>ABSD 稅率</th><th data-en>ABSD Rate</th>
+              <th data-zh>以 SGD 300萬計</th><th data-en>On SGD 3M</th>
+              <th data-zh>評估</th><th data-en>Assessment</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="group-hdr">
+              <td colspan="4" data-zh>🏠 住宅物業（公寓 / 有地房產）</td>
+              <td colspan="4" data-en>🏠 Residential Property (Condo / Landed)</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="td-bank" data-zh>外籍人士直接購買</div>
+                <div class="td-bank" data-en>Foreign Individual Purchase</div>
+                <div class="td-name" data-zh>台灣護照，無 EP</div>
+                <div class="td-name" data-en>Taiwan passport, no EP</div>
+              </td>
+              <td><span class="absd-pct absd-high">60%</span></td>
+              <td>
+                <span class="td-amt" data-currency data-sgd="SGD 1,800,000" data-twd="TWD 41,400,000">SGD 1,800,000</span>
+                <div class="td-amt-twd" data-currency-sub data-sgd="另加 BSD ≈ SGD 89,600" data-twd="另加 BSD ≈ TWD 2,060,800">另加 BSD ≈ SGD 89,600</div>
+              </td>
+              <td><span class="eval-badge eval-bad" data-zh>代價沉重</span><span class="eval-badge eval-bad" data-en>Very costly</span></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="td-bank" data-zh>透過新加坡公司</div>
+                <div class="td-bank" data-en>Via Singapore Company</div>
+                <div class="td-name" data-zh>私人有限公司（Pte Ltd）</div>
+                <div class="td-name" data-en>Private Limited Company</div>
+              </td>
+              <td><span class="absd-pct absd-high">65%</span></td>
+              <td>
+                <span class="td-amt" data-currency data-sgd="SGD 1,950,000" data-twd="TWD 44,850,000">SGD 1,950,000</span>
+                <div class="td-amt-twd" data-currency-sub data-sgd="比直接購買更貴！" data-twd="比直接購買更貴！">比直接購買更貴！</div>
+              </td>
+              <td><span class="eval-badge eval-bad" data-zh>最差選擇</span><span class="eval-badge eval-bad" data-en>Worst option</span></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="td-bank" data-zh>透過信託</div>
+                <div class="td-bank" data-en>Via Trust</div>
+                <div class="td-name" data-zh>生前信託 / 全權信託</div>
+                <div class="td-name" data-en>Living Trust / Discretionary Trust</div>
+              </td>
+              <td><span class="absd-pct absd-high">65%</span></td>
+              <td>
+                <span class="td-amt" data-currency data-sgd="SGD 1,950,000" data-twd="TWD 44,850,000">SGD 1,950,000</span>
+                <div class="td-amt-twd" data-currency-sub data-sgd="部分可申請退還，條件嚴格" data-twd="部分可申請退還，條件嚴格">部分可申請退還，條件嚴格</div>
+              </td>
+              <td><span class="eval-badge eval-warn" data-zh>複雜且昂貴</span><span class="eval-badge eval-warn" data-en>Complex &amp; costly</span></td>
+            </tr>
+
+            <tr class="group-hdr">
+              <td colspan="4" data-zh>💡 值得考慮的替代方案</td>
+              <td colspan="4" data-en>💡 Alternatives Worth Considering</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="td-bank" data-zh>先取得永久居留權</div>
+                <div class="td-bank" data-en>Obtain PR First</div>
+                <div class="td-name" data-zh>再以個人名義購買（需時 2–5 年）</div>
+                <div class="td-name" data-en>Then buy as individual (takes 2–5 years)</div>
+              </td>
+              <td><span class="absd-pct absd-ok">5%</span></td>
+              <td>
+                <span class="td-amt" data-currency data-sgd="SGD 150,000" data-twd="TWD 3,450,000">SGD 150,000</span>
+                <div class="td-amt-twd" data-currency-sub data-sgd="首個物業適用" data-twd="首個物業適用">首個物業適用</div>
+              </td>
+              <td><span class="eval-badge eval-good" data-zh>最佳稅率 / 路途長</span><span class="eval-badge eval-good" data-en>Best rate / long path</span></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="td-bank" data-zh>購買商業 / 工業物業</div>
+                <div class="td-bank" data-en>Commercial / Industrial Property</div>
+                <div class="td-name" data-zh>店屋、辦公室、工業單位</div>
+                <div class="td-name" data-en>Shophouses, offices, industrial units</div>
+              </td>
+              <td><span class="absd-pct absd-zero">0%</span></td>
+              <td>
+                <span class="td-amt" data-currency data-sgd="SGD 0" data-twd="TWD 0">SGD 0</span>
+                <div class="td-amt-twd" data-currency-sub data-sgd="只需繳付買家印花稅" data-twd="只需繳付買家印花稅">只需繳付買家印花稅</div>
+              </td>
+              <td><span class="eval-badge eval-good" data-zh>外籍人士可自由購買</span><span class="eval-badge eval-good" data-en>Open to foreigners</span></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="td-bank" data-zh>房地產投資信託（REIT）</div>
+                <div class="td-bank" data-en>Real Estate Investment Trust (REIT)</div>
+                <div class="td-name" data-zh>如 CapitaLand、Mapletree 等上市 REIT</div>
+                <div class="td-name" data-en>e.g. CapitaLand, Mapletree listed REITs</div>
+              </td>
+              <td><span class="absd-pct absd-zero">0%</span></td>
+              <td>
+                <span class="td-amt" data-currency data-sgd="SGD 0 ABSD" data-twd="TWD 0 ABSD">SGD 0 ABSD</span>
+                <div class="td-amt-twd" data-currency-sub data-sgd="間接持有，高流通性" data-twd="間接持有，高流通性">間接持有，高流通性</div>
+              </td>
+              <td><span class="eval-badge eval-good" data-zh>聰明的替代方案</span><span class="eval-badge eval-good" data-en>Smart alternative</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- CALCULATOR -->
+    <div class="calc-box">
+      <div class="card-title">
+        <i class="fa-solid fa-calculator"></i>
+        <span data-zh>🔢 現實試算：外籍人士住宅購置總成本</span>
+        <span data-en>🔢 Real Cost Calculator: Residential Purchase</span>
+      </div>
+      <div class="calc-row">
+        <div class="calc-input-wrap">
+          <label data-zh>物業價格（SGD 新加坡元）</label>
+          <label data-en>Property Price (SGD)</label>
+          <input class="calc-input" type="number" id="calcPrice" value="3000000" oninput="updateCalc()" />
+        </div>
+      </div>
+      <div class="calc-result" id="calcResult"></div>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- ══ SECTION 03 ══ -->
+    <div class="section-num">03</div>
+    <h2 class="section-title" data-zh>下一步建議</h2>
+    <h2 class="section-title" data-en>Recommended Next Steps</h2>
+    <p class="section-sub" data-zh>在採取行動前，先理解自己的身份與目標</p>
+    <p class="section-sub" data-en>Before taking action, clarify your residency status and investment goals</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title" data-zh>釐清您在新加坡的身份</div>
+          <div class="step-title" data-en>Clarify your Singapore residency status</div>
+          <div class="step-desc" data-zh>您是否計劃申請就業准証（EP）或永久居留權？這將對銀行開戶及置業稅率產生決定性影響。</div>
+          <div class="step-desc" data-en>Are you planning to apply for an Employment Pass (EP) or Permanent Residency? This is the single most important factor affecting both banking and property tax.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title" data-zh>非居民銀行開戶門檻</div>
+          <div class="step-title" data-en>Non-resident banking threshold</div>
+          <div class="step-desc" data-zh>如無 EP，三大銀行非居民理財戶口門檻均為 SGD 35 萬（約 TWD 805 萬）；建議在開戶前先諮詢銀行關係經理。</div>
+          <div class="step-desc" data-en>Without EP, the threshold at all three major banks is SGD 350,000 (~TWD 8.05M). Consult a bank relationship manager before proceeding.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title" data-zh>置業優先考慮商業物業或 REIT</div>
+          <div class="step-title" data-en>Prioritize commercial property or REITs</div>
+          <div class="step-desc" data-zh>如以置業為目的，優先考慮商業物業（如店屋）或上市房地產信託（REIT）——兩者均無須繳付 ABSD，對外籍人士最為友善。</div>
+          <div class="step-desc" data-en>If investing in property, prioritize commercial assets (shophouses) or listed REITs — both have 0% ABSD and are fully open to foreigners.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-title" data-zh>諮詢持牌專業人士</div>
+          <div class="step-title" data-en>Consult licensed professionals</div>
+          <div class="step-desc" data-zh>在作任何決定前，務必咨詢新加坡持牌律師及稅務顧問，以確保符合最新法規。TIREA 可協助您對接新加坡合作律師及房產顧問。</div>
+          <div class="step-desc" data-en>Before any decision, consult a Singapore-licensed lawyer and tax advisor.新加坡金融指南 | 銀行開戶 · 置業策略 | TIREA can connect you with our Singapore partner advisors and attorneys.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div style="margin-top:40px;text-align:center;">
+      <a href="https://line.me/R/ti/p/@180phkse" target="_blank"
+         style="display:inline-flex;align-items:center;gap:10px;padding:16px 40px;border-radius:12px;background:linear-gradient(135deg,#c89b3c,#e8c56e);color:#0f172a;font-weight:900;font-size:16px;text-decoration:none;">
+        <i class="fa-brands fa-line" style="font-size:20px;"></i>
+        <span data-zh>加入 LINE 諮詢新加坡策略</span>
+        <span data-en>Contact Us on LINE</span>
+      </a>
+    </div>
+
+    <!-- DISCLAIMER -->
+    <div class="disclaimer">
+      <span data-zh>本指南僅供參考，不構成法律或財務建議。數據以 2026 年初公開資料為準，如有更改恕不另行通知。匯率僅供參考（1 SGD ≈ 23.0 TWD）。ABSD 稅率請以新加坡 IRAS 官方公告為準。請在作出任何決定前咨詢專業人士。</span>
+      <span data-en>This guide is for informational purposes only and does not constitute legal or financial advice. Data is based on publicly available information as of early 2026 and is subject to change. Exchange rate is indicative only (1 SGD ≈ 23.0 TWD). ABSD rates should be verified with Singapore's IRAS. Please consult a qualified professional before making any decisions.</span>
+    </div>
+
+  </main>
+
+  <script>
+    const FX = 23.0;
+    let currentLang = 'zh';
+    let currentCurrency = 'sgd';
+
+    function setLang(lang) {
+      currentLang = lang;
+      document.body.classList.toggle('lang-en', lang === 'en');
+      document.getElementById('btnZh').classList.toggle('active', lang === 'zh');
+      document.getElementById('btnEn').classList.toggle('active', lang === 'en');
+    }
+
+    function setCurrency(cur) {
+      currentCurrency = cur;
+      document.getElementById('btnSGD').classList.toggle('active', cur === 'sgd');
+      document.getElementById('btnTWD').classList.toggle('active', cur === 'twd');
+      document.querySelectorAll('[data-currency]').forEach(el => {
+        el.textContent = el.dataset[cur] || el.dataset.sgd;
+      });
+      document.querySelectorAll('[data-currency-sub]').forEach(el => {
+        el.textContent = el.dataset[cur] || '';
+      });
+      updateCalc();
+    }
+
+    function fmtSGD(n) {
+      return 'SGD ' + Math.round(n).toLocaleString();
+    }
+    function fmtTWD(n) {
+      return 'TWD ' + Math.round(n * FX).toLocaleString();
+    }
+    function fmt(n) {
+      return currentCurrency === 'twd' ? fmtTWD(n) : fmtSGD(n);
+    }
+
+    function updateCalc() {
+      const price = parseFloat(document.getElementById('calcPrice').value) || 3000000;
+      const absd = price * 0.60;
+      const bsd = price <= 180000 ? price * 0.01
+                : price <= 360000 ? 1800 + (price - 180000) * 0.02
+                : price <= 1000000 ? 5400 + (price - 360000) * 0.03
+                : price <= 1500000 ? 24600 + (price - 1000000) * 0.04
+                : price <= 3000000 ? 44600 + (price - 1500000) * 0.05
+                : 119600 + (price - 3000000) * 0.06;
+      const total = price + absd + bsd;
+
+      const zh = currentLang === 'zh';
+      document.getElementById('calcResult').innerHTML = `
+        <div class="calc-item">
+          <div class="calc-item-label">${zh ? '物業價格' : 'Property Price'}</div>
+          <div class="calc-item-val">${fmt(price)}</div>
+        </div>
+        <div class="calc-item">
+          <div class="calc-item-label">ABSD (60%)</div>
+          <div class="calc-item-val" style="color:#f87171;">${fmt(absd)}</div>
+          <div class="calc-item-sub">${zh ? '外籍人士住宅' : 'Foreign individual residential'}</div>
+        </div>
+        <div class="calc-item">
+          <div class="calc-item-label">${zh ? '買家印花稅 (BSD)' : "Buyer's Stamp Duty (BSD)"}</div>
+          <div class="calc-item-val" style="color:#fbbf24;">${fmt(bsd)}</div>
+        </div>
+        <div class="calc-item total">
+          <div class="calc-item-label">${zh ? '合共總付出' : 'Total Cost'}</div>
+          <div class="calc-item-val">${fmt(total)}</div>
+          <div class="calc-item-sub">${zh ? `ABSD 佔比 ${(absd/total*100).toFixed(0)}%` : `ABSD = ${(absd/total*100).toFixed(0)}% of total`}</div>
+        </div>
+        <div class="calc-item good">
+          <div class="calc-item-label">${zh ? '商業物業 / REIT 總成本' : 'Commercial/REIT Total'}</div>
+          <div class="calc-item-val">${fmt(price + bsd)}</div>
+          <div class="calc-item-sub">${zh ? 'ABSD 0%，可節省 ' + fmt(absd) : 'ABSD 0%, saves ' + fmt(absd)}</div>
+        </div>
+      `;
+    }
+
+    // init
+    updateCalc();
+  </script>
+  <script>
+    (function(){
+      try {
+        fetch('/api/track-visit', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            page: location.pathname,
+            title: document.title,
+            referrer: document.referrer || 'direct',
+            device: /Mobile|Android|iPhone|iPad/i.test(navigator.userAgent) ? 'mobile' : 'desktop'
+          })
+        });
+      } catch(e){}
+    })();
+  </script>
+
+  <!-- Vercel Web Analytics -->
+  <script defer src="/_vercel/insights/script.js"></script>
+  <!-- Vercel Speed Insights -->
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skypark Kepler 新山麗都海天苑曜華庭 | Signature Waterfront Residence</title>
+  <meta name="description" content="Skypark Kepler 新山麗都海天苑曜華庭，高質感白底建案形象頁，結合 Johor Bahru 核心地段、近新加坡、品牌服務式公寓、海景智慧住宅與投資回報亮點。" />
+  <meta property="og:title" content="Skypark Kepler 新山麗都海天苑曜華庭" />
+  <meta property="og:description" content="新山首個品牌飯店服務式公寓，近新加坡、RTS Link、海景、精裝修與投資回報亮點。" />
+  <meta property="og:type" content="website" />
+  <style>
+    :root {
+      --bg: #f7f4ee;
+      --bg-soft: #f1ece3;
+      --bg-panel: rgba(255,255,255,0.86);
+      --text: #27221c;
+      --muted: #6f665c;
+      --muted-2: #8d8479;
+      --gold: #b79162;
+      --gold-2: #dbc29e;
+      --line: rgba(56, 44, 32, 0.10);
+      --line-soft: rgba(56, 44, 32, 0.06);
+      --shadow: 0 24px 60px rgba(74, 56, 33, 0.10);
+      --radius: 24px;
+      --max: 1240px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Noto Sans TC", sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(219,194,158,.20), transparent 24%),
+        linear-gradient(180deg, #fbfaf7 0%, #f7f4ee 52%, #f3eee6 100%);
+      color: var(--text);
+      line-height: 1.7;
+      letter-spacing: .01em;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    .container { width: min(calc(100% - 32px), var(--max)); margin: 0 auto; }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(46px) scale(.985);
+      animation: floatIn 1.4s cubic-bezier(.22,.9,.24,1) forwards;
+      will-change: transform, opacity;
+    }
+    .delay-1 { animation-delay: .10s; }
+    .delay-2 { animation-delay: .22s; }
+    .delay-3 { animation-delay: .34s; }
+    .delay-4 { animation-delay: .46s; }
+    .delay-5 { animation-delay: .58s; }
+
+    @keyframes floatIn {
+      0% { opacity: 0; transform: translateY(56px) scale(.98); }
+      60% { opacity: 1; }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 40;
+      background: rgba(251, 250, 247, 0.82);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line-soft);
+    }
+    .nav-inner {
+      display:flex; justify-content:space-between; align-items:center; gap:18px; padding:16px 0;
+    }
+    .brand {
+      font-size: 13px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: #3f352a;
+    }
+    .nav-links {
+      display:flex; align-items:center; gap:20px; flex-wrap:wrap;
+      color: var(--muted); font-size: 14px;
+    }
+
+    .nav-btn, .btn {
+      display:inline-flex; align-items:center; justify-content:center;
+      min-height:46px; padding:0 20px; border-radius:999px;
+      border:1px solid transparent; font-weight:600; transition:.2s ease; cursor:pointer; font:inherit;
+    }
+    .nav-btn, .btn-primary {
+      background: linear-gradient(135deg, #bfa27b, #d9c1a0);
+      color: #fff;
+      box-shadow: 0 10px 24px rgba(183,145,98,.16);
+    }
+    .btn-secondary {
+      background: rgba(255,255,255,.66);
+      border-color: var(--line);
+      color: var(--text);
+    }
+    .nav-btn:hover, .btn:hover { transform: translateY(-1px); }
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: end;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(251,250,247,.10) 0%, rgba(251,250,247,.28) 44%, rgba(247,244,238,.88) 100%),
+        url('./skypark-kepler-assets/real/hero-cover.jpg') center/cover;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 70% 24%, rgba(255,255,255,.55), transparent 26%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      padding: 132px 0 72px;
+    }
+    .hero-panel {
+      width: min(760px, 100%);
+      padding: 44px;
+      border: 1px solid rgba(86,68,45,.10);
+      border-radius: 28px;
+      background: rgba(255,255,255,.72);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 14px;
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+    }
+    .hero-name {
+      font-family: "Iowan Old Style", "Noto Serif TC", "Songti TC", serif;
+      font-size: clamp(42px, 6.2vw, 78px);
+      line-height: 1.02;
+      letter-spacing: -.03em;
+      margin: 0 0 8px;
+      font-weight: 600;
+      color: #30281f;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+    h1 {
+      font-family: "Iowan Old Style", "Noto Serif TC", "Songti TC", serif;
+      font-size: clamp(28px, 4.6vw, 52px);
+      line-height: 1.02;
+      letter-spacing: -.035em;
+      margin-bottom: 18px;
+      max-width: 10.5ch;
+      font-weight: 600;
+    }
+    h2 {
+      font-family: "Iowan Old Style", "Noto Serif TC", "Songti TC", serif;
+      font-size: clamp(30px, 5vw, 56px);
+      line-height: 1.08;
+      letter-spacing: -.028em;
+      margin-bottom: 14px;
+      font-weight: 600;
+    }
+    .hero-sub {
+      max-width: 52ch;
+      font-size: 17px;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+    .hero-metrics {
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:14px;
+      max-width: 560px;
+    }
+    .metric {
+      padding:16px 18px;
+      border-radius:18px;
+      background: rgba(255,255,255,.64);
+      border:1px solid rgba(86,68,45,.08);
+    }
+    .metric b {
+      display:block;
+      color: var(--gold);
+      font-size:22px;
+      margin-bottom:4px;
+    }
+
+    section { padding: 78px 0; }
+    .section-head {
+      max-width: 920px;
+      margin-bottom: 26px;
+    }
+    .section-head p {
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.6;
+      max-width: 66ch;
+    }
+
+    .grid-2, .grid-3, .grid-4 {
+      display:grid;
+      gap:22px;
+    }
+    .grid-2 { grid-template-columns:repeat(2,1fr); }
+    .grid-3 { grid-template-columns:repeat(3,1fr); }
+    .grid-4 { grid-template-columns:repeat(4,1fr); }
+
+    .card, .info-panel, .cta-box, .form-box, .video-copy {
+      border:1px solid var(--line);
+      background: var(--bg-panel);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .quiet-card {
+      background: rgba(255,255,255,.58);
+      box-shadow: 0 18px 40px rgba(74,56,33,.06);
+    }
+    .card, .info-panel, .video-copy { padding: 24px; }
+    .card h3, .info-panel h3 { font-size: 21px; margin-bottom: 10px; }
+    .card p, .card li, .info-panel p, .info-panel li, .video-copy p, .video-copy li {
+      color: var(--muted);
+      font-size: 15px;
+    }
+    .card ul, .info-panel ul, .video-copy ul { padding-left: 18px; }
+
+    .signature {
+      background: linear-gradient(180deg, rgba(219,194,158,.12), rgba(255,255,255,.26));
+    }
+
+    .split-visual {
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:22px;
+      align-items:stretch;
+    }
+    .visual-large, .visual-stack > div, .video-box {
+      border-radius: 26px;
+      overflow: hidden;
+      border:1px solid rgba(86,68,45,.10);
+      box-shadow: var(--shadow);
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    .visual-large {
+      min-height: 620px;
+      background-image:
+        linear-gradient(180deg, rgba(255,255,255,.02), rgba(39,34,28,.12)),
+        url('./skypark-kepler-assets/real/masterplan-aerial.jpg');
+    }
+    .visual-stack {
+      display:grid;
+      gap:22px;
+      grid-template-rows:1fr 1fr;
+    }
+    .visual-stack .v1 {
+      min-height: 300px;
+      background-image:
+        linear-gradient(180deg, rgba(255,255,255,.05), rgba(39,34,28,.20)),
+        url('https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1400&q=80');
+    }
+    .visual-stack .v2 {
+      min-height: 300px;
+      background-image:
+        linear-gradient(180deg, rgba(255,255,255,.04), rgba(39,34,28,.16)),
+        url('./skypark-kepler-assets/real/tower-render.jpg');
+    }
+    .caption {
+      position:absolute;
+      left:18px;
+      bottom:18px;
+      padding:9px 13px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      background: rgba(255,255,255,.74);
+      border:1px solid rgba(86,68,45,.10);
+      color: #3d352c;
+      backdrop-filter: blur(8px);
+    }
+
+    .quote-block {
+      padding: 28px 32px;
+      border-radius: 26px;
+      border:1px solid rgba(86,68,45,.10);
+      background: rgba(255,255,255,.72);
+      box-shadow: var(--shadow);
+      font-size: clamp(24px, 4vw, 42px);
+      line-height: 1.25;
+      letter-spacing: -.02em;
+    }
+
+    .video-shell {
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:22px;
+      align-items:stretch;
+    }
+    .video-box {
+      min-height: 460px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(39,34,28,.26)),
+        url('https://img.youtube.com/vi/KV2F7iIRbfA/maxresdefault.jpg') center/cover;
+      display:flex;
+      align-items:end;
+    }
+    .video-play-wrap {
+      width:100%;
+      padding:28px;
+      display:flex;
+      justify-content:space-between;
+      align-items:end;
+      gap:16px;
+      background: linear-gradient(180deg, rgba(255,255,255,0), rgba(39,34,28,.40));
+    }
+    .video-meta { max-width:560px; }
+    .video-kicker {
+      display:inline-block;
+      margin-bottom:10px;
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      background: rgba(255,255,255,.74);
+      border:1px solid rgba(255,255,255,.24);
+      color:#3d352c;
+    }
+    .play-btn {
+      width:72px;
+      height:72px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.38);
+      background: rgba(255,255,255,.22);
+      color:#fff;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      font-size:28px;
+      flex-shrink:0;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 10px 30px rgba(0,0,0,.12);
+    }
+
+    .location-band {
+      padding:34px;
+      border-radius:28px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.18)),
+        url('./skypark-kepler-assets/real/location-map.jpg') center/cover;
+      border:1px solid rgba(86,68,45,.10);
+      position:relative;
+      overflow:hidden;
+      min-height:420px;
+      display:flex;
+      align-items:end;
+      box-shadow: var(--shadow);
+    }
+    .location-copy {
+      width:min(560px, 100%);
+      padding:24px;
+      border-radius:24px;
+      background: rgba(255,255,255,.72);
+      border:1px solid rgba(86,68,45,.10);
+      backdrop-filter: blur(8px);
+    }
+    .pill-list {
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:18px;
+    }
+    .pill {
+      padding:9px 12px;
+      border-radius:999px;
+      border:1px solid rgba(86,68,45,.10);
+      background: rgba(255,255,255,.72);
+      color: var(--muted);
+      font-size:13px;
+    }
+
+    .timeline { display:grid; gap:14px; }
+    .timeline-item {
+      display:grid;
+      grid-template-columns:88px 1fr;
+      gap:14px;
+      padding:18px;
+      border-radius:18px;
+      border:1px solid var(--line-soft);
+      background: rgba(255,255,255,.56);
+    }
+    .timeline-item b {
+      color: var(--gold);
+      letter-spacing:.08em;
+      font-size:13px;
+    }
+
+    .price-highlight {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+      margin-top:18px;
+    }
+    .price-box {
+      padding:22px;
+      border-radius:22px;
+      background: rgba(255,255,255,.70);
+      border:1px solid rgba(86,68,45,.10);
+      box-shadow: var(--shadow);
+    }
+    .price-box b {
+      display:block;
+      font-size:30px;
+      color: var(--gold);
+      margin-bottom:6px;
+    }
+
+    .checklist { display:grid; gap:12px; margin-top:18px; }
+    .check {
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      color: var(--muted);
+      font-size:15px;
+    }
+    .check i {
+      font-style:normal;
+      display:inline-flex;
+      width:22px;
+      height:22px;
+      border-radius:999px;
+      align-items:center;
+      justify-content:center;
+      background: rgba(183,145,98,.12);
+      color: var(--gold);
+      font-weight:800;
+      flex-shrink:0;
+      margin-top:1px;
+    }
+
+    .cta-section {
+      padding:72px 0 90px;
+      background: linear-gradient(180deg, rgba(219,194,158,.10), rgba(255,255,255,.20));
+    }
+    .cta-wrap {
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:22px;
+    }
+    .cta-box, .form-box { padding:32px; }
+    .form {
+      display:grid;
+      gap:12px;
+      margin-top:16px;
+    }
+    .form-row {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+    .input, .select, .textarea {
+      width:100%;
+      border:1px solid rgba(86,68,45,.12);
+      border-radius:14px;
+      background: rgba(255,255,255,.82);
+      color: var(--text);
+      padding:14px 16px;
+      font:inherit;
+    }
+    .textarea { min-height:120px; resize:vertical; }
+    .note { margin-top:14px; color:var(--muted-2); font-size:13px; }
+
+    .sticky-cta {
+      position:fixed;
+      left:16px; right:16px; bottom:16px;
+      z-index:35;
+      display:none;
+    }
+    .sticky-cta-inner {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      padding:12px;
+      border-radius:18px;
+      background: rgba(255,255,255,.88);
+      border:1px solid rgba(86,68,45,.10);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+    .sticky-title { font-size:13px; color:var(--muted); }
+    .sticky-actions { display:flex; gap:8px; }
+    .sticky-actions .btn { min-height:42px; padding:0 14px; }
+
+    footer {
+      padding:24px 0 96px;
+      color: var(--muted-2);
+      font-size:13px;
+      text-align:center;
+    }
+
+    @media (max-width: 1024px) {
+      .grid-4, .grid-3, .grid-2, .split-visual, .cta-wrap, .video-shell { grid-template-columns:1fr 1fr; }
+      .hero-metrics, .price-highlight { grid-template-columns:1fr 1fr; }
+      .visual-large { min-height:360px; }
+    }
+    @media (max-width: 720px) {
+      .nav-links a:not(.nav-btn) { display:none; }
+      .hero { min-height: 68vh; }
+      .hero-inner { padding:96px 0 28px; }
+      .hero-panel { padding:24px; }
+      section { padding: 52px 0; }
+      .quote-block { margin-top: -10px; }
+      .grid-4, .grid-3, .grid-2, .split-visual, .cta-wrap, .form-row, .hero-metrics, .price-highlight, .video-shell { grid-template-columns:1fr; }
+      .sticky-cta { display:block; }
+      .nav-btn { display:none; }
+    }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2XV1V9TS1P"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-2XV1V9TS1P');
+  </script>
+  <link rel="canonical" href="https://www.tirea.tw/case-skypark-kepler" />
+</head>
+<body>
+  <!-- Top flash bar -->
+  <div style="background:linear-gradient(90deg,#92400e,#b45309,#92400e);padding:10px 20px;text-align:center;position:sticky;top:0;z-index:999;">
+    <span style="color:#fef3c7;font-size:13px;font-weight:600;">
+      📋 本週諮詢名額有限・
+      <a href="#consult" style="color:#fde68a;font-weight:800;text-decoration:underline;">預約到協會一對一 →</a>
+    </span>
+  </div>
+
+  <div style="background:rgba(13,148,136,0.08);border:1px solid rgba(13,148,136,0.2);padding:16px 24px;margin:0;border-radius:0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+    <span style="font-size:13px;color:#94a3b8;">📖 延伸閱讀：馬來西亞完整置產攻略</span>
+    <a href="malaysia.html" style="font-size:13px;font-weight:700;color:#5eead4;text-decoration:none;">查看馬來西亞專區 →</a>
+  </div>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <div class="brand">SKYPARK KEPLER</div>
+      <div class="nav-links">
+        <a href="#vision">定位</a>
+        <a href="#location">地段</a>
+        <a href="#product">產品</a>
+        <a href="#sales">投資</a>
+        <a href="#consult" class="nav-btn" style="background:linear-gradient(135deg,#b45309,#d97706);margin-right:6px;">📋 預約諮詢</a>
+        <a href="https://line.me/R/ti/p/@180phkse" target="_blank" rel="noopener noreferrer" class="nav-btn">加入 LINE</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container hero-inner">
+      <div class="hero-panel reveal delay-1">
+        <div class="eyebrow">Skypark Kepler</div>
+        <div class="hero-name">新山麗都</div>
+        <div class="hero-name" style="margin-bottom:18px;">海天苑曜華庭</div>
+        <h1>近新加坡<br>品牌住宅</h1>
+        <p class="hero-sub">
+          Skypark Kepler 位於 Johor Bahru 麗都濱海大道，結合近新加坡的雙城便利、海濱總體開發、
+          品牌服務式公寓定位與精裝修規劃，呈現兼具居住品質與國際生活感的住宅選擇。
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-secondary" href="#product">查看戶型與價格</a>
+          <a class="btn btn-primary" href="#consult" style="background:linear-gradient(135deg,#b45309,#d97706);border:none;">📋 預約一對一諮詢</a>
+        </div>
+        <div class="hero-metrics">
+          <div class="metric reveal delay-2"><b>永久地契</b><span>品牌服務式公寓</span></div>
+          <div class="metric reveal delay-3"><b>台幣 489 萬起</b><span>1 房精裝修產品</span></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="vision" class="signature">
+    <div class="container">
+      <div class="section-head reveal delay-1" style="text-align:center; margin-left:auto; margin-right:auto;">
+        <div class="eyebrow">專案定位</div>
+        <h2>不只是居所，更是串聯新馬雙城生活的理想選擇</h2>
+        <p style="margin-left:auto; margin-right:auto;">
+          Skypark Kepler 位於柔佛新山核心發展帶，承接柔新經濟特區、RTS 捷運與跨境就業人口成長，
+          不僅擁有近新加坡的雙城便利，也結合海濱總體開發、品牌服務與完整生活機能。對於重視居住品質、
+          國際生活氛圍與長期配置彈性的客群而言，這不只是單一住宅產品，而是一種更成熟的生活方式選擇。
+        </p>
+      </div>
+
+      <div class="split-visual">
+        <div class="visual-large reveal delay-2"><div class="caption">Lido Waterfront 總體規劃</div></div>
+        <div class="visual-stack">
+          <div class="v1 reveal delay-3"><div class="caption">空間氛圍示意</div></div>
+          <div class="v2 reveal delay-4"><div class="caption">Skypark Kepler 建築外觀</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="quote-block reveal delay-1">
+        在新加坡工作，於新山安居。
+        讓居住、生活與未來規劃，回到更從容的節奏。
+      </div>
+    </div>
+  </section>
+
+  <section id="video-intro">
+    <div class="container">
+      <div class="section-head reveal delay-1" style="text-align:center; margin-left:auto; margin-right:auto;">
+        <div class="eyebrow">形象影片</div>
+        <h2>透過影片，感受 Skypark Kepler 的整體氣質</h2>
+        <p style="margin-left:auto; margin-right:auto;">
+          從海濱總體規劃、品牌管理到生活氛圍，影片能更直觀呈現案場的尺度、位置與定位。
+          對首次接觸本案的客戶而言，這是一個快速建立整體印象的入口，也能更清楚理解 Skypark Kepler 在 Lido Waterfront Boulevard 中所扮演的角色。
+        </p>
+      </div>
+      <div class="video-shell">
+        <a class="video-box reveal delay-2" href="https://www.youtube.com/watch?v=KV2F7iIRbfA" target="_blank" rel="noopener noreferrer" aria-label="開啟 Skypark Kepler 介紹影片">
+          <div class="video-play-wrap">
+            <div class="video-meta">
+              <div class="video-kicker">建案形象影片</div>
+              <h3 style="margin-bottom:0;color:#fff;">Skypark Kepler × Lido Waterfront Boulevard</h3>
+            </div>
+            <div class="play-btn">▶</div>
+          </div>
+        </a>
+        <div class="video-copy reveal delay-3">
+          <div class="eyebrow">影片介紹</div>
+          <h3>Skypark Kepler × Lido Waterfront Boulevard</h3>
+          <p>
+            影片完整呈現海濱總體規劃、品牌合作與未來生活場景，協助更快速理解本案定位。
+            對於重視地段、品牌與生活感受的客群而言，影片能補足平面文字較難傳達的臨場感，
+            也更容易感受到整體開發的規模、海濱視野與高端住宅氛圍。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="location">
+    <div class="container">
+      <div class="section-head reveal delay-1" style="text-align:center; margin-left:auto; margin-right:auto;">
+        <div class="eyebrow">地段優勢</div>
+        <h2>一橋之隔新加坡，坐享雙城生活圈與未來成長動能</h2>
+        <p style="margin-left:auto; margin-right:auto;">
+          Skypark Kepler 位於 Lido Waterfront Boulevard，距新加坡約 3.5 公里，並串聯 CIQ 關卡、Bukit Chagar 站、城市廣場與醫療資源。
+          對經常往返新馬兩地的客群而言，這樣的區位不只是交通便利，更代表工作、生活、醫療、消費與教育資源都能在更大範圍內靈活串接。
+        </p>
+      </div>
+
+      <div class="location-band reveal delay-2">
+        <div class="location-copy">
+          <h3>雙城便利，兼具生活與資產配置價值</h3>
+          <p>
+            受惠於 RTS、JS-SEZ 與跨境就業需求增長，未來居住便利性與區域發展潛力備受關注。
+            隨著柔佛與新加坡之間的連結更加緊密，區域生活半徑持續擴大，讓本案在自住、第二居所、
+            跨境工作需求與長期持有規劃上，都具備更高的彈性與想像空間。
+          </p>
+          <div class="pill-list">
+            <div class="pill">近新加坡</div>
+            <div class="pill">RTS Link</div>
+            <div class="pill">JS-SEZ</div>
+            <div class="pill">Lido Waterfront</div>
+            <div class="pill">Johor Bahru 市中心</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="rts-explainer">
+    <div class="container">
+      <div class="section-head reveal delay-1" style="text-align:center; margin-left:auto; margin-right:auto;">
+        <div class="eyebrow">RTS 交通優勢</div>
+        <h2>RTS 將進一步拉近新山與新加坡之間的生活距離</h2>
+        <p style="margin-left:auto; margin-right:auto;">
+          RTS（Rapid Transit System）是連結新山與新加坡的重要跨境捷運系統，未來將大幅提升兩地之間的通勤效率。
+          對 Skypark Kepler 而言，RTS 不只是交通建設，更代表雙城生活圈將變得更成熟，也讓工作、生活、商務與移動安排更有效率。
+        </p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card quiet-card reveal delay-2">
+          <h3>跨境通勤更快速</h3>
+          <p>
+            RTS 完成後，往返新山與新加坡將更有效率，對經常跨境工作的專業人士、企業主與家庭客群而言，
+            能大幅縮短移動時間並提升生活安排的彈性。
+          </p>
+        </div>
+        <div class="card quiet-card reveal delay-3">
+          <h3>生活圈更加緊密</h3>
+          <p>
+            當兩地交通更順暢，醫療、教育、商場、餐飲與就業資源之間的連結也會更直接，
+            使新山不只是居住地，更成為可與新加坡相互串聯的雙城生活基地。
+          </p>
+        </div>
+        <div class="card quiet-card reveal delay-4">
+          <h3>帶動區域關注度</h3>
+          <p>
+            重大交通建設往往會提升區域能見度與未來發展潛力。RTS 的推進，也讓位於相關生活圈內的住宅產品，
+            在居住便利性與未來關注度上更具優勢。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="js-sez" class="signature">
+    <div class="container">
+      <div class="section-head reveal delay-1" style="text-align:center; margin-left:auto; margin-right:auto;">
+        <div class="eyebrow">JS-SEZ 區域利多</div>
+        <h2>柔佛－新加坡經濟特區，正在加速形成更成熟的雙城生活圈</h2>
+        <p style="margin-left:auto; margin-right:auto;">
+          JS-SEZ（Johor-Singapore Special Economic Zone）可理解為柔佛與新加坡之間更緊密的跨境經濟合作區。
+          對企業而言，代表資金、人才、產業與商務活動將更頻繁流動；對居住與置產需求而言，則意味著新山核心區將在交通、就業、生活機能與區域關注度上持續提升。
+        </p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card quiet-card reveal delay-2">
+          <h3>雙城經濟連結更強</h3>
+          <p>
+            當新加坡的資金、企業與專業人才，與柔佛的空間、產業承載力與生活成本優勢結合，
+            兩地之間將形成更完整的區域分工與發展模式。
+          </p>
+        </div>
+        <div class="card quiet-card reveal delay-3">
+          <h3>帶動新山核心區關注度</h3>
+          <p>
+            隨著跨境合作持續深化，具備交通優勢、生活機能與成熟發展條件的區域，
+            往往更容易成為居住、商務與置產需求集中的位置。
+          </p>
+        </div>
+        <div class="card quiet-card reveal delay-4">
+          <h3>有利於未來生活安排</h3>
+          <p>
+            對經常往返新馬兩地的客群而言，JS-SEZ 所帶來的不只是區域題材，
+            更是工作、生活、通勤與資產配置能夠更靈活整合的實際條件。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="district" class="signature">
+    <div class="container">
+      <div class="section-head reveal delay-1" style="text-align:center; margin-left:auto; margin-right:auto;">
+        <div class="eyebrow">區域發展與生活圈</div>
+        <h2>從城市發展、跨境通勤到日常機能，形塑更完整的居住條件</h2>
+        <p style="margin-left:auto; margin-right:auto;">
+          Skypark Kepler 所在的 Lido Waterfront Boulevard，不只是單一住宅基地，而是位於新山未來城市更新與跨境發展的重要節點。
+          隨著交通建設、商業發展與生活配套持續成熟，整個生活圈正在快速形成更完整的城市面貌。
+        </p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card quiet-card reveal delay-2">
+          <h3>跨境通勤更有效率</h3>
+          <p>
+            透過 CIQ、Bukit Chagar 站與未來更成熟的跨境運輸銜接，往返新加坡的效率持續提升，
+            對有雙城工作、商務或生活需求的客群更具吸引力。
+          </p>
+        </div>
+        <div class="card quiet-card reveal delay-3">
+          <h3>城市機能持續成形</h3>
+          <p>
+            周邊串聯城市廣場、醫療資源、商業節點與主要道路系統，讓居住不只是景觀與品牌，
+            同時具備日常生活所需的便利性與完整度。
+          </p>
+        </div>
+        <div class="card quiet-card reveal delay-4">
+          <h3>海濱總體開發帶動生活質感</h3>
+          <p>
+            從濱海步道、休閒空間到商業與文化配套，Lido Waterfront Boulevard 的整體規劃，
+            讓案場不只是單棟建築，而是更完整的城市生活提案。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="product">
+    <div class="container">
+      <div class="section-head reveal delay-1" style="text-align:center; margin-left:auto; margin-right:auto;">
+        <div class="eyebrow">產品規劃</div>
+        <h2>永久地契・品牌服務式公寓・精裝修交付</h2>
+        <p style="margin-left:auto; margin-right:auto;">
+          規劃服務型公寓 1,596 戶與零售商店 16 戶，結合品牌管理、精裝修配備與完整生活機能。
+          從入門的一房到更適合家庭的三房配置，產品設計在空間、實用性與生活質感之間取得平衡，
+          能滿足自住、置產與跨境生活客群的不同需求。
+        </p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card quiet-card reveal delay-2">
+          <h3>A 戶型｜1房1衛</h3>
+          <p>13 坪｜精裝潢｜台幣 489 萬起</p>
+          <ul>
+            <li>適合單身、自住或置產規劃</li>
+            <li>精裝修交付，入住門檻更輕鬆</li>
+            <li>兼具靈活使用與資產配置彈性</li>
+          </ul>
+        </div>
+        <div class="card quiet-card reveal delay-3">
+          <h3>B 戶型｜2房2衛</h3>
+          <p>19 坪｜精裝潢｜台幣 695 萬起</p>
+          <ul>
+            <li>空間尺度均衡，適合雙人與小家庭</li>
+            <li>主力產品配置，兼顧生活機能與舒適度</li>
+            <li>適合自住與長期持有規劃</li>
+          </ul>
+        </div>
+        <div class="card quiet-card reveal delay-4">
+          <h3>C 戶型｜3房3衛</h3>
+          <p>23 坪｜精裝潢｜台幣 861 萬起</p>
+          <ul>
+            <li>適合家庭、自住升級與長住需求</li>
+            <li>更完整的空間分配與生活尺度</li>
+            <li>兼具舒適居住與高質感定位</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="price-highlight">
+        <div class="price-box reveal delay-2"><b>13 坪</b><span>A 戶型 1 房產品</span></div>
+        <div class="price-box reveal delay-3"><b>19 坪</b><span>B 戶型 2 房主力產品</span></div>
+        <div class="price-box reveal delay-4"><b>23 坪</b><span>C 戶型 3 房升級產品</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="credibility" class="signature">
+    <div class="container">
+      <div class="section-head reveal delay-1" style="text-align:center; margin-left:auto; margin-right:auto;">
+        <div class="eyebrow">品牌與開發規模</div>
+        <h2>品牌背書與總體開發規模，成就更完整的住宅價值</h2>
+        <p style="margin-left:auto; margin-right:auto;">
+          Skypark Kepler 為 Lido Waterfront Boulevard 內的重要品牌住宅項目，結合開發規模、品牌合作與區域發展優勢。
+          從開發商背景、品牌管理到整體規劃，都讓本案在居住品質、生活體驗與未來發展上更具完整性。
+        </p>
+      </div>
+
+      <div class="grid-4">
+        <div class="card quiet-card reveal delay-2">
+          <h3>163 英畝旗艦開發</h3>
+          <p>Lido Waterfront Boulevard 為 Tropicana 於柔佛的重要旗艦項目，涵蓋住宅、商業、醫療、教育、酒店與休閒娛樂，具備完整總體開發規模與長期發展想像。</p>
+        </div>
+        <div class="card quiet-card reveal delay-3">
+          <h3>Banyan Group 合作</h3>
+          <p>Skypark Kepler 被定位為 Banyan Group 在柔佛的首次住宅合作案，品牌辨識度與國際感更強，也為居住體驗與管理品質增添更多期待。</p>
+        </div>
+        <div class="card quiet-card reveal delay-4">
+          <h3>40+ 項設施</h3>
+          <p>規劃超過 40 項設施，並結合 5G、EV 充電、低能耗玻璃與雨水回收等智慧綠建築概念，呈現更完整的現代生活方式。</p>
+        </div>
+        <div class="card quiet-card reveal delay-5">
+          <h3>市場關注度高</h3>
+          <p>新加坡 private preview 吸引超過 600 位來賓參與，顯示市場對於區域發展、品牌住宅與海濱生活題材的高度關注。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="brand-value">
+    <div class="container">
+      <div class="section-head reveal delay-1" style="text-align:center; margin-left:auto; margin-right:auto;">
+        <div class="eyebrow">品牌住宅價值</div>
+        <h2>品牌管理所帶來的，不只是辨識度，更是長期居住體驗</h2>
+        <p style="margin-left:auto; margin-right:auto;">
+          對高端住宅而言，品牌不只是名稱上的加分，更關係到服務標準、管理細節、空間維護與整體生活感受。
+          Skypark Kepler 與 Banyan Group 的合作，讓本案在居住品質、國際感與長期價值層面，都具備更鮮明的定位。
+        </p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card quiet-card reveal delay-2">
+          <h3>更一致的管理品質</h3>
+          <p>
+            從公共空間維護、住戶體驗到服務細節，品牌管理能帶來更完整且穩定的生活品質，
+            也讓整體社區形象更容易長期維持。
+          </p>
+        </div>
+        <div class="card quiet-card reveal delay-3">
+          <h3>更清晰的高端定位</h3>
+          <p>
+            當住宅結合國際品牌合作，不僅提升案場辨識度，也讓客戶更容易理解其產品層級、
+            生活方式與市場定位，形成與一般住宅不同的價值感。
+          </p>
+        </div>
+        <div class="card quiet-card reveal delay-4">
+          <h3>更完整的長期價值想像</h3>
+          <p>
+            對於自住客群而言，品牌住宅提供更穩定的日常體驗；對於重視長期持有的人而言，
+            也更容易從管理品質、產品稀缺性與國際辨識度中看見其長期優勢。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="lifestyle">
+    <div class="container">
+      <div class="section-head reveal delay-1" style="text-align:center; margin-left:auto; margin-right:auto;">
+        <div class="eyebrow">生活配套</div>
+        <h2>從品牌管理、智慧住宅到公設層，補齊高端生活感</h2>
+        <p style="margin-left:auto; margin-right:auto;">
+          智慧家居、品牌設備與休閒公設，共同構成更完整的日常體驗。
+          從進門後的質感細節，到日常使用的便利性與共享空間規劃，都讓居住感受不只停留在視覺，而是更貼近長期生活的真實需求。
+        </p>
+      </div>
+
+      <div class="grid-4">
+        <div class="card quiet-card reveal delay-2">
+          <h3>品牌住宅</h3>
+          <p>主打品質與信譽、世界級服務與管理體系、高度稀缺性與品牌排他性。</p>
+        </div>
+        <div class="card quiet-card reveal delay-3">
+          <h3>智慧家居</h3>
+          <p>智慧家電系統、AI 安保、24 小時監控、即時通知與接駁整合。</p>
+        </div>
+        <div class="card quiet-card reveal delay-4">
+          <h3>拎包入住</h3>
+          <p>Samsung、Kohler 與高端品牌配件，搭配電視、冰箱、洗烘乾機、掃地機器人等配套。</p>
+        </div>
+        <div class="card quiet-card reveal delay-5">
+          <h3>休閒公設</h3>
+          <p>無邊際泳池、會客廳、森林花園、瑜伽平台、燒烤區與多功能休閒設施層。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="sales" class="signature">
+    <div class="container">
+      <div class="section-head reveal delay-1" style="text-align:center; margin-left:auto; margin-right:auto;">
+        <div class="eyebrow">未來價值</div>
+        <h2>跨境便利、區域發展與品牌定位，共同形塑未來價值</h2>
+        <p style="margin-left:auto; margin-right:auto;">
+          隨著基礎建設與區域發展持續推進，Skypark Kepler 兼具居住品質與中長期關注度。
+          對於希望提早布局新山未來生活圈的客群而言，本案同時具備交通連結、生活條件與品牌辨識度三個重要基礎。
+        </p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card quiet-card reveal delay-2">
+          <h3>核心關注焦點</h3>
+          <ul>
+            <li>近新加坡，具備雙城生活便利性</li>
+            <li>受惠 RTS 與區域發展動能</li>
+            <li>品牌管理與整體規劃兼具辨識度</li>
+            <li>適合同時重視自住與長期配置的客群</li>
+          </ul>
+          <p>
+            這些條件讓 Skypark Kepler 不只是短期話題，而是能被放進中長期生活與資產規劃中思考的產品。
+          </p>
+        </div>
+        <div class="card quiet-card reveal delay-3">
+          <h3>值得關注的產品優勢</h3>
+          <div class="timeline">
+            <div class="timeline-item"><b>01</b><div><strong>品牌服務式公寓</strong><div style="color:var(--muted);font-size:14px;">居住質感與管理體系兼備</div></div></div>
+            <div class="timeline-item"><b>02</b><div><strong>海濱總體規劃</strong><div style="color:var(--muted);font-size:14px;">結合住宅、商業與生活配套</div></div></div>
+            <div class="timeline-item"><b>03</b><div><strong>精裝修與品牌配備</strong><div style="color:var(--muted);font-size:14px;">提升入住便利性與整體質感</div></div></div>
+            <div class="timeline-item"><b>04</b><div><strong>跨境成長題材</strong><div style="color:var(--muted);font-size:14px;">連結新加坡與新山未來生活圈</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ONE-ON-ONE CONSULTATION SECTION ===== -->
+  <section id="consult" style="background:linear-gradient(180deg,#1c1208 0%,#27190a 60%,#1c1208 100%);padding:80px 0;">
+    <div class="container">
+
+      <div style="text-align:center;margin-bottom:36px;">
+        <span style="background:rgba(217,119,6,0.18);border:1px solid rgba(217,119,6,0.45);color:#fbbf24;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:6px 18px;border-radius:50px;">
+          本週僅剩少數名額
+        </span>
+      </div>
+
+      <div class="section-head reveal delay-1" style="text-align:center;margin:0 auto 48px;">
+        <div class="eyebrow" style="color:#d97706;">預約到協會一對一諮詢</div>
+        <h2 style="color:#fef3c7;font-size:clamp(24px,3.8vw,40px);line-height:1.15;margin-bottom:18px;">
+          不用參加說明會<br>
+          <span style="color:#d97706;">直接約顧問，專屬你的 60 分鐘</span>
+        </h2>
+        <p style="color:rgba(253,230,138,.75);max-width:580px;margin:0 auto;line-height:1.8;">
+          針對 Skypark Kepler 有興趣的客戶，可預約到台北協會辦公室與顧問面對面。
+          從產品定位、戶型選擇、付款規劃到置產流程，60 分鐘完整解答，不浪費你的時間。
+        </p>
+      </div>
+
+      <!-- 三大優點 -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:720px;margin:0 auto 52px;" class="reveal delay-2">
+        <div style="background:rgba(253,230,138,.05);border:1px solid rgba(217,119,6,.25);border-radius:14px;padding:24px 20px;text-align:center;">
+          <div style="font-size:30px;margin-bottom:10px;">🔒</div>
+          <div style="color:#fbbf24;font-weight:700;font-size:14px;margin-bottom:6px;">完全保密</div>
+          <div style="color:rgba(253,230,138,.65);font-size:13px;line-height:1.6;">一對一私下諮詢，無第三人，可自由討論預算與需求</div>
+        </div>
+        <div style="background:rgba(253,230,138,.05);border:1px solid rgba(217,119,6,.25);border-radius:14px;padding:24px 20px;text-align:center;">
+          <div style="font-size:30px;margin-bottom:10px;">🎯</div>
+          <div style="color:#fbbf24;font-weight:700;font-size:14px;margin-bottom:6px;">針對你的需求</div>
+          <div style="color:rgba(253,230,138,.65);font-size:13px;line-height:1.6;">自住、置產、移居或第二居所，顧問根據你的狀況量身說明</div>
+        </div>
+        <div style="background:rgba(253,230,138,.05);border:1px solid rgba(217,119,6,.25);border-radius:14px;padding:24px 20px;text-align:center;">
+          <div style="font-size:30px;margin-bottom:10px;">📋</div>
+          <div style="color:#fbbf24;font-weight:700;font-size:14px;margin-bottom:6px;">完整資料帶走</div>
+          <div style="color:rgba(253,230,138,.65);font-size:13px;line-height:1.6;">價目表、戶型圖、付款方案，當場提供，不用等</div>
+        </div>
+      </div>
+
+      <!-- 諮詢涵蓋內容 -->
+      <div style="max-width:680px;margin:0 auto 52px;" class="reveal delay-3">
+        <div style="color:#fbbf24;font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px;text-align:center;">60 分鐘諮詢涵蓋</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div style="display:flex;align-items:center;gap:12px;background:rgba(253,230,138,.03);border:1px solid rgba(217,119,6,.18);border-radius:10px;padding:14px 18px;">
+            <span style="color:#d97706;font-size:18px;">✦</span>
+            <div style="color:#fef3c7;font-size:14px;">新山投資環境 &amp; JS-SEZ 解析</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;background:rgba(253,230,138,.03);border:1px solid rgba(217,119,6,.18);border-radius:10px;padding:14px 18px;">
+            <span style="color:#d97706;font-size:18px;">✦</span>
+            <div style="color:#fef3c7;font-size:14px;">Skypark Kepler 戶型 &amp; 樓層選擇</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;background:rgba(253,230,138,.03);border:1px solid rgba(217,119,6,.18);border-radius:10px;padding:14px 18px;">
+            <span style="color:#d97706;font-size:18px;">✦</span>
+            <div style="color:#fef3c7;font-size:14px;">付款方式 &amp; 台灣貸款規劃</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;background:rgba(253,230,138,.03);border:1px solid rgba(217,119,6,.18);border-radius:10px;padding:14px 18px;">
+            <span style="color:#d97706;font-size:18px;">✦</span>
+            <div style="color:#fef3c7;font-size:14px;">產權登記 &amp; 稅務完整說明</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;background:rgba(253,230,138,.03);border:1px solid rgba(217,119,6,.18);border-radius:10px;padding:14px 18px;">
+            <span style="color:#d97706;font-size:18px;">✦</span>
+            <div style="color:#fef3c7;font-size:14px;">現場限定優惠 &amp; 預購方案</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;background:rgba(253,230,138,.03);border:1px solid rgba(217,119,6,.18);border-radius:10px;padding:14px 18px;">
+            <span style="color:#d97706;font-size:18px;">✦</span>
+            <div style="color:#fef3c7;font-size:14px;">任何疑問 Q&amp;A 自由提問</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 預約 CTA -->
+      <div style="max-width:480px;margin:0 auto;" class="reveal delay-4">
+        <div style="background:rgba(253,230,138,.05);border:1px solid rgba(217,119,6,.4);border-radius:16px;padding:40px 32px;text-align:center;">
+          <div style="color:#fbbf24;font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px;">立即預約</div>
+          <h3 style="color:#fef3c7;margin-bottom:10px;font-size:22px;">到協會與顧問面對面</h3>
+          <p style="color:rgba(253,230,138,.65);font-size:13px;line-height:1.8;margin-bottom:28px;">
+            填寫預約表單，顧問將於 24 小時內聯繫確認時間。<br>
+            完全保密・免費・60 分鐘完整諮詢。
+          </p>
+
+          <!-- 主按鈕：Google Form -->
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSeAgmVY2W8DBc6WrWrm8fIny_r8CDv9eEr5dRF8UgyEQPPBdg/viewform"
+            target="_blank" rel="noopener noreferrer"
+            onclick="if(typeof gtag!=='undefined'){gtag('event','consult_booking',{event_category:'lead',event_label:'skypark_kepler_1on1'});}"
+            style="display:block;background:linear-gradient(135deg,#b45309,#d97706);color:#fff;font-weight:700;font-size:16px;text-decoration:none;border-radius:10px;padding:16px 24px;margin-bottom:14px;transition:opacity .2s;"
+            onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
+            📋 填寫一對一預約表單
+          </a>
+
+          <!-- 次要：LINE -->
+          <a href="https://line.me/R/ti/p/@180phkse" target="_blank" rel="noopener noreferrer"
+            style="display:block;background:rgba(255,255,255,.06);border:1px solid rgba(217,119,6,.3);color:#fef3c7;font-weight:600;font-size:14px;text-decoration:none;border-radius:10px;padding:13px 24px;transition:opacity .2s;"
+            onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">
+            💬 或直接加 LINE 預約
+          </a>
+
+          <p style="color:rgba(253,230,138,.3);font-size:11px;margin-top:18px;">
+            資料僅用於諮詢聯絡，不作其他用途。
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="cta-section" id="register">
+    <div class="container cta-wrap">
+      <div class="cta-box reveal delay-1">
+        <div class="eyebrow">聯絡洽詢</div>
+        <h2>加入 LINE，索取價目表與專屬顧問資訊</h2>
+        <p>
+          若你希望進一步了解戶型、價格、付款方式與整體規劃，歡迎加入 LINE 與我們聯繫。
+          無論是自住、第二居所或長期置產方向，都可依需求進一步說明。
+        </p>
+        <div style="margin-top:18px;">
+          <a class="btn btn-primary" href="https://line.me/R/ti/p/@180phkse" target="_blank" rel="noopener noreferrer">立即加入 LINE</a>
+        </div>
+      </div>
+
+      <div class="form-box reveal delay-2">
+        <div class="eyebrow">表單洽詢</div>
+        <h2>索取價目表 / 預約顧問</h2>
+        <p>也可先留下需求內容，將由專人提供完整案場資訊與後續協助。</p>
+        <form class="form" onsubmit="event.preventDefault(); window.open('https://docs.google.com/forms/d/e/1FAIpQLSeAgmVY2W8DBc6WrWrm8fIny_r8CDv9eEr5dRF8UgyEQPPBdg/viewform','_blank'); if(typeof gtag!=='undefined'){gtag('event','consult_booking',{event_category:'lead',event_label:'skypark_register_form'});}">
+          <div class="form-row">
+            <input class="input" type="text" placeholder="姓名" />
+            <input class="input" type="tel" placeholder="電話 / LINE" />
+          </div>
+          <div class="form-row">
+            <input class="input" type="email" placeholder="電子郵件" />
+            <select class="select">
+              <option>洽詢項目</option>
+              <option>索取價目表</option>
+              <option>預約顧問聯繫</option>
+              <option>置產規劃</option>
+              <option>自住需求</option>
+            </select>
+          </div>
+          <textarea class="textarea" placeholder="想了解的內容：戶型、付款方式、生活配套、交屋資訊等"></textarea>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button class="btn btn-secondary" type="submit">填寫預約表單</button>
+            <a class="btn btn-primary" href="https://line.me/R/ti/p/@180phkse" target="_blank" rel="noopener noreferrer">加入 LINE 洽詢</a>
+          </div>
+        </form>
+        <div class="note">提交需求後，將由專人協助提供價目表、戶型資訊與後續說明。</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="sticky-cta">
+    <div class="sticky-cta-inner">
+      <div>
+        <div style="font-weight:700;">Skypark Kepler</div>
+        <div class="sticky-title">新山麗都海天苑曜華庭</div>
+      </div>
+      <div class="sticky-actions">
+        <a class="btn btn-secondary" href="#product">戶型</a>
+        <a class="btn" href="#consult" style="background:linear-gradient(135deg,#b45309,#d97706);color:#fff;border:none;">📋 預約諮詢</a>
+        <a class="btn btn-primary" href="https://line.me/R/ti/p/@180phkse" target="_blank" rel="noopener noreferrer">LINE 洽詢</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Skypark Kepler • Lido Waterfront Boulevard • Johor Bahru
+  </footer>
+  <script>
+    (function(){
+      try {
+        fetch('/api/track-visit', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            page: location.pathname,
+            title: document.title,
+            referrer: document.referrer || 'direct',
+            device: /Mobile|Android|iPhone|iPad/i.test(navigator.userAgent) ? 'mobile' : 'desktop'
+          })
+        });
+      } catch(e){}
+    })();
+  </script>
+
+  <!-- Vercel Web Analytics -->
+  <script defer src="/_vercel/insights/script.js"></script>
+  <!-- Vercel Speed Insights -->
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

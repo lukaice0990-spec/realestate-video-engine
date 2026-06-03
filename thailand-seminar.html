@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🇹🇭 曼谷4天3夜投資考察團 5/19–22 2026 | TIREA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0f172a;
+      --blue: #163a8a;
+      --blue-mid: #1e4db7;
+      --gold: #c89b3c;
+      --gold-light: #e8c56e;
+      --white: #f8fafc;
+      --gray: #94a3b8;
+      --glass: rgba(255,255,255,0.06);
+      --glass-border: rgba(255,255,255,0.12);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 48px;
+      background: rgba(15,23,42,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo-badge {
+      width: 38px; height: 38px; border-radius: 8px;
+      background: linear-gradient(135deg, var(--blue), var(--blue-mid));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 14px; color: var(--gold);
+      border: 1px solid var(--gold);
+    }
+    .nav-logo-text { font-size: 14px; font-weight: 600; color: var(--white); }
+    .nav-logo-sub { font-size: 11px; color: var(--gray); font-weight: 300; }
+    .nav-cta {
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: var(--navy);
+      padding: 10px 24px; border-radius: 8px;
+      font-weight: 700; font-size: 14px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      position: relative; overflow: hidden;
+      padding: 120px 48px 80px;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 40%, rgba(22,58,138,0.55) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 15% 80%, rgba(200,155,60,0.12) 0%, transparent 60%),
+        linear-gradient(160deg, #0a1020 0%, #0f172a 50%, #101a30 100%);
+    }
+    .hero-dots {
+      position: absolute; inset: 0;
+      background-image: radial-gradient(rgba(200,155,60,0.18) 1px, transparent 1px);
+      background-size: 32px 32px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+    }
+    .hero-img {
+      position: absolute; right: 0; top: 0; bottom: 0;
+      width: 52%;
+      background: url('https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=1200&q=80') center/cover no-repeat;
+      mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.6) 30%, black 60%);
+      opacity: 0.45;
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 620px; }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(200,155,60,0.15);
+      border: 1px solid rgba(200,155,60,0.35);
+      padding: 6px 16px; border-radius: 999px;
+      font-size: 12px; font-weight: 600; color: var(--gold);
+      letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+    .hero-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(1.4)} }
+    .hero h1 {
+      font-size: clamp(36px, 5vw, 60px);
+      font-weight: 900; line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .hero h1 .accent { color: var(--gold); }
+    .hero-sub {
+      font-size: clamp(18px, 2.5vw, 26px);
+      font-weight: 300; color: #cbd5e1;
+      margin-bottom: 24px;
+    }
+    .hero-desc {
+      font-size: 15px; color: #94a3b8;
+      max-width: 480px; margin-bottom: 40px;
+      line-height: 1.85;
+    }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: var(--navy); padding: 16px 36px;
+      border-radius: 10px; font-weight: 700; font-size: 16px;
+      text-decoration: none; transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 8px 24px rgba(200,155,60,0.3);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(200,155,60,0.45); }
+    .btn-outline {
+      border: 1px solid var(--glass-border); color: var(--white);
+      padding: 16px 36px; border-radius: 10px; font-weight: 500; font-size: 16px;
+      text-decoration: none; backdrop-filter: blur(8px);
+      background: var(--glass); transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--gold); background: rgba(200,155,60,0.08); }
+
+    /* ── EVENT INFO CARDS ── */
+    .info-bar {
+      position: relative; z-index: 2;
+      display: flex; gap: 1px;
+      background: var(--glass-border);
+      border-top: 1px solid var(--glass-border);
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .info-item {
+      flex: 1; padding: 28px 32px;
+      background: rgba(15,23,42,0.9);
+      display: flex; align-items: center; gap: 16px;
+    }
+    .info-icon {
+      width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0;
+      background: rgba(200,155,60,0.1);
+      border: 1px solid rgba(200,155,60,0.25);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+    }
+    .info-label { font-size: 11px; color: var(--gray); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+    .info-value { font-size: 16px; font-weight: 700; color: var(--white); }
+
+    /* ── SECTIONS ── */
+    section { padding: 96px 48px; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-tag {
+      font-size: 12px; font-weight: 600; color: var(--gold);
+      letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .section-title {
+      font-size: clamp(28px, 3.5vw, 42px);
+      font-weight: 800; line-height: 1.25;
+      margin-bottom: 16px;
+    }
+    .section-desc {
+      font-size: 15px; color: #94a3b8;
+      max-width: 560px; line-height: 1.85;
+      margin-bottom: 56px;
+    }
+
+    /* ── WHY THAILAND ── */
+    .why-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    }
+    .why-card {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px; padding: 32px;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .why-card:hover { border-color: rgba(200,155,60,0.4); transform: translateY(-4px); }
+    .why-card-num {
+      font-size: 11px; font-weight: 700; color: var(--gold);
+      letter-spacing: 0.1em; margin-bottom: 20px;
+    }
+    .why-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 12px; }
+    .why-card p { font-size: 14px; color: #94a3b8; line-height: 1.8; }
+    .why-stat {
+      margin-top: 20px; padding-top: 20px;
+      border-top: 1px solid var(--glass-border);
+      font-size: 28px; font-weight: 900; color: var(--gold);
+    }
+    .why-stat span { font-size: 13px; color: #94a3b8; font-weight: 400; margin-left: 6px; }
+
+    /* ── AGENDA ── */
+    .agenda-section { background: rgba(22,58,138,0.06); }
+    .agenda-list { display: flex; flex-direction: column; gap: 0; }
+    .agenda-item {
+      display: grid; grid-template-columns: 120px 1fr;
+      gap: 32px; align-items: start;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--glass-border);
+      position: relative;
+    }
+    .agenda-item:last-child { border-bottom: none; }
+    .agenda-item::before {
+      content: '';
+      position: absolute; left: 107px; top: 38px; bottom: -32px;
+      width: 2px; background: linear-gradient(to bottom, var(--gold), transparent);
+    }
+    .agenda-item:last-child::before { display: none; }
+    .agenda-time {
+      font-size: 13px; font-weight: 700; color: var(--gold);
+      padding-top: 4px; text-align: right;
+    }
+    .agenda-dot {
+      position: absolute; left: 101px; top: 38px;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: var(--gold); border: 3px solid var(--navy);
+      box-shadow: 0 0 0 3px rgba(200,155,60,0.25);
+    }
+    .agenda-body h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+    .agenda-body p { font-size: 14px; color: #94a3b8; line-height: 1.75; }
+    .agenda-badge {
+      display: inline-block; margin-top: 10px;
+      background: rgba(200,155,60,0.12); border: 1px solid rgba(200,155,60,0.3);
+      color: var(--gold); font-size: 11px; font-weight: 600;
+      padding: 4px 12px; border-radius: 999px; letter-spacing: 0.05em;
+    }
+
+    /* ── PROPERTIES ── */
+    .props-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    }
+    .prop-card {
+      border-radius: 16px; overflow: hidden;
+      border: 1px solid var(--glass-border);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .prop-card:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(0,0,0,0.4); }
+    .prop-img {
+      height: 200px;
+      background-size: cover; background-position: center;
+      position: relative;
+    }
+    .prop-tag {
+      position: absolute; top: 14px; left: 14px;
+      background: rgba(200,155,60,0.9); color: var(--navy);
+      font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 6px;
+      letter-spacing: 0.05em;
+    }
+    .prop-body { padding: 24px; background: rgba(22,30,50,0.95); }
+    .prop-location { font-size: 12px; color: var(--gold); font-weight: 600; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .prop-name { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
+    .prop-price { font-size: 22px; font-weight: 900; color: var(--gold); margin-bottom: 16px; }
+    .prop-price span { font-size: 13px; color: var(--gray); font-weight: 400; }
+    .prop-features { display: flex; gap: 16px; flex-wrap: wrap; }
+    .prop-feat { font-size: 12px; color: #94a3b8; display: flex; align-items: center; gap: 5px; }
+    .prop-feat::before { content: '✦'; color: var(--gold); font-size: 8px; }
+
+    /* ── SPEAKERS ── */
+    .speakers-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    }
+    .speaker-card {
+      background: var(--glass); border: 1px solid var(--glass-border);
+      border-radius: 16px; padding: 32px; text-align: center;
+      transition: border-color 0.3s;
+    }
+    .speaker-card:hover { border-color: rgba(200,155,60,0.4); }
+    .speaker-avatar {
+      width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 20px;
+      background: linear-gradient(135deg, var(--blue), var(--blue-mid));
+      border: 3px solid rgba(200,155,60,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; font-weight: 900; color: var(--gold);
+    }
+    .speaker-name { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+    .speaker-title { font-size: 13px; color: var(--gold); font-weight: 500; margin-bottom: 12px; }
+    .speaker-bio { font-size: 13px; color: #94a3b8; line-height: 1.75; }
+
+    /* ── REGISTER ── */
+    .register-section {
+      background: linear-gradient(135deg, rgba(22,58,138,0.25) 0%, rgba(15,23,42,0.8) 100%);
+      border-top: 1px solid var(--glass-border);
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .register-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .register-form {
+      background: var(--glass); border: 1px solid var(--glass-border);
+      border-radius: 20px; padding: 40px;
+      backdrop-filter: blur(16px);
+    }
+    .form-title { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+    .form-sub { font-size: 14px; color: #94a3b8; margin-bottom: 32px; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 600; color: #cbd5e1; margin-bottom: 8px; }
+    .form-group input, .form-group select {
+      width: 100%; padding: 14px 18px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--glass-border);
+      border-radius: 10px; color: var(--white);
+      font-family: 'Noto Sans TC', sans-serif;
+      font-size: 14px; outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus, .form-group select:focus { border-color: var(--gold); }
+    .form-group select option { background: #1e293b; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-submit {
+      width: 100%; padding: 16px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      border: none; border-radius: 10px;
+      font-family: 'Noto Sans TC', sans-serif;
+      font-size: 16px; font-weight: 700; color: var(--navy);
+      cursor: pointer; margin-top: 8px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 8px 24px rgba(200,155,60,0.3);
+    }
+    .form-submit:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(200,155,60,0.45); }
+
+    /* ── FAQ ── */
+    .faq-list { display: flex; flex-direction: column; gap: 16px; max-width: 720px; }
+    .faq-item {
+      background: var(--glass); border: 1px solid var(--glass-border);
+      border-radius: 12px; overflow: hidden;
+    }
+    .faq-q {
+      padding: 22px 28px; font-size: 15px; font-weight: 600;
+      cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+      gap: 16px;
+    }
+    .faq-q::after { content: '+'; color: var(--gold); font-size: 22px; font-weight: 300; flex-shrink: 0; }
+    .faq-a { padding: 0 28px 22px; font-size: 14px; color: #94a3b8; line-height: 1.85; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 48px; text-align: center;
+      border-top: 1px solid var(--glass-border);
+      color: #475569; font-size: 13px;
+    }
+    footer strong { color: var(--gold); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .hero { padding: 100px 24px 60px; }
+      .hero-img { display: none; }
+      section { padding: 64px 24px; }
+      .info-bar { flex-direction: column; }
+      .info-item { border-bottom: 1px solid var(--glass-border); }
+      .why-grid, .props-grid, .speakers-grid { grid-template-columns: 1fr; }
+      .register-inner { grid-template-columns: 1fr; gap: 40px; }
+      .agenda-item { grid-template-columns: 90px 1fr; gap: 16px; }
+      .agenda-item::before { left: 77px; }
+      .agenda-dot { left: 71px; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+  <meta name="keywords" content="泰國考察團,曼谷房產考察,泰國投資旅遊,曼谷置產,泰國房產考察2026" />
+  <meta name="description" content="2026年5月19–22日曼谷房產實地考察，參訪Sukhumvit、Silom、On Nut精選物件，律師說明會+市場分析Workshop，繁體中文全程陪同。" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2XV1V9TS1P"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-2XV1V9TS1P');
+  </script>
+  <link rel="canonical" href="https://www.tirea.tw/thailand-seminar" />
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-badge">T</div>
+    <div>
+      <div class="nav-logo-text">TIREA</div>
+      <div class="nav-logo-sub">台灣國際不動產交流協會</div>
+    </div>
+  </a>
+  <a href="#register" class="nav-cta">立即報名</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-dots"></div>
+  <div class="hero-img"></div>
+  <div class="hero-content">
+    <div class="hero-tag" style="background:rgba(239,68,68,0.15);border-color:rgba(239,68,68,0.4);color:#fca5a5;">🔥 5/19 出發 · 名額倒數</div>
+    <h1>親赴<span class="accent">曼谷</span>，<br/>4天看懂四大<br/>投資核心區</h1>
+    <p class="hero-sub">5/19–5/22 曼谷4天3夜建案考察團 · <span style="color:#fbbf24;font-weight:900;">NT$9,999</span> <span style="font-size:14px;opacity:.7;">（不含機票）</span></p>
+    <p class="hero-desc">
+      不是看簡報，是<strong style="color:#e2e8f0">親眼走進建案現場</strong>。涵蓋 Phaya Thai、Rama 9、Ramkhamhaeng、Thong Lo 四大核心區域，資深顧問全程中文陪同，直接與開發商面對面，讓你出發前就確認好每一個細節。
+    </p>
+    <div class="hero-actions">
+      <a href="#register" class="btn-primary">立即報名考察團</a>
+      <a href="#agenda" class="btn-outline">查看4天行程</a>
+    </div>
+  </div>
+</section>
+
+<!-- INFO BAR -->
+<div class="info-bar">
+  <div class="info-item">
+    <div class="info-icon">✈️</div>
+    <div>
+      <div class="info-label">出發日期</div>
+      <div class="info-value">2026 年 5 月 19 日 — 22 日</div>
+    </div>
+  </div>
+  <div class="info-item">
+    <div class="info-icon">🌙</div>
+    <div>
+      <div class="info-label">行程天數</div>
+      <div class="info-value">4天3夜 · 曼谷全程中文陪同</div>
+    </div>
+  </div>
+  <div class="info-item">
+    <div class="info-icon">📍</div>
+    <div>
+      <div class="info-label">考察地點</div>
+      <div class="info-value">曼谷四大核心區 · 四個精選建案</div>
+    </div>
+  </div>
+  <div class="info-item">
+    <div class="info-icon">💰</div>
+    <div>
+      <div class="info-label">團費</div>
+      <div class="info-value" style="color:#fbbf24;font-weight:900;font-size:20px;">NT$9,999 <span style="font-size:13px;font-weight:500;color:#94a3b8;">/ 人（不含機票）</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS STRIP -->
+<div style="background: rgba(22,58,138,0.12); border-top:1px solid var(--glass-border); border-bottom:1px solid var(--glass-border); padding: 40px 48px;">
+  <div style="max-width:1100px; margin:0 auto; display:grid; grid-template-columns:repeat(5,1fr); gap:24px; text-align:center;">
+    <div>
+      <div style="font-size:32px; font-weight:900; color:var(--gold);">7.2%</div>
+      <div style="font-size:12px; color:#94a3b8; margin-top:4px;">平均年化租金報酬</div>
+    </div>
+    <div>
+      <div style="font-size:32px; font-weight:900; color:var(--gold);">+38%</div>
+      <div style="font-size:12px; color:#94a3b8; margin-top:4px;">近 5 年核心區漲幅</div>
+    </div>
+    <div>
+      <div style="font-size:32px; font-weight:900; color:var(--gold);">0%</div>
+      <div style="font-size:12px; color:#94a3b8; margin-top:4px;">外資資本利得稅</div>
+    </div>
+    <div>
+      <div style="font-size:32px; font-weight:900; color:var(--gold);">49%</div>
+      <div style="font-size:12px; color:#94a3b8; margin-top:4px;">外籍可持有公寓上限</div>
+    </div>
+    <div>
+      <div style="font-size:32px; font-weight:900; color:var(--gold);">4條</div>
+      <div style="font-size:12px; color:#94a3b8; margin-top:4px;">新捷運線建設中</div>
+    </div>
+  </div>
+</div>
+
+<!-- WHY THAILAND -->
+<section id="why">
+  <div class="container">
+    <div class="section-tag">為何是泰國</div>
+    <h2 class="section-title">東南亞最受矚目的<br/>海外置產市場</h2>
+    <p class="section-desc">泰國以穩定的法律框架、完善的外資購屋制度、以及持續擴張的城市基建，成為亞洲投資人的首選目的地。台灣人赴泰置產門檻低、程序透明，是最適合首次踏入海外不動產的市場之一。</p>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-card-num">01 / 租金回報</div>
+        <h3>高達 6–8% 年化租金報酬</h3>
+        <p>曼谷 BTS 沿線公寓空置率極低，特別是 Sukhumvit、Silom、Ratchada 等核心商圈，外籍租客需求常年旺盛。Phaya Thai 因雙鐵共構優勢，空置率長期維持在 5% 以下，短租長租皆宜。</p>
+        <div class="why-stat">7.2%<span>平均淨租金報酬率</span></div>
+      </div>
+      <div class="why-card">
+        <div class="why-card-num">02 / 資本增值</div>
+        <h3>捷運擴張帶動沿線持續增值</h3>
+        <p>泰國政府 EEC 東部經濟走廊、曼谷 MRT 橙色線（2026 通車）、棕色線等四條新捷運同步推進，交通紅利帶動沿線區域地價與房價穩步攀升，早進場優勢顯著。</p>
+        <div class="why-stat">+38%<span>近 5 年核心區漲幅</span></div>
+      </div>
+      <div class="why-card">
+        <div class="why-card-num">03 / 持有成本</div>
+        <h3>低稅負、低門檻入場</h3>
+        <p>泰國無資本利得稅、年持有稅率僅約 0.3%，持有成本遠低於日本（固定資產稅 1.4%）、澳洲（印花稅 5–7%）。外資公寓購買比例可達 49%，法規透明，退場機制靈活。</p>
+        <div class="why-stat">0%<span>外資資本利得稅</span></div>
+      </div>
+      <div class="why-card">
+        <div class="why-card-num">04 / 外派市場</div>
+        <h3>日系、歐美外派族強勁租屋需求</h3>
+        <p>曼谷為全球外派熱點，Thong Lo、Ekkamai 一帶日本人社群龐大，月租行情 2–4 萬泰銖；Rama 9 新 CBD 聚集跨國企業白領，租屋需求與付租能力雙高，是穩定現金流的最佳保證。</p>
+        <div class="why-stat">12萬+<span>曼谷在住日本外派人數</span></div>
+      </div>
+      <div class="why-card">
+        <div class="why-card-num">05 / 匯率優勢</div>
+        <h3>台幣計價門檻低，匯率波動有利</h3>
+        <p>泰銖兌台幣近年維持相對穩定，曼谷核心公寓折合台幣 300–600 萬即可入場，相較東京、新加坡、澳洲等熱門市場，資金門檻降低 40–60%，更適合分散配置。</p>
+        <div class="why-stat">NT$300萬<span>起即可入場核心區</span></div>
+      </div>
+      <div class="why-card">
+        <div class="why-card-num">06 / 觀光紅利</div>
+        <h3>全球旅遊城市前三，短租市場蓬勃</h3>
+        <p>曼谷連年蟬聯全球最多旅客造訪城市前三名，Airbnb、Agoda 短租市場活絡。部分具合法旅館執照的建案（如 Cassia Rama 9），可合規經營短租，旺季報酬率可達 10% 以上。</p>
+        <div class="why-stat">3,500萬<span>2025 年入境旅客人次</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AGENDA -->
+<section id="agenda" class="agenda-section">
+  <div class="container">
+    <div class="section-tag">活動議程</div>
+    <h2 class="section-title">4天3夜 · 完整考察行程<br/>每一步都有顧問帶著走</h2>
+    <p class="section-desc">從飛機落地到返抵台灣，全程中文顧問隨行，走訪曼谷四大投資核心區、親身體驗捷運生活圈，直接進入建案現場與開發商面對面，讓數字不再只是數字。</p>
+
+    <!-- Tour inclusions -->
+    <div style="background:rgba(200,155,60,0.07); border:1px solid rgba(200,155,60,0.2); border-radius:16px; padding:32px; margin-bottom:48px;">
+      <div style="font-size:12px; font-weight:700; color:var(--gold); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:20px;">考察團包含內容</div>
+      <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px;">
+        <div style="background:rgba(255,255,255,0.04); border-radius:10px; padding:18px;">
+          <div style="font-size:22px; margin-bottom:10px;">🏨</div>
+          <div style="font-size:14px; font-weight:600; margin-bottom:4px;">住宿安排</div>
+          <div style="font-size:12px; color:#94a3b8;">Hotel Tranz · Phaya Thai<br/>3晚雙人房，位於考察核心區</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04); border-radius:10px; padding:18px;">
+          <div style="font-size:22px; margin-bottom:10px;">🚐</div>
+          <div style="font-size:14px; font-weight:600; margin-bottom:4px;">全程接送</div>
+          <div style="font-size:12px; color:#94a3b8;">機場接送 + 每日專車<br/>含 BTS/MRT 體驗路線</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04); border-radius:10px; padding:18px;">
+          <div style="font-size:22px; margin-bottom:10px;">🎤</div>
+          <div style="font-size:14px; font-weight:600; margin-bottom:4px;">顧問全程隨行</div>
+          <div style="font-size:12px; color:#94a3b8;">資深中文顧問陪同<br/>現場即時解說與Q&A</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04); border-radius:10px; padding:18px;">
+          <div style="font-size:22px; margin-bottom:10px;">📋</div>
+          <div style="font-size:14px; font-weight:600; margin-bottom:4px;">考察報告</div>
+          <div style="font-size:12px; color:#94a3b8;">四大建案完整分析報告<br/>回台後一對一後續諮詢</div>
+        </div>
+      </div>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:40px; margin-bottom:56px;">
+      <div style="background:rgba(200,155,60,0.08); border:1px solid rgba(200,155,60,0.25); border-radius:16px; padding:28px;">
+        <div style="font-size:12px; font-weight:700; color:var(--gold); letter-spacing:0.08em; margin-bottom:10px;">考察行程</div>
+        <div style="font-size:22px; font-weight:900; margin-bottom:6px;">5月19日 — 22日</div>
+        <div style="font-size:14px; color:#94a3b8;">4天3夜 · 曼谷建案考察之旅</div>
+      </div>
+      <div style="background:rgba(200,155,60,0.08); border:1px solid rgba(200,155,60,0.25); border-radius:16px; padding:28px;">
+        <div style="font-size:12px; font-weight:700; color:var(--gold); letter-spacing:0.08em; margin-bottom:10px;">住宿 & 交通</div>
+        <div style="font-size:17px; font-weight:700; margin-bottom:6px;">Hotel Tranz · Phaya Thai</div>
+        <div style="font-size:14px; color:#94a3b8;">BR67 去程 / BR76 回程 · BTS 全程體驗</div>
+      </div>
+    </div>
+    <div class="agenda-list">
+      <div class="agenda-item">
+        <div class="agenda-time">Day 1<br/>5/19</div>
+        <div class="agenda-dot"></div>
+        <div class="agenda-body">
+          <h3>抵達與 Phaya Thai 考察</h3>
+          <p>08:05 抵達 Suvarnabhumi Airport，搭乘 BR67 航班。體驗曼谷新興捷運棕色線後 Check-in Hotel Tranz。下午參觀 <strong style="color:#e2e8f0">XT-Phaya Thai</strong>（Sansiri），深入了解雙塔地標建案的共享公設與居住概念。</p>
+          <span class="agenda-badge">建案：XT-Phaya Thai</span>
+          <span class="agenda-badge" style="margin-left:8px;">BTS/ARL 雙鐵共構</span>
+        </div>
+      </div>
+      <div class="agenda-item">
+        <div class="agenda-time">Day 2<br/>5/20</div>
+        <div class="agenda-dot"></div>
+        <div class="agenda-body">
+          <h3>Rama 9 商圈與夜市考察</h3>
+          <p>上午參觀 <strong style="color:#e2e8f0">Cassia Rama 9</strong> Loft 房型，體驗品牌託管公寓的優勢。下午走訪 THE STREET RATCHADA 在地商圈，傍晚前往喬德夜市（Jodd Fairs），搭 MRT 藍線體驗通勤便利性。</p>
+          <span class="agenda-badge">建案：Cassia Rama 9</span>
+          <span class="agenda-badge" style="margin-left:8px;">新 CBD 考察</span>
+        </div>
+      </div>
+      <div class="agenda-item">
+        <div class="agenda-time">Day 3<br/>5/21</div>
+        <div class="agenda-dot"></div>
+        <div class="agenda-body">
+          <h3>Ramkhamhaeng 走廊考察＋朱拉夜市</h3>
+          <p>上午參觀 <strong style="color:#e2e8f0">Modiz Rhyme Ramkhamhaeng</strong>，深入了解大學城核心地段高投報型產品。下午車上專業解說 MRT 橙色線發展與學區效應，傍晚逛朱拉大學夜市體驗年輕商圈氛圍。</p>
+          <span class="agenda-badge">建案：Modiz Rhyme</span>
+          <span class="agenda-badge" style="margin-left:8px;">MRT 橙色線</span>
+        </div>
+      </div>
+      <div class="agenda-item">
+        <div class="agenda-time">Day 4<br/>5/22</div>
+        <div class="agenda-dot"></div>
+        <div class="agenda-body">
+          <h3>Thong Lo &amp; On Nut 收尾＋返程</h3>
+          <p>上午參觀 <strong style="color:#e2e8f0">Chewathai Residence Thong Lo</strong>，考察垂直森林概念低密度奢華寓所。中午走訪 On Nut 在地生活機能（Lotus's / Big C），12:30 專車前往機場，16:05 BR76 返抵台北。</p>
+          <span class="agenda-badge">建案：Chewathai Thong Lo</span>
+          <span class="agenda-badge" style="margin-left:8px;">富人區 Thong Lo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PROPERTIES -->
+<section id="properties">
+  <div class="container">
+    <div class="section-tag">精選建案</div>
+    <h2 class="section-title">5/19–5/22 曼谷考察四大建案</h2>
+    <p class="section-desc">本次考察之旅涵蓋四個精選合作建案，橫跨曼谷四大投資核心區，今日說明會將一一深度介紹。</p>
+    <div style="display:grid; grid-template-columns: repeat(2,1fr); gap:24px;">
+      <!-- Card 1 -->
+      <div class="prop-card">
+        <div class="prop-img" style="background-image:url('https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80')">
+          <div class="prop-tag">Day 1 · Phaya Thai</div>
+        </div>
+        <div class="prop-body">
+          <div class="prop-location">Phaya Thai · BTS + ARL 雙鐵共構</div>
+          <div class="prop-name">XT-Phaya Thai</div>
+          <div style="font-size:12px; color:#94a3b8; margin-bottom:10px; line-height:1.7;">by Sansiri｜曼谷前三大建商出品。現代雙塔地標設計，結合流線型外觀與垂直綠化，頂樓無邊際泳池與空中花園，360° 環景視野。針對年輕族群設計的共享公設與居住概念。</div>
+          <div class="prop-features">
+            <div class="prop-feat">BTS/ARL 交會站旁</div>
+            <div class="prop-feat">外派與遊客首選</div>
+            <div class="prop-feat">教育醫療核心</div>
+          </div>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="prop-card">
+        <div class="prop-img" style="background-image:url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80')">
+          <div class="prop-tag">Day 2 · Rama 9</div>
+        </div>
+        <div class="prop-body">
+          <div class="prop-location">Rama 9 · MRT 藍線｜新 CBD 核心</div>
+          <div class="prop-name">Cassia Rama 9</div>
+          <div style="font-size:12px; color:#94a3b8; margin-bottom:10px; line-height:1.7;">合法旅館執照公寓大樓，品牌託管優勢。Loft 挑高複層設計，稀有空間格局，國際品牌寓所質感。G Tower、Unilever 等商辦林立，白領租屋需求強勁。</div>
+          <div class="prop-features">
+            <div class="prop-feat">品牌委託代管</div>
+            <div class="prop-feat">Loft 複層戶型</div>
+            <div class="prop-feat">新 CBD 高租需</div>
+          </div>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="prop-card">
+        <div class="prop-img" style="background-image:url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80')">
+          <div class="prop-tag">Day 3 · Ramkhamhaeng</div>
+        </div>
+        <div class="prop-body">
+          <div class="prop-location">Ramkhamhaeng · MRT 橙色線｜大學城</div>
+          <div class="prop-name">Modiz Rhyme Ramkhamhaeng</div>
+          <div style="font-size:12px; color:#94a3b8; margin-bottom:10px; line-height:1.7;">鄰近蘭甘亨大學，學生與年輕白領租屋需求穩定、空置率低。現代垂直綠化地標設計，頂層無邊際雲端泳池俯瞰曼谷天際線。MRT 橙色線貫穿，通勤便捷。</div>
+          <div class="prop-features">
+            <div class="prop-feat">學區高投報</div>
+            <div class="prop-feat">頂層Sky Pool</div>
+            <div class="prop-feat">高性價比</div>
+          </div>
+        </div>
+      </div>
+      <!-- Card 4 -->
+      <div class="prop-card">
+        <div class="prop-img" style="background-image:url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80')">
+          <div class="prop-tag">Day 4 · Thong Lo</div>
+        </div>
+        <div class="prop-body">
+          <div class="prop-location">Thong Lo 北段精華 · BTS 素坤逸線</div>
+          <div class="prop-name">Chewathai Residence Thong Lo</div>
+          <div style="font-size:12px; color:#94a3b8; margin-bottom:10px; line-height:1.7;">低密度奢華寓所，垂直森林概念與度假風公設完美融合。Thong Lo 為曼谷潮流與豪宅指標地段，日本外派族與高消費力客群聚集，租金投報穩定。</div>
+          <div class="prop-features">
+            <div class="prop-feat">低密度奢華</div>
+            <div class="prop-feat">垂直森林設計</div>
+            <div class="prop-feat">日系外派首選</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPEAKERS -->
+<section id="speakers" style="background: rgba(22,58,138,0.05); border-top: 1px solid var(--glass-border);">
+  <div class="container">
+    <div class="section-tag">主講顧問</div>
+    <h2 class="section-title">專業顧問團隊</h2>
+    <p class="section-desc">每位顧問均具備實際泰國置產操作經驗，以客觀數據輔助您做出明智決策。</p>
+    <div class="speakers-grid">
+      <div class="speaker-card">
+        <div class="speaker-avatar">陳</div>
+        <div class="speaker-name">陳志遠 顧問</div>
+        <div class="speaker-title">海外房產策略分析師</div>
+        <div class="speaker-bio">深耕泰國市場 10 年，協助逾 200 組台灣客戶完成曼谷置產，專精 BTS/MRT 沿線高租報資產選籌。曾多次帶團赴曼谷實地考察，熟悉各區開發商背景、建案品質與周邊生活機能。</div>
+        <div style="margin-top:20px; padding-top:16px; border-top:1px solid var(--glass-border); display:flex; flex-direction:column; gap:8px;">
+          <div style="font-size:12px; color:#94a3b8; display:flex; align-items:center; gap:8px;"><span style="color:var(--gold);">✦</span> 10 年曼谷市場深耕經驗</div>
+          <div style="font-size:12px; color:#94a3b8; display:flex; align-items:center; gap:8px;"><span style="color:var(--gold);">✦</span> 協助 200+ 組台灣客戶完成置產</div>
+          <div style="font-size:12px; color:#94a3b8; display:flex; align-items:center; gap:8px;"><span style="color:var(--gold);">✦</span> 本次考察團隨行顧問</div>
+        </div>
+      </div>
+      <div class="speaker-card">
+        <div class="speaker-avatar">林</div>
+        <div class="speaker-name">林雅婷 顧問</div>
+        <div class="speaker-title">跨境法律稅務專家</div>
+        <div class="speaker-bio">熟悉泰國外資購屋法規、FET 外幣匯入規範與台泰租稅協定，協助客戶建立合規持有結構。擅長解析各類稅費計算、遺產規劃及退場策略，讓每一筆投資都有完善的法律保障。</div>
+        <div style="margin-top:20px; padding-top:16px; border-top:1px solid var(--glass-border); display:flex; flex-direction:column; gap:8px;">
+          <div style="font-size:12px; color:#94a3b8; display:flex; align-items:center; gap:8px;"><span style="color:var(--gold);">✦</span> 台泰跨境法規雙語諮詢</div>
+          <div style="font-size:12px; color:#94a3b8; display:flex; align-items:center; gap:8px;"><span style="color:var(--gold);">✦</span> FET 匯款 & 持有結構規劃</div>
+          <div style="font-size:12px; color:#94a3b8; display:flex; align-items:center; gap:8px;"><span style="color:var(--gold);">✦</span> 退場機制與遺產規劃顧問</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUYING PROCESS -->
+<section style="background: rgba(22,58,138,0.05); border-top:1px solid var(--glass-border);">
+  <div class="container">
+    <div class="section-tag">購買流程</div>
+    <h2 class="section-title">從說明會到交屋，<br/>全程專人陪同</h2>
+    <p class="section-desc">TIREA 提供完整的購屋陪伴服務，讓您在人生地不熟的海外市場，每一步都走得安心踏實。</p>
+    <div style="display:grid; grid-template-columns:repeat(6,1fr); gap:0; position:relative;">
+      <div style="position:absolute; top:32px; left:calc(100%/12); right:calc(100%/12); height:2px; background:linear-gradient(to right, var(--gold), rgba(200,155,60,0.2));"></div>
+      <div style="text-align:center; padding:0 12px; position:relative;">
+        <div style="width:64px; height:64px; border-radius:50%; background:linear-gradient(135deg,var(--blue),var(--blue-mid)); border:2px solid var(--gold); display:flex; align-items:center; justify-content:center; margin:0 auto 16px; font-size:22px; font-weight:900; color:var(--gold); position:relative; z-index:1;">1</div>
+        <div style="font-size:14px; font-weight:700; margin-bottom:8px;">說明會出席</div>
+        <div style="font-size:12px; color:#94a3b8; line-height:1.7;">了解市場、建案，與顧問初步交流需求</div>
+      </div>
+      <div style="text-align:center; padding:0 12px; position:relative;">
+        <div style="width:64px; height:64px; border-radius:50%; background:linear-gradient(135deg,var(--blue),var(--blue-mid)); border:2px solid var(--gold); display:flex; align-items:center; justify-content:center; margin:0 auto 16px; font-size:22px; font-weight:900; color:var(--gold); position:relative; z-index:1;">2</div>
+        <div style="font-size:14px; font-weight:700; margin-bottom:8px;">一對一諮詢</div>
+        <div style="font-size:12px; color:#94a3b8; line-height:1.7;">確認預算、目標、選定適合建案與戶型</div>
+      </div>
+      <div style="text-align:center; padding:0 12px; position:relative;">
+        <div style="width:64px; height:64px; border-radius:50%; background:linear-gradient(135deg,var(--blue),var(--blue-mid)); border:2px solid var(--gold); display:flex; align-items:center; justify-content:center; margin:0 auto 16px; font-size:22px; font-weight:900; color:var(--gold); position:relative; z-index:1;">3</div>
+        <div style="font-size:14px; font-weight:700; margin-bottom:8px;">曼谷實地考察</div>
+        <div style="font-size:12px; color:#94a3b8; line-height:1.7;">5/19 考察團親赴現場，確認周邊環境與公設品質</div>
+      </div>
+      <div style="text-align:center; padding:0 12px; position:relative;">
+        <div style="width:64px; height:64px; border-radius:50%; background:linear-gradient(135deg,var(--blue),var(--blue-mid)); border:2px solid var(--gold); display:flex; align-items:center; justify-content:center; margin:0 auto 16px; font-size:22px; font-weight:900; color:var(--gold); position:relative; z-index:1;">4</div>
+        <div style="font-size:14px; font-weight:700; margin-bottom:8px;">簽約下訂</div>
+        <div style="font-size:12px; color:#94a3b8; line-height:1.7;">顧問協助審閱合約、確認條款，完成訂金匯款</div>
+      </div>
+      <div style="text-align:center; padding:0 12px; position:relative;">
+        <div style="width:64px; height:64px; border-radius:50%; background:linear-gradient(135deg,var(--blue),var(--blue-mid)); border:2px solid var(--gold); display:flex; align-items:center; justify-content:center; margin:0 auto 16px; font-size:22px; font-weight:900; color:var(--gold); position:relative; z-index:1;">5</div>
+        <div style="font-size:14px; font-weight:700; margin-bottom:8px;">FET 匯款規劃</div>
+        <div style="font-size:12px; color:#94a3b8; line-height:1.7;">協助外幣匯入、稅務申報，確保資金合規到位</div>
+      </div>
+      <div style="text-align:center; padding:0 12px; position:relative;">
+        <div style="width:64px; height:64px; border-radius:50%; background:linear-gradient(135deg,var(--gold),var(--gold-light)); border:2px solid var(--gold); display:flex; align-items:center; justify-content:center; margin:0 auto 16px; font-size:22px; font-weight:900; color:var(--navy); position:relative; z-index:1;">6</div>
+        <div style="font-size:14px; font-weight:700; margin-bottom:8px;">交屋 & 租管</div>
+        <div style="font-size:12px; color:#94a3b8; line-height:1.7;">完成交屋驗屋、對接租賃管理，開始收租</div>
+      </div>
+    </div>
+    <div style="margin-top:48px; background:rgba(200,155,60,0.07); border:1px solid rgba(200,155,60,0.2); border-radius:16px; padding:28px; display:flex; align-items:center; gap:24px; flex-wrap:wrap;">
+      <div style="font-size:28px;">💡</div>
+      <div>
+        <div style="font-weight:700; font-size:16px; margin-bottom:6px;">服務費用透明說明</div>
+        <div style="font-size:14px; color:#94a3b8; line-height:1.8;">TIREA 於交易成立時向買方收取<strong style="color:var(--gold);">成交總價 2%</strong> 的服務費，涵蓋：合約審閱、稅費試算、FET 匯款協助、交屋陪同及售後租管對接。說明會出席及諮詢服務均<strong style="color:var(--gold);">完全免費</strong>，不購買亦無任何費用。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REGISTER -->
+<section id="register" class="register-section">
+  <div class="container">
+    <div class="register-inner">
+      <div>
+        <div class="section-tag">立即報名</div>
+        <h2 class="section-title">名額有限，<br/>確認就出發</h2>
+        <p class="section-desc">5/19 出發，報名截止 5/5。填寫表單後，顧問將在 24 小時內與您確認名額，並說明費用與注意事項。</p>
+        <div style="display:flex; flex-direction:column; gap:14px;">
+          <div style="display:flex; align-items:center; gap:12px; font-size:14px; color:#cbd5e1;">
+            <span style="color:var(--gold); font-size:18px;">✓</span> 全程中文顧問隨行，不用擔心語言問題
+          </div>
+          <div style="display:flex; align-items:center; gap:12px; font-size:14px; color:#cbd5e1;">
+            <span style="color:var(--gold); font-size:18px;">✓</span> 直接進入四大建案現場，親眼確認品質
+          </div>
+          <div style="display:flex; align-items:center; gap:12px; font-size:14px; color:#cbd5e1;">
+            <span style="color:var(--gold); font-size:18px;">✓</span> 體驗 BTS/MRT 通勤路線，感受真實生活圈
+          </div>
+          <div style="display:flex; align-items:center; gap:12px; font-size:14px; color:#cbd5e1;">
+            <span style="color:var(--gold); font-size:18px;">✓</span> 回台後提供四大建案完整分析報告
+          </div>
+          <div style="display:flex; align-items:center; gap:12px; font-size:14px; color:#cbd5e1;">
+            <span style="color:var(--gold); font-size:18px;">✓</span> 無購買壓力，純粹考察為主
+          </div>
+        </div>
+      </div>
+      <div class="register-form">
+        <!-- 定價卡片 -->
+        <div style="background:linear-gradient(135deg,rgba(200,155,60,0.15),rgba(200,155,60,0.05));border:1px solid rgba(200,155,60,0.35);border-radius:16px;padding:24px;margin-bottom:24px;">
+          <div style="font-size:12px;font-weight:700;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px;">考察團費用</div>
+          <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:12px;">
+            <span style="font-size:42px;font-weight:900;color:#fff;letter-spacing:-.02em;">NT$9,999</span>
+            <span style="font-size:14px;color:#94a3b8;">/ 人</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:14px;">
+            <div style="font-size:13px;color:#cbd5e1;display:flex;align-items:center;gap:8px;"><span style="color:var(--gold);">✓</span> Hotel Tranz 3晚住宿</div>
+            <div style="font-size:13px;color:#cbd5e1;display:flex;align-items:center;gap:8px;"><span style="color:var(--gold);">✓</span> 全程專車接送（機場＋每日行程）</div>
+            <div style="font-size:13px;color:#cbd5e1;display:flex;align-items:center;gap:8px;"><span style="color:var(--gold);">✓</span> 資深顧問中文全程隨行</div>
+            <div style="font-size:13px;color:#cbd5e1;display:flex;align-items:center;gap:8px;"><span style="color:var(--gold);">✓</span> 四大建案場勘安排</div>
+            <div style="font-size:13px;color:#cbd5e1;display:flex;align-items:center;gap:8px;"><span style="color:var(--gold);">✓</span> 回台後建案分析報告</div>
+            <div style="font-size:13px;color:#94a3b8;display:flex;align-items:center;gap:8px;padding-top:4px;border-top:1px solid rgba(255,255,255,0.08);margin-top:2px;"><span>✕</span> 不含機票（自行訂購 BR67/BR76）</div>
+          </div>
+          <div style="font-size:12px;color:#94a3b8;">報名後先付 NT$3,000 訂金確認名額，餘款 5/5 前付清</div>
+        </div>
+        <div class="form-title">考察團報名表</div>
+        <div class="form-sub">5/5 截止 · 填寫後 24 小時內顧問確認名額</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>姓名 *</label>
+            <input type="text" placeholder="您的姓名" />
+          </div>
+          <div class="form-group">
+            <label>稱謂 *</label>
+            <select>
+              <option>先生</option>
+              <option>女士</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>手機號碼 *</label>
+          <input type="tel" placeholder="09XXXXXXXXX" oninput="this.value=this.value.replace(/[^0-9]/g,'')" />
+        </div>
+        <div class="form-group">
+          <label>電子信箱 *</label>
+          <input type="email" placeholder="your@email.com" />
+        </div>
+        <div class="form-group">
+          <label>投資預算</label>
+          <select>
+            <option>300 萬以下</option>
+            <option>300–500 萬</option>
+            <option>500–1,000 萬</option>
+            <option>1,000 萬以上</option>
+            <option>尚在評估中</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>希望了解的主題</label>
+          <select>
+            <option>整體市場概況</option>
+            <option>特定區域選擇（Phaya Thai / Rama 9 / Thong Lo）</option>
+            <option>法律稅務與購屋流程</option>
+            <option>具體建案資訊與付款方案</option>
+            <option>FET 匯款與資金規劃</option>
+            <option>以上皆是</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>同行人數</label>
+          <select>
+            <option>1人（單獨參加）</option>
+            <option>2人（夫妻 / 伴侶同行）</option>
+            <option>3人以上（請備註）</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>如何得知本次考察團？</label>
+          <select>
+            <option>LINE 官方帳號</option>
+            <option>Facebook / Instagram</option>
+            <option>朋友推薦</option>
+            <option>TIREA 官網</option>
+            <option>其他</option>
+          </select>
+        </div>
+        <button class="form-submit" onclick="alert('感謝報名！顧問將在 24 小時內與您聯繫確認名額與費用詳情。')">確認報名考察團 →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <div class="section-tag">常見問題</div>
+    <h2 class="section-title">您可能想知道的</h2>
+    <p class="section-desc" style="margin-bottom:40px;">還有其他問題？歡迎透過 LINE 聯絡我們。</p>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">考察團費用包含哪些項目？</div>
+        <div class="faq-a">團費 NT$9,999 / 人，包含：Hotel Tranz 3晚住宿、全程專車接送（機場往返＋每日行程）、資深顧問中文全程隨行、四大建案場勘安排、回台後建案分析報告。<br/><br/>不含機票（請自行訂購 BR67 去程 / BR76 回程）及個人餐飲。報名後先付 NT$3,000 訂金確認名額，餘款 5/5 前付清。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">台灣人在泰國買房有什麼法律限制？</div>
+        <div class="faq-a">泰國法律允許外籍人士直接持有公寓（Condominium），但整棟大樓外籍持有比例不得超過 49%。別墅與土地則有限制，需透過設立泰國公司或長期地上權（Leasehold）等合法架構持有。本次說明會將有完整的法律架構說明。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">買泰國房需要繳哪些稅費？</div>
+        <div class="faq-a">購屋時主要費用包含：過戶費（2%，通常買賣雙方各付一半）、特定商業稅（3.3%，持有未滿 5 年）或印花稅（0.5%，持有 5 年以上擇一課徵）。持有期間每年需繳土地與建物稅，稅率約 0.02–0.3%，遠低於其他亞洲市場。泰國不課徵資本利得稅，是海外置產稅負最低的市場之一。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">購屋資金要怎麼匯到泰國？</div>
+        <div class="faq-a">依泰國法規，外籍人士購買公寓所用資金須以外幣形式匯入泰國，銀行會出具 Foreign Exchange Transaction（FET）證明，這份文件是未來辦理產權登記及資金匯回台灣的重要憑證。我們顧問將全程協助您完成匯款程序與文件準備。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">5月考察團的費用如何？</div>
+        <div class="faq-a">考察團費用將於說明會現場詳細說明，包含機票、住宿（Hotel Tranz · Phaya Thai）、全程專業顧問陪同、各建案參觀導覽等。部分費用於確定購屋後可折抵服務費，具體方案請洽顧問。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">說明會後可以一對一諮詢嗎？</div>
+        <div class="faq-a">可以。現場設有個別諮詢區，活動結束（21:00）後顧問提供 30 分鐘一對一服務，可針對您的預算、目標、特定建案深入討論。也可加入 TIREA LINE 官方帳號，後續彈性安排線上或實體諮詢。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">如果當天無法出席，可以補看資料嗎？</div>
+        <div class="faq-a">報名後如無法出席，請提前告知。我們將提供本次活動重點摘要、四大建案完整資料電子版，並可安排後續線上視訊諮詢，確保您不錯過任何重要資訊。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">TIREA 的服務費如何收取？</div>
+        <div class="faq-a">TIREA 於交易成立時向買方收取<strong style="color:var(--gold);">成交總價 2%</strong> 的服務費，涵蓋全程法律核查、稅費試算、FET 匯款協助、交屋陪同及售後租管對接服務。說明會出席及前期諮詢均完全免費，不購買則無任何費用。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div style="margin-bottom:12px;">
+    <strong>TIREA</strong>｜台灣國際不動產交流協會
+  </div>
+  <div style="margin-bottom:8px; font-size:12px;">
+    整合研究、顧問與活動資源的海外置產協作平台
+  </div>
+  <div style="font-size:12px;">
+    © 2026 TIREA. All rights reserved.
+  </div>
+</footer>
+
+  <script>
+    (function(){
+      try {
+        fetch('/api/track-visit', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            page: location.pathname,
+            title: document.title,
+            referrer: document.referrer || 'direct',
+            device: /Mobile|Android|iPhone|iPad/i.test(navigator.userAgent) ? 'mobile' : 'desktop'
+          })
+        });
+      } catch(e){}
+    })();
+  </script>
+
+  <!-- Vercel Web Analytics -->
+  <script defer src="/_vercel/insights/script.js"></script>
+  <!-- Vercel Speed Insights -->
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

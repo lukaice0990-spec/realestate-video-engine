@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>會員方案 | 台灣國際不動產交流協會 TIREA</title>
+  <meta name="keywords" content="TIREA會員,體驗會員,核心會員,理事會員,海外房產顧問,置產諮詢服務" />
+  <meta name="description" content="加入 TIREA，享有三大會員方案：體驗$19,800、核心$29,800、理事$69,800。六大福利＋完整課程折抵，掌握海外房產先機。" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <script defer src="/_vercel/insights/script.js"></script>
+  <style>
+    body { font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif; }
+    .gold { color: #c89b3c; }
+    .plan-card { transition: transform 0.2s, box-shadow 0.2s; }
+    .plan-card:hover { transform: translateY(-6px); box-shadow: 0 24px 60px rgba(0,0,0,0.18); }
+    .benefit-item { transition: transform 0.2s, box-shadow 0.2s; }
+    .benefit-item:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:none; } }
+    .fade-up { animation: fadeUp 0.5s ease both; }
+    .course-row { background: rgba(255,255,255,0.04); border-radius: 0.75rem; padding: 1rem 1.25rem; display:flex; align-items:center; justify-content:space-between; gap:0.75rem; }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2XV1V9TS1P"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-2XV1V9TS1P');
+  </script>
+  <link rel="canonical" href="https://www.tirea.tw/membership" />
+</head>
+<body class="bg-slate-950 text-slate-200">
+
+  <!-- NAV -->
+  <nav class="fixed top-0 inset-x-0 z-50 border-b border-white/10 bg-slate-950/90 backdrop-blur-xl text-white">
+    <div class="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3">
+        <img src="/tirea-logo.png" alt="TIREA" class="w-10 h-10 rounded-xl bg-white p-1 object-contain" />
+        <div>
+          <div class="font-extrabold text-lg leading-none">TIREA</div>
+          <div class="text-[10px] uppercase tracking-widest text-slate-400">Taiwan International REA</div>
+        </div>
+      </a>
+      <div class="hidden lg:flex items-center gap-5 text-sm font-medium text-slate-300">
+        <a href="ai_butler.html" class="text-blue-300 font-bold hover:text-white">AI 找房</a>
+        <a href="global_pro.html" class="hover:text-white">找海外房產</a>
+        <a href="about.html" class="hover:text-white">關於協會</a>
+        <a href="invest_map.html" class="hover:text-white">投資地圖</a>
+        <a href="knowledge.html" class="hover:text-white">知識中心</a>
+        <a href="daily-real-estate-news.html" class="hover:text-white">每日新聞</a>
+        <a href="membership.html" class="text-[#c89b3c] font-bold">會員方案</a>
+      </div>
+      <div class="hidden sm:flex items-center gap-3">
+        <a href="member_center.html" class="px-4 py-2 text-sm text-slate-300 hover:text-white">會員登入</a>
+        <a href="https://line.me/R/ti/p/@180phkse" target="_blank"
+          class="px-5 py-2.5 rounded-full bg-[#c89b3c] text-slate-900 font-bold hover:opacity-90">立即加入</a>
+      </div>
+      <a href="index.html" class="lg:hidden text-slate-300 px-3 py-2"><i class="fa-solid fa-house"></i></a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="pt-20 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="absolute top-10 left-10 w-80 h-80 bg-yellow-500/10 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-0 right-10 w-96 h-96 bg-blue-600/8 rounded-full blur-3xl"></div>
+    </div>
+    <div class="relative max-w-5xl mx-auto px-6 py-24 text-center">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-400/10 border border-yellow-400/20 text-yellow-300 text-sm font-bold mb-6 fade-up">
+        <i class="fa-solid fa-crown"></i> Association Member Plans
+      </div>
+      <h1 class="text-4xl lg:text-6xl font-black text-white leading-tight mb-5 fade-up">
+        歡迎加入<br/><span style="color:#c89b3c;">台灣國際不動產交流協會</span>
+      </h1>
+      <p class="text-slate-300 text-lg max-w-2xl mx-auto mb-10 fade-up">
+        邀請您加入，一起掌握房產先機！<br class="hidden sm:block"/>
+        三大會員方案，選擇最適合您的投資起點。
+      </p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center fade-up">
+        <a href="#plans" class="px-8 py-3.5 rounded-full bg-[#c89b3c] text-slate-900 font-extrabold text-lg hover:opacity-90 transition">
+          查看方案 <i class="fa-solid fa-arrow-down ml-1"></i>
+        </a>
+        <a href="https://line.me/R/ti/p/@180phkse" target="_blank"
+          class="px-8 py-3.5 rounded-full border border-white/20 text-white font-bold hover:bg-white/10 transition">
+          <i class="fa-brands fa-line mr-2 text-green-400"></i>LINE 諮詢入會
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       PRICING PLANS
+  ════════════════════════════════════ -->
+  <section id="plans" class="py-20 px-6">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-14">
+        <div class="text-sm font-bold uppercase tracking-widest text-[#c89b3c] mb-2">入會方案</div>
+        <h2 class="text-3xl lg:text-4xl font-black text-white">選擇最適合您的方案</h2>
+        <p class="text-slate-400 mt-3 max-w-xl mx-auto">彈性選擇，無論入門體驗還是長期深耕，都有對應的方案。</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+
+        <!-- 體驗會員 -->
+        <div class="plan-card rounded-3xl p-7 flex flex-col border border-slate-700 bg-slate-900">
+          <div class="text-xs font-extrabold tracking-[0.15em] uppercase text-slate-500 mb-3">方案 01</div>
+          <div class="text-2xl font-extrabold text-white mb-1">體驗會員</div>
+          <div class="text-slate-400 text-sm mb-6">一年會員資格・入門首選</div>
+          <div class="mb-6">
+            <span class="text-5xl font-black text-white">$19,800</span>
+            <span class="text-slate-400 text-sm ml-2">/ 一年</span>
+          </div>
+          <ul class="space-y-3 mb-8 flex-1">
+            <li class="flex items-start gap-2.5 text-sm text-slate-300">
+              <i class="fa-solid fa-check text-[#c89b3c] mt-0.5 flex-shrink-0"></i>
+              一年會員資格
+            </li>
+            <li class="flex items-start gap-2.5 text-sm text-slate-300">
+              <i class="fa-solid fa-check text-[#c89b3c] mt-0.5 flex-shrink-0"></i>
+              <strong class="text-white">10 hr</strong>&nbsp;課程折抵時數
+            </li>
+            <li class="flex items-start gap-2.5 text-sm text-slate-300">
+              <i class="fa-solid fa-check text-[#c89b3c] mt-0.5 flex-shrink-0"></i>
+              六大福利完整享有
+            </li>
+            <li class="flex items-start gap-2.5 text-sm text-slate-500 mt-2">
+              <i class="fa-solid fa-rotate text-slate-600 mt-0.5 flex-shrink-0"></i>
+              到期後 $12,000 / 年 優惠續會
+            </li>
+          </ul>
+          <a href="https://line.me/R/ti/p/@180phkse" target="_blank"
+             class="block text-center py-3 rounded-xl border border-[#c89b3c]/40 text-[#c89b3c] font-bold text-sm hover:bg-[#c89b3c]/10 transition">
+            了解詳情 →
+          </a>
+        </div>
+
+        <!-- 核心會員（推薦） -->
+        <div class="plan-card rounded-3xl p-7 flex flex-col relative border-2 border-[#c89b3c] overflow-visible"
+             style="background:linear-gradient(145deg,rgba(200,155,60,0.18),rgba(200,155,60,0.06),#0f172a);">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2">
+            <span class="px-5 py-1.5 rounded-full text-xs font-extrabold text-slate-900 whitespace-nowrap shadow-lg"
+                  style="background:linear-gradient(90deg,#c89b3c,#e8c56e);">★ 最多人選擇</span>
+          </div>
+          <div class="text-xs font-extrabold tracking-[0.15em] uppercase text-[#c89b3c] mb-3">方案 02</div>
+          <div class="text-2xl font-extrabold text-white mb-1">核心會員</div>
+          <div class="text-amber-300/80 text-sm mb-6">兩年會員資格・完整課程</div>
+          <div class="mb-6">
+            <span class="text-5xl font-black text-white">$29,800</span>
+            <span class="text-slate-400 text-sm ml-2">/ 兩年</span>
+          </div>
+          <ul class="space-y-3 mb-8 flex-1">
+            <li class="flex items-start gap-2.5 text-sm text-slate-200">
+              <i class="fa-solid fa-check text-[#c89b3c] mt-0.5 flex-shrink-0"></i>
+              兩年會員資格
+            </li>
+            <li class="flex items-start gap-2.5 text-sm text-slate-200">
+              <i class="fa-solid fa-check text-[#c89b3c] mt-0.5 flex-shrink-0"></i>
+              <strong class="text-white">所有課程</strong>&nbsp;均可參加
+            </li>
+            <li class="flex items-start gap-2.5 text-sm text-slate-200">
+              <i class="fa-solid fa-check text-[#c89b3c] mt-0.5 flex-shrink-0"></i>
+              VIP 聚會優先入場
+            </li>
+            <li class="flex items-start gap-2.5 text-sm text-slate-200">
+              <i class="fa-solid fa-check text-[#c89b3c] mt-0.5 flex-shrink-0"></i>
+              六大福利完整享有
+            </li>
+            <li class="flex items-start gap-2.5 text-sm text-slate-500 mt-2">
+              <i class="fa-solid fa-rotate text-slate-600 mt-0.5 flex-shrink-0"></i>
+              到期後 $12,000 / 年 優惠續會
+            </li>
+          </ul>
+          <a href="https://line.me/R/ti/p/@180phkse" target="_blank"
+             class="block text-center py-3 rounded-xl font-extrabold text-sm text-slate-900 hover:opacity-90 transition"
+             style="background:linear-gradient(135deg,#c89b3c,#e8c56e);">
+            立即加入 →
+          </a>
+        </div>
+
+        <!-- 理事會員 -->
+        <div class="plan-card rounded-3xl p-7 flex flex-col border border-slate-600 bg-slate-900">
+          <div class="text-xs font-extrabold tracking-[0.15em] uppercase text-slate-500 mb-3">方案 03</div>
+          <div class="text-2xl font-extrabold text-white mb-1">理事會員</div>
+          <div class="text-slate-400 text-sm mb-6">終生會員資格・頂級資源整合</div>
+          <div class="mb-6">
+            <span class="text-5xl font-black text-white">$69,800</span>
+            <span class="text-slate-400 text-sm ml-2">/ 終生</span>
+          </div>
+          <ul class="space-y-3 mb-8 flex-1">
+            <li class="flex items-start gap-2.5 text-sm text-slate-300">
+              <i class="fa-solid fa-check text-[#c89b3c] mt-0.5 flex-shrink-0"></i>
+              <strong class="text-white">終生</strong>&nbsp;會員資格（無需續費）
+            </li>
+            <li class="flex items-start gap-2.5 text-sm text-slate-300">
+              <i class="fa-solid fa-check text-[#c89b3c] mt-0.5 flex-shrink-0"></i>
+              <strong class="text-white">所有課程</strong>&nbsp;均可參加
+            </li>
+            <li class="flex items-start gap-2.5 text-sm text-slate-300">
+              <i class="fa-solid fa-check text-[#c89b3c] mt-0.5 flex-shrink-0"></i>
+              VIP 聚會優先入場
+            </li>
+            <li class="flex items-start gap-2.5 text-sm text-slate-300">
+              <i class="fa-solid fa-check text-[#c89b3c] mt-0.5 flex-shrink-0"></i>
+              <strong class="text-white">資源整合</strong>&nbsp;專屬對接服務
+            </li>
+            <li class="flex items-start gap-2.5 text-sm text-slate-300">
+              <i class="fa-solid fa-check text-[#c89b3c] mt-0.5 flex-shrink-0"></i>
+              六大福利完整享有
+            </li>
+          </ul>
+          <a href="https://line.me/R/ti/p/@180phkse" target="_blank"
+             class="block text-center py-3 rounded-xl border border-white/20 text-white font-bold text-sm hover:bg-white/10 transition">
+            了解詳情 →
+          </a>
+        </div>
+
+      </div>
+
+      <!-- 續會提示 -->
+      <p class="text-center text-slate-500 text-sm mt-8">
+        <i class="fa-solid fa-rotate mr-1"></i>
+        非終生會員到期後，以 <strong class="text-slate-400">$12,000 / 年</strong> 優惠價續會，所有福利完整延續。
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       6 大福利
+  ════════════════════════════════════ -->
+  <section class="py-20 px-6 bg-gradient-to-b from-slate-900 to-slate-950">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-14">
+        <div class="text-sm font-bold uppercase tracking-widest text-[#c89b3c] mb-2">Association Member Benefits</div>
+        <h2 class="text-3xl lg:text-4xl font-black text-white">會員 6 大福利</h2>
+        <p class="text-slate-400 mt-3 max-w-xl mx-auto">加入即享有六大專屬福利，全面支援您的不動產投資旅程。</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+        <div class="benefit-item bg-slate-800/60 border border-slate-700/60 rounded-2xl p-7">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-14 h-14 rounded-2xl bg-blue-500/20 flex items-center justify-center text-3xl flex-shrink-0">🤝</div>
+            <div>
+              <div class="text-[11px] font-bold text-blue-300 uppercase tracking-wider mb-0.5">BENEFIT 1</div>
+              <h3 class="font-black text-white text-lg leading-tight">季例會</h3>
+            </div>
+          </div>
+          <p class="text-slate-400 text-sm leading-relaxed">每季定期聚會，邀請業界專家分享最新海外房產趨勢與市場動態，與頂尖投資人面對面交流，拓展人脈與資源。</p>
+          <div class="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-blue-300 bg-blue-500/10 px-3 py-1.5 rounded-full">
+            <i class="fa-solid fa-calendar"></i> 1 季 / 次
+          </div>
+        </div>
+
+        <div class="benefit-item bg-slate-800/60 border border-slate-700/60 rounded-2xl p-7">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-14 h-14 rounded-2xl bg-amber-500/20 flex items-center justify-center text-3xl flex-shrink-0">🔨</div>
+            <div>
+              <div class="text-[11px] font-bold text-amber-300 uppercase tracking-wider mb-0.5">BENEFIT 2</div>
+              <h3 class="font-black text-white text-lg leading-tight">裝修優惠</h3>
+            </div>
+          </div>
+          <p class="text-slate-400 text-sm leading-relaxed">會員購置物業後享有 <strong class="text-amber-300">$10,000 裝修折抵優惠</strong>，協助降低整體入場成本，讓投資房快速就緒創造收益。</p>
+          <div class="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-amber-300 bg-amber-500/10 px-3 py-1.5 rounded-full">
+            <i class="fa-solid fa-tag"></i> 折抵 $10,000
+          </div>
+        </div>
+
+        <div class="benefit-item bg-slate-800/60 border border-slate-700/60 rounded-2xl p-7">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-14 h-14 rounded-2xl bg-green-500/20 flex items-center justify-center text-3xl flex-shrink-0">🏠</div>
+            <div>
+              <div class="text-[11px] font-bold text-green-300 uppercase tracking-wider mb-0.5">BENEFIT 3</div>
+              <h3 class="font-black text-white text-lg leading-tight">購屋優惠</h3>
+            </div>
+          </div>
+          <p class="text-slate-400 text-sm leading-relaxed">透過 TIREA 成交任一物件，享有會員專屬 <strong class="text-green-300">$10,000 購屋折抵優惠</strong>，疊加優惠最大化投資效益。</p>
+          <div class="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-green-300 bg-green-500/10 px-3 py-1.5 rounded-full">
+            <i class="fa-solid fa-tag"></i> 折抵 $10,000
+          </div>
+        </div>
+
+        <div class="benefit-item bg-slate-800/60 border border-slate-700/60 rounded-2xl p-7">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-14 h-14 rounded-2xl bg-yellow-500/20 flex items-center justify-center text-3xl flex-shrink-0">🃏</div>
+            <div>
+              <div class="text-[11px] font-bold text-yellow-300 uppercase tracking-wider mb-0.5">BENEFIT 4</div>
+              <h3 class="font-black text-white text-lg leading-tight">投資機會卡</h3>
+            </div>
+          </div>
+          <p class="text-slate-400 text-sm leading-relaxed">優先獲取優質不動產投資情報，內含建案詳細資料與 TIREA 獨家評析，搶在公開市場前掌握稀缺投資標的。</p>
+          <div class="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-yellow-300 bg-yellow-500/10 px-3 py-1.5 rounded-full">
+            <i class="fa-solid fa-bolt"></i> 優先推送
+          </div>
+        </div>
+
+        <div class="benefit-item bg-slate-800/60 border border-slate-700/60 rounded-2xl p-7">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-14 h-14 rounded-2xl bg-sky-500/20 flex items-center justify-center text-3xl flex-shrink-0">✈️</div>
+            <div>
+              <div class="text-[11px] font-bold text-sky-300 uppercase tracking-wider mb-0.5">BENEFIT 5</div>
+              <h3 class="font-black text-white text-lg leading-tight">海外補助團</h3>
+            </div>
+          </div>
+          <p class="text-slate-400 text-sm leading-relaxed">不定時舉辦海外實地考察與旅遊補助，前往泰國、日本、杜拜等市場親身踩點，補助名額會員優先。</p>
+          <div class="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-sky-300 bg-sky-500/10 px-3 py-1.5 rounded-full">
+            <i class="fa-solid fa-plane"></i> 不定時舉辦
+          </div>
+        </div>
+
+        <div class="benefit-item bg-slate-800/60 border border-slate-700/60 rounded-2xl p-7">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-14 h-14 rounded-2xl bg-rose-500/20 flex items-center justify-center text-3xl flex-shrink-0">📚</div>
+            <div>
+              <div class="text-[11px] font-bold text-rose-300 uppercase tracking-wider mb-0.5">BENEFIT 6</div>
+              <h3 class="font-black text-white text-lg leading-tight">課程折抵優惠</h3>
+            </div>
+          </div>
+          <p class="text-slate-400 text-sm leading-relaxed">購買課程可使用會員時數折抵，覆蓋房產投資、財商、AI 工具、命理諮詢等多元主題，持續升級投資實力。</p>
+          <div class="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-rose-300 bg-rose-500/10 px-3 py-1.5 rounded-full">
+            <i class="fa-solid fa-book"></i> 多元課程折抵
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       課程清單
+  ════════════════════════════════════ -->
+  <section class="py-20 px-6">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-14">
+        <div class="text-sm font-bold uppercase tracking-widest text-[#c89b3c] mb-2">Course Catalog</div>
+        <h2 class="text-3xl lg:text-4xl font-black text-white">可折抵課程一覽</h2>
+        <p class="text-slate-400 mt-3 max-w-xl mx-auto">以下課程均可使用會員時數折抵，體驗會員 10 hr 起折。</p>
+      </div>
+
+      <div class="rounded-3xl border border-white/10 overflow-hidden" style="background:rgba(255,255,255,0.03);">
+
+        <!-- 房產類 -->
+        <div class="px-8 py-6 border-b border-white/8">
+          <div class="text-base font-extrabold tracking-wider text-slate-400 uppercase mb-4">🏡 房產投資課程</div>
+          <div class="grid sm:grid-cols-2 gap-3">
+            <div class="course-row">
+              <div>
+                <div class="font-bold text-white text-lg">包租代管課</div>
+                <div class="text-base text-slate-400 mt-1">如何把房子交給別人管，穩定收租</div>
+              </div>
+              <div class="text-right flex-shrink-0">
+                <div class="text-[#c89b3c] font-extrabold text-lg">$6,980</div>
+                <div class="text-slate-400 text-base">6 hr</div>
+              </div>
+            </div>
+            <div class="course-row">
+              <div>
+                <div class="font-bold text-white text-lg">自住買房攻略課</div>
+                <div class="text-base text-slate-400 mt-1">從看屋到過戶，完整買房流程</div>
+              </div>
+              <div class="text-right flex-shrink-0">
+                <div class="text-[#c89b3c] font-extrabold text-lg">$19,800</div>
+                <div class="text-slate-400 text-base">8 hr</div>
+              </div>
+            </div>
+            <div class="course-row">
+              <div>
+                <div class="font-bold text-white text-lg">貸款課程</div>
+                <div class="text-base text-slate-400 mt-1">房貸規劃、利率策略、增貸技巧</div>
+              </div>
+              <div class="text-right flex-shrink-0">
+                <div class="text-[#c89b3c] font-extrabold text-lg">$1,980</div>
+                <div class="text-slate-400 text-base">2 hr</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 財商類 -->
+        <div class="px-8 py-6 border-b border-white/8">
+          <div class="text-base font-extrabold tracking-wider text-slate-400 uppercase mb-4">💹 財商投資課程</div>
+          <div class="grid sm:grid-cols-2 gap-3">
+            <div class="course-row">
+              <div>
+                <div class="font-bold text-white text-lg">財商課</div>
+                <div class="text-base text-slate-400 mt-1">財富思維、資產配置基礎建立</div>
+              </div>
+              <div class="text-right flex-shrink-0">
+                <div class="text-[#c89b3c] font-extrabold text-lg">$3,000</div>
+                <div class="text-slate-400 text-base">3 hr</div>
+              </div>
+            </div>
+            <div class="course-row">
+              <div>
+                <div class="font-bold text-white text-lg">股票老師</div>
+                <div class="text-base text-slate-400 mt-1">技術分析、選股策略、風險管理</div>
+              </div>
+              <div class="text-right flex-shrink-0">
+                <div class="text-[#c89b3c] font-extrabold text-lg">$19,800</div>
+                <div class="text-slate-400 text-base">8 hr</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI 類 -->
+        <div class="px-8 py-6 border-b border-white/8">
+          <div class="text-base font-extrabold tracking-wider text-slate-400 uppercase mb-4">🤖 AI 科技課程</div>
+          <div class="grid sm:grid-cols-2 gap-3">
+            <div class="course-row">
+              <div>
+                <div class="font-bold text-white text-lg">AI 應用課</div>
+                <div class="text-base text-slate-400 mt-1">AI 工具實戰，提升工作與投資效率</div>
+              </div>
+              <div class="text-right flex-shrink-0">
+                <div class="text-[#c89b3c] font-extrabold text-lg">$3,980</div>
+                <div class="text-slate-400 text-base">2 hr</div>
+              </div>
+            </div>
+            <div class="course-row">
+              <div>
+                <div class="font-bold text-white text-lg">AI 八字流年</div>
+                <div class="text-base text-slate-400 mt-1">結合 AI 分析命理流年，輔助決策</div>
+              </div>
+              <div class="text-right flex-shrink-0">
+                <div class="text-[#c89b3c] font-extrabold text-lg">$3,980</div>
+                <div class="text-slate-400 text-base">2 hr</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 命理 & 諮詢 -->
+        <div class="px-8 py-6 border-b border-white/8">
+          <div class="text-base font-extrabold tracking-wider text-slate-400 uppercase mb-4">🔮 命理 &amp; 一對一諮詢</div>
+          <div class="grid sm:grid-cols-2 gap-3">
+            <div class="course-row">
+              <div>
+                <div class="font-bold text-white text-lg">八字流年 1:1 諮詢</div>
+                <div class="text-base text-slate-400 mt-1">個人化流年分析，投資時機判斷</div>
+              </div>
+              <div class="text-right flex-shrink-0">
+                <div class="text-[#c89b3c] font-extrabold text-lg">$1,980–3,980</div>
+                <div class="text-slate-400 text-base">2 hr</div>
+              </div>
+            </div>
+            <div class="course-row">
+              <div>
+                <div class="font-bold text-white text-lg">手相課</div>
+                <div class="text-base text-slate-400 mt-1">手相解讀，附贈 30 分鐘個人諮詢</div>
+              </div>
+              <div class="text-right flex-shrink-0">
+                <div class="text-[#c89b3c] font-extrabold text-lg">$4,000</div>
+                <div class="text-slate-400 text-base">送 30 分</div>
+              </div>
+            </div>
+            <div class="course-row">
+              <div>
+                <div class="font-bold text-white text-lg">財務諮詢 1:1 服務</div>
+                <div class="text-base text-slate-400 mt-1">個人財務健檢、配置規劃建議</div>
+              </div>
+              <div class="text-right flex-shrink-0">
+                <div class="text-[#c89b3c] font-extrabold text-lg">$1,980–3,980</div>
+                <div class="text-slate-400 text-base">2 hr</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 活動 -->
+        <div class="px-8 py-6">
+          <div class="text-base font-extrabold tracking-wider text-slate-400 uppercase mb-4">🎪 活動 &amp; 看屋</div>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1.5 rounded-full border border-white/10 text-slate-300 text-xs font-medium">投資機會聚</span>
+            <span class="px-3 py-1.5 rounded-full border border-white/10 text-slate-300 text-xs font-medium">看屋團（建商・案場）</span>
+            <span class="px-3 py-1.5 rounded-full border border-white/10 text-slate-300 text-xs font-medium">月例會（聚餐）</span>
+            <span class="px-3 py-1.5 rounded-full border border-white/10 text-slate-300 text-xs font-medium">海外考察團</span>
+            <span class="px-3 py-1.5 rounded-full border border-[#c89b3c]/30 text-[#c89b3c] text-xs font-bold">VIP 聚會（核心・理事）</span>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="px-8 py-7 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4"
+             style="background:rgba(200,155,60,0.07);">
+          <div>
+            <div class="font-extrabold text-white mb-1">準備好了嗎？</div>
+            <div class="text-slate-400 text-sm">加入 LINE，與顧問確認最適合您的入會方案</div>
+          </div>
+          <a href="https://line.me/R/ti/p/@180phkse" target="_blank"
+             class="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl font-extrabold text-slate-900 hover:opacity-90 transition whitespace-nowrap"
+             style="background:linear-gradient(135deg,#c89b3c,#e8c56e);">
+            <i class="fa-brands fa-line text-lg"></i> LINE 立即諮詢入會
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       方案比較表
+  ════════════════════════════════════ -->
+  <section class="py-16 px-6 bg-slate-900">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-10">
+        <h2 class="text-2xl font-black text-white">方案比較一覽</h2>
+      </div>
+      <div class="rounded-3xl border border-white/10 overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-lg">
+            <thead>
+              <tr class="bg-slate-800/80 text-white">
+                <th class="px-5 py-4 text-left font-bold text-slate-300">項目</th>
+                <th class="px-5 py-4 text-center font-bold text-slate-300">體驗<br/><span class="text-base font-normal text-slate-400">$19,800 / 1年</span></th>
+                <th class="px-5 py-4 text-center font-bold text-[#e8c56e]">核心 ⭐<br/><span class="text-base font-normal text-slate-400">$29,800 / 2年</span></th>
+                <th class="px-5 py-4 text-center font-bold text-slate-300">理事<br/><span class="text-base font-normal text-slate-400">$69,800 / 終生</span></th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-white/5">
+              <tr class="hover:bg-white/3">
+                <td class="px-5 py-3.5 text-slate-300">🤝 季例會</td>
+                <td class="px-5 py-3.5 text-center"><i class="fa-solid fa-check text-green-400"></i></td>
+                <td class="px-5 py-3.5 text-center"><i class="fa-solid fa-check text-green-400"></i></td>
+                <td class="px-5 py-3.5 text-center"><i class="fa-solid fa-check text-green-400"></i></td>
+              </tr>
+              <tr class="hover:bg-white/3">
+                <td class="px-5 py-3.5 text-slate-300">🔨 裝修優惠 $10,000</td>
+                <td class="px-5 py-3.5 text-center"><i class="fa-solid fa-check text-green-400"></i></td>
+                <td class="px-5 py-3.5 text-center"><i class="fa-solid fa-check text-green-400"></i></td>
+                <td class="px-5 py-3.5 text-center"><i class="fa-solid fa-check text-green-400"></i></td>
+              </tr>
+              <tr class="hover:bg-white/3">
+                <td class="px-5 py-3.5 text-slate-300">🏠 購屋優惠 $10,000</td>
+                <td class="px-5 py-3.5 text-center"><i class="fa-solid fa-check text-green-400"></i></td>
+                <td class="px-5 py-3.5 text-center"><i class="fa-solid fa-check text-green-400"></i></td>
+                <td class="px-5 py-3.5 text-center"><i class="fa-solid fa-check text-green-400"></i></td>
+              </tr>
+              <tr class="hover:bg-white/3">
+                <td class="px-5 py-3.5 text-slate-300">🃏 投資機會卡</td>
+                <td class="px-5 py-3.5 text-center"><i class="fa-solid fa-check text-green-400"></i></td>
+                <td class="px-5 py-3.5 text-center"><i class="fa-solid fa-check text-green-400"></i></td>
+                <td class="px-5 py-3.5 text-center"><i class="fa-solid fa-check text-green-400"></i></td>
+              </tr>
+              <tr class="hover:bg-white/3">
+                <td class="px-5 py-3.5 text-slate-300">✈️ 海外補助團</td>
+                <td class="px-5 py-3.5 text-center"><i class="fa-solid fa-check text-green-400"></i></td>
+                <td class="px-5 py-3.5 text-center"><i class="fa-solid fa-check text-green-400"></i></td>
+                <td class="px-5 py-3.5 text-center"><i class="fa-solid fa-check text-green-400"></i></td>
+              </tr>
+              <tr class="hover:bg-white/3">
+                <td class="px-5 py-3.5 text-slate-300">📚 課程折抵時數</td>
+                <td class="px-5 py-3.5 text-center text-slate-300 font-bold">10 hr</td>
+                <td class="px-5 py-3.5 text-center text-[#e8c56e] font-bold">無限制</td>
+                <td class="px-5 py-3.5 text-center text-[#e8c56e] font-bold">無限制</td>
+              </tr>
+              <tr class="hover:bg-white/3">
+                <td class="px-5 py-3.5 text-slate-300">👑 VIP 聚會</td>
+                <td class="px-5 py-3.5 text-center text-slate-600">—</td>
+                <td class="px-5 py-3.5 text-center"><i class="fa-solid fa-check text-green-400"></i></td>
+                <td class="px-5 py-3.5 text-center"><i class="fa-solid fa-check text-green-400"></i></td>
+              </tr>
+              <tr class="hover:bg-white/3">
+                <td class="px-5 py-3.5 text-slate-300">🔗 資源整合服務</td>
+                <td class="px-5 py-3.5 text-center text-slate-600">—</td>
+                <td class="px-5 py-3.5 text-center text-slate-600">—</td>
+                <td class="px-5 py-3.5 text-center"><i class="fa-solid fa-check text-green-400"></i></td>
+              </tr>
+              <tr class="hover:bg-white/3">
+                <td class="px-5 py-3.5 text-slate-300">🔄 續費方式</td>
+                <td class="px-5 py-3.5 text-center text-slate-400 text-base">$12,000/年</td>
+                <td class="px-5 py-3.5 text-center text-slate-400 text-base">$12,000/年</td>
+                <td class="px-5 py-3.5 text-center text-green-400 text-base font-bold">無需續費</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="py-24 px-6 bg-gradient-to-br from-slate-950 to-slate-900 relative overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="absolute top-0 left-1/2 w-96 h-96 bg-yellow-500/8 rounded-full blur-3xl -translate-x-1/2"></div>
+    </div>
+    <div class="relative max-w-3xl mx-auto text-center">
+      <div class="text-5xl mb-5">🏆</div>
+      <h2 class="text-3xl lg:text-4xl font-black text-white mb-4">
+        準備加入 <span style="color:#c89b3c;">TIREA</span> 不動產投資圈？
+      </h2>
+      <p class="text-slate-300 text-lg mb-10 max-w-xl mx-auto">
+        立即透過 LINE 聯繫顧問，了解最適合您的方案，開啟房產投資之旅。
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="https://line.me/R/ti/p/@180phkse" target="_blank"
+          class="px-8 py-4 rounded-full font-extrabold text-lg hover:opacity-90 transition inline-flex items-center gap-2 justify-center text-slate-900"
+          style="background:linear-gradient(135deg,#c89b3c,#e8c56e);">
+          <i class="fa-brands fa-line text-green-700"></i> LINE 立即諮詢入會
+        </a>
+        <a href="member_center.html"
+          class="px-8 py-4 rounded-full border border-white/20 text-white font-bold hover:bg-white/10 transition inline-flex items-center gap-2 justify-center">
+          <i class="fa-solid fa-user-circle"></i> 已是會員，前往登入
+        </a>
+      </div>
+      <p class="text-slate-600 text-sm mt-8">
+        有任何問題？歡迎 LINE 聯繫我們的會員服務專員。
+      </p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-950 text-slate-500 text-sm py-8 px-6 text-center border-t border-white/5">
+    <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <img src="/tirea-logo.png" alt="TIREA" class="w-8 h-8 rounded-lg bg-white p-0.5 object-contain opacity-70">
+        <span>© 2026 台灣國際不動產交流協會 TIREA</span>
+      </div>
+      <div class="flex gap-5">
+        <a href="knowledge.html" class="hover:text-white transition">知識中心</a>
+        <a href="global_pro.html" class="hover:text-white transition">海外房源</a>
+        <a href="daily-real-estate-news.html" class="hover:text-white transition">每日新聞</a>
+        <a href="member_center.html" class="hover:text-white transition">會員登入</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function(){
+      try {
+        fetch('/api/track-visit', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            page: location.pathname,
+            title: document.title,
+            referrer: document.referrer || 'direct',
+            device: /Mobile|Android|iPhone|iPad/i.test(navigator.userAgent) ? 'mobile' : 'desktop'
+          })
+        });
+      } catch(e){}
+    })();
+  </script>
+</body>
+</html>
