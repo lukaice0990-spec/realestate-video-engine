@@ -409,8 +409,14 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://www.tirea.tw/daily-real-estate-news-2026-06-16</loc>
+    <lastmod>2026-06-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://www.tirea.tw/daily-real-estate-news</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
